@@ -7,29 +7,29 @@
     "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
     "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
     "savedVersion": "Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11",
-    "observedRevision": 223,
+    "observedRevision": 704,
     "nativeTokensPerMode": 24,
     "totalNativeTokens": 48,
-    "sourceAddedPerMode": 5,
-    "semanticPerMode": 11,
-    "componentPerMode": 8,
+    "sourceAddedPerMode": 8,
+    "semanticPerMode": 14,
+    "componentPerMode": 11,
     "brandPageId": "acf5f619-7d81-80da-8008-c5cce396e634",
     "brandBoardId": "acf5f619-7d81-80da-8008-c5cce3bd4593",
     "brandSnapshotChecks": 60,
     "brandSnapshotErrors": 0,
-    "totalDesignPages": 33,
+    "totalDesignPages": 61,
     "brandThemeCount": 20,
     "brandThemeSourceSets": 20,
     "sharedBrandPreviewSets": 2,
-    "brandPreviewTokens": 88,
-    "combinedNativeTokens": 195,
+    "brandPreviewTokens": 176,
+    "combinedNativeTokens": 311,
     "brandLivePageId": "acf5f619-7d81-80da-8008-c5d06084d4c6",
     "brandLiveBoardId": "acf5f619-7d81-80da-8008-c5d0608ab738",
-    "liveBrandThemeSwitchChecks": 80,
+    "liveBrandThemeSwitchChecks": 258,
     "liveBrandThemeSwitchErrors": 0,
     "brandThemeGroup": "Bluent v3 / Brand×Mode (Preview)",
     "previewRequiresCoordinatedModeTheme": true,
-    "totalNativeSets": 38,
+    "totalNativeSets": 40,
     "dangerContrastPageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
     "dangerContrastBoardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
     "dangerContrastModes": 2,
@@ -71,6 +71,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#18599B",
+          "bluent.color.brandForegroundLinkHover": "#1B4C82",
+          "bluent.color.brandForegroundLinkPressed": "#193253",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#1267B4",
@@ -84,6 +87,9 @@
           "bluent.semantic.border.focus": "#1267B4",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#18599B",
+          "bluent.semantic.link.foregroundHover": "#1B4C82",
+          "bluent.semantic.link.foregroundPressed": "#193253",
           "bluent.component.button.backgroundPrimary": "#1267B4",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -93,7 +99,10 @@
           "bluent.component.switch.checkedTrack": "#1267B4",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#18599B",
+          "bluent.component.link.foregroundHover": "#1B4C82",
+          "bluent.component.link.foregroundPressed": "#193253"
         }
       },
       "dark": {
@@ -111,6 +120,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#4F82C8",
+          "bluent.color.brandForegroundLinkHover": "#6790CF",
+          "bluent.color.brandForegroundLinkPressed": "#3174C2",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#18599B",
@@ -124,6 +136,9 @@
           "bluent.semantic.border.focus": "#18599B",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#4F82C8",
+          "bluent.semantic.link.foregroundHover": "#6790CF",
+          "bluent.semantic.link.foregroundPressed": "#3174C2",
           "bluent.component.button.backgroundPrimary": "#18599B",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -133,7 +148,10 @@
           "bluent.component.switch.checkedTrack": "#18599B",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#4F82C8",
+          "bluent.component.link.foregroundHover": "#6790CF",
+          "bluent.component.link.foregroundPressed": "#3174C2"
         }
       }
     },
@@ -153,6 +171,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#146938",
+          "bluent.color.brandForegroundLinkHover": "#165A31",
+          "bluent.color.brandForegroundLinkPressed": "#153D23",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#11783F",
@@ -166,6 +187,9 @@
           "bluent.semantic.border.focus": "#11783F",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#146938",
+          "bluent.semantic.link.foregroundHover": "#165A31",
+          "bluent.semantic.link.foregroundPressed": "#153D23",
           "bluent.component.button.backgroundPrimary": "#11783F",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -175,7 +199,10 @@
           "bluent.component.switch.checkedTrack": "#11783F",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#146938",
+          "bluent.component.link.foregroundHover": "#165A31",
+          "bluent.component.link.foregroundPressed": "#153D23"
         }
       },
       "dark": {
@@ -193,6 +220,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#489360",
+          "bluent.color.brandForegroundLinkHover": "#60A072",
+          "bluent.color.brandForegroundLinkPressed": "#2E864E",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#146938",
@@ -206,6 +236,9 @@
           "bluent.semantic.border.focus": "#146938",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#489360",
+          "bluent.semantic.link.foregroundHover": "#60A072",
+          "bluent.semantic.link.foregroundPressed": "#2E864E",
           "bluent.component.button.backgroundPrimary": "#146938",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -215,7 +248,10 @@
           "bluent.component.switch.checkedTrack": "#146938",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#489360",
+          "bluent.component.link.foregroundHover": "#60A072",
+          "bluent.component.link.foregroundPressed": "#2E864E"
         }
       }
     },
@@ -235,6 +271,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#9C2F09",
+          "bluent.color.brandForegroundLinkHover": "#842A0B",
+          "bluent.color.brandForegroundLinkPressed": "#561F0B",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#B53406",
@@ -248,6 +287,9 @@
           "bluent.semantic.border.focus": "#B53406",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#9C2F09",
+          "bluent.semantic.link.foregroundHover": "#842A0B",
+          "bluent.semantic.link.foregroundPressed": "#561F0B",
           "bluent.component.button.backgroundPrimary": "#B53406",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -257,7 +299,10 @@
           "bluent.component.switch.checkedTrack": "#B53406",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#9C2F09",
+          "bluent.component.link.foregroundHover": "#842A0B",
+          "bluent.component.link.foregroundPressed": "#561F0B"
         }
       },
       "dark": {
@@ -275,6 +320,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#DE4B18",
+          "bluent.color.brandForegroundLinkHover": "#E66334",
+          "bluent.color.brandForegroundLinkPressed": "#CE3902",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#9C2F09",
@@ -288,6 +336,9 @@
           "bluent.semantic.border.focus": "#9C2F09",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#DE4B18",
+          "bluent.semantic.link.foregroundHover": "#E66334",
+          "bluent.semantic.link.foregroundPressed": "#CE3902",
           "bluent.component.button.backgroundPrimary": "#9C2F09",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -297,7 +348,10 @@
           "bluent.component.switch.checkedTrack": "#9C2F09",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#DE4B18",
+          "bluent.component.link.foregroundHover": "#E66334",
+          "bluent.component.link.foregroundPressed": "#CE3902"
         }
       }
     },
@@ -317,6 +371,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#18599C",
+          "bluent.color.brandForegroundLinkHover": "#1B4C83",
+          "bluent.color.brandForegroundLinkPressed": "#193254",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#1267B5",
@@ -330,6 +387,9 @@
           "bluent.semantic.border.focus": "#1267B5",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#18599C",
+          "bluent.semantic.link.foregroundHover": "#1B4C83",
+          "bluent.semantic.link.foregroundPressed": "#193254",
           "bluent.component.button.backgroundPrimary": "#1267B5",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -339,7 +399,10 @@
           "bluent.component.switch.checkedTrack": "#1267B5",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#18599C",
+          "bluent.component.link.foregroundHover": "#1B4C83",
+          "bluent.component.link.foregroundPressed": "#193254"
         }
       },
       "dark": {
@@ -357,6 +420,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#3983D8",
+          "bluent.color.brandForegroundLinkHover": "#5A90DD",
+          "bluent.color.brandForegroundLinkPressed": "#0475CF",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#18599C",
@@ -370,6 +436,9 @@
           "bluent.semantic.border.focus": "#18599C",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#3983D8",
+          "bluent.semantic.link.foregroundHover": "#5A90DD",
+          "bluent.semantic.link.foregroundPressed": "#0475CF",
           "bluent.component.button.backgroundPrimary": "#18599C",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -379,7 +448,10 @@
           "bluent.component.switch.checkedTrack": "#18599C",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#3983D8",
+          "bluent.component.link.foregroundHover": "#5A90DD",
+          "bluent.component.link.foregroundPressed": "#0475CF"
         }
       }
     },
@@ -399,6 +471,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#823C81",
+          "bluent.color.brandForegroundLinkHover": "#762B76",
+          "bluent.color.brandForegroundLinkPressed": "#4E1E4E",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#8D4D8B",
@@ -412,6 +487,9 @@
           "bluent.semantic.border.focus": "#8D4D8B",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#823C81",
+          "bluent.semantic.link.foregroundHover": "#762B76",
+          "bluent.semantic.link.foregroundPressed": "#4E1E4E",
           "bluent.component.button.backgroundPrimary": "#8D4D8B",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -421,7 +499,10 @@
           "bluent.component.switch.checkedTrack": "#8D4D8B",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#823C81",
+          "bluent.component.link.foregroundHover": "#762B76",
+          "bluent.component.link.foregroundPressed": "#4E1E4E"
         }
       },
       "dark": {
@@ -439,6 +520,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#A36EA0",
+          "bluent.color.brandForegroundLinkHover": "#AE7EAB",
+          "bluent.color.brandForegroundLinkPressed": "#985D96",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#823C81",
@@ -452,6 +536,9 @@
           "bluent.semantic.border.focus": "#823C81",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#A36EA0",
+          "bluent.semantic.link.foregroundHover": "#AE7EAB",
+          "bluent.semantic.link.foregroundPressed": "#985D96",
           "bluent.component.button.backgroundPrimary": "#823C81",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -461,7 +548,10 @@
           "bluent.component.switch.checkedTrack": "#823C81",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#A36EA0",
+          "bluent.component.link.foregroundHover": "#AE7EAB",
+          "bluent.component.link.foregroundPressed": "#985D96"
         }
       }
     },
@@ -481,6 +571,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#6B5818",
+          "bluent.color.brandForegroundLinkHover": "#5B4C17",
+          "bluent.color.brandForegroundLinkPressed": "#3E3313",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#7A6519",
@@ -494,6 +587,9 @@
           "bluent.semantic.border.focus": "#7A6519",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#6B5818",
+          "bluent.semantic.link.foregroundHover": "#5B4C17",
+          "bluent.semantic.link.foregroundPressed": "#3E3313",
           "bluent.component.button.backgroundPrimary": "#7A6519",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -503,7 +599,10 @@
           "bluent.component.switch.checkedTrack": "#7A6519",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#6B5818",
+          "bluent.component.link.foregroundHover": "#5B4C17",
+          "bluent.component.link.foregroundPressed": "#3E3313"
         }
       },
       "dark": {
@@ -521,6 +620,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#9B801A",
+          "bluent.color.brandForegroundLinkHover": "#AC8E19",
+          "bluent.color.brandForegroundLinkPressed": "#8A731A",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#6B5818",
@@ -534,6 +636,9 @@
           "bluent.semantic.border.focus": "#6B5818",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#9B801A",
+          "bluent.semantic.link.foregroundHover": "#AC8E19",
+          "bluent.semantic.link.foregroundPressed": "#8A731A",
           "bluent.component.button.backgroundPrimary": "#6B5818",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -543,7 +648,10 @@
           "bluent.component.switch.checkedTrack": "#6B5818",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#9B801A",
+          "bluent.component.link.foregroundHover": "#AC8E19",
+          "bluent.component.link.foregroundPressed": "#8A731A"
         }
       }
     },
@@ -563,6 +671,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#983318",
+          "bluent.color.brandForegroundLinkHover": "#802D16",
+          "bluent.color.brandForegroundLinkPressed": "#532112",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#B0391A",
@@ -576,6 +687,9 @@
           "bluent.semantic.border.focus": "#B0391A",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#983318",
+          "bluent.semantic.link.foregroundHover": "#802D16",
+          "bluent.semantic.link.foregroundPressed": "#532112",
           "bluent.component.button.backgroundPrimary": "#B0391A",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -585,7 +699,10 @@
           "bluent.component.switch.checkedTrack": "#B0391A",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#983318",
+          "bluent.component.link.foregroundHover": "#802D16",
+          "bluent.component.link.foregroundPressed": "#532112"
         }
       },
       "dark": {
@@ -603,6 +720,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#D05836",
+          "bluent.color.brandForegroundLinkHover": "#D86D4C",
+          "bluent.color.brandForegroundLinkPressed": "#C64220",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#983318",
@@ -616,6 +736,9 @@
           "bluent.semantic.border.focus": "#983318",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#D05836",
+          "bluent.semantic.link.foregroundHover": "#D86D4C",
+          "bluent.semantic.link.foregroundPressed": "#C64220",
           "bluent.component.button.backgroundPrimary": "#983318",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -625,7 +748,10 @@
           "bluent.component.switch.checkedTrack": "#983318",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#D05836",
+          "bluent.component.link.foregroundHover": "#D86D4C",
+          "bluent.component.link.foregroundPressed": "#C64220"
         }
       }
     },
@@ -645,6 +771,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#A41B3F",
+          "bluent.color.brandForegroundLinkHover": "#8A1C36",
+          "bluent.color.brandForegroundLinkPressed": "#591925",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#BD1D49",
@@ -658,6 +787,9 @@
           "bluent.semantic.border.focus": "#BD1D49",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#A41B3F",
+          "bluent.semantic.link.foregroundHover": "#8A1C36",
+          "bluent.semantic.link.foregroundPressed": "#591925",
           "bluent.component.button.backgroundPrimary": "#BD1D49",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -667,7 +799,10 @@
           "bluent.component.switch.checkedTrack": "#BD1D49",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#A41B3F",
+          "bluent.component.link.foregroundHover": "#8A1C36",
+          "bluent.component.link.foregroundPressed": "#591925"
         }
       },
       "dark": {
@@ -685,6 +820,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#CF5568",
+          "bluent.color.brandForegroundLinkHover": "#D76A78",
+          "bluent.color.brandForegroundLinkPressed": "#C63D58",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#A41B3F",
@@ -698,6 +836,9 @@
           "bluent.semantic.border.focus": "#A41B3F",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#CF5568",
+          "bluent.semantic.link.foregroundHover": "#D76A78",
+          "bluent.semantic.link.foregroundPressed": "#C63D58",
           "bluent.component.button.backgroundPrimary": "#A41B3F",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -707,7 +848,10 @@
           "bluent.component.switch.checkedTrack": "#A41B3F",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#CF5568",
+          "bluent.component.link.foregroundHover": "#D76A78",
+          "bluent.component.link.foregroundPressed": "#C63D58"
         }
       }
     },
@@ -727,6 +871,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#4B4D9F",
+          "bluent.color.brandForegroundLinkHover": "#414286",
+          "bluent.color.brandForegroundLinkPressed": "#2C2C54",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#5659BA",
@@ -740,6 +887,9 @@
           "bluent.semantic.border.focus": "#5659BA",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#4B4D9F",
+          "bluent.semantic.link.foregroundHover": "#414286",
+          "bluent.semantic.link.foregroundPressed": "#2C2C54",
           "bluent.component.button.backgroundPrimary": "#5659BA",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -749,7 +899,10 @@
           "bluent.component.switch.checkedTrack": "#5659BA",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#4B4D9F",
+          "bluent.component.link.foregroundHover": "#414286",
+          "bluent.component.link.foregroundPressed": "#2C2C54"
         }
       },
       "dark": {
@@ -767,6 +920,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#7675D0",
+          "bluent.color.brandForegroundLinkHover": "#8784D6",
+          "bluent.color.brandForegroundLinkPressed": "#6566CA",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#4B4D9F",
@@ -780,6 +936,9 @@
           "bluent.semantic.border.focus": "#4B4D9F",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#7675D0",
+          "bluent.semantic.link.foregroundHover": "#8784D6",
+          "bluent.semantic.link.foregroundPressed": "#6566CA",
           "bluent.component.button.backgroundPrimary": "#4B4D9F",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -789,7 +948,10 @@
           "bluent.component.switch.checkedTrack": "#4B4D9F",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#7675D0",
+          "bluent.component.link.foregroundHover": "#8784D6",
+          "bluent.component.link.foregroundPressed": "#6566CA"
         }
       }
     },
@@ -809,6 +971,9 @@
           "bluent.source.backgroundDisabled": "#f0f0f0",
           "bluent.source.paletteRedForeground1": "#bc2f32",
           "bluent.source.focusStroke2": "#000000",
+          "bluent.color.brandForegroundLink": "#1A54B0",
+          "bluent.color.brandForegroundLinkHover": "#1D4794",
+          "bluent.color.brandForegroundLinkPressed": "#1C2F5D",
           "bluent.semantic.surface.default": "#ffffff",
           "bluent.semantic.text.primary": "#242424",
           "bluent.semantic.action.background": "#2F61C1",
@@ -822,6 +987,9 @@
           "bluent.semantic.border.focus": "#2F61C1",
           "bluent.semantic.text.dangerAccessible": "#bc2f32",
           "bluent.semantic.focusRing.strongCandidate": "#000000",
+          "bluent.semantic.link.foregroundRest": "#1A54B0",
+          "bluent.semantic.link.foregroundHover": "#1D4794",
+          "bluent.semantic.link.foregroundPressed": "#1C2F5D",
           "bluent.component.button.backgroundPrimary": "#2F61C1",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#242424",
@@ -831,7 +999,10 @@
           "bluent.component.switch.checkedTrack": "#2F61C1",
           "bluent.component.badge.dangerForeground": "#b10e1c",
           "bluent.component.badge.dangerTextAccessible": "#bc2f32",
-          "bluent.component.button.focusOuterCandidate": "#000000"
+          "bluent.component.button.focusOuterCandidate": "#000000",
+          "bluent.component.link.foregroundRest": "#1A54B0",
+          "bluent.component.link.foregroundHover": "#1D4794",
+          "bluent.component.link.foregroundPressed": "#1C2F5D"
         }
       },
       "dark": {
@@ -849,6 +1020,9 @@
           "bluent.source.backgroundDisabled": "#141414",
           "bluent.source.paletteRedForeground1": "#e37d80",
           "bluent.source.focusStroke2": "#ffffff",
+          "bluent.color.brandForegroundLink": "#627CCD",
+          "bluent.color.brandForegroundLinkHover": "#768BD3",
+          "bluent.color.brandForegroundLinkPressed": "#4B6FC7",
           "bluent.semantic.surface.default": "#292929",
           "bluent.semantic.text.primary": "#ffffff",
           "bluent.semantic.action.background": "#1A54B0",
@@ -862,6 +1036,9 @@
           "bluent.semantic.border.focus": "#1A54B0",
           "bluent.semantic.text.dangerAccessible": "#e37d80",
           "bluent.semantic.focusRing.strongCandidate": "#ffffff",
+          "bluent.semantic.link.foregroundRest": "#627CCD",
+          "bluent.semantic.link.foregroundHover": "#768BD3",
+          "bluent.semantic.link.foregroundPressed": "#4B6FC7",
           "bluent.component.button.backgroundPrimary": "#1A54B0",
           "bluent.component.button.foregroundPrimary": "#ffffff",
           "bluent.component.button.foregroundDefault": "#ffffff",
@@ -871,7 +1048,10 @@
           "bluent.component.switch.checkedTrack": "#1A54B0",
           "bluent.component.badge.dangerForeground": "#dc626d",
           "bluent.component.badge.dangerTextAccessible": "#e37d80",
-          "bluent.component.button.focusOuterCandidate": "#ffffff"
+          "bluent.component.button.focusOuterCandidate": "#ffffff",
+          "bluent.component.link.foregroundRest": "#627CCD",
+          "bluent.component.link.foregroundHover": "#768BD3",
+          "bluent.component.link.foregroundPressed": "#4B6FC7"
         }
       }
     }
@@ -898,7 +1078,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#4F82C8",
           "candidate": "#6793CF",
           "whiteMix": 0.133523,
@@ -906,7 +1086,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#6790CF",
           "candidate": "#6A93D0",
           "whiteMix": 0.022523,
@@ -914,7 +1094,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#3174C2",
           "candidate": "#6094D0",
           "whiteMix": 0.226619,
@@ -935,7 +1115,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#489360",
           "candidate": "#5B9F71",
           "whiteMix": 0.106481,
@@ -943,7 +1123,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#60A072",
           "candidate": "#60A072",
           "whiteMix": 0.0,
@@ -951,7 +1131,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#2E864E",
           "candidate": "#5A9F73",
           "whiteMix": 0.208134,
@@ -972,7 +1152,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#DE4B18",
           "candidate": "#E56E46",
           "whiteMix": 0.19697,
@@ -980,7 +1160,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#E66334",
           "candidate": "#E86C40",
           "whiteMix": 0.06,
@@ -988,7 +1168,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#CE3902",
           "candidate": "#DC744D",
           "whiteMix": 0.295455,
@@ -1009,7 +1189,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#3983D8",
           "candidate": "#5394DD",
           "whiteMix": 0.133065,
@@ -1017,7 +1197,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#5A90DD",
           "candidate": "#5E92DE",
           "whiteMix": 0.021212,
@@ -1025,7 +1205,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#0475CF",
           "candidate": "#4197DB",
           "whiteMix": 0.242754,
@@ -1046,7 +1226,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#A36EA0",
           "candidate": "#B082AD",
           "whiteMix": 0.13587,
@@ -1054,7 +1234,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#AE7EAB",
           "candidate": "#B082AD",
           "whiteMix": 0.027132,
@@ -1062,7 +1242,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#985D96",
           "candidate": "#B082AE",
           "whiteMix": 0.228155,
@@ -1083,7 +1263,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#9B801A",
           "candidate": "#A79036",
           "whiteMix": 0.122047,
@@ -1091,7 +1271,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#AC8E19",
           "candidate": "#AC8F1A",
           "whiteMix": 0.004425,
@@ -1099,7 +1279,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#8A731A",
           "candidate": "#A3904A",
           "whiteMix": 0.209402,
@@ -1120,7 +1300,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#D05836",
           "candidate": "#D8765A",
           "whiteMix": 0.176647,
@@ -1128,7 +1308,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#D86D4C",
           "candidate": "#DA7555",
           "whiteMix": 0.05137,
@@ -1136,7 +1316,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#C64220",
           "candidate": "#D6775E",
           "whiteMix": 0.277778,
@@ -1157,7 +1337,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#CF5568",
           "candidate": "#D77382",
           "whiteMix": 0.173529,
@@ -1165,7 +1345,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#D76A78",
           "candidate": "#D9727F",
           "whiteMix": 0.050336,
@@ -1173,7 +1353,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#C63D58",
           "candidate": "#D67386",
           "whiteMix": 0.275773,
@@ -1194,7 +1374,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#7675D0",
           "candidate": "#8A89D7",
           "whiteMix": 0.142336,
@@ -1202,7 +1382,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#8784D6",
           "candidate": "#8B89D8",
           "whiteMix": 0.036585,
@@ -1210,7 +1390,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#6566CA",
           "candidate": "#898AD6",
           "whiteMix": 0.232026,
@@ -1231,7 +1411,7 @@
         },
         "linkRest": {
           "sourceCss": "--colorBrandForegroundLink",
-          "outputCss": "--bui-v3-link-foreground",
+          "outputCss": "--bui-v3-semantic-link-foreground-rest",
           "source": "#627CCD",
           "candidate": "#788FD4",
           "whiteMix": 0.141221,
@@ -1239,7 +1419,7 @@
         },
         "linkHover": {
           "sourceCss": "--colorBrandForegroundLinkHover",
-          "outputCss": "--bui-v3-link-foreground-hover",
+          "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#768BD3",
           "candidate": "#7A8ED4",
           "whiteMix": 0.025547,
@@ -1247,7 +1427,7 @@
         },
         "linkPressed": {
           "sourceCss": "--colorBrandForegroundLinkPressed",
-          "outputCss": "--bui-v3-link-foreground-pressed",
+          "outputCss": "--bui-v3-semantic-link-foreground-pressed",
           "source": "#4B6FC7",
           "candidate": "#7490D4",
           "whiteMix": 0.225694,

@@ -2,6 +2,14 @@
 
 Use this skill while designing v3 Fluent 2 focus-visible tokens and controls under Epic #416 / #418. Read AGENTS.md and docs/v3/ISSUE-WORKFLOW.md first. **Never edit stable Dev/v2 or ship NuGet.** Penpot canonical design file: Bluent v3 Design System, page 07 Accessibility & RTL.
 
+## Token role contract (2026-11-10)
+
+- The color preview schema is **15 source + 16 semantic + 13 component = 44 logical aliases** per brand/mode combination. The separate non-color foundation bridge is **96 CSS source + 5 design/policy source → 104 semantic → 14 component candidates**, checked across 20 brand/mode themes; keep these counts separate.
+- Links have three distinct source roles (`--colorBrandForegroundLink`, `...Hover`, `...Pressed`), three semantic roles and three component roles. Every role must alias the matching upstream state; never substitute Hover or Pressed for Rest.
+- The native Penpot shared Brand×Mode preview sets now carry Action Rest and Link Rest/Hover/Pressed values. Each of the 20 themes activates exactly one matching Light or Dark source set plus shared foundations; never leave both active.
+- Foundation crosswalk: Fluent 2 design Large=8px maps to source `--borderRadiusXLarge`; X-Large=12px is a separate design value; legacy `--borderRadiusLarge`=6px is preserved as `legacyCodeLarge`. Density compact/regular/comfortable aliases existing spacing 8/12/16. TextField min-height 24/32/40 is not a generic Button height.
+- Current live native Penpot verification: revision 727, 1,202/1,202 assertions across 10 brands × Light/Dark, exclusive mode-set linkage, 26 foundation value samples, shadow geometry and existing color/Link alias checks.
+
 ## Reviewed facts and non-waivable boundaries
 
 - Maintainer prefers brand-colored single-ring keyboard focus on Button, not neutral Focus2 as default. TextField uses its own animated 2px bottom underline, **no extra rectangular ring**.
@@ -107,3 +115,10 @@ preexisting Fluent System Icon fonts while rejecting new text fonts.
 The CI snapshot is not live Penpot readback and does not certify native
 glyph optics or assistive tech. Safe rollback:
 docs/v3/tokens/SYSTEM-FONT-CONTINUITY-AND-ROLLBACK.md.
+
+
+## Non-color foundation bridge (#418)
+
+- Editable Penpot: page 31 `acf5f619-7d81-80da-8008-c5e09d3a050f`, board `acf5f619-7d81-80da-8008-c5e0d7a2fbf9` in the owned Bluent v3 Design System file.
+- Run `python scripts/quality/generate_v3_foundation_preview.py --check` and `python -m unittest discover -s scripts/quality -p test_v3_foundation_preview.py -v`.
+- Run `scripts/quality/penpot_v3_native_brand_theme_audit.js` only in the connected Penpot plugin. CSS easing curves stay source-only, complete system-font fallback stacks remain CSS-authoritative, and source-painted Shadow samples are not token-bound. See `docs/v3/tokens/FOUNDATION-AUDIT.md` for the evidence and limitations.

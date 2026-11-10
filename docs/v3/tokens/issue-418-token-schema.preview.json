@@ -24,29 +24,29 @@
     "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
     "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
     "savedVersion": "Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11",
-    "observedRevision": 223,
+    "observedRevision": 704,
     "nativeTokensPerMode": 24,
     "totalNativeTokens": 48,
-    "sourceAddedPerMode": 5,
-    "semanticPerMode": 11,
-    "componentPerMode": 8,
+    "sourceAddedPerMode": 8,
+    "semanticPerMode": 14,
+    "componentPerMode": 11,
     "brandPageId": "acf5f619-7d81-80da-8008-c5cce396e634",
     "brandBoardId": "acf5f619-7d81-80da-8008-c5cce3bd4593",
     "brandSnapshotChecks": 60,
     "brandSnapshotErrors": 0,
-    "totalDesignPages": 33,
+    "totalDesignPages": 61,
     "brandThemeCount": 20,
     "brandThemeSourceSets": 20,
     "sharedBrandPreviewSets": 2,
-    "brandPreviewTokens": 88,
-    "combinedNativeTokens": 195,
+    "brandPreviewTokens": 176,
+    "combinedNativeTokens": 311,
     "brandLivePageId": "acf5f619-7d81-80da-8008-c5d06084d4c6",
     "brandLiveBoardId": "acf5f619-7d81-80da-8008-c5d0608ab738",
-    "liveBrandThemeSwitchChecks": 80,
+    "liveBrandThemeSwitchChecks": 258,
     "liveBrandThemeSwitchErrors": 0,
     "brandThemeGroup": "Bluent v3 / Brand×Mode (Preview)",
     "previewRequiresCoordinatedModeTheme": true,
-    "totalNativeSets": 38,
+    "totalNativeSets": 40,
     "dangerContrastPageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
     "dangerContrastBoardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
     "dangerContrastModes": 2,
@@ -168,6 +168,30 @@
           "light": "#000000",
           "dark": "#FFFFFF"
         }
+      },
+      {
+        "name": "bluent.color.brandForegroundLink",
+        "css": "--colorBrandForegroundLink",
+        "default": {
+          "light": "#18599B",
+          "dark": "#4F82C8"
+        }
+      },
+      {
+        "name": "bluent.color.brandForegroundLinkHover",
+        "css": "--colorBrandForegroundLinkHover",
+        "default": {
+          "light": "#1B4C82",
+          "dark": "#6790CF"
+        }
+      },
+      {
+        "name": "bluent.color.brandForegroundLinkPressed",
+        "css": "--colorBrandForegroundLinkPressed",
+        "default": {
+          "light": "#193253",
+          "dark": "#3174C2"
+        }
       }
     ],
     "semantic": [
@@ -235,6 +259,21 @@
         "name": "bluent.semantic.focusRing.strongCandidate",
         "alias": "bluent.source.focusStroke2",
         "css": "--bui-v3-focus-ring-strong-candidate"
+      },
+      {
+        "name": "bluent.semantic.link.foregroundRest",
+        "alias": "bluent.color.brandForegroundLink",
+        "css": "--bui-v3-semantic-link-foreground-rest"
+      },
+      {
+        "name": "bluent.semantic.link.foregroundHover",
+        "alias": "bluent.color.brandForegroundLinkHover",
+        "css": "--bui-v3-semantic-link-foreground-hover"
+      },
+      {
+        "name": "bluent.semantic.link.foregroundPressed",
+        "alias": "bluent.color.brandForegroundLinkPressed",
+        "css": "--bui-v3-semantic-link-foreground-pressed"
       }
     ],
     "component": [
@@ -287,6 +326,21 @@
         "name": "bluent.component.button.focusOuterCandidate",
         "alias": "bluent.semantic.focusRing.strongCandidate",
         "css": "--bui-v3-button-focus-outer-candidate"
+      },
+      {
+        "name": "bluent.component.link.foregroundRest",
+        "alias": "bluent.semantic.link.foregroundRest",
+        "css": "--bui-v3-link-foreground"
+      },
+      {
+        "name": "bluent.component.link.foregroundHover",
+        "alias": "bluent.semantic.link.foregroundHover",
+        "css": "--bui-v3-link-foreground-hover"
+      },
+      {
+        "name": "bluent.component.link.foregroundPressed",
+        "alias": "bluent.semantic.link.foregroundPressed",
+        "css": "--bui-v3-link-foreground-pressed"
       }
     ]
   },
@@ -339,15 +393,15 @@
       },
       "linkRest": {
         "sourceCss": "--colorBrandForegroundLink",
-        "outputCss": "--bui-v3-link-foreground"
+        "outputCss": "--bui-v3-semantic-link-foreground-rest"
       },
       "linkHover": {
         "sourceCss": "--colorBrandForegroundLinkHover",
-        "outputCss": "--bui-v3-link-foreground-hover"
+        "outputCss": "--bui-v3-semantic-link-foreground-hover"
       },
       "linkPressed": {
         "sourceCss": "--colorBrandForegroundLinkPressed",
-        "outputCss": "--bui-v3-link-foreground-pressed"
+        "outputCss": "--bui-v3-semantic-link-foreground-pressed"
       }
     },
     "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest."

@@ -1,4 +1,4 @@
-﻿# #418 — Source-backed Danger text contrast decision candidate
+# #418 — Source-backed Danger text contrast decision candidate
 
 **Status:** DRAFT / not an approved public token contract; no Bluent 2.x stylesheet or published NuGet changed. The governing [ADR D1–D5](../architecture/ADR-0001-styling-boundaries.md) is Accepted. This is **numerical contrast evidence for specified opaque foreground/background pairs**, not WCAG component/AT/forced-color compliance.
 
@@ -35,7 +35,7 @@ The [versioned #418 draft schema](issue-418-token-schema.preview.json) adds thre
 
 The previous `bluent.semantic.status.danger` and `bluent.component.badge.dangerForeground` aliases remain **unchanged** for backward-compatible traceability. This makes the safe-text option explicit rather than silently changing Danger color semantics across non-text surfaces.
 
-The deterministic [generator](../../../scripts/quality/generate_v3_token_preview.py) covers **12 source + 13 semantic + 10 component = 35 logical tokens** for each of the 20 brand/mode combinations. [CSS candidate output](issue-418-opt-in.preview.css) is still outside the v2 bundle, never overrides `--color*` or `--fui-*`, and only applies under `[data-bui-v3-tokens]`. The browser [computed-style probe](../../../scripts/quality/probe_v3_token_preview.py) includes rendered candidate text and its neutral background: **20 modes × 10 checks = 200/200 passing**.
+The deterministic [generator](../../../scripts/quality/generate_v3_token_preview.py) covers **15 source + 16 semantic + 13 component = 44 logical tokens** for each of the 20 brand/mode combinations. [CSS candidate output](issue-418-opt-in.preview.css) is still outside the v2 bundle, never overrides `--color*` or `--fui-*`, and only applies under `[data-bui-v3-tokens]`. The browser [computed-style probe](../../../scripts/quality/probe_v3_token_preview.py) includes rendered candidate text and its neutral background: **20 modes × 10 checks = 200/200 passing**.
 
 ## Still open, not bypassed
 
@@ -45,7 +45,7 @@ The deterministic [generator](../../../scripts/quality/generate_v3_token_preview
 - Real compiled Blazor Badge/Alert/Dialog consumption and preserving old public API. This research does not implement or change runtime Badge, `Danger` Button style or source CSS.
 - Reviewer approval of final token naming and intended consumers. Keep #418 in its current lifecycle state / PR #500 open while the evidence is evaluated. Do not mark #418 Done or merge the task PR until the editable design/token mapping is accepted and the outstanding native accessibility evidence is recorded; integrate only into `bluent-v3`.
 
-**2026-10-13 #418 amendment:** The 35-token count and 200/200 browser results include a *separate, opt-in* Focus2 source → semantic candidate → Button candidate alias chain; [crosswalk](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). The legacy brand Focus alias remains unchanged. Historical 32-token/140-check test snapshots elsewhere describe the earlier checkpoint, not the current generated inventory.
+**2026-10-13 #418 amendment:** The historical 35-token count and 200/200 browser results included a *separate, opt-in* Focus2 source → semantic candidate → Button candidate alias chain; [crosswalk](FOCUS2-ALIAS-CHAIN-CROSSWALK.md). The legacy brand Focus alias remains unchanged. Historical 32-token/140-check test snapshots elsewhere describe the earlier checkpoint, not the current generated inventory.
 
 ## Additional dark-mode brand foreground gap — 2026-10-25
 
@@ -74,7 +74,7 @@ These additions are diagnostic only. They guard the observed eight-brand Dark Ho
 
 For all 10 Light themes, the first two tested roles meet 4.5:1 on the neutral surface. The measured gaps are reproducible from the source theme CSS through the quality scanner; the 300-check report includes 60 draft-foreground diagnostics plus 160 candidate-role diagnostics and explicit expected-gap patterns, so a source change cannot silently remove or reclassify the findings.
 
-The existing generated alias is defined in the [opt-in preview CSS](issue-418-opt-in.preview.css) as `--bui-v3-action-foreground: var(--colorBrandForeground1)`. A repository search did not find a component consuming that alias yet. Therefore this is **not being reported as a regression in a shipped component**, and no stable CSS, token value, or public API was changed. It is a token-contract/design acceptance gap: before any future consumer uses `action.foreground` for ordinary text or links, maintainers must decide its intended semantic role and select or define a mapping that satisfies that role across all supported brands/modes. Do not assume `colorBrandForeground2` fixes the gap: its value is below 4.5:1 in eight Dark brand themes. The same source scan found `--colorBrandForeground2Hover` and `--colorNeutralForeground2` above 4.5:1 in all 20 brand/mode cases; however, the former is explicitly a Hover-state role and the latter neutral, so neither is selected as generic `action.foreground` here. Fluent 2 documents BrandForeground2 and BrandForeground2Hover as distinct Rest/Hover aliases ([official alias token table](https://fluent2.microsoft.design/color-tokens2/)).
+The original source-to-semantic Action Rest alias remains defined as `--bui-v3-action-foreground: var(--colorBrandForeground1)` in the [opt-in preview CSS](issue-418-opt-in.preview.css). The Dark candidate selector preserves the approved per-brand hue by overriding only the matching role inside the explicit preview scope. Link Rest/Hover/Pressed now also have formal source → semantic → component aliases; see the current 44-token schema. The preview consumes them only in the Styling Lab and does not add them to the released bundle. Therefore this is **not being reported as a regression in a shipped component**, and no stable CSS, token value, or public API was changed. It is a token-contract/design acceptance gap: before any future consumer uses `action.foreground` for ordinary text or links, maintainers must decide its intended semantic role and select or define a mapping that satisfies that role across all supported brands/modes. Do not assume `colorBrandForeground2` fixes the gap: its value is below 4.5:1 in eight Dark brand themes. The same source scan found `--colorBrandForeground2Hover` and `--colorNeutralForeground2` above 4.5:1 in all 20 brand/mode cases; however, the former is explicitly a Hover-state role and the latter neutral, so neither is selected as generic `action.foreground` here. Fluent 2 documents BrandForeground2 and BrandForeground2Hover as distinct Rest/Hover aliases ([official alias token table](https://fluent2.microsoft.design/color-tokens2/)).
 
 The existing [Fluent 2 alias token reference](https://fluent2.microsoft.design/color-tokens/) distinguishes BrandForeground1, BrandForeground2, and BrandForegroundLink roles. Those source names do not by themselves prove that the current customized brand palettes meet a specific contrast target; measured values and the intended consumer role still need review.
 
@@ -119,4 +119,18 @@ Published evidence was captured from the actual ASP.NET Core Blazor SSR Styling 
 
 The browser Accessibility Tree independently exposed the actual Action sample as a named `button` (`Action · Rest`) and all three anchors as named `link` nodes. This is an accessibility-tree/name check, not spoken screen-reader acceptance. `forced-colors` was inactive for this run; the real Windows Desert Contrast Theme run is separately recorded in [the 2026-11-01 native HCM evidence](https://github.com/vrassouli/Bluent/issues/418#issuecomment-6553740359).
 
-The generator check remains 20 brand/mode combinations × 35 logical tokens, with 40 Dark candidate pairs and no legacy variable/bundle changes. The numeric source audit remains 340 checks, with all 40 candidate Dark pairs >=4.6001:1. **The values and public semantic token names remain draft/review candidates.** Rendered values passing arithmetic does not approve public token names, final role semantics, or production defaults; the page-45 Penpot decision record and issue acceptance remain in Review.
+The generator check now covers 20 brand/mode combinations × 44 logical tokens, with 40 Dark candidate pairs and no legacy variable/bundle changes. The numeric source audit remains 340 checks, with all 40 candidate Dark pairs >=4.6001:1. **The values and public semantic token names remain draft/review candidates.** Rendered values passing arithmetic does not approve public token names, final role semantics, or production defaults; the page-45 Penpot decision record and issue acceptance remain in Review.
+
+
+## 2026-11-10 — complete three-layer Link token bridge
+
+The prior preview had a real contract gap: Dark Link Rest/Hover/Pressed values were generated and consumed by the Blazor lab, but their source/semantic/component identities were absent from the formal three-layer schema and the native shared Penpot preview sets. This is now corrected without changing the selected semantics or replacing any interaction state:
+
+- Source adds `bluent.color.brandForegroundLink`, `...Hover`, and `...Pressed` from the matching emitted Fluent source variables.
+- Semantic adds `bluent.semantic.link.foregroundRest`, `...Hover`, and `...Pressed`, each aliasing its matching source role.
+- Component adds `bluent.component.link.foregroundRest`, `...Hover`, and `...Pressed`, each aliasing its corresponding semantic role. The existing Action Rest role remains separate.
+- The generated Dark candidate values still derive independently from each matching Rest/Hover/Pressed source and are written to the semantic variables; the component aliases resolve through those semantic variables. No Hover or Pressed token is borrowed for Rest.
+- Current generator inventory: **15 source + 16 semantic + 13 component = 44 logical tokens** per 10-brand × Light/Dark combination. This is still opt-in preview CSS, outside the released 2.x bundle.
+- The real Penpot `Bluent v3 Design System` file has matching Link source/semantic/component tokens in both base modes and 20 Brand×Mode preview themes. Live verification on revision **704** passed **258/258** checks: 240 brand-mode component/palette resolutions plus 18 base alias-chain checks. The file currently contains 40 TokenSets, 311 token entries and 22 themes.
+
+This closes the three-layer Link parity gap; it does not approve every remaining draft token as a production API or waive native assistive-technology/consumer acceptance for the entire foundation.

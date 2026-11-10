@@ -67,9 +67,9 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         matrix = json.loads((root / "docs/v3/tokens/issue-418-brand-matrix.preview.json").read_text(encoding="utf-8"))
         aliases = {
             "action": "--bui-v3-action-foreground",
-            "linkRest": "--bui-v3-link-foreground",
-            "linkHover": "--bui-v3-link-foreground-hover",
-            "linkPressed": "--bui-v3-link-foreground-pressed",
+            "linkRest": "--bui-v3-semantic-link-foreground-rest",
+            "linkHover": "--bui-v3-semantic-link-foreground-hover",
+            "linkPressed": "--bui-v3-semantic-link-foreground-pressed",
         }
         for brand, entry in matrix["darkBrandForegroundCandidates"].items():
             if not isinstance(entry, dict) or "roles" not in entry:
@@ -114,6 +114,27 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
             r'<Button\b(?=[^>]*\bTextClass="v3-brand-foreground-action")(?=[^>]*data-testid="v3-brand-action-rest")[^>]*/>',
         )
         self.assertNotIn('<strong class="v3-brand-foreground-action"', demo)
+
+        schema = json.loads((root / "docs/v3/tokens/issue-418-token-schema.preview.json").read_text(encoding="utf-8-sig"))
+        source = {item["name"]: item for item in schema["layers"]["source"]}
+        semantic = {item["name"]: item for item in schema["layers"]["semantic"]}
+        component = {item["name"]: item for item in schema["layers"]["component"]}
+        expected_chain = {
+            "rest": ("bluent.color.brandForegroundLink", "bluent.semantic.link.foregroundRest", "bluent.component.link.foregroundRest", "--bui-v3-semantic-link-foreground-rest", "--bui-v3-link-foreground"),
+            "hover": ("bluent.color.brandForegroundLinkHover", "bluent.semantic.link.foregroundHover", "bluent.component.link.foregroundHover", "--bui-v3-semantic-link-foreground-hover", "--bui-v3-link-foreground-hover"),
+            "pressed": ("bluent.color.brandForegroundLinkPressed", "bluent.semantic.link.foregroundPressed", "bluent.component.link.foregroundPressed", "--bui-v3-semantic-link-foreground-pressed", "--bui-v3-link-foreground-pressed"),
+        }
+        for state, (source_name, semantic_name, component_name, semantic_css, component_css) in expected_chain.items():
+            with self.subTest(link_state=state):
+                self.assertEqual(source[source_name]["css"], {"rest": "--colorBrandForegroundLink", "hover": "--colorBrandForegroundLinkHover", "pressed": "--colorBrandForegroundLinkPressed"}[state])
+                self.assertEqual(semantic[semantic_name]["alias"], source_name)
+                self.assertEqual(semantic[semantic_name]["css"], semantic_css)
+                self.assertEqual(component[component_name]["alias"], semantic_name)
+                self.assertEqual(component[component_name]["css"], component_css)
+                self.assertIn(f"{semantic_css}: var({source[source_name]['css']});", css)
+                self.assertIn(f"{component_css}: var({semantic_css});", css)
+
+        self.assertEqual([len(schema["layers"][name]) for name in ("source", "semantic", "component")], [15, 16, 13])
         browser = (root / "scripts/quality/probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8-sig")
         self.assertIn("darkBrandForegroundCandidates", browser)
         self.assertIn("rendered Dark candidate surface matches source", browser)

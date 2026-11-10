@@ -1,4 +1,4 @@
-﻿# #418 — Source → semantic → component token bridge, first design/implementation checkpoint
+# #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
 **Status:** In progress · **2026-10-11** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
 
@@ -10,20 +10,24 @@ The draft [editable Persian typography/fallback acceptance study](PERSIAN-TYPOGR
 
 The [Chrome/Edge Forced Colors paint and opt-in isolation study for Slider and RangeSlider](SLIDER-FORCED-COLORS-BROWSER-RESEARCH.md) covers actual compiled CSS, 10 brands × 2 modes × LTR/RTL, **8,320 real browser observations across two emulated OS contrast palettes and a 1.461:1 selected-rail contrast regression control**, and an expressly **unapproved / non-shipping** research fallback. No source component change or native Windows HC/AT signoff is implied.
 
+### Foundation source/semantic/component bridge
+
+The non-color foundation has a separate [source-backed schema and audit](FOUNDATION-AUDIT.md): **96 emitted CSS values + 5 design/policy values → 104 semantic aliases → 14 component candidates**, verified across 20 brand/mode themes (1,920 source observations). Generated CSS remains opt-in and outside the published bundle. The Fluent 2 Large/X-Large radius crosswalk preserves the legacy 6px `--borderRadiusLarge` value, and TextField min-heights are not generic Button sizes. Its deterministic generator and 12 regression tests run in v3 Token Contract CI.
+
 ## Real design location and scope
 
 - Authoritative working file (not Microsoft Fluent Community): **`Bluent v3 Design System`**, Penpot file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`.
 - Native token-layer board: **`27 · v3 token architecture and themes · #418`**, page ID `acf5f619-7d81-80da-8008-c5cad7f94014`, main board ID `acf5f619-7d81-80da-8008-c5cb90d6963b`. Screen exported, inspected, and TextField example's visible border improved.
 - Native 10-brand palette review: **`28 · Ten brands Light Dark matrix · #418`**, page ID `acf5f619-7d81-80da-8008-c5cce396e634`, main board ID `acf5f619-7d81-80da-8008-c5cce3bd4593`. Board includes **ten named source brands and 20 color swatches**, each from real emitted CSS. PNG exported and inspected. The preview board shows sourced colors, not individually bound/active 20 Penpot brand themes.
 - The latest **named recovery version**, observed revision **220**, is `Bluent v3 · #418 20 brands contrast and foundations audited 2026-10-11`. It includes **five #418 design pages** (27–31), source-backed 10-brand theme switching and an independent Danger text contrast candidate board. The static swatch matrix was independently audited (**60 checks, zero errors**), and the **20 genuinely selectable native brand-mode themes** were switched live (**80/80 component-token assertions, zero errors**).
-- Earlier #419 Penpot library remains separate: its **seven draft sets (49 tokens)** and imported read-only Fluent kit were **not overwritten**. #418 first added **six default Light/Dark TokenSets (48 tokens)**, then **20 native brand-palette source sets (4 tokens each) plus two shared brand-preview semantic/component sets (4 each)**. A further **two isolated accessibility research sets (two tokens per mode)** plus six shared foundation aliases bring the design file to **38 total sets / 195 tokens / 22 themes**. The original #419 library PR remains in Review.
+- Earlier #419 Penpot library remains separate: its **seven draft sets (49 tokens)** and imported read-only Fluent kit were **not overwritten**. #418 first added **six default Light/Dark TokenSets (48 tokens)**, then **20 native brand-palette source sets (4 tokens each) plus two shared brand-preview semantic/component sets (4 each)**. A further **two isolated accessibility research sets (two tokens per mode)** plus six shared foundation aliases bring the design file to **38 total sets / 195 tokens / 22 themes**. The original #419 library PR remains in Review. At the earlier Action/Link checkpoint, the live file readback was **revision 704**, with **40 TokenSets / 311 token entries / 22 themes**; this is a historical snapshot, superseded by the current foundation audit below. The named recovery version at revision 220 is also historical.
 
 ### Native 10-brand switching preview
 
 - **Actual native Theme group:** `Bluent v3 / Brand×Mode (Preview)`, 20 options (`default / light`, `default / dark`, `excel / light`, ... `word / dark`), each linking its own source TokenSet plus **shared** `bluent-v3/418/brand-preview/semantic` and `bluent-v3/418/brand-preview/component` sets.
-- The 20 new source sets contain **four unique token names each**: `bluent.preview.source.surface`, `bluent.preview.source.foreground`, `bluent.preview.source.brandBackground`, `bluent.preview.source.onBrand`. Shared semantic and component sets contain **4 aliased tokens each**. These use a **separate experiment namespace** so they do not override #419's existing source tokens or falsely finalize the production alias names.
+- The 20 brand-mode palette sets now contain **eight token names each**: four palette/base roles (surface, foreground, brand background, on-brand foreground) plus four distinct text roles (Action Rest, Link Rest, Link Hover and Link Pressed). The shared semantic and component preview sets each contain **eight aliases**, including an explicit Link Rest/Hover/Pressed chain. Dark palette values are the independently derived per-brand candidates; Light values retain the corresponding emitted source roles. These use a **separate experiment namespace** so they do not overwrite #419 source tokens or silently finalize production API names.
 - **Real bound preview board** on `29 · Live brand theme switching · #418`: Penpot page `acf5f619-7d81-80da-8008-c5d06084d4c6`, board `acf5f619-7d81-80da-8008-c5d0608ab738`. The Button fill/label and TextField surface/text have **native Penpot Token binding**. The preview was PNG-reviewed in Default/Light and **Excel/Dark**; after the next Penpot read, actual shape fills updated to `#146938` Button and `#292929` TextField surface, proving this is not just a static swatch.
-- **Live theme switching:** [repeatable script](../../../scripts/quality/penpot_v3_native_brand_theme_audit.js) tested all **20 themes × four actual component alias values = 80 checks / zero failures**. It restores `default / light` and `Light · Draft` when finished.
+- **Live theme switching:** the earlier color-only theme run passed **258/258 checks** (20 themes × eight component aliases plus 18 base Link-layer checks). The expanded current audit at [the same repeatable script](../../../scripts/quality/penpot_v3_native_brand_theme_audit.js) now passes **1,202/1,202 checks / zero errors**, including exclusive mode-source selection, foundation aliases, value resolution and shadow geometry. It restores `default / light` and `Light · Draft`. Current Penpot readback: revision **727**, **45 TokenSets / 480 token entries / 22 themes** across 61 pages; the current foundation bridge has 95 native semantic aliases and 14 component candidates.
 - **Important limitation:** Penpot has **two separate theme groups**: the Brand×Mode source palette and the original neutral/global Mode. The designer must select matching Light/Dark modes; this is a prototype of brand+mode resolution, **not an implemented automatic synchronized theme picker in Blazor**. The static 10-brand board remains useful for side-by-side palette comparison.
 
 ### Text contrast candidate and design evidence
@@ -39,14 +43,14 @@ A **real source-color defect candidate** was detected for ordinary Danger text o
 
 | Penpot set | ID | Native tokens |
 | --- | --- | ---: |
-| `bluent-v3/418/source/light` | `acf5f619-7d81-80da-8008-c5cb4da01659` | 5 |
-| `bluent-v3/418/source/dark` | `acf5f619-7d81-80da-8008-c5cb4e0375d0` | 5 |
-| `bluent-v3/418/semantic/light` | `acf5f619-7d81-80da-8008-c5cad804962a` | 11 |
-| `bluent-v3/418/semantic/dark` | `acf5f619-7d81-80da-8008-c5cb4e03942e` | 11 |
-| `bluent-v3/418/component/light` | `acf5f619-7d81-80da-8008-c5cb4da21fea` | 8 |
-| `bluent-v3/418/component/dark` | `acf5f619-7d81-80da-8008-c5cb4e03faa3` | 8 |
+| `bluent-v3/418/source/light` | `acf5f619-7d81-80da-8008-c5cb4da01659` | 8 |
+| `bluent-v3/418/source/dark` | `acf5f619-7d81-80da-8008-c5cb4e0375d0` | 8 |
+| `bluent-v3/418/semantic/light` | `acf5f619-7d81-80da-8008-c5cad804962a` | 14 |
+| `bluent-v3/418/semantic/dark` | `acf5f619-7d81-80da-8008-c5cb4e03942e` | 14 |
+| `bluent-v3/418/component/light` | `acf5f619-7d81-80da-8008-c5cb4da21fea` | 11 |
+| `bluent-v3/418/component/dark` | `acf5f619-7d81-80da-8008-c5cb4e03faa3` | 11 |
 
-Each set is included in the matching existing `Bluent v3 / Mode` **Light · Draft / Dark · Draft** theme. The existing default-brand color tokens still supply five source names per mode; #418 adds five more: **onBrand**, accessible stroke, danger foreground, foreground disabled and disabled background, all from existing emitted CSS.
+Each set is included in the matching existing `Bluent v3 / Mode` **Light · Draft / Dark · Draft** theme. The existing default-brand color tokens still supply five source names per mode; #418 now adds eight more: **onBrand**, accessible stroke, Danger foreground, foreground disabled, disabled background, and the three distinct Link Rest/Hover/Pressed source roles, all from existing emitted CSS.
 
 Penpot **real design aliases** use `{bluent.color.brandBackground}` → `{bluent.semantic.action.background}` → component-specific names, **not manually duplicated hex strings**. Actual Penpot theme-switch readback verified **48/48 resolved tokens**, zero unresolved aliases, including `bluent.component.button.backgroundPrimary` resolving to **#1267B4 in Light** and **#18599B in Dark**, and accessible text-field stroke and danger badge colors. Initial #418 presentation board has a token-bound Light specimen, and a literal Dark preview clearly identified as a source-derived static snapshot.
 
@@ -58,9 +62,9 @@ The editable [source-backed foundation study](FOUNDATION-AUDIT.md) on page `31 �
 
 [Versioned preview schema](issue-418-token-schema.preview.json) is the explicit crosswalk for the following three layers:
 
-1. **Source:** twelve logical tokens per mode — actual existing CSS variables (`--colorNeutralBackground1`, `--colorBrandBackground`, `--colorNeutralStrokeAccessible`, `--colorStatusDangerForeground1`, etc.). Existing #419 Penpot sets contain five of these; the new #418 source sets add five.
-2. **Semantic:** thirteen aliases such as `--bui-v3-action-background`, `--bui-v3-surface-default`, `--bui-v3-border-strong`, `--bui-v3-text-disabled`. Designed to express purpose rather than a particular color.
-3. **Component:** ten aliases such as `--bui-v3-button-background-primary`, `--bui-v3-text-field-stroke`, `--bui-v3-checkbox-checked-fill`, `--bui-v3-switch-checked-track`. These names are **proposals**, not committed API names or exhaustive production component states.
+1. **Source:** fifteen logical tokens per mode — actual existing CSS variables (`--colorNeutralBackground1`, `--colorBrandBackground`, `--colorNeutralStrokeAccessible`, `--colorStatusDangerForeground1`, `--colorBrandForegroundLink`, etc.). Existing #419 Penpot sets contain five of these; the #418 source sets add eight.
+2. **Semantic:** sixteen aliases such as `--bui-v3-action-background`, `--bui-v3-surface-default`, `--bui-v3-border-strong`, `--bui-v3-text-disabled`, plus separate Link Rest/Hover/Pressed roles. Designed to express purpose and interaction state rather than a particular color.
+3. **Component:** thirteen aliases such as `--bui-v3-button-background-primary`, `--bui-v3-text-field-stroke`, `--bui-v3-checkbox-checked-fill`, `--bui-v3-switch-checked-track`, and Link Rest/Hover/Pressed consumer aliases. These names are **proposals**, not released public API names or an exhaustive inventory of production component states.
 
 Run from repo root:
 
@@ -72,7 +76,7 @@ python scripts/quality/audit_v3_token_preview_contrast.py
 python scripts/quality/probe_v3_token_nested_theme_scope.py
 ```
 
-[Generator](../../../scripts/quality/generate_v3_token_preview.py) validates existing **20 emitted brand/mode source files**, resolves all 35 logical tokens per combination (12 source + 13 semantic + 10 component), rejects missing/conflicting source declarations, forward/cyclic aliases and schema drift. It writes [the deterministic 10×2 source-color matrix](issue-418-brand-matrix.preview.json) and [the opt-in CSS bridge](issue-418-opt-in.preview.css) under `docs/v3/tokens`.
+[Generator](../../../scripts/quality/generate_v3_token_preview.py) validates existing **20 emitted brand/mode source files**, resolves all 44 logical tokens per combination (15 source + 16 semantic + 13 component), rejects missing/conflicting source declarations, forward/cyclic aliases and schema drift. It writes [the deterministic 10×2 source-color matrix](issue-418-brand-matrix.preview.json) and [the opt-in CSS bridge](issue-418-opt-in.preview.css) under `docs/v3/tokens`.
 
 **Important D1 safety:** The CSS is **not included in `bundleconfig.json`, the current static-asset CSS or NuGet release** and never defines or overwrites a preexisting `--color*`, `--spacing*`, `--fui-*` variable. The new aliases exist *only* under `[data-bui-v3-tokens][data-bui-theme]` and descendant `[data-bui-theme]` scopes **when a consumer explicitly includes this research CSS file**.
 
@@ -84,7 +88,7 @@ Run `python scripts/quality/probe_v3_token_nested_theme_scope.py` for a repeatab
 
 The fixture loads **all ten existing brands** independently and checks a non-opted-in subtree, a Light opt-in host, a nested Dark host, a nested Light host and an outside Dark subtree. It verifies the current legacy brand source variable remains correct, that opt-in aliases resolve to each mode's computed color, and that unopted regions receive no v3 token alias.
 
-**Results: 10 brands × 10 computed-style expectations = 100/100 PASS (0 errors).** Default brand Button-background samples: `rgb(18, 103, 180)` Light and `rgb(24, 89, 155)` Dark. The generator's `--check` mode also passes across 20 brand/mode combinations with 35 logical tokens each.
+**Results: 10 brands × 10 computed-style expectations = 100/100 PASS (0 errors).** Default brand Button-background samples: `rgb(18, 103, 180)` Light and `rgb(24, 89, 155)` Dark. The generator's `--check` mode also passes across 20 brand/mode combinations with 44 logical tokens each.
 
 **Limit:** This tests nested DOM CSS inheritance, **not** service-hosted Dialog/Popover outside its ancestry, keyboard, screen readers, forced colors or full accessibility. Runtime portal propagation (ADR D2) still requires implementation and real Blazor testing.
 
@@ -295,7 +299,7 @@ The [Focus host token crosswalk](FOCUS-HOST-TOKEN-CROSSWALK.md) maps the approve
 
 The maintainer approved the brand-preserving direction for #418: each of the ten brands receives independent Dark foreground candidates. The preview now derives four roles separately (Action Rest, Link Rest, Link Hover and Link Pressed) from their matching source CSS roles. The minimum normal-text floor remains 4.5:1; the generator targets 4.6:1 after 8-bit RGB rounding. The generated companion board and exact values are recorded in [CONTRAST-AUDIT.md](CONTRAST-AUDIT.md) and on the owned [Penpot page 45](https://design.penpot.app/#/workspace?file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=d0bcea67-3af4-8071-8008-d8e442b90ed1).
 
-This adds a separate per-brand preview candidate map and four scoped CSS aliases; it does **not** change the existing 35 logical-token inventory, stable 2.x theme files, published bundles or public API. The 40 candidate pairs all measure at least 4.6001:1 against the emitted Dark neutral surface. Exact color values and public naming remain under Review pending actual rendered Blazor, forced-colors and assistive-technology checks.
+This adds a separate per-brand preview candidate map and four scoped CSS aliases; it does **not** change the existing 44 logical-token inventory, stable 2.x theme files, published bundles or public API. The 40 candidate pairs all measure at least 4.6001:1 against the emitted Dark neutral surface. Exact color values and public naming remain under Review pending actual rendered Blazor, forced-colors and assistive-technology checks.
 
 ### 2026-11-01 rendered consumer follow-up
 

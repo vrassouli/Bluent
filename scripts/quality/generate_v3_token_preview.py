@@ -74,12 +74,26 @@ def build_dark_brand_foreground_candidates(manifest: dict) -> dict:
     roles = config.get("roles", {})
     expected_roles = {
         "action": ("--colorBrandForeground1", "--bui-v3-action-foreground"),
-        "linkRest": ("--colorBrandForegroundLink", "--bui-v3-link-foreground"),
-        "linkHover": ("--colorBrandForegroundLinkHover", "--bui-v3-link-foreground-hover"),
-        "linkPressed": ("--colorBrandForegroundLinkPressed", "--bui-v3-link-foreground-pressed"),
+        "linkRest": ("--colorBrandForegroundLink", "--bui-v3-semantic-link-foreground-rest"),
+        "linkHover": ("--colorBrandForegroundLinkHover", "--bui-v3-semantic-link-foreground-hover"),
+        "linkPressed": ("--colorBrandForegroundLinkPressed", "--bui-v3-semantic-link-foreground-pressed"),
     }
     if set(roles) != set(expected_roles):
         raise ValueError("Expected separate Action Rest, Link Rest, Link Hover and Link Pressed roles")
+    layers = manifest["layers"]
+    by_name = {item["name"]: item for layer in layers.values() for item in layer}
+    required_aliases = {
+        "bluent.semantic.link.foregroundRest": ("bluent.color.brandForegroundLink", "--bui-v3-semantic-link-foreground-rest"),
+        "bluent.semantic.link.foregroundHover": ("bluent.color.brandForegroundLinkHover", "--bui-v3-semantic-link-foreground-hover"),
+        "bluent.semantic.link.foregroundPressed": ("bluent.color.brandForegroundLinkPressed", "--bui-v3-semantic-link-foreground-pressed"),
+        "bluent.component.link.foregroundRest": ("bluent.semantic.link.foregroundRest", "--bui-v3-link-foreground"),
+        "bluent.component.link.foregroundHover": ("bluent.semantic.link.foregroundHover", "--bui-v3-link-foreground-hover"),
+        "bluent.component.link.foregroundPressed": ("bluent.semantic.link.foregroundPressed", "--bui-v3-link-foreground-pressed"),
+    }
+    for name, (alias, css_name) in required_aliases.items():
+        item = by_name.get(name)
+        if not item or item.get("alias") != alias or item.get("css") != css_name:
+            raise ValueError(f"Missing or incorrect three-layer Link role: {name}")
     for role, (source_css, output_css) in expected_roles.items():
         if roles[role].get("sourceCss") != source_css or roles[role].get("outputCss") != output_css:
             raise ValueError(f"Unexpected source/output role mapping for {role}")
@@ -130,7 +144,7 @@ def contract(manifest: dict) -> tuple[str, dict]:
         raise ValueError("Unexpected issue contract")
     layers = manifest["layers"]
     source, semantic, components = (layers[n] for n in ("source", "semantic", "component"))
-    if [len(source), len(semantic), len(components)] != [12, 13, 10]:
+    if [len(source), len(semantic), len(components)] != [15, 16, 13]:
         raise ValueError("Unexpected #418 layer inventory")
     if len({item["css"] for item in semantic + components}) != len(semantic + components):
         raise ValueError("Duplicate v3 CSS variable")
