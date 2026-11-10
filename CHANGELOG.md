@@ -13,10 +13,12 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 ### Added
 
 - [Bluent.UI, v3 development] Icon roots now receive a low-specificity 1em viewport for CSS-font, trusted inline SVG and image sources. Inherited font size controls the default dimensions; caller CSS and Style remain authoritative. The Icon showcase now demonstrates source kinds, Regular/Filled fallback, caller sizing, parent-owned action naming and decorative/informative usage. No public Size or Color API was added; released 2.x assets are unchanged.
+- [Bluent.UI, v3 development] Label keeps the native `<label>` as its form-control association target and moves the optional Info action to a named sibling Button/Popover. The Info action receives a localized accessible name (or `InfoButtonAriaLabel` override), uses shared Popover Escape/focus cleanup, and supports links in its surface without a focus trap. Required/Disabled Label states remain visual only; the input owns real semantics. The required marker is hidden from the accessibility tree. The three approved Label semantic text roles are consumed with source fallbacks; no Label-only token family is added. This is isolated, unreleased v3 work; 2.x packages remain unchanged. See [M20](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Label v3 reference](docs/v3/components/label.md).
 
 - [Bluent.UI.Demo, v3 development] The Button showcase includes all twelve inherited tooltip placements, all **54** Appearance × Size × Shape combinations, direct `ToggledChanged` callback feedback, LTR/RTL Badge geometry, and paired Persian LTR/RTL samples. The live WASM suite passes **211/211** in Chrome and Edge; the separate published Production probe passes **84/84** across Chrome/Edge × InteractiveServer/InteractiveWebAssembly, including Persian RTL direction and AX-name checks in both renderers. This is runtime evidence, not approval of pending tokens or full Button visual parity.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - [Bluent.UI, v3 development] Button now ships keyboard-only :focus-visible styling in the isolated v3 branch: a 2px brand/context-aware outline, an inset outline for split-button segments, and the system Highlight color under forced-colors. Explicitly colored host surfaces can inherit --bui-button-focus-ring-color; this is a CSS customization hook, not a new Razor parameter or a finalized global token. Live bundled-CSS checks pass Chrome 215/215 and Edge 215/215 in WebAssembly. Native Windows Contrast Themes and screen-reader acceptance remain open; released 2.x packages are unchanged.
 
@@ -49,6 +51,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 - None.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - None.
 
@@ -75,6 +78,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 - None.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - None.
 
@@ -101,6 +105,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 - `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - `[Bluent.UI]` Refreshed the bundled Fluent System Icons Resizable CSS, metadata, and font assets from upstream commit `9cf8af0f95a555918a60b8147a2f33a6a1248442` so generated icon names and font codepoints stay synchronized.
 
@@ -127,6 +132,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 - None.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - None.
 
@@ -153,6 +159,7 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 - None.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - None.
 
@@ -192,6 +199,7 @@ See the [1.0.368 → 2.0.0 migration guidance](docs/compatibility/migration-and-
   custom SVG/image sources, active variants, and migration from the string API.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - **Breaking:** `[Bluent.UI]` Icon-bearing component parameters now use
   `IconDefinition` instead of string CSS-class names. Regular and filled Fluent
@@ -249,6 +257,7 @@ public API migration.
   Sprint 4 comparison report.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - Expanded canonical Drawer guidance and compiler validation to prevent
   application-owned `DrawerContent` naming collisions.
@@ -286,6 +295,7 @@ versions aligned.
   and static SSR compatibility probes.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - Replaced run-number-based package publication with an explicit SemVer release
   workflow and an artifact-only dry-run path.
@@ -330,6 +340,7 @@ or GitHub Release.
 - AI readiness and discoverability initiative tracked in Issue #363.
 
 ### Changed
+- [Bluent.UI, v3 development] Link normalizes null/empty/whitespace destinations into the backward-compatible native button type=button action fallback; enabled destinations remain native anchors and optional OnClick is additive. Disabled navigation now removes href while exposing a named, sequentially focusable role=link with aria-disabled=true; disabled actions use a native disabled button. Both disabled paths suppress callbacks. Case-insensitive conflicts for component-owned destination, action type, disabled, click and disabled ARIA/focus attributes are ignored. Link also receives a visible keyboard focus-visible ring and forced-colors Highlight fallback. The public API is unchanged; this is unshipped v3 task-branch work and released 2.x packages are untouched. See [M21](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [Link v3 reference](docs/v3/components/link.md).
 
 - Improved demo navigation, responsive drawer behavior, theme and RTL presentation, and GitHub Pages deployment.
 - Repositioned Bluent as a Blazor-native toolkit for modern business applications.

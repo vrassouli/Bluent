@@ -4,7 +4,7 @@
 
 ## Current checkpoint — 2026-11-10
 
-**Workflow:** Issue #418 is **In progress** in GitHub Project #5. [PR #500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, is open, non-draft and mergeable; the current head `3bba92965266793d80b750bf894131aeb8112543` has **11/11 GitHub workflows green**. It has not been merged or accepted as Done.
+**Workflow:** Issue #418 is **In progress** in GitHub Project #5. [PR #500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, is open, non-draft and mergeable; the pre-sync head `3bba92965266793d80b750bf894131aeb8112543` had **11/11 GitHub workflows green**. After syncing the accepted #430 Label and #431 Link commits, local regression checks are being rerun; exact-head GitHub CI for the synchronized tree is not yet claimed. It has not been merged or accepted as Done.
 
 **Current evidence inventory:**
 - Color bridge: **15 source → 16 semantic → 13 component roles** (44 logical tokens) across 10 brands × Light/Dark. The independent Dark brand-preserving foreground direction is approved, but exact generated colors and public token vocabulary remain opt-in review candidates.

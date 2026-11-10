@@ -1,0 +1,291 @@
+{
+  "issue": 430,
+  "branch": "v3/issue-430-label",
+  "engine": "chrome",
+  "culture": "fa-ir",
+  "url": "http://127.0.0.1:65356/components/labels",
+  "checks": [
+    {
+      "name": "native label is associated with custom input ID",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "Info Button is named and outside native label",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "browser locale resolves to requested fa-ir UI culture",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "default Info name follows active fa-ir UI culture",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "collapsed disclosure exposes truthful ARIA and existing surface",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "required marker is decorative",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "RTL uses inherited direction and logical gap",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "desktop viewport has no horizontal overflow",
+      "pass": true,
+      "details": {
+        "associated": true,
+        "labelCount": 1,
+        "buttonOutside": true,
+        "name": "Billing address help",
+        "defaultInfoName": "نشانی صورت‌حساب، اطلاعات بیشتر",
+        "expanded": "false",
+        "controls": "f38d96945_surface",
+        "target": true,
+        "targetMatch": true,
+        "markerHidden": true,
+        "rtl": "rtl",
+        "gap": "4px",
+        "browserLocale": "fa-ir",
+        "width": 1280,
+        "scroll": 1280
+      }
+    },
+    {
+      "name": "browser AX tree contains named collapsed button",
+      "pass": true,
+      "details": {
+        "role": "button",
+        "name": "Billing address help",
+        "expanded": false,
+        "controls": []
+      }
+    },
+    {
+      "name": "activation opens Info and focuses content without trap",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "focus": true,
+        "link": true
+      }
+    },
+    {
+      "name": "browser AX tree updates disclosure to expanded",
+      "pass": true,
+      "details": {
+        "role": "button",
+        "name": "Billing address help",
+        "expanded": true,
+        "controls": [
+          "f38d96945_surface"
+        ]
+      }
+    },
+    {
+      "name": "Escape closes Info and restores trigger focus",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "name": "Enter produces a trusted native click, opens Info and moves focus to its surface",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "shown": true,
+        "focused": true,
+        "events": [
+          {
+            "type": "keydown",
+            "key": "Enter",
+            "trusted": true
+          },
+          {
+            "type": "keypress",
+            "key": "Enter",
+            "trusted": true
+          },
+          {
+            "type": "click",
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Space opens Info and moves focus to its surface",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "name": "Tab reaches link inside Info and leaves surface open",
+      "pass": true,
+      "details": {
+        "inside": true,
+        "tag": "A",
+        "shown": true
+      }
+    },
+    {
+      "name": "focus-leave closes Info without stealing next focus",
+      "pass": true,
+      "details": {
+        "closed": true,
+        "expanded": "false",
+        "tag": "BODY",
+        "id": "",
+        "cls": "",
+        "inside": false,
+        "focusLeaveListeners": "undefined"
+      }
+    },
+    {
+      "name": "outside pointer click dismisses Info without stealing input focus",
+      "pass": true,
+      "details": {
+        "closed": true,
+        "focusRestoredToDestination": true
+      }
+    },
+    {
+      "name": "mobile viewport has no horizontal overflow",
+      "pass": true,
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    }
+  ],
+  "summary": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0
+  },
+  "limits": [
+    "Chromium AX tree is not native screen-reader speech certification.",
+    "Native OS contrast themes were not exercised.",
+    "No manual visual sign-off is claimed."
+  ]
+}

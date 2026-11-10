@@ -2214,21 +2214,30 @@
   gap: var(--spacingVerticalSNudge);
 }
 
+.bui-label-with-info {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--spacingHorizontalXS);
+  max-inline-size: 100%;
+}
+.bui-label-with-info > .bui-label {
+  min-inline-size: 0;
+}
+
 .bui-label {
   line-height: var(--lineHeightBase300);
   font-size: var(--fontSizeBase300);
   font-family: var(--fontFamilyBase);
-  color: var(--colorNeutralForeground1);
+  color: var(--bui-v3-text-primary, var(--colorNeutralForeground1));
 }
 .bui-label > .required {
   padding-inline-start: var(--spacingHorizontalXS);
-  color: var(--colorPaletteRedForeground3);
+  color: var(--bui-v3-text-danger-accessible, var(--colorPaletteRedForeground1));
 }
 .bui-label.small {
   font-size: var(--fontSizeBase200);
   line-height: var(--lineHeightBase200);
   font-family: var(--fontFamilyBase);
-  color: var(--colorNeutralForeground1);
 }
 .bui-label.large {
   font-weight: var(--fontWeightSemibold);
@@ -2237,10 +2246,15 @@
   font-family: var(--fontFamilyBase);
 }
 .bui-label.disabled {
-  color: var(--colorNeutralForegroundDisabled);
+  color: var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled));
 }
 .bui-label.disabled > .required {
   color: inherit;
+}
+
+.bui-label-info-surface {
+  max-inline-size: min(32rem, 100vw - 2rem);
+  overflow-wrap: anywhere;
 }
 
 .bui-link {
@@ -2249,10 +2263,10 @@
   text-decoration-thickness: var(--strokeWidthThin);
   color: var(--colorBrandForegroundLink);
   background-color: transparent;
-  text-decoration-line: none;
+  text-decoration-line: underline;
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
   display: inline;
   font-weight: var(--fontWeightRegular);
@@ -2262,6 +2276,7 @@
 }
 .bui-link.subtle {
   color: var(--colorNeutralForeground2);
+  text-decoration-line: none;
 }
 .bui-link:hover {
   color: var(--colorBrandForegroundLinkHover);
@@ -2278,16 +2293,33 @@
   color: var(--colorNeutralForeground2Pressed);
 }
 .bui-link:focus-visible {
-  outline-style: none;
+  outline: 2px solid var(--colorBrandBackground);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--colorNeutralBackground1);
 }
-.bui-link[disabled] {
+.bui-link.subtle:focus-visible {
+  text-decoration-line: underline;
+}
+.bui-link[disabled], .bui-link[aria-disabled=true] {
   cursor: not-allowed;
   color: var(--colorNeutralForegroundDisabled);
+  text-decoration-line: none;
 }
-.bui-link[disabled]:hover {
+.bui-link[disabled]:hover, .bui-link[disabled]:active, .bui-link[aria-disabled=true]:hover, .bui-link[aria-disabled=true]:active {
+  color: var(--colorNeutralForegroundDisabled);
   text-decoration-line: none;
 }
 
+@media (forced-colors: active) {
+  .bui-link:focus-visible {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+  .bui-link[disabled],
+  .bui-link[aria-disabled=true] {
+    color: GrayText;
+  }
+}
 /*
  * Icon root contract:
  * - The component owns only a relative 1em viewport.

@@ -83,7 +83,11 @@ class FoundationInteropCompatibility(unittest.TestCase):
 
     def test_nested_dialog_escape_respects_scope_and_cleanup(self):
         self.assertIn("event.defaultPrevented || event.isComposing || event.repeat", self.ts)
-        self.assertIn("if (this.isOptInDisclosure(current))", self.ts)
+        # Both the Foundation opt-in disclosure and the Label Info action own
+        # a scoped, non-modal disclosure. They yield unrelated Escape events
+        # to the parent dialog while retaining local Escape dismissal.
+        self.assertIn("if (this.isOptInDisclosure(current) || this.isLabelInfoTrigger(trigger))", self.ts)
+        self.assertIn("private isLabelInfoTrigger(trigger: Element | null)", self.ts)
         self.assertIn("trigger?.contains(target) || surface.contains(target)", self.ts)
         self.assertIn("this.hideSurface(current, true)", self.ts)
         self.assertIn("this.restoreFocus(settings)", self.ts)

@@ -396,30 +396,6 @@ The canonical Penpot workspace is the source-owned Bluent v3 Design System file 
 
 This is a review proposal, not approval. The board requests maintainer acceptance of the Lab platform as a prerequisite to beginning a component while retaining full per-family coverage as each component's own DoD. Current coverage is **18 representative pilots / 66 source families / 0 accepted families**. Do not inflate the metric or mark #421 Done. The two existing page42 Desktop/Mobile designs remain drafts. No public component source/API/CSS was changed by this design step.
 
-## #418 integration refresh after Button #428 — 2026-10-30
-
-The token task branch is being refreshed against current bluent-v3, including the accepted Button #428 implementation. The source merge preserves the newer shared Popover lifecycle/keyboard manager and adds only the existing #418 AccessibleTriggerState opt-in: when enabled, the trigger receives a stable aria-controls relation and initial truthful aria-expanded state. Opening/closing continues through the shared active-Popover stack; owner teardown calls the trigger-scoped unregister entry point, which deactivates that Popover and releases the shared document listener when appropriate. The older per-trigger document Escape listener is not duplicated alongside the shared handler.
-
-The #418 token/brand/contrast proposals remain governed by their existing Penpot and owner-review artifacts. This merge refresh does not promote candidate aliases to approved public tokens and does not change stable Dev, v2.x assets, NuGet packages, tags or deployments. Exact-head build, tests and browser evidence must be regenerated after the merged TypeScript bundle is rebuilt. Issue #418 remains Review pending its exact-head CI and maintainer acceptance.
-
-
-## #418 refreshed against #428 — local validation snapshot — 2026-10-30
-
-After resolving the branch refresh with current bluent-v3, the following source checks passed:
-- Webpack build and TypeScript no-emit typecheck for Bluent.UI.Scripts.
-- Bluent.UI Release build with -warnaserror: 0 warnings / 0 errors.
-- Bluent.UI.Demo Debug build with -warnaserror: 0 warnings / 0 errors.
-- RegexSampleGeneratorTest: 72/72.
-- All #418 token/theme/focus/API contract scripts and audits: exit 0, including the 20 brand/mode matrix, source-backed token preview/contrast, typography/font continuity, scoped focus host matrix, forced-colors slider fixture contract and additive API ledger.
-- Real Blazor browser probe: Chrome/WASM 950/950; Edge/WASM 950/950; Chrome/InteractiveServer 949/949; Edge/InteractiveServer 949/949. All four runs reported zero failed assertions and included the shared/opt-in Popover lifecycle checks, legacy compatibility, 20 brand/mode combinations, 20 nested-host combinations, Button focus and computed forced-colors checks. This is browser computed-style/interaction evidence, not native assistive-technology certification.
-
-A full solution Release build was attempted twice and remains blocked by two NU1903 high-severity vulnerability findings on Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.7 in Bluent.UI.Demo.SSR (GHSA-g27p-qf6j-c96c and GHSA-qjpx-jqm5-h2c4). These are not suppressed or changed as part of #418. All other projects reached compile in the no-restore attempt; the Demo and UI projects built independently with -warnaserror.
-
-A separate redundant forced-colors probe produced no output while stuck before its first diagnostic and was terminated; it is not counted as a passing run. The main real-browser probe above did complete its forced-colors computed-style assertions. This worktree refresh has no unmerged conflict paths, but is not complete until the merge commit is pushed and exact-head GitHub CI is green. #418 stays Review; no public-token approval is inferred from this engineering refresh.
-
-## 2026-10-31 #418 — approved direction, candidate values in review
-
-The maintainer approved brand-preserving Dark foregrounds. The #418 generator now creates ten per-brand sets × four distinct roles (40 pairs), targeting 4.6:1 after RGB rounding. The existing 35 logical token inventory and stable 2.x assets remain unchanged. Exact candidates are preview-only pending rendered consumer and accessibility acceptance. See docs/v3/tokens/CONTRAST-AUDIT.md and owned Penpot page 45.
 ## Icon #429 implementation closeout — 2026-11-04
 
 The Icon implementation was delivered on `v3/issue-429-icon` and accepted into the protected v3 integration branch through [PR #558](https://github.com/vrassouli/Bluent/pull/558), squash-merged as `0f1df06f2e0e3dd14cefef33349fa22184f2ff71`. The merged source head was `98256eee490eddf48cfb2a52ca79c19f0dac4ed6`.
@@ -446,12 +422,58 @@ Validation on 2026-10-30: `dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj
 This is a demo-composition correction, not evidence that the six underlying component families meet full Fluent 2 parity. Keep the work isolated on `v3/issue-552-fields-demo-ids`, target `bluent-v3`, and retain #552 as In progress until exact-head CI and maintainer review. Stable `Dev`, v2.x, package publication, tags and deployments remain untouched.
 
 
+## #430 Label implementation checkpoint — 2026-11-07
+
+Started the isolated `v3/issue-430-label` task branch from current `bluent-v3` after the maintainer approved Label's three semantic text roles. The native `<label>` association is preserved; the Info Button is a sibling, named by a localized default with an optional `InfoButtonAriaLabel` override, and uses the shared Popover for Escape/focus restoration/focus-leave cleanup. Required/Disabled remain visual-only states and the required marker is decorative to AT. The three approved roles use source-token fallbacks; no component-only token namespace is introduced. Demo, English/Persian resources, canonical v3 reference, dedicated task Skill, migration M20, additive CLR API snapshot and source regression contracts are recorded. Local Release build is 0 warnings/0 errors and the existing .NET suite is 38/38; focused Label/Popover contracts are 10/10 and 25/25. Real browser Label runtime and native AT evidence remain pending; #430 stays In progress, not Review/Done. No merge/release/stable 2.x change is made.
+
+
+### #430 Label live-browser checkpoint — 2026-11-07
+
+Real Chrome and Edge headless CDP runs against the Debug Blazor WebAssembly demo route `/components/labels` each passed **14/14** assertions. Both engines verified native `for`/input association, Info Button sibling placement and accessible name, truthful collapsed/expanded disclosure state, required marker hidden from AT, RTL logical gap, focus transfer into Info, keyboard Escape restore, Tab to an in-surface link, Tab/focusout dismissal without focus theft, and 1280px/390px no-overflow geometry. Chrome and Edge JSON evidence is stored in `docs/v3/quality/evidence/BLUENT-LABEL-{CHROME,EDGE}.json`. The shared Popover focus-leave fix uses owner-scoped capture-phase `focusout` and is covered by the 25-test Popover bundle contract. Chromium AX-tree observations are not native screen-reader speech; native OS Contrast Themes and spoken AT remain unperformed. PR browser workflow now runs the Label probe in both real browsers. #430 remains In progress pending exact-head CI and review.
+
+
+### #430 Label follow-up — complete live-browser matrix, 2026-11-07
+
+The Label Info accessible-name probe was extended to cover both the explicit `InfoButtonAriaLabel` override and the default name generated from the visible Label text plus the active localized resource suffix. Updated live Chrome and Edge runs both passed **14/14**. The default name in these runs used the demo/browser's active English resource with Persian visible text; the `fa-IR` resource is compiled into the library satellite assembly and is also protected by the resource contract, but a browser run with the application UI culture explicitly forced to `fa-IR` has not been claimed. The PR browser matrix now skips the Label-specific job on unrelated PRs that do not contain the Label probe/source, and uploads the corresponding browser evidence when it runs.
+
+
+### #430 Label 2×2 browser/culture matrix — 2026-11-08
+
+After extending the live CDP probe with a trusted Enter click, Space activation, outside-pointer dismissal and strict culture assertions, all four local runs passed **18/18**: Chrome/en-US, Edge/en-US, Chrome/fa-IR and Edge/fa-IR. The Persian runs verify `navigator.language=fa-ir` and the rendered default Info accessible name `نشانی صورت‌حساب، اطلاعات بیشتر`. Evidence is in `docs/v3/quality/evidence/BLUENT-LABEL-{CHROME,EDGE}[-FA-IR].json`. The probe now honors the exact browser executable supplied by `CHROME_PATH`, matching the PR workflow's selection. Native screen-reader speech and OS Contrast Themes remain untested.
+
+
+### #430 Label Popover terminal-dispose cleanup — 2026-11-08
+
+The lifecycle review found that owner-level focus-leave listeners were removed when an individual Info Popover closed or was destroyed, but were not explicitly removed if the entire shared Popover manager was disposed while a surface remained open. `Popover.dispose()` now enumerates the remaining focus-leave owners and unbinds every capture-phase listener before finishing manager cleanup. The Popover source/bundle contract now has **26/26** regression tests, including a negative mutation for full-manager disposal cleanup. ESM/global bundles were regenerated and source/dist/published assets match.
+
+
+### #430 exact-head CI compatibility fix — 2026-11-08
+
+The first PR run exposed one stale #420 source assertion: it assumed only Button-managed menus could own generated `aria-expanded`/`aria-controls`. Label Info is a separate, explicit disclosure owner, not a Button menu. Updated the shared regression to distinguish Button menu, opt-in disclosure and Label Info ownership while asserting Label does not use the Button-menu marker. The #420 source-only lifetime debt gate passes, and all **35/35** interaction primitive tests pass locally. This is a test-contract correction; no runtime behavior was loosened. A follow-up commit is being pushed so exact-head GitHub CI reruns.
+
+
+### #430 nested-dialog Escape compatibility regression — 2026-11-08
+
+Exact reproduction of the full CI step found the remaining failure in the second suite, `test_v3_popover_foundation_compatibility.py`: its nested-dialog Escape assertion expected only `isOptInDisclosure`. Updated the regression to verify the two distinct scoped disclosure owners (Foundation opt-in and Label Info), while retaining the requirement that unrelated Escape events reach the parent dialog. The complete workflow's three suites now pass locally: **35 + 5 + 3 = 43 tests**, plus the source-only lifetime debt audit.
+
+## #431 Link implementation — 2026-11-09
+
+Started v3/issue-431-link from the latest origin/bluent-v3 commit (b2e2f67d), preserving unrelated dirty state in the original checkout. The implementation retains the existing public API, normalizes null/empty/whitespace destinations once, preserves native anchor navigation and additive callbacks, suppresses callbacks in both disabled modes, applies the approved disabled-navigation ARIA/focus contract, and adds a visible focus ring with forced-colors support. Focused HtmlRenderer tests, an expanded Link showcase and Component Lab samples are included. Penpot page 50 behavior and state/theme/layout boards are linked from #431; their current status remains DRAFT and #418 still owns final token decisions. This is a task-branch engineering checkpoint, not a claim of family acceptance or release.
+
+### #431 Link acceptance evidence — 2026-11-09
+
+The Component Lab was extended with a native anchor target that preserves the live host for callback measurement, a real additive navigation callback counter, explicit RTL sample and disabled action/navigation callback specimen. The browser probe now asserts navigation, target passthrough, Subtle hover/active underline, disabled pointer/Enter/Space suppression, AX role/name, Tab order, focus-visible and forced-colors behavior.
+
+Actual Dev01 browser matrix: Chrome/WebAssembly **255/255**, Edge/WebAssembly **255/255**, Chrome/Published InteractiveServer **252/252**, Edge/Published InteractiveServer **252/252**. Both Server runs established SignalR WebSocket HTTP 101. Evidence: docs/v3/quality/evidence/link-browser-matrix-20261109.json. The shared Component Lab coverage ledger records the four runs but retains representative_only, because its classification describes the 66-family platform ledger rather than the family issue's acceptance.
+
+The canonical Link reference now inventories all direct and inherited public parameters/attributes, defaults and inherited tooltip lifecycle. Design decisions are traced to Penpot page 50, both board IDs and maintainer-approved behavior contract comments on #431. The Penpot page remains labeled DRAFT; no #418 global token values or aliases were approved by this work. Browser forced-colors emulation and browser AX-tree inspection are not presented as native Windows Contrast Themes or spoken screen-reader acceptance.
+
 ## 2026-11-10 #418 — downstream label contract and acceptance evidence reconciliation
 
 The #418 token preview now has an explicit regression contract for the three shared Label consumer roles approved by the maintainer on #430. `text.primary`, visual-only `text.disabled`, and decorative `text.dangerAccessible` are asserted against their exact existing source CSS variables and semantic aliases across all 10 brands × Light/Dark. The test also asserts that no `component.label.*` token family is introduced. This records #430's consumer approval without promoting the aliases to released/public tokens.
 
 The token README now leads with the actual Project #5 state (**In progress**) and current PR/evidence snapshot. The High Contrast / Reduced Motion design note now incorporates the 2026-11-01 real Windows 11 Desert Contrast Theme run and the separate 126/126 WASM + 126/126 Production InteractiveServer opt-in portal probes. It explicitly preserves the limitations: no spoken Narrator/NVDA acceptance, no public portal API acceptance, and the legacy/global Overlay reduced-motion compatibility question remains separate. The Link #431 approval is also distinguished from approval of #418 draft token values.
 
-Local validation on this worktree: Label/contrast tests **12/12**; contrast audit **340 checks, zero issues**; foundation tests **12/12**; v3 docs tests **22/22**; docs contract **0 findings**; local Markdown links checked in **214 files**; both color and foundation preview generators pass `--check`; `git diff --check` passes. No library runtime source, published stylesheet, stable `Dev`, v2.x asset, NuGet package or deployment was changed.
+Local validation before this base sync: Label/contrast tests **12/12**; contrast audit **340 checks, zero issues**; foundation tests **12/12**; v3 docs tests **22/22**; docs contract **0 findings**; local Markdown links checked in **214 files**; both color and foundation preview generators passed `--check`; `git diff --check` passed. These focused checks are being rerun after the Label/Link base synchronization. No stable `Dev`, v2.x asset, NuGet package or deployment is changed.
 
-The issue remains **In progress** in Project #5. PR #500 is open and non-draft against `bluent-v3`; this documentation/test update still requires its own exact-head CI. It does not replace final maintainer approval of the complete public token vocabulary/values and Penpot page-45 semantics, nor waive remaining design/runtime/accessibility acceptance. Do not merge or mark #418 Done on this evidence alone.
+The issue remains **In progress** in Project #5. PR #500 remains open and non-draft against `bluent-v3`. This update does not replace final maintainer approval of the complete public token vocabulary/values and Penpot page-45 semantics, nor waive remaining design/runtime/accessibility acceptance. Do not merge or mark #418 Done on this evidence alone.

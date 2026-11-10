@@ -1,21 +1,39 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentUiComponentBase
 
-<label for="@GetPropertyName()" @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style">
-    @GetDisplayName()
-    @if(Info != null)
-    {
-        <Popover Placement="Placement.TopStart">
+@if (Info is null)
+{
+    <label for="@GetPropertyName()" @attributes="AdditionalAttributes" id="@Id" class="@GetComponentClass()" style="@Style">
+        @GetDisplayName()
+        @if (IsRequired)
+        {
+            <span class="required" aria-hidden="true">@RequiredSymbol</span>
+        }
+    </label>
+}
+else
+{
+    <span class="bui-label-with-info">
+        <label for="@GetPropertyName()" @attributes="AdditionalAttributes" id="@Id" class="@GetComponentClass()" style="@Style">
+            @GetDisplayName()
+            @if (IsRequired)
+            {
+                <span class="required" aria-hidden="true">@RequiredSymbol</span>
+            }
+        </label>
+        <Popover Placement="Placement.TopStart" KeepSurface="true" DisplayArrow="false">
             <Trigger>
-                <Button Icon="@FluentIcons.Info" Appearance="ButtonAppearance.Transparent"></Button>
+                <Button Icon="@FluentIcons.Info"
+                        Appearance="ButtonAppearance.Transparent"
+                        aria-label="@GetInfoButtonAccessibleName()"
+                        data-bui-label-info-trigger="true"
+ />
             </Trigger>
             <Surface>
-                @Info
+                <div class="bui-label-info-surface" data-bui-label-info-surface role="note" tabindex="-1">
+                    @Info
+                </div>
             </Surface>
         </Popover>
-    }
-    @if (IsRequired)
-    {
-        <span class="required">@RequiredSymbol</span>
-    }
-</label>
+    </span>
+}

@@ -9,6 +9,18 @@ on:
       - ".github/workflows/v3-docs-contract.yml"
       - "docs/components/inventory.md"
       - "docs/components/button.md"
+      - "docs/v3/components/label.md"
+      - "docs/v3/design/MIGRATION-IMPACT-LEDGER.md"
+      - "docs/v3/inventory/public-component-contracts.json"
+      - ".agents/skills/bluent-v3-label/**"
+      - "docs/v3/skills/README.md"
+      - "src/Bluent.UI/Components/LabelComponent/**"
+      - "src/Bluent.UI/Styles/Components/_label.scss"
+      - "src/Bluent.UI/Styles/Components/components.css"
+      - "src/Bluent.UI/wwwroot/bluent.ui.components.min.css"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/Labels.razor"
+      - "scripts/quality/check_v3_label_contract.py"
+      - "scripts/quality/test_v3_label_contract.py"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       - "src/Bluent.UI/Components/MenuListComponent/MenuList.razor"
@@ -46,6 +58,10 @@ jobs:
           python-version: "3.12"
       - name: Validate v3 docs and actual inventory
         run: python scripts/quality/check_v3_docs_contract.py
+      - name: Validate Label semantics, token fallbacks, resources and demo
+        run: |
+          python scripts/quality/check_v3_label_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_label_contract.py' -v
       - name: Validate stale summary negative cases
         run: python -m unittest discover -s scripts/quality -p "test_v3_docs_contract.py" -v
       - name: Validate all repository-local Markdown links

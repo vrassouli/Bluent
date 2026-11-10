@@ -1,0 +1,54 @@
+{
+  "issue": 431,
+  "date": "2026-11-09",
+  "component": "Link",
+  "environment": "Dev01 actual browser runs; Component Lab; real Bluent component",
+  "runs": {
+    "Chrome/WebAssembly": {
+      "status": "passed",
+      "passed": 255,
+      "total": 255,
+      "server": "freshly built Blazor WebAssembly host"
+    },
+    "Edge/WebAssembly": {
+      "status": "passed",
+      "passed": 255,
+      "total": 255,
+      "server": "freshly built Blazor WebAssembly host"
+    },
+    "Chrome/InteractiveServer": {
+      "status": "passed",
+      "passed": 252,
+      "total": 252,
+      "server": "Production-published InteractiveServer; SignalR WebSocket handshake HTTP 101"
+    },
+    "Edge/InteractiveServer": {
+      "status": "passed",
+      "passed": 252,
+      "total": 252,
+      "server": "Production-published InteractiveServer; SignalR WebSocket handshake HTTP 101"
+    }
+  },
+  "linkSpecificCoverage": [
+    "Native anchor and source-backed defaults",
+    "Dynamic Text and Default/Subtle appearance",
+    "Subtle rest/hover/active underline behavior",
+    "Native pointer navigation and additive OnClick exactly once",
+    "Native target passthrough",
+    "No-Href native button type=button and keyboard action",
+    "Disabled navigation removes href while retaining role=link, accessible name, aria-disabled and tabindex",
+    "Disabled action emits a native disabled button",
+    "Browser accessibility-tree role/name inspection",
+    "Sequential Tab discovery of disabled navigation and omission of native disabled action",
+    "Visible keyboard focus ring and emulated forced-colors treatment",
+    "Disabled pointer/Enter/Space callback suppression",
+    "Persian RTL inherited from host",
+    "Callback counters remain at zero for disabled examples"
+  ],
+  "evidenceLimits": [
+    "Forced-colors evidence uses browser media emulation, not native Windows Contrast Themes.",
+    "Accessibility evidence inspects the browser accessibility tree; spoken screen-reader output is not claimed.",
+    "Visual evidence confirms live rendering and computed interaction states; it is not a pixel-diff approval."
+  ],
+  "result": "All four actual browser/render-mode runs passed. The shared Component Lab coverage classification remains representative_only because the 66-family coverage ledger is a separate platform-wide scope."
+}
