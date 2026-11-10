@@ -49,7 +49,18 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
         types=self.payload["Components"]
         self.assertEqual(len(types),140)
         self.assertEqual(len(self.payload["SharedBaseContracts"]),8)
-        self.assertEqual(sum(len(x["Properties"]) for x in types.values()),788)
+        property_count = sum(len(x["Properties"]) for x in types.values())
+        # PR merge refs also carry the one pre-existing Label parameter from the
+        # current bluent-v3 base. The isolated task branch predates that base-only
+        # addition. Permit exactly those two known snapshots; reject every other
+        # property-count drift and verify the merged-base signature explicitly.
+        label_properties = types["Bluent.UI::Bluent.UI.Components.Label"]["Properties"]
+        base_label_signature = "String | get=True set=True | ParameterAttribute"
+        if "InfoButtonAriaLabel" in label_properties:
+            self.assertEqual(label_properties["InfoButtonAriaLabel"], base_label_signature)
+            self.assertEqual(property_count,789)
+        else:
+            self.assertEqual(property_count,788)
         self.assertEqual(sum(len(x["Methods"]) for x in types.values()),196)
         self.assertEqual(sum(len(x["Constructors"]) for x in types.values()),139)
         self.assertEqual(sum(len(x["Events"]) for x in types.values()),13)
