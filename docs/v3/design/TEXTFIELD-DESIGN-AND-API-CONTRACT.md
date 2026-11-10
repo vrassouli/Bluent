@@ -115,6 +115,24 @@ Source read from task branch base commit bcd56ac8f6d8271f341747dbf2e6816fa768ff4
 
 No TextField-specific focus/change/blur EventCallbacks or generic ChildContent exist in current source. StartAddon and EndAddon are the supported slots.
 
+### Fluent counterpart and Bluent-extension map
+
+| Existing Bluent API / behavior | Closest Fluent counterpart | Disposition for v3 review |
+| --- | --- | --- |
+| Value / ValueChanged / ValueExpression | React Input value/defaultValue/onChange; Web Components form-connected native text field | Preserve native text entry, but keep Blazor InputBase/EditContext as the framework contract; do not imitate React controlled-state signatures. |
+| StartAddon / EndAddon | React Input contentBefore / contentAfter | Visual/slot analogue. Decorative content stays non-focusable; action buttons are independent controls with their own accessible names and tab stops. |
+| Size = Small/Medium/Large | React Input Small/Medium/Large | Shared three-size visual axis; final v3 dimensions/typography still belong to #418. |
+| disabled / readonly unmatched attributes | Native input disabled / readonly semantics | Preserve native behavior: disabled is not focusable; readonly remains focusable and selectable. Keep them as distinct states. |
+| Rows | Fluent Textarea, not Fluent Input/Text Field | Bluent's combined TextField API switches from input to textarea; document as a Bluent composition/extension, not an Input prop parity claim. |
+| ResizeTextarea | Native textarea resize behavior | Bluent-specific convenience flag; test resize enabled/disabled with real textarea markup. |
+| GainFocus | Programmatic native element focus | Bluent-specific first-render behavior; no equivalent TextField prop is documented by the selected references. Validate interactive render/hydration/navigation behavior. |
+| DigitOnly / AsciiDigits / ArabicToPersianConversion | No matching Input/Text Field API identified | Bluent-specific text transformation extensions. Preserve the v2 order and test keyboard, paste, IME, cursor and culture behavior. |
+| BindValueEvent | Framework event binding | Blazor-specific configurable onchange/oninput behavior; do not expose it as a Fluent appearance or generic DOM prop. |
+| Label / validation association | Fluent React Field + Label + validationMessage | Bluent currently composes a separate Label and InputBase/EditContext validation. Keep persistent visible labels and stable described-by/invalid semantics; placeholder alone is not a label. |
+| Class / Style / unmatched attributes | Native input props and root/input slots | Preserve appropriate consumer attributes, but document root vs native-control styling ownership explicitly in the eventual v3 API. |
+
+This table is a source-backed disposition, not a proposed final v3 parameter list. A Bluent-only extension may be retained, renamed, decomposed or deprecated only through the component API review and migration decision; do not silently drop it to look more like a Fluent API.
+
 ### Exact text transformation behavior and order
 
 The current ValueStringProxy setter applies enabled transforms in this exact order:
