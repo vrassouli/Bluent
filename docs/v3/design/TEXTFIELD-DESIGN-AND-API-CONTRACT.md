@@ -229,7 +229,37 @@ Component-specific demo scenarios:
 11. 320px layout, 200–400% zoom, long helper/error text and narrow parent constraints.
 12. Keyboard/touch operation, browser console and assistive-technology naming/description.
 
-| Evidence layer | Required proof | Current status |
+### Executable acceptance scenarios to implement after the gates
+
+The following IDs are stable design/test-plan identifiers. They are **not evidence that a test has already run**. Each scenario must be implemented in the dedicated TextField demo and backed by unit/integration/browser evidence as appropriate.
+
+| ID | Scenario / setup | Expected behavior to assert | Evidence layer |
+| --- | --- | --- | --- |
+| TF-BIND-001 | Native single-line input with default BindValueEvent | onchange updates Value/ValueChanged through InputBase; no duplicate model update. | bUnit/integration + browser |
+| TF-BIND-002 | Same input with BindValueEvent=oninput | Each committed input edit updates the bound value; EditContext notifications are correct and not duplicated. | bUnit/integration + browser |
+| TF-NATIVE-001 | Custom id/name/type/placeholder/autocomplete/data-* / aria-* | Native attributes land on the actual input, not only the wrapper; caller id wins over generated id. | rendered DOM + browser |
+| TF-NATIVE-002 | Class and Style plus unmatched class attribute | Class/Style remain on the intended root; the unmatched class is not duplicated or forwarded incorrectly to the native control. | rendered DOM + computed style |
+| TF-FIELD-001 | Label + TextField inside EditForm | Label targets the actual native input id; validation is associated with the field and does not depend on placeholder text. | rendered DOM + browser AX tree |
+| TF-ADDON-001 | StartAddon only, EndAddon only, both | Logical placement, spacing and input shrink behavior are correct at LTR and RTL. | browser screenshot + DOM |
+| TF-ADDON-002 | Interactive Button inside StartAddon or EndAddon | It is an independent focusable control with its own accessible name and tab stop; parent focus is not stolen. | keyboard + browser AX tree |
+| TF-MODE-001 | Rows unset, then Rows=3 | First render is input; second scenario is native textarea with rows=3 and the same binding/attribute contract. | rendered DOM + browser |
+| TF-MODE-002 | Textarea with ResizeTextarea false and true | False suppresses native resizing; true retains browser resizing; addon spacing selector works for textarea. | browser interaction + computed style |
+| TF-STATE-001 | disabled vs readonly side-by-side | Disabled cannot receive focus/edit; readonly remains focusable/selectable and does not change the model. | keyboard + browser DOM |
+| TF-FOCUS-001 | GainFocus=true on initial interactive render | Native control receives focus once on first interactive render; it does not steal focus on subsequent parameter changes/navigation. | WASM + InteractiveServer browser |
+| TF-TRANSFORM-001 | DigitOnly=true, input A۱۲٣٤-09 | Result is ۱۲٣٤09: keep ASCII/Persian/Arabic-Indic digits and remove all non-digits. | unit + browser |
+| TF-TRANSFORM-002 | AsciiDigits=true, input ۱۲۳٤٠١ | Result is 123401; ASCII input remains unchanged. | unit + browser / culture matrix |
+| TF-TRANSFORM-003 | ArabicToPersianConversion=true, input كيى | Result is کیی under current default ToPersianChars normalization. | unit + fa-IR browser |
+| TF-TRANSFORM-004 | All transform flags enabled, mixed scripts/paste/IME | Existing setter order remains DigitOnly → AsciiDigits → ArabicToPersianConversion; verify selection/caret and IME composition behavior without assuming unsupported cursor preservation. | unit + manual browser |
+| TF-VALID-001 | Required/invalid state while unfocused | Native required/aria-invalid state and readable validation message are associated; danger border is not the only cue. | EditContext + DOM + browser AX |
+| TF-VALID-002 | Invalid input while focused | Focus underline remains the active visual cue while invalid semantics and the readable error remain present. | browser screenshot + DOM/AX |
+| TF-KBD-001 | Tab/Shift+Tab, Enter and addon controls | Focus order follows semantic DOM; disabled is skipped; readonly remains reachable; Enter follows normal form semantics. | real keyboard browser test |
+| TF-RTL-001 | Persian label/value, Latin identifier, mixed digits and punctuation under dir=rtl | Logical addons mirror; text bidi remains usable; DOM reading order is unchanged. | fa-IR browser screenshot + DOM |
+| TF-RESP-001 | 320px viewport, narrow grid/flex parent and 200–400% zoom | Input shrinks without horizontal clipping; label/helper/error wrap; textarea and addons remain usable. | real browser screenshot/overflow probe |
+| TF-THEME-001 | Light/Dark across supported brand set | Text, stroke, surface and focus roles resolve through approved #418 aliases; filled boundary ≥3:1 against the immediate host surface. | ten-brand browser matrix + contrast audit |
+| TF-A11Y-001 | Windows forced-colors / contrast theme and reduced-motion | Native/system colors keep boundary and focus visible; disabled uses system disabled color; transition does not animate when reduced motion is requested. | native OS/browser + computed styles |
+| TF-RENDER-001 | Interactive WebAssembly and InteractiveServer | Binding, initial focus, validation, native attributes and disposal behave in both supported interactive render modes. | Chrome/Edge × WASM/Server |
+
+Negative controls should also cover: missing accessible name; placeholder used as the only label; readonly treated as disabled; clickable addon without a name; textarea without Rows; DigitOnly removing letters; and error+focus incorrectly drawing a second full-rectangle ring.| Evidence layer | Required proof | Current status |
 | --- | --- | --- |
 | Source/API | v2 API inventory and field CSS | Verified for v2 baseline |
 | Design | 28 linked appearance/state variants and three owned review boards | Draft design complete; not signed off |
