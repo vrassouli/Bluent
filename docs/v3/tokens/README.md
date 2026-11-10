@@ -1,6 +1,19 @@
 # #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
-**Status:** In progress · **2026-10-11** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+**Status:** In progress · **current checkpoint 2026-11-10** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+
+## Current checkpoint — 2026-11-10
+
+**Workflow:** Issue #418 is **In progress** in GitHub Project #5. [PR #500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, is open, non-draft and mergeable; the current head `3bba92965266793d80b750bf894131aeb8112543` has **11/11 GitHub workflows green**. It has not been merged or accepted as Done.
+
+**Current evidence inventory:**
+- Color bridge: **15 source → 16 semantic → 13 component roles** (44 logical tokens) across 10 brands × Light/Dark. The independent Dark brand-preserving foreground direction is approved, but exact generated colors and public token vocabulary remain opt-in review candidates.
+- Non-color foundation: **96 emitted CSS values + 5 design/policy values → 104 semantic aliases → 14 component-consumption candidates**, with 1,920 source observations. Penpot page 31 is the editable source; its current audit is revision 727 with **1,202 checks passed**, 95 native semantic aliases and 14 component candidates. Nine cubic-bezier curves remain CSS-source-only because Penpot has no native easing-token type.
+- Label's three shared consumer roles are explicitly approved by the maintainer on [#430](https://github.com/vrassouli/Bluent/issues/430): `text.primary` → `--colorNeutralForeground1`, `text.disabled` → `--colorNeutralForegroundDisabled` (visual-only), and `text.dangerAccessible` → `--colorPaletteRedForeground1` (decorative marker; the input owns validation). The current schema matches these mappings; no `component.label.*` family is intended. They remain preview aliases pending the wider #418 decision.
+- Link's component contract was accepted and merged under [#431](https://github.com/vrassouli/Bluent/issues/431); Link consumes published CSS variables only. That acceptance does not approve #418 preview aliases or global token values.
+- Native Windows 11 Desert Contrast Theme evidence for the #418 Styling Lab is recorded in [the issue update](https://github.com/vrassouli/Bluent/issues/418#issuecomment-6553740359). It validates that test host only; spoken Narrator/NVDA acceptance is not claimed. The opt-in Dialog/Popover portal prototype separately has 126/126 WASM and 126/126 published InteractiveServer Chrome checks; this is not a public runtime/API approval.
+
+**Still gated:** final maintainer approval of the complete public token names/roles/values and page-45 semantic decision; design parity for the whole foundation; remaining cross-brand/runtime/accessibility acceptance. Generated CSS stays opt-in and outside published bundles. Stable `Dev`, 2.x assets and NuGet remain untouched. See [foundation audit](FOUNDATION-AUDIT.md), [contrast audit](CONTRAST-AUDIT.md), and [High Contrast / Reduced Motion evidence](HIGH-CONTRAST-MOTION-DESIGN.md) for scoped detail.
 
 The accepted interim system-font continuity, real CSS/asset regression
 checks and [safe rollback steps](SYSTEM-FONT-CONTINUITY-AND-ROLLBACK.md)

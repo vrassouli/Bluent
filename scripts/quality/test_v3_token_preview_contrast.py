@@ -199,5 +199,43 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertFalse(self.report["neutralLinkForeground2ApprovedAsBrandedAction"])
         self.assertFalse(self.report["neutralForeground3ApprovedAsBrandedAction"])
 
+    def test_maintainer_approved_label_consumer_roles_keep_the_exact_three_layer_mapping(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        schema = json.loads((root / "docs/v3/tokens/issue-418-token-schema.preview.json").read_text(encoding="utf-8-sig"))
+        matrix = json.loads((root / "docs/v3/tokens/issue-418-brand-matrix.preview.json").read_text(encoding="utf-8"))
+        css = (root / "docs/v3/tokens/issue-418-opt-in.preview.css").read_text(encoding="utf-8")
+        source = {item["name"]: item for item in schema["layers"]["source"]}
+        semantic = {item["name"]: item for item in schema["layers"]["semantic"]}
+        component = schema["layers"]["component"]
+
+        # Maintainer-approved in #430: Label consumes these shared roles; no Label-only token family.
+        approved = {
+            "bluent.semantic.text.primary": (
+                "bluent.color.foreground1", "--colorNeutralForeground1", "--bui-v3-text-primary"
+            ),
+            "bluent.semantic.text.disabled": (
+                "bluent.source.foregroundDisabled", "--colorNeutralForegroundDisabled", "--bui-v3-text-disabled"
+            ),
+            "bluent.semantic.text.dangerAccessible": (
+                "bluent.source.paletteRedForeground1", "--colorPaletteRedForeground1", "--bui-v3-text-danger-accessible"
+            ),
+        }
+        for semantic_name, (source_name, source_css, semantic_css) in approved.items():
+            with self.subTest(role=semantic_name):
+                self.assertEqual(source[source_name]["css"], source_css)
+                self.assertEqual(semantic[semantic_name]["alias"], source_name)
+                self.assertEqual(semantic[semantic_name]["css"], semantic_css)
+                self.assertIn(f"{semantic_css}: var({source_css});", css)
+
+        self.assertFalse(any(item["name"].startswith("bluent.component.label.") for item in component))
+        self.assertFalse(self.report["legacyCssModified"])
+        for brand, modes in matrix["brands"].items():
+            for mode, entry in modes.items():
+                tokens = entry["tokens"]
+                for semantic_name, (source_name, _, _) in approved.items():
+                    with self.subTest(brand=brand, mode=mode, role=semantic_name):
+                        self.assertEqual(tokens[semantic_name], tokens[source_name])
+
+
 if __name__ == "__main__":
     unittest.main()

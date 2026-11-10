@@ -1,7 +1,26 @@
 # #418 — High contrast, system colors and reduced-motion design acceptance
 
-> **Design-only policy; not tested native OS high contrast or Blazor runtime.**
+> **Current evidence (2026-11-10):** A real Windows 11 Desert Contrast Theme run and opt-in Blazor portal/reduced-motion browser checks are now recorded below. They validate only those preview hosts; they do not approve public token mappings, a released component contract, or spoken screen-reader behavior.
 > Native Penpot source of truth: `Bluent v3 Design System` (file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`), editable page `32 · High contrast and reduced motion policy · #418` (ID `acf5f619-7d81-80da-8008-c5ef1089ac94`), board `#418 · Forced colors and motion acceptance contract` (ID `acf5f619-7d81-80da-8008-c5ef2f9a3158`). PNG was exported and **visually inspected**. Named recovery version `Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11` at observed revision **223**, **33 pages**, 38 native token sets.
+
+
+
+## 2026-11-01 — actual Windows 11 Contrast Theme validation
+
+A real Windows 11 Pro **Desert** Contrast Theme was applied while running the #418 Styling Lab in Interactive Server (not merely DevTools emulation). The Windows High Contrast API reported the feature enabled and Edge reported `matchMedia('(forced-colors: active)') === true`.
+
+- The live Light/Dark switch and LTR/RTL direction switch were exercised while forced colors remained active; all four combinations retained the OS palette.
+- Keyboard focus remained visible with a **2px system `Highlight`** outline.
+- The Popover opened; Escape closed it and restored focus to its trigger.
+- In the actual Desert palette, surface text measured **10.43:1** and primary action text **15.65:1** against their backgrounds.
+
+**Scope:** this is real OS Contrast Theme plus browser/computed-style evidence for the #418 Styling Lab only. It does not accept the draft token mappings or Penpot semantic design, certify every component/brand combination, or record spoken Narrator/NVDA output. The token and public API review remains open.
+
+## Opt-in portal and reduced-motion runtime evidence
+
+The later [portal theme-scope prototype](PORTAL-THEME-SCOPE-PREVIEW.md) extends the earlier CSS-only nested-scope checks. Its real Blazor Chrome probe covers concurrent opposite-mode Dialogs, nested independent Popovers, a live Popover theme change, an unscoped legacy Dialog, scoped Dialog close/removal, forced-colors role propagation without leakage and **0s motion** in the opted-in scoped transition. It passes **126/126** in WebAssembly and separately **126/126** in Production-published InteractiveServer; its NUnit contract suite passes **40/40**. The concurrent multi-brand scenario and two portal hosts are documented in [BRAND-SCOPES-PREVIEW.md](BRAND-SCOPES-PREVIEW.md).
+
+This evidence is limited to the opt-in prototype and its Styling Lab host. It does not make the prototype a public API or demonstrate that every legacy/global Overlay transition honors reduced motion. The previously observed approximately 0.25s legacy Overlay transition remains a separate compatibility risk until a scoped product-wide policy is accepted and verified.
 
 ## Browser-verified scope (separate from the design board)
 
@@ -14,7 +33,7 @@ The new [computed-style nested-theme probe](../../../scripts/quality/probe_v3_to
 
 **Verified 100/100, 0 failures** in ten brands. The separate previous browser probe still passes **140/140** across 20 individual brand/mode sets. The opt-in CSS is not imported into public Bluent 2.x bundles or NuGet, so this is a strict non-release preview.
 
-**These tests do NOT validate a global Dialog/Popover portal outside the ancestor DOM**, because D2 still requires a concrete theme-host propagation strategy. They also do not exercise native OS forced-colors, actual user focus, keyboard, assistive technologies, RTL caret/order or reduced-motion runtime animations.
+**This particular nested-scope CSS probe does NOT validate a global Dialog/Popover portal outside the ancestor DOM**, because D2 needs a governed theme-host strategy. Native OS Contrast Theme, actual keyboard focus and portal behavior are covered only by the separate, narrowly scoped evidence above; this CSS probe itself does not exercise assistive-technology speech or RTL caret/order.
 
 ## Native editable policy board (three design columns)
 
@@ -34,4 +53,4 @@ The board is a **native editable local Penpot document**, not an invented finish
 4. **Portal theme:** owned host/theme ancestry and CSS alias propagation across isolated/nested themes, including real interactive Dialog markup.
 5. **Scoped token compatibility:** keep legacy CSS untouched, D1–D5 ADR accepted, no global `@layer` default, opt-in path and browser rollback available, and separate stable `Dev`/NuGet release unaffected.
 
-This file records an **acceptance specification and limited real DOM-regression evidence**, not implementation completion. #418 remains **In progress**, [PR #500](https://github.com/vrassouli/Bluent/pull/500) **Draft**, target `bluent-v3`.
+This file records an **acceptance specification plus scoped real OS and Blazor preview evidence**, not implementation completion. As of 2026-11-10, #418 remains **In progress** and [PR #500](https://github.com/vrassouli/Bluent/pull/500) is **open, non-draft and mergeable** against `bluent-v3`; exact-head CI is green (11/11 workflows). The Penpot design and public token decision remain under review.
