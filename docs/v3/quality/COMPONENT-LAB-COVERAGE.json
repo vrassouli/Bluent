@@ -292,7 +292,7 @@
       "family": "TextField",
       "existingDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
-      "scenarioId": "textfield-input-textarea-disabled",
+      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states",
       "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
       "propertiesDemonstrated": [
         "Value",
@@ -300,19 +300,55 @@
         "BindValueEvent",
         "Rows",
         "ResizeTextarea",
-        "disabled"
+        "DigitOnly",
+        "AsciiDigits",
+        "ArabicToPersianConversion",
+        "StartAddon",
+        "EndAddon",
+        "Size",
+        "readonly",
+        "disabled",
+        "GainFocus",
+        "EditContext",
+        "DataAnnotationsValidator",
+        "ValidationMessage"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: TextField native Blazor browser 103/103, interactive input binding, textarea, disabled, source queue, cleanup remaining=0",
-        "Edge/WebAssembly Dev01: TextField native Blazor browser 103/103, interactive input binding, textarea, disabled, source queue, cleanup remaining=0",
-        "Chrome/Server Dev01: TextField native Blazor browser 103/103, published InteractiveServer input binding and queue, cleanup remaining=0",
-        "Edge/Server Dev01: TextField native Blazor browser 103/103, published InteractiveServer input binding and queue, cleanup remaining=0"
+        "Chrome/WebAssembly Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; cleanup remaining=0",
+        "Chrome/Server Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; published InteractiveServer SignalR HTTP 101; cleanup remaining=0",
+        "Edge/Server Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; published InteractiveServer SignalR HTTP 101; cleanup remaining=0"
       ],
-      "remaining": "Representative input live oninput binding, 3-row nonresizable textarea and native disabled only. Current TextField-specific DigitOnly, AsciiDigits, ArabicToPersianConversion, GainFocus, addons, sizing, inherited form validation, full field semantics/keyboard matrix, focus underline versus outer ring, RTL, native Windows AT, light/dark/forced-colors visual parity and all combinations are NOT accepted. #432 remains Backlog; this is #421 current-API lab research only.",
+      "remaining": "Current-API Lab demonstrates live oninput binding, native input/textarea, both textarea resize modes, disabled versus readonly, DigitOnly, AsciiDigits, ArabicToPersianConversion, StartAddon/EndAddon, Small/Large sizes, first-interactive-render GainFocus and required DataAnnotations/EditContext validation. Still outstanding: all transform combinations plus paste/IME/caret behavior, complete keyboard/focus state matrix, RTL and theme/forced-colors visual verification, native Windows assistive technology, Fluent 2 Penpot approval, v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-textfield-live-rtl-chrome-wasm.png",
       "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 browser/render modes 103/103 each (412/412); no failed checks, errors=[], browser cleanup remaining=0",
-      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused, human approval pending. #432 TextField Backlog; no production component API/style changes; native OS ScreenReader not tested."
+      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused, human approval pending. #432 TextField Backlog; no production component API/style changes; native OS ScreenReader not tested.",
+      "expandedCurrentApiEvidence": {
+        "date": "2026-11-11",
+        "environment": "Dev01 local Chromium DevTools Protocol against the actual Blazor Component Lab",
+        "matrix": [
+          "Chrome / WebAssembly",
+          "Chrome / published InteractiveServer (SignalR WebSocket HTTP 101)",
+          "Microsoft Edge / WebAssembly",
+          "Microsoft Edge / published InteractiveServer (SignalR WebSocket HTTP 101)"
+        ],
+        "result": "All TextField-specific expanded pilot checks passed in all four combinations; browser cleanup completed with zero remaining owned processes.",
+        "verified": [
+          "native input and textarea; Rows=3; resize enabled and disabled",
+          "disabled versus readonly native semantics and focus behavior",
+          "DigitOnly preserves ASCII, Persian and Arabic-Indic digits while removing non-digits",
+          "AsciiDigits normalizes Persian and Arabic-Indic numerals to ASCII",
+          "ArabicToPersianConversion normalizes Arabic kaf and yeh variants",
+          "StartAddon and EndAddon composition; Small and Large sizes",
+          "live oninput Blazor binding and copyable Razor source",
+          "GainFocus requests focus on the native input after its first interactive render",
+          "InputBase/EditContext required validation displays and clears the DataAnnotations message on form submit"
+        ],
+        "boundary": "This is current released/v2 API baseline evidence in the shared Component Lab. It is not v3 TextField implementation, Fluent 2 parity, approved Penpot design, native OS contrast, or assistive-technology acceptance.",
+        "fullSharedLabAssertionsPerRun": 103,
+        "assertionScope": "103/103 is the full shared Component Lab probe count per browser/render-mode run, not a TextField-only count. All explicitly named expanded TextField assertions also passed in each of the four runs."
+      }
     },
     {
       "id": "checkbox",

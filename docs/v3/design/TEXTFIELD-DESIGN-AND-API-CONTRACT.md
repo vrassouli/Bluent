@@ -1,6 +1,6 @@
 # TextField design and API contract — Issue #432
 
-> **Status:** draft design/API audit, 2026-11-10. This is not a released v3 API, runtime implementation, or maintainer parity sign-off. Task branch: **v3/issue-432-textfield**, based on **bluent-v3** commit **bcd56ac8f6d8271f341747dbf2e6816fa768ff4f**.
+> **Status:** draft design/API audit, updated 2026-11-11. This is not a released v3 API, runtime implementation, or maintainer parity sign-off. Task branch: **v3/issue-432-textfield**, based on **bluent-v3** commit **bcd56ac8f6d8271f341747dbf2e6816fa768ff4f**.
 
 ## 1. Identity and design provenance
 
@@ -212,7 +212,7 @@ Do not publish proposed parameters such as Appearance, ReadOnly, HelperText, Err
 
 ## 5. Demo and test coverage to build
 
-The #421 Component Lab platform is reusable infrastructure, not complete TextField acceptance. Its current pilot covers a normal input, short textarea and disabled field only.
+The #421 Component Lab platform is reusable infrastructure, not complete TextField acceptance. On 2026-11-11 its current-API TextField pilot was expanded from three to twelve live specimens: oninput binding, input/textarea, both textarea resize modes, disabled and readonly, each of the three text transforms, StartAddon/EndAddon, Small/Large sizes, first-render GainFocus, and required DataAnnotations/EditContext validation. The matching Chromium CDP checks passed in Chrome and Edge across WebAssembly and published InteractiveServer, including the real GainFocus callback and invalid-to-valid form validation flow; Server runs completed a real SignalR HTTP 101 handshake. Exact current evidence and its limitations are recorded in `docs/v3/quality/COMPONENT-LAB-COVERAGE.json`. This remains v2/current-API regression evidence only: it does not implement the v3 TextField, prove approved design parity, or complete the exhaustive scenario matrix below.
 
 Component-specific demo scenarios:
 
@@ -275,14 +275,14 @@ Add a component-specific Skill only after a real v3 API and canonical reference 
 
 ## 6. Dependencies, gating and next steps
 
-Live GitHub Project #5 checked on 2026-11-10:
+Live GitHub Project #5 checked on 2026-11-11:
 
 - #417 architecture: Done.
 - #419 Penpot workflow: Done.
 - #420 Blazor conventions: Done.
 - #425 quality gates: Done.
 - #421 Component Lab / 66-family ledger: In progress; platform exists, but the TextField pilot is not exhaustive.
-- #418 tokens/themes: In progress; exact token names/values and production mappings are not approved.
+- #418 tokens/themes: Review; exact token names/values and production mappings still await acceptance.
 - #432 TextField: In progress.
 
 The accepted #417 architecture and completed #419 design workflow are not substitutes for #418 token acceptance. This document and Penpot boards may progress with visible provisional annotations. Runtime CSS consuming new semantic/component token aliases must wait for actual #418 acceptance and the current bluent-v3 integration.
@@ -294,4 +294,4 @@ Next sequence:
 4. Run zero-warning Release build/tests, pack checks, browser visual/keyboard/RTL/theme/forced-colors validation and available assistive-technology tests.
 5. Open a PR from v3/issue-432-textfield to bluent-v3. Do not merge into Dev, publish stable packages or close #432 from this task branch.
 
-**Current boundary:** design and API audit are active; v3 runtime implementation and Fluent-parity acceptance are not complete.
+**Current boundary (2026-11-11):** design/API audit plus current-API Lab regression coverage are active; v3 runtime implementation and Fluent-parity acceptance are not complete. The expanded Lab evidence must not be represented as v3 component acceptance.

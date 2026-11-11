@@ -104,3 +104,16 @@ Documentation typos, broken links, and skill-routing drift should be fixed direc
 - Do not claim runtime/accessibility/render-mode validation without actual evidence.
 - Keep product defects visible in #411.
 - Keep the branch based on current `Dev` and resolve drift explicitly.
+
+
+## Separate v3 TextField #432 checkpoint — 2026-11-11
+
+This is a separate Bluent v3 task track; it does not change the existing #406 consumer-skill work above. Continue in worktree `C:\Projects\Bluent-issue432`, branch `v3/issue-432-textfield`, based on `bluent-v3`. Preserve the unrelated dirty files in `C:\Projects\Bluent`. Read `AGENTS.md`, `docs/v3/ISSUE-WORKFLOW.md`, `docs/v3/BRANCHING.md`, `docs/v3/PENPOT-WORKFLOW.md`, and the current TextField contract before further edits.
+
+Issue [#432](https://github.com/vrassouli/Bluent/issues/432) is **In progress**. PR [#562](https://github.com/vrassouli/Bluent/pull/562) is an open design/API audit PR targeting `bluent-v3`; it is not a runtime implementation or acceptance PR.
+
+The shared #421 Component Lab TextField pilot now has twelve live examples and focused browser assertions for native input/textarea, `Rows`, resizable/non-resizable textarea, disabled/readonly, three transforms, both addons, Small/Large sizes, first-render GainFocus and DataAnnotations/EditContext validation. On 2026-11-11 the TextField checks passed in Chrome/Edge × WebAssembly/InteractiveServer using real Chromium CDP. InteractiveServer runs completed HTTP 101 SignalR handshakes. Static Lab contracts, generated queue check, Node syntax and whitespace check passed; Debug WASM demo build succeeded with 0 errors. Four existing NU1903 advisories on `Microsoft.AspNetCore.WebUtilities` 10.0.7 remain unresolved and were not suppressed.
+
+Treat this only as **current v2 API baseline evidence**. Remaining work includes described-by relationships, transform combinations/paste/IME/caret behavior, exhaustive keyboard/focus states, responsive/RTL/theme/forced-colors and native AT verification, approved Fluent/ Penpot parity, the v3 Razor/C#/CSS implementation, canonical docs/Skill/migration and exact-head CI.
+
+#418 is now **Review** in Project #5, but production token vocabulary/values and mappings still await acceptance. Do not consume provisional aliases in product CSS. Penpot's live plugin tab was frozen during the last check; do not claim a visual sign-off from the source notes/screenshots alone. Keep #432 In progress until its own accepted PR is merged into `bluent-v3`; never merge to stable `Dev`/main or publish stable packages as part of this task.
