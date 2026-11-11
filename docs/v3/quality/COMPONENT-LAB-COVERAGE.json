@@ -361,6 +361,42 @@
           "WebAssembly": 266,
           "InteractiveServer": 263
         }
+      },
+      "exactHeadGitHubCI": {
+        "commit": "23d733aca0060192800cf328fa28f24895ddef06",
+        "status": "success",
+        "componentLab": {
+          "runId": 42988085048,
+          "jobs": {
+            "Chrome/InteractiveServer": "success",
+            "Chrome/WebAssembly": "success",
+            "Edge/InteractiveServer": "success",
+            "Edge/WebAssembly": "success"
+          }
+        },
+        "compatibilityBrowsers": {
+          "runId": 42988085043,
+          "jobs": {
+            "Chrome/InteractiveServer": "success",
+            "Chrome/WebAssembly": "success",
+            "Edge/InteractiveServer": "success",
+            "Edge/WebAssembly": "success",
+            "LabelInfo/Chrome/en-US": "success",
+            "LabelInfo/Chrome/fa-IR": "success",
+            "LabelInfo/Edge/en-US": "success",
+            "LabelInfo/Edge/fa-IR": "success"
+          }
+        },
+        "qualityGate": {
+          "runId": 42988085036,
+          "releaseBuildTestsFivePackageValidation": "success",
+          "evidencePolicySourceDocs": "success"
+        },
+        "documentationContract": {
+          "runId": 42988085252,
+          "status": "success"
+        },
+        "note": "GitHub exact-head checks validate the shared Component Lab and reusable compatibility gates. These are not TextField-only accessibility, visual parity, or native OS acceptance."
       }
     },
     {

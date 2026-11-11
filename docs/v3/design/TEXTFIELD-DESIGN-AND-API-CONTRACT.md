@@ -81,9 +81,11 @@ Draft decisions:
 - Error is not conveyed by color alone.
 - Keyboard, forced-colors, zoom and responsive boards express acceptance intent, not runtime evidence.
 
+**Penpot visual QA checkpoint — 2026-11-11:** the narrow 320px/400% reflow preview on page 19 was shifted 85px to the right so it no longer occludes the second field in the wide-layout specimen. A fresh export confirms a clear gap between the wide and narrow examples. This is a geometry/readability correction only; pages 17–20 remain DRAFT, and no token, appearance, dimension or maintainer approval is implied.
+
 ### Token boundary
 
-Penpot colors and dimensions are provisional review values. #418 is In progress and owns the final source → global → semantic → component token names, approved values, modes/brands and production aliases. Do not add production CSS that consumes draft-only values or invents final public token names before #418 acceptance.
+Penpot colors and dimensions are provisional review values. #418 is in Review and owns the final source → global → semantic → component token names, approved values, modes/brands and production aliases. Do not add production CSS that consumes draft-only values or invents final public token names before #418 acceptance.
 
 ## 2. Existing v2 source/API baseline
 
@@ -262,7 +264,7 @@ The following IDs are stable design/test-plan identifiers. They are **not eviden
 Negative controls should also cover: missing accessible name; placeholder used as the only label; readonly treated as disabled; clickable addon without a name; textarea without Rows; DigitOnly removing letters; and error+focus incorrectly drawing a second full-rectangle ring.| Evidence layer | Required proof | Current status |
 | --- | --- | --- |
 | Source/API | v2 API inventory and field CSS | Verified for v2 baseline |
-| Design | 28 linked appearance/state variants and three owned review boards | Draft design complete; not signed off |
+| Design | 28 linked appearance/state variants and four owned review boards | Draft design complete; not signed off |
 | Build | v3 Release build with zero warnings | Not run for TextField; no v3 runtime code |
 | Unit/integration | binding, EditContext, invalid/valid transitions, addons, sizes, textarea, transforms and native attributes | Not implemented |
 | Browser/DOM | native semantics, focus, validation relationships, RTL, responsive and theme state | Not run |
