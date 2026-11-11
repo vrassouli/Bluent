@@ -97,7 +97,7 @@
         "docs/components/text-field.md"
       ],
       "existingConsumerExampleFiles": [],
-      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs",
+      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon",
       "scenarioEvidence": "chrome_and_edge_wasm_server_native_text_input_binding_observed",
       "apiPropertiesEventsMapped": false,
       "completeDemoAcceptance": false,

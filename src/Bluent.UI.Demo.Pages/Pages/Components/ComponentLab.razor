@@ -445,6 +445,19 @@
                             <EndAddon>.com</EndAddon>
                         </TextField>
                     </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-addon-action">Disabled input with independent action addon</label>
+                        <TextField id="lab-tf-addon-action" Value="@_labTextAddonActionValue" disabled>
+                            <EndAddon>
+                                <button id="lab-tf-addon-action-button" type="button"
+                                        aria-label="Clear disabled field value"
+                                        @onclick="ClearLabTextAddonAction">Clear</button>
+                            </EndAddon>
+                        </TextField>
+                        <p id="lab-tf-addon-action-status" role="status">
+                            Clear clicks: @_labTextAddonActionClearCount; value: @_labTextAddonActionValue
+                        </p>
+                    </div>
                 </div>
                 <p class="lab-controls-note">Current released TextField API baseline only. These scenarios verify existing v2 behavior; they do not represent the pending Bluent v3 design, token, visual-parity or accessibility acceptance for #432.</p>
             }
@@ -958,6 +971,8 @@
     private string? _labTextDefaultChange = "Before";
     private string? _labTextStartAddon = "example.org";
     private string? _labTextEndAddon = "support";
+    private string? _labTextAddonActionValue = "Locked value";
+    private int _labTextAddonActionClearCount;
     private TextFieldNativeAttributesModel _labTextFieldAttributes = new();
 
     private sealed class TextFieldNativeAttributesModel
@@ -975,6 +990,12 @@
 
     private void OnLabTextFieldValid() => _labTextFieldValidationStatus = "Valid";
     private void OnLabTextFieldInvalid() => _labTextFieldValidationStatus = "Invalid";
+
+    private void ClearLabTextAddonAction()
+    {
+        _labTextAddonActionValue = null;
+        _labTextAddonActionClearCount++;
+    }
 
     private string SelectedTextFieldRazor =>
         "@using System.ComponentModel.DataAnnotations\n" +
@@ -994,7 +1015,8 @@
         "<EditForm Model=\"_labTextFieldAttributes\">\n  <DataAnnotationsValidator />\n  <Label ForExpression=\"() => _labTextFieldAttributes.Email\" />\n  <TextField @bind-Value=\"_labTextFieldAttributes.Email\" type=\"email\" autocomplete=\"email\" inputmode=\"email\" aria-describedby=\"lab-tf-email-help\" data-testid=\"textfield-email-native\" Class=\"lab-tf-root-custom\" Style=\"--lab-textfield-probe: 1;\" />\n</EditForm>\n" +
         "<TextField id=\"lab-tf-start-addon\" @bind-Value=\"_labTextStartAddon\"><StartAddon>https://</StartAddon></TextField>\n" +
         "<TextField id=\"lab-tf-end-addon\" @bind-Value=\"_labTextEndAddon\"><EndAddon>.com</EndAddon></TextField>\n" +
-        "@code { private TextFieldValidationModel _labTextFieldValidation = new(); private string? _labTextDefaultChange = \"Before\"; private string? _labTextStartAddon = \"https://example.org\"; private string? _labTextEndAddon = \"support\"; private TextFieldNativeAttributesModel _labTextFieldAttributes = new(); private void OnLabTextFieldValid() { } private void OnLabTextFieldInvalid() { }\n" +
+        "<TextField id=\"lab-tf-addon-action\" Value=\"@_labTextAddonActionValue\" disabled><EndAddon><button id=\"lab-tf-addon-action-button\" type=\"button\" aria-label=\"Clear disabled field value\" @onclick=\"ClearLabTextAddonAction\">Clear</button></EndAddon></TextField>\n" +
+        "@code { private TextFieldValidationModel _labTextFieldValidation = new(); private string? _labTextDefaultChange = \"Before\"; private string? _labTextStartAddon = \"https://example.org\"; private string? _labTextEndAddon = \"support\"; private string? _labTextAddonActionValue; private int _labTextAddonActionClearCount; private TextFieldNativeAttributesModel _labTextFieldAttributes = new(); private void ClearLabTextAddonAction() { _labTextAddonActionValue = null; _labTextAddonActionClearCount++; } private void OnLabTextFieldValid() { } private void OnLabTextFieldInvalid() { }\n" +
         "private sealed class TextFieldValidationModel { [Required] public string? Name { get; set; } }\n" +
         "private sealed class TextFieldNativeAttributesModel { [Display(Name = \"Work email\")] [Required] public string? Email { get; set; } = \"person@example.com\"; }";
 

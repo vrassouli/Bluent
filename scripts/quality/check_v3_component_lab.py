@@ -445,6 +445,7 @@ def check() -> int:
         "TextField Bluent Label derives Display name, native label association and required marker from ForExpression",
         "TextField additional native attributes reach the input while Class and Style remain on the wrapper",
         "TextField StartAddon and EndAddon render independently without an opposite slot",
+        "TextField action addon is an accessible independent button even when the native input is disabled",
         "TextField default BindValueEvent remains onchange before native change event",
         "TextField default onchange commits ValueChanged on native change event",
         "TextField DigitOnly preserves ASCII, Persian and Arabic-Indic digits and removes other characters",
@@ -464,13 +465,13 @@ def check() -> int:
         "DigitOnly", "AsciiDigits", "ArabicToPersianConversion",
         "StartAddon", "EndAddon", "Size", "readonly", "disabled", "GainFocus",
         "EditContext", "DataAnnotationsValidator", "ValidationMessage", "Label", "Display",
-        "Required", "InputAdditionalAttributes", "Class", "Style"
+        "Required", "InputAdditionalAttributes", "Class", "Style", "InteractiveAddon", "Keyboard"
     }
     for marker in ('new("textfield", "TextField"', 'class="lab-textfield-grid"',
                    'id="lab-tf-input"', 'id="lab-tf-notes"', 'id="lab-tf-disabled"',
                    'id="lab-tf-readonly"', 'id="lab-tf-digits-only"', 'id="lab-tf-ascii-digits"',
                    'id="lab-tf-persian-chars"', 'id="lab-tf-addons"', 'id="lab-tf-large"',
-                   'id="lab-tf-resizable"', 'id="lab-tf-gain-focus"', 'id="lab-tf-required"', 'id="lab-tf-validation-form"', 'lab-tf-validation-state', 'DataAnnotationsValidator', 'OnValidSubmit="OnLabTextFieldValid"', 'GainFocus', 'DigitOnly', 'AsciiDigits', 'ArabicToPersianConversion',
+                   'id="lab-tf-resizable"', 'id="lab-tf-gain-focus"', 'id="lab-tf-required"', 'id="lab-tf-validation-form"', 'lab-tf-validation-state', 'DataAnnotationsValidator', 'id="lab-tf-addon-action"', 'id="lab-tf-addon-action-button"', 'ClearLabTextAddonAction', 'OnValidSubmit="OnLabTextFieldValid"', 'GainFocus', 'DigitOnly', 'AsciiDigits', 'ArabicToPersianConversion',
                    '<StartAddon>', '<EndAddon>', 'Size="FieldSize.Small"', 'Size="FieldSize.Large"',
                    'BindValueEvent="oninput"', 'Rows="3"', 'ResizeTextarea="false"', 'ResizeTextarea="true"',
                    'SelectedTextFieldRazor', '52</strong> not yet demonstrated'):
@@ -480,7 +481,7 @@ def check() -> int:
     q = (ROOT/"docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json")
     textfield_queue = next(e for e in json.loads(q.read_text(encoding="utf-8-sig"))["families"]
                            if e["family"] == "TextField")
-    assert textfield_queue["scenarioId"] == "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs"
+    assert textfield_queue["scenarioId"] == "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon"
     assert all(f["classification"]=="representative_only" for f in data["families"])
 
     assert len({entry["id"] for entry in data["families"]}) == 18
@@ -561,7 +562,7 @@ def check() -> int:
                 assert "real 199/199 Chrome DevTools Protocol assertions PASS including OTP" in mode
                 continue
             if entry["id"] in ("textfield","checkbox","switch","numeric","radio","selectfield","datefield","timefield","masked"):
-                expected_mode = (f"full shared Component Lab {266 if i < 2 else 263}/{266 if i < 2 else 263}" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser" if entry["id"] == "switch" else "NumericField native Blazor browser" if entry["id"] == "numeric" else "RadioGroup native Blazor browser" if entry["id"] == "radio" else "SelectField native Blazor browser" if entry["id"] == "selectfield" else "DateField native Blazor browser" if entry["id"] == "datefield" else "TimeField native Blazor browser" if entry["id"] == "timefield" else "real native source browser 187/187 PASS incl #440 MaskedField")
+                expected_mode = (f"full shared Component Lab {269 if i < 2 else 266}/{269 if i < 2 else 266}" if entry["id"] == "textfield" else "Checkbox native Blazor browser" if entry["id"] == "checkbox" else "Switch native Blazor browser" if entry["id"] == "switch" else "NumericField native Blazor browser" if entry["id"] == "numeric" else "RadioGroup native Blazor browser" if entry["id"] == "radio" else "SelectField native Blazor browser" if entry["id"] == "selectfield" else "DateField native Blazor browser" if entry["id"] == "datefield" else "TimeField native Blazor browser" if entry["id"] == "timefield" else "real native source browser 187/187 PASS incl #440 MaskedField")
                 assert expected_mode in mode
                 continue
             assert "shared browser smoke 27/27" in mode
