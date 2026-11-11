@@ -292,7 +292,7 @@
       "family": "TextField",
       "existingDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
-      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states",
+      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs",
       "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
       "propertiesDemonstrated": [
         "Value",
@@ -311,18 +311,24 @@
         "GainFocus",
         "EditContext",
         "DataAnnotationsValidator",
-        "ValidationMessage"
+        "ValidationMessage",
+        "Label",
+        "Display",
+        "Required",
+        "InputAdditionalAttributes",
+        "Class",
+        "Style"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; cleanup remaining=0",
-        "Edge/WebAssembly Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; cleanup remaining=0",
-        "Chrome/Server Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; published InteractiveServer SignalR HTTP 101; cleanup remaining=0",
-        "Edge/Server Dev01: full shared Component Lab 103/103; expanded TextField-specific assertions pass; published InteractiveServer SignalR HTTP 101; cleanup remaining=0"
+        "Chrome/WebAssembly Dev01: full shared Component Lab 266/266; all 18 explicitly named TextField checks pass; errors=[]; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: full shared Component Lab 266/266; all 18 explicitly named TextField checks pass; errors=[]; cleanup remaining=0",
+        "Chrome/Server Dev01: full shared Component Lab 263/263; all 18 explicitly named TextField checks pass; published InteractiveServer SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0",
+        "Edge/Server Dev01: full shared Component Lab 263/263; all 18 explicitly named TextField checks pass; published InteractiveServer SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0"
       ],
-      "remaining": "Current-API Lab demonstrates live oninput binding, native input/textarea, both textarea resize modes, disabled versus readonly, DigitOnly, AsciiDigits, ArabicToPersianConversion, StartAddon/EndAddon, Small/Large sizes, first-interactive-render GainFocus and required DataAnnotations/EditContext validation. Still outstanding: all transform combinations plus paste/IME/caret behavior, complete keyboard/focus state matrix, RTL and theme/forced-colors visual verification, native Windows assistive technology, Fluent 2 Penpot approval, v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
+      "remaining": "Current-API Lab demonstrates live oninput and default onchange binding; native input/textarea; both textarea resize modes; disabled versus readonly; DigitOnly, AsciiDigits and ArabicToPersianConversion; independent and combined StartAddon/EndAddon; Small/Large sizes; first-interactive-render GainFocus; required DataAnnotations/EditContext validation; Bluent Label Display/Required association; native type/autocomplete/inputmode/aria-describedby/data-* forwarding; and Class/Style wrapper ownership. Still outstanding: all transform combinations plus paste/IME/caret behavior, complete keyboard/focus state matrix, RTL and theme/forced-colors visual verification, native Windows assistive technology, Fluent 2 Penpot approval, v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-textfield-live-rtl-chrome-wasm.png",
-      "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 browser/render modes 103/103 each (412/412); no failed checks, errors=[], browser cleanup remaining=0",
+      "fourModeLocalBrowserEvidence": "2026-11-11 four independent Dev01 Chromium runs: Chrome/Edge WebAssembly 266/266 assertions each; Chrome/Edge published InteractiveServer 263/263 assertions each (1058/1058 aggregate); zero failed checks, errors=[], and browser cleanup remaining=0 in every run.",
       "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused; human visual approval pending. #432 TextField is In progress; this is current v2 API baseline evidence only, with no v3 implementation or product acceptance. Native OS ScreenReader/AT is not tested.",
       "expandedCurrentApiEvidence": {
         "date": "2026-11-11",
@@ -333,7 +339,7 @@
           "Microsoft Edge / WebAssembly",
           "Microsoft Edge / published InteractiveServer (SignalR WebSocket HTTP 101)"
         ],
-        "result": "All TextField-specific expanded pilot checks passed in all four combinations; browser cleanup completed with zero remaining owned processes.",
+        "result": "All explicitly named TextField-specific checks passed in all four Chrome/Edge × WebAssembly/published InteractiveServer combinations. Full shared Component Lab check counts: 266/266 per WebAssembly run and 263/263 per InteractiveServer run; aggregate 1058/1058 across four runs. Every run completed browser cleanup with zero remaining owned processes.",
         "verified": [
           "native input and textarea; Rows=3; resize enabled and disabled",
           "disabled versus readonly native semantics and focus behavior",
@@ -343,11 +349,18 @@
           "StartAddon and EndAddon composition; Small and Large sizes",
           "live oninput Blazor binding and copyable Razor source",
           "GainFocus requests focus on the native input after its first interactive render",
-          "InputBase/EditContext required validation displays and clears the DataAnnotations message on form submit"
+          "InputBase/EditContext required validation displays and clears the DataAnnotations message on form submit",
+          "default BindValueEvent=onchange does not update on input and commits on change",
+          "Bluent Label ForExpression derives Display name, associates with the TextField member id and renders the required marker",
+          "native type, autocomplete, inputmode, aria-describedby and data-testid attributes reach the input; Class and Style remain on the wrapper",
+          "StartAddon-only and EndAddon-only rendering without the opposite addon slot"
         ],
         "boundary": "This is current released/v2 API baseline evidence in the shared Component Lab. It is not v3 TextField implementation, Fluent 2 parity, approved Penpot design, native OS contrast, or assistive-technology acceptance.",
-        "fullSharedLabAssertionsPerRun": 103,
-        "assertionScope": "103/103 is the full shared Component Lab probe count per browser/render-mode run, not a TextField-only count. All explicitly named expanded TextField assertions also passed in each of the four runs."
+        "assertionScope": "266/266 is the full shared Component Lab probe count in each WebAssembly browser run; 263/263 is the full shared Component Lab count in each InteractiveServer browser run. The aggregate 1058/1058 is across all four runs, not a TextField-only count. The 18 explicitly named TextField-specific checks passed in each run.",
+        "fullSharedLabAssertionsByRenderMode": {
+          "WebAssembly": 266,
+          "InteractiveServer": 263
+        }
       }
     },
     {
