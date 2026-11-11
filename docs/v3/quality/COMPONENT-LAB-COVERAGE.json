@@ -323,7 +323,7 @@
       "remaining": "Current-API Lab demonstrates live oninput binding, native input/textarea, both textarea resize modes, disabled versus readonly, DigitOnly, AsciiDigits, ArabicToPersianConversion, StartAddon/EndAddon, Small/Large sizes, first-interactive-render GainFocus and required DataAnnotations/EditContext validation. Still outstanding: all transform combinations plus paste/IME/caret behavior, complete keyboard/focus state matrix, RTL and theme/forced-colors visual verification, native Windows assistive technology, Fluent 2 Penpot approval, v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-textfield-live-rtl-chrome-wasm.png",
       "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 browser/render modes 103/103 each (412/412); no failed checks, errors=[], browser cleanup remaining=0",
-      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused, human approval pending. #432 TextField Backlog; no production component API/style changes; native OS ScreenReader not tested.",
+      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused; human visual approval pending. #432 TextField is In progress; this is current v2 API baseline evidence only, with no v3 implementation or product acceptance. Native OS ScreenReader/AT is not tested.",
       "expandedCurrentApiEvidence": {
         "date": "2026-11-11",
         "environment": "Dev01 local Chromium DevTools Protocol against the actual Blazor Component Lab",
