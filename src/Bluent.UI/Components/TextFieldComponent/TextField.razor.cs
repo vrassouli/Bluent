@@ -117,7 +117,7 @@ public partial class TextField : IAsyncDisposable
         return _module ??= module;
     }
 
-    public async ValueTask DisposeAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
         _disposed = true;
         _pendingSelection = null;
