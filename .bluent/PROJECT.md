@@ -603,3 +603,13 @@ Calculated text contrast for the 28 TextField sample text nodes using each node'
 The Penpot model and SVG markup can be inspected, but the PNG export endpoint returned a network fetch error and page activation timed out. No rendered PNG/pixel-parity review or maintainer sign-off is claimed; pages 17–20 remain DRAFT. No shapes or product source were modified. Keep the contrast/variant metadata findings open for design review and do not substitute unapproved #418 tokens or arbitrary colors.
 
 Latest prior exact-head GitHub CI on 1a4bfe87329a36b8f174dfa83652941a556003ae: all seven workflows succeeded (23/23 jobs). This audit is documentation/evidence only; #418 remains Review, #432 remains In progress, and PR #562 remains open/unmerged. No v3 runtime implementation, merge, package publish, deployment, or stable/v2 changes are claimed.
+
+## TextField #432 — Penpot visual review and exact-head CI — 2026-11-13
+
+The Penpot MCP connection is live again on the owned **Bluent v3 Design System** file. All four TextField boards (pages 17–20) were successfully exported as PNG and visually reviewed. Page 17's 28-state/appearance matrix is complete and readable; pages 18–20 visibly cover anatomy/addons/textarea/sizes/RTL, keyboard/forced-colors/reflow, and Fluent reference/state precedence. This supersedes the earlier PNG-export failure noted in the prior audit. The boards remain DRAFT; visual review is not maintainer sign-off or runtime parity.
+
+The four page-16 `variantError` metadata records remain open even though their `variantProps` show the intended pairs. A reversible `setVariantProperty` probe (temporary value then original value) and a reversible element-name probe did not clear the diagnostic; `variantError` has a getter and no setter. No persistent design mutation was left. Do not reconstruct the component set to hide these warnings without a safe design review.
+
+The five active Filled darker placeholders still measure **4.347:1** (`#62758a` on `#f5f5f5`). No color was substituted; use only the final #418 approved token mapping after its maintainer acceptance. The current #418 project state is still Review, so runtime CSS based on preview token names/values remains gated.
+
+GitHub Actions for exact head `741aa3331b3dd87910ba0d7f71ef7377c835cc5d` completed **7/7 workflows successfully**: Documentation Contract, Public Component Census, Baseline Quality Gate, Component Lab Pilot, Button Runtime Contract, Interaction Source Contract and Real Compatibility Browsers. This is shared repository/branch quality evidence, not v3 TextField acceptance. #432 remains In progress, PR #562 remains open/unmerged and targets `bluent-v3`; no stable/v2 branch, package, release or deployment changed.

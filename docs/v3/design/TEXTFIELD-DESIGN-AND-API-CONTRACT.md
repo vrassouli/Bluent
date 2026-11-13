@@ -381,3 +381,24 @@ The dark anatomy sample and the black forced-colors sample were separately check
 Penpot model inspection and SVG markup generation succeeded. The Penpot PNG export endpoint failed with a network fetch error, and attempts to activate the TextField pages through openPage timed out. Consequently this is **model/geometry/contrast evidence only**: no fresh PNG visual review, rendered-pixel parity review, or maintainer visual sign-off is claimed. All four boards remain **DRAFT**. The four variant metadata defects and the Filled darker placeholder contrast finding remain open for design review.
 
 #418 remains Review, with token vocabulary/values and production mappings awaiting acceptance. #432 remains In progress. This audit does not authorize v3 runtime CSS, merge, package publication, deployment, or changes to stable/v2 branches.
+
+## TextField #432 — Penpot PNG export and visual review follow-up — 2026-11-13
+
+This is a follow-up to the earlier export limitation recorded in section 8. The Penpot connection was restored and all four current TextField boards were opened and successfully exported as PNG from the connected **Bluent v3 Design System** file (file ID `b64f6665-c9ab-80b5-8008-c4ac99d9d000`).
+
+| Page | Board | Visual review |
+| --- | --- | --- |
+| 17 · TextField full matrix | `343383cb-23d3-80b8-8008-ec424306af65` | Reviewed the complete 7-state × 4-appearance matrix; all 28 pairings are present, aligned and visually readable. |
+| 18 · TextField anatomy, sizing & RTL | `343383cb-23d3-80b8-8008-ec43be3b98e5` | Reviewed single-line input/addons, textarea, three density sizes, Persian RTL/logical addon placement and light/dark sample surfaces. |
+| 19 · TextField keyboard, contrast & reflow | `343383cb-23d3-80b8-8008-ec440d2d8ed7` | Reviewed keyboard/semantic-state intent, focus indicator, forced-colors specimen, responsive narrow layout and acceptance checklist. |
+| 20 · Fluent crosswalk & state precedence | `343383cb-23d3-80b8-8008-ec45d29ff553` | Reviewed the Web Components versus React reference boundary, appearance disposition and composite state precedence. |
+
+The earlier PNG endpoint failure and `openPage` timeout were transient session/tool failures; they are superseded by the successful exports and visual review above. This is visual review of the editable Penpot proposal only, not a browser/runtime screenshot, pixel parity acceptance, accessibility sign-off or maintainer approval. All four boards remain explicitly **DRAFT**.
+
+### Remaining design findings
+
+- The four non-empty `variantError` records on page 16 remain unresolved: `e31294c6-7c55-805f-8008-c5126f8392cc`, `e31294c6-7c55-805f-8008-c5126f8822cf`, `e31294c6-7c55-805f-8008-c5126f8c17f3`, `e31294c6-7c55-805f-8008-c5126f8f4697`. Their `variantProps` still expose the intended State/Appearance pairs. A reversible probe changed one State value to `RepairProbe` and restored it; the `variantError` did not clear. A reversible probe of the library element's `name` setter also had no effect. The API exposes `variantError` as a getter without a setter. No persistent property/name change was left behind. Do not rebuild or transform the component set merely to suppress these diagnostics without a reviewed migration plan.
+- The five active Filled darker placeholder samples remain **4.347:1** (`#62758a` on `#f5f5f5`), below 4.5:1 for normal text. No replacement color was chosen. Resolve the foreground/surface pair against the exact, maintainer-approved #418 semantic mapping; do not consume preview-only tokens.
+- Disabled examples remain separately scoped to disabled controls and are not reclassified as ordinary text failures. ReadOnly values and dark/forced-colors sample pairs passed against their actual inner surfaces.
+
+No persistent Penpot shapes, fills, dimensions, positions or component mappings were modified during this follow-up. No runtime API, Razor, C#, CSS, token or package change is authorized by this design review.
