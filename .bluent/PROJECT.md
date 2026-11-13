@@ -574,3 +574,21 @@ A temporary, one-run probe was added to the existing #421 Component Lab browser 
 The canonical TextField contract now has **24 planned acceptance scenarios**. New `TF-TRANSFORM-005` requires the v3 implementation to map caret and selection offsets through normalized prefixes, including mid-string digit conversion and selected ranges. `TF-TRANSFORM-004` now separates transform composition/IME commit-cancel testing from caret mapping. The fail-closed TextField source/API checker now requires the new scenario and has a negative test proving its removal is rejected. No component API, Razor, CSS, design token, v2 release, or product runtime code changed.
 
 Penpot pages 17–20 remain DRAFT and #418 token vocabulary/values remain unapproved; no runtime styling work is authorized by this documentation-only acceptance refinement. Issue #432 remains In progress; PR #562 remains open and targets `bluent-v3`.
+
+## TextField #432 — exact-head CI closeout — 2026-11-13
+
+Exact-head GitHub Actions for `233bf2207acbb4106bcb875e3a1eac8c42bb4da2` completed **23/23 jobs successfully across all seven workflows, with zero failures and zero pending jobs**:
+
+- Baseline Quality Gate: 2/2 — evidence policy; Release build, tests and five-package validation.
+- Real Compatibility Browsers: 8/8 — Chrome/Edge × WebAssembly/InteractiveServer plus Label/Info en-US/fa-IR.
+- Documentation Contract: 1/1 — includes the TextField source/API guard and caret-scenario negative test.
+- Component Lab Pilot: 4/4 — Chrome/Edge × WebAssembly/InteractiveServer.
+- Interaction Source Contract: 5/5 — source/consumer compile plus four real Popover modes.
+- Button Runtime Contract: 1/1.
+- Public Component Census: 2/2 — source/family snapshot and compiled CLR export baseline.
+
+Exact run records: `43416474367`, `43416474377`, `43416474380`, `43416474385`, `43416474274`, `43416474322`, and `43416474179` respectively.
+
+Local verification on the same head: TextField source/API contract guard passed; focused guard tests **14/14**; v3 docs contract **0 findings**; Markdown links **171 files**; `git diff --check` passed; worktree was clean at push. This exact-head CI closeout supersedes the earlier 'still running' checkpoint for `233bf220`.
+
+This proves the shared repository quality and compatibility workflows on the current branch head; it does **not** implement the v3 TextField or prove caret/selection preservation, physical OS IME, native accessibility, or Penpot parity. #418 remains Review with its token/API approval still outstanding, Penpot TextField pages 17–20 remain DRAFT, #432 remains In progress and PR #562 remains open/unmerged. No stable/v2 branch, NuGet package, release or deployment was changed.
