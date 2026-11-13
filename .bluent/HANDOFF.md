@@ -114,7 +114,7 @@ Issue [#432](https://github.com/vrassouli/Bluent/issues/432) is **In progress**.
 
 The shared #421 Component Lab TextField pilot now has seventeen live examples and focused browser assertions for native input/textarea, Rows, both textarea resize modes, disabled/readonly, three transforms, combined and independent addons, Small/Large sizes, first-render GainFocus, default onchange and live oninput binding, DataAnnotations/EditContext validation, Bluent Label Display/Required association, and native attributes/Class/Style forwarding. A seventeenth fixture verifies an independent keyboard-operable EndAddon action beside a disabled input. On 2026-11-11 the TextField checks passed in Chrome/Edge × WebAssembly/InteractiveServer using real Chromium CDP. InteractiveServer runs completed HTTP 101 SignalR handshakes. Static Lab contracts, generated queue check, Node syntax and whitespace check passed; Debug WASM demo build succeeded with 0 errors. Four existing NU1903 advisories on `Microsoft.AspNetCore.WebUtilities` 10.0.7 remain unresolved and were not suppressed.
 
-Treat this only as **current v2 API baseline evidence**. Remaining work includes described-by relationships, transform combinations/paste/IME/caret behavior, exhaustive keyboard/focus states, responsive/RTL/theme/forced-colors and native AT verification, approved Fluent/ Penpot parity, the v3 Razor/C#/CSS implementation, canonical docs/Skill/migration and exact-head CI.
+Treat this only as **current v2 API baseline evidence**. Remaining work includes described-by relationships, transform-flag combinations, native IME behavior and caret/selection preservation, exhaustive keyboard/focus states, responsive/RTL/theme/forced-colors and native AT verification, approved Fluent/ Penpot parity, the v3 Razor/C#/CSS implementation, canonical docs/Skill/migration and exact-head CI.
 
 Exact-head CI on 23d733aca0060192800cf328fa28f24895ddef06 is now fully green: Component Lab 4/4 (Chrome/Edge × WASM/InteractiveServer), compatibility browsers 4/4, Label/Info 4/4 (Chrome/Edge × en-US/fa-IR), Release build/tests/five-package validation, Evidence policy and Documentation Contract. The shared Lab totals are 266/266 per WASM run and 263/263 per Server run; these are full-Lab counts, not TextField-only counts.
 
@@ -130,3 +130,12 @@ Added a seventeenth current-v2 API TextField specimen: a named Clear button insi
 Final local Dev01 matrix: Chrome/Edge × WebAssembly 269/269 full shared Lab checks each; Chrome/Edge × published InteractiveServer 266/266 each; aggregate 1070/1070. All 19 TextField-targeted checks passed in all four runs; every Server run completed SignalR WebSocket HTTP 101 and all browser cleanup ended at remaining=0. These are full shared Lab totals, not TextField-only counts. Static checker, generated queue check, Node syntax and git diff --check pass; Release Server runs also compiled successfully with only the existing NU1903 warnings.
 
 This is current v2/API regression evidence only. It does not claim v3 implementation, accessibility/OS acceptance, token acceptance, or Penpot sign-off. Pages 17–20 remain DRAFT; #418 remains Review; #432 remains In progress.
+
+
+## TextField #432 clipboard-paste and composition observation — 2026-11-11
+
+Three actual browser clipboard Ctrl+V checks now cover DigitOnly, AsciiDigits and ArabicToPersianConversion. A synthetic DOM insertCompositionText/isComposing observation records current v2 setter behavior, but is not a physical/native IME test.
+
+Final local Dev01 matrix: Chrome/Edge x WebAssembly 273/273 full shared Lab assertions each; Chrome/Edge x published InteractiveServer 270/270 each; aggregate 1086/1086. All 23 TextField-targeted checks passed in all four modes; Server completed SignalR HTTP 101 and each browser cleanup ended at remaining=0. These are full shared-Lab totals, not TextField-only counts.
+
+Still outstanding: real OS/IME testing, transform flag combinations, caret/selection preservation, exhaustive keyboard/focus, RTL/theme/forced-colors, native AT, #418 token acceptance, Penpot maintainer approval, and the v3 runtime implementation/migration. #432 remains In progress.

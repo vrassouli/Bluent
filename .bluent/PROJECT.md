@@ -488,3 +488,8 @@ Penpot page 19 reflow preview was moved 85px right; a new export verifies it no 
 ## TextField #432 interactive-addon regression checkpoint — 2026-11-11
 
 The seventeenth current-API specimen covers an independently named Clear button in EndAddon beside a disabled input. Local browser verification confirms the action remains enabled/focusable, receives Tab from the previous input, and activates on Enter while the native input stays disabled. Final Dev01 four-mode matrix: 269/269 full shared Component Lab assertions in each WASM browser and 266/266 in each Server browser (1070/1070 aggregate); all 19 TextField-targeted checks pass in every run. InteractiveServer completed SignalR HTTP 101 handshakes; browser cleanup remaining=0. #432 remains In progress and #418 remains Review; this is not v3 product acceptance or Penpot sign-off.
+
+
+## TextField #432 clipboard-paste and composition observation — 2026-11-11
+
+Three actual Ctrl+V clipboard-paste checks now cover DigitOnly, AsciiDigits and ArabicToPersianConversion. A synthetic DOM insertCompositionText/isComposing observation records current v2 setter behavior, but is not a physical/native IME test. Final local Dev01 matrix: 273/273 full shared Lab assertions per WASM browser, 270/270 per Server browser, 1086/1086 aggregate; all 23 TextField-targeted checks passed in all four Chrome/Edge x WASM/InteractiveServer runs. Server completed SignalR HTTP 101; browser cleanup remaining=0. Real OS IME, caret/selection, transform-flag combinations, accessibility and design acceptance remain open. #418 is Review; #432 remains In progress.

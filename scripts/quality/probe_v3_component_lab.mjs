@@ -34,6 +34,15 @@ const js=async code=>{
  if(r.exceptionDetails)throw Error('Chromium JS exception: '+r.exceptionDetails.text);
  return r.result?.value;
 };
+const pasteClipboard=async(id,text)=>{
+ await send('Browser.grantPermissions',{origin:base,permissions:['clipboardReadWrite','clipboardSanitizedWrite']});
+ await js("navigator.clipboard.writeText("+JSON.stringify(text)+")");
+ await js("(()=>{const e=document.getElementById("+JSON.stringify(id)+");e.focus();e.setSelectionRange(0,e.value.length)})()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Control',code:'ControlLeft',windowsVirtualKeyCode:17,nativeVirtualKeyCode:17});
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'v',code:'KeyV',modifiers:2,windowsVirtualKeyCode:86,nativeVirtualKeyCode:86});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'v',code:'KeyV',modifiers:2,windowsVirtualKeyCode:86,nativeVirtualKeyCode:86});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Control',code:'ControlLeft',windowsVirtualKeyCode:17,nativeVirtualKeyCode:17});
+};
 try {
  browser=spawn(chrome,['--headless=new','--no-sandbox','--disable-gpu','--no-first-run',
  '--disable-extensions','--remote-debugging-port=0','--remote-allow-origins=*',
@@ -525,6 +534,16 @@ try {
  await js("document.getElementById('lab-tf-validate')?.click()");
  const tfValid=await poll(()=>js("document.getElementById('lab-tf-validation-state')?.textContent?.trim()==='Valid'&&!document.querySelector('#lab-tf-validation-form .validation-message')?.textContent?.trim()&&document.getElementById('lab-tf-required')?.value==='Nima'"),12000);
  check('TextField EditContext clears required DataAnnotations error after valid binding and submit',tfValid);
+ // Exercise the browser clipboard and native Ctrl+V path, not insertText as a paste surrogate.
+ await pasteClipboard('lab-tf-digits-only','A۹٨-45');
+ const tfPaste=await poll(()=>js("document.querySelector('#lab-tf-digits-value')?.textContent?.trim()==='Value: ۹٨45'&&document.getElementById('lab-tf-digits-only')?.value==='۹٨45'"),12000);
+ check('TextField DigitOnly normalizes a real native Ctrl+V clipboard paste',tfPaste,await js("(()=>({value:document.getElementById('lab-tf-digits-only')?.value,status:document.querySelector('#lab-tf-digits-value')?.textContent?.trim()}))()"));
+ await pasteClipboard('lab-tf-ascii-digits','۱۲۳٤۵');
+ const tfAsciiPaste=await poll(()=>js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 12345'&&document.getElementById('lab-tf-ascii-digits')?.value==='12345'"),12000);
+ check('TextField AsciiDigits normalizes a real native Ctrl+V clipboard paste',tfAsciiPaste);
+ await pasteClipboard('lab-tf-persian-chars','كيى');
+ const tfPersianPaste=await poll(()=>js("document.querySelector('#lab-tf-persian-value')?.textContent?.trim()==='Value: کیی'&&document.getElementById('lab-tf-persian-chars')?.value==='کیی'"),12000);
+ check('TextField ArabicToPersianConversion normalizes a real native Ctrl+V clipboard paste',tfPersianPaste);
  // Use native Chromium text insertion after clearing the controlled value. Each
  // field is bound oninput, so the observable status must reflect the component
  // transformation and the updated Blazor model, not only a DOM-side preview.
@@ -541,6 +560,12 @@ try {
  await send('Input.insertText',{text:'كيى'});
  const tfPersian=await poll(()=>js("document.querySelector('#lab-tf-persian-value')?.textContent?.trim()==='Value: کیی'&&document.getElementById('lab-tf-persian-chars')?.value==='کیی'"),12000);
  check('TextField ArabicToPersianConversion normalizes Arabic kaf and yeh variants',tfPersian);
+ await js("(()=>{const e=document.getElementById('lab-tf-persian-chars');window.__tfImeObservation=null;Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}));return true})()");
+ await poll(()=>js("document.getElementById('lab-tf-persian-chars')?.value===''"),12000);
+ await js("(()=>{const e=document.getElementById('lab-tf-persian-chars');const listener=ev=>{if(ev.inputType==='insertCompositionText')window.__tfImeObservation={isComposing:ev.isComposing,inputType:ev.inputType,rawValue:e.value}};e.addEventListener('input',listener,{once:true});e.dispatchEvent(new CompositionEvent('compositionstart',{data:'',bubbles:true}));Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'كي');e.dispatchEvent(new CompositionEvent('compositionupdate',{data:'كي',bubbles:true}));e.dispatchEvent(new InputEvent('input',{data:'كي',inputType:'insertCompositionText',isComposing:true,bubbles:true}));e.dispatchEvent(new CompositionEvent('compositionend',{data:'كي',bubbles:true}));return true})()");
+ const tfCompositionReady=await poll(()=>js("document.getElementById('lab-tf-persian-chars')?.value==='کی'"),12000);
+ const tfComposition=await js("(()=>({ready:document.getElementById('lab-tf-persian-chars')?.value==='کی',seen:window.__tfImeObservation,value:document.getElementById('lab-tf-persian-chars')?.value}))()");
+ check('TextField v2 DOM-composition simulation: ArabicToPersianConversion normalizes insertCompositionText',tfCompositionReady&&tfComposition.seen?.isComposing===true&&tfComposition.value==='کی',tfComposition);
  await js("document.getElementById('lab-tf-readonly')?.focus()");
  await send('Input.insertText',{text:'-changed'});
  const tfReadonly=await js("(()=>{const e=document.getElementById('lab-tf-readonly');return e?.readOnly===true&&e?.disabled===false&&e?.value==='Selectable read-only value'&&document.activeElement===e})()");

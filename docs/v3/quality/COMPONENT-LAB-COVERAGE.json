@@ -292,7 +292,7 @@
       "family": "TextField",
       "existingDemoRoute": "/components/fields",
       "labRoute": "/component-lab",
-      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon",
+      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon-clipboard-ime-observation",
       "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
       "propertiesDemonstrated": [
         "Value",
@@ -319,18 +319,21 @@
         "Class",
         "Style",
         "InteractiveAddon",
-        "Keyboard"
+        "Keyboard",
+        "Clipboard",
+        "Paste",
+        "ImeCompositionSimulation"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: 17 specimens; full shared Component Lab 269/269; 19 TextField-targeted checks pass; errors=[]; cleanup remaining=0",
-        "Edge/WebAssembly Dev01: 17 specimens; full shared Component Lab 269/269; 19 TextField-targeted checks pass; errors=[]; cleanup remaining=0",
-        "Chrome/Server Dev01: 17 specimens; full shared Component Lab 266/266; 19 TextField-targeted checks pass; SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0",
-        "Edge/Server Dev01: 17 specimens; full shared Component Lab 266/266; 19 TextField-targeted checks pass; SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0"
+        "Chrome/WebAssembly Dev01: 17 specimens; full shared Component Lab 273/273; 23 TextField-targeted checks pass; errors=[]; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: 17 specimens; full shared Component Lab 273/273; 23 TextField-targeted checks pass; errors=[]; cleanup remaining=0",
+        "Chrome/Server Dev01: 17 specimens; full shared Component Lab 270/270; 23 TextField-targeted checks pass; SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0",
+        "Edge/Server Dev01: 17 specimens; full shared Component Lab 270/270; 23 TextField-targeted checks pass; SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0"
       ],
-      "remaining": "Current-API Lab demonstrates live oninput and default onchange binding; native input/textarea; both textarea resize modes; disabled versus readonly; DigitOnly, AsciiDigits and ArabicToPersianConversion; independent and combined StartAddon/EndAddon; a separately named, keyboard-focusable EndAddon button that remains enabled beside a disabled native input; Small/Large sizes; first-interactive-render GainFocus; required DataAnnotations/EditContext validation; Bluent Label Display/Required association; native type/autocomplete/inputmode/aria-describedby/data-* forwarding; and Class/Style wrapper ownership. Still outstanding: all transform combinations plus paste/IME/caret behavior, complete keyboard/focus state matrix, RTL and theme/forced-colors visual verification, native Windows assistive technology, Fluent 2 Penpot approval, v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
+      "remaining": "Current-API Lab demonstrates live oninput and default onchange binding; native input/textarea; both textarea resize modes; disabled versus readonly; DigitOnly, AsciiDigits and ArabicToPersianConversion; real Ctrl+V clipboard-paste normalization for each transform; a synthetic DOM insertCompositionText/isComposing observation (not a real OS IME); independent and combined StartAddon/EndAddon; a separately named, keyboard-focusable EndAddon button that remains enabled beside a disabled native input; Small/Large sizes; first-interactive-render GainFocus; required DataAnnotations/EditContext validation; Bluent Label Display/Required association; native type/autocomplete/inputmode/aria-describedby/data-* forwarding; and Class/Style wrapper ownership. Still outstanding: all transform-flag combinations; real OS/physical IME engine behavior and native IME stability; caret/selection preservation under filtering/paste/composition; mobile/external keyboard behavior; the complete keyboard/focus state matrix; RTL and theme/forced-colors visual verification; native Windows assistive technology; Fluent 2 Penpot approval; v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-textfield-live-rtl-chrome-wasm.png",
-      "fourModeLocalBrowserEvidence": "2026-11-11 final local Dev01 runs after adding the interactive EndAddon fixture: Chrome/Edge WebAssembly 269/269 assertions each; Chrome/Edge published InteractiveServer 266/266 assertions each; aggregate 1070/1070 across the four runs. All 19 TextField-targeted checks passed in each run; errors=[] and browser cleanup remaining=0.",
+      "fourModeLocalBrowserEvidence": "2026-11-11 final local Dev01 runs after adding real clipboard paste and synthetic DOM composition observations: Chrome/Edge WebAssembly 273/273 assertions each; Chrome/Edge published InteractiveServer 270/270 assertions each; aggregate 1086/1086 across the four runs. All 23 TextField-targeted checks passed in each run; errors=[] and browser cleanup remaining=0. Three Ctrl+V clipboard-paste cases exercise all three transforms. The insertCompositionText/isComposing case is a synthetic DOM observation only, not native OS IME acceptance.",
       "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused; human visual approval pending. #432 TextField is In progress; this is current v2 API baseline evidence only, with no v3 implementation or product acceptance. Native OS ScreenReader/AT is not tested.",
       "expandedCurrentApiEvidence": {
         "date": "2026-11-11",
@@ -341,7 +344,7 @@
           "Microsoft Edge / WebAssembly",
           "Microsoft Edge / published InteractiveServer (SignalR WebSocket HTTP 101)"
         ],
-        "result": "All 19 explicitly named TextField-targeted checks passed in all four Chrome/Edge × WebAssembly/published InteractiveServer combinations. Full shared Component Lab check counts: 269/269 per WebAssembly run and 266/266 per InteractiveServer run; aggregate 1070/1070 across four runs. Every run completed browser cleanup with zero remaining owned processes. The separately named EndAddon action stayed independently focusable and Enter-operable beside a disabled native input.",
+        "result": "All 23 explicitly named TextField-targeted checks passed in all four Chrome/Edge × WebAssembly/published InteractiveServer combinations. Full shared Component Lab counts: 273/273 per WebAssembly run and 270/270 per InteractiveServer run; aggregate 1086/1086 across four runs. Each run ended with browser cleanup remaining=0. Real Ctrl+V clipboard paste triggered DigitOnly, AsciiDigits and ArabicToPersianConversion normalization. A synthetic DOM insertCompositionText/isComposing observation also normalized the text, but does not certify a real operating-system IME.",
         "verified": [
           "native input and textarea; Rows=3; resize enabled and disabled",
           "disabled versus readonly native semantics and focus behavior",
@@ -357,13 +360,17 @@
           "native type, autocomplete, inputmode, aria-describedby and data-testid attributes reach the input; Class and Style remain on the wrapper",
           "StartAddon-only and EndAddon-only rendering without the opposite addon slot",
           "interactive EndAddon button has an explicit accessible name and remains independently focusable/enabled when its parent TextField input is disabled",
-          "Tab from the preceding input reaches the EndAddon button and Enter activates its callback exactly once"
+          "Tab from the preceding input reaches the EndAddon button and Enter activates its callback exactly once",
+          "real native Ctrl+V clipboard paste into DigitOnly normalizes mixed ASCII/Persian/Arabic-Indic digits and strips non-digits",
+          "real native Ctrl+V clipboard paste into AsciiDigits normalizes Persian and Arabic-Indic numerals to ASCII",
+          "real native Ctrl+V clipboard paste into ArabicToPersianConversion normalizes Arabic kaf/yeh to Persian kaf/yeh",
+          "synthetic DOM insertCompositionText input with isComposing=true is observed and normalized by the current v2 setter; this is not native OS/IME engine acceptance"
         ],
         "boundary": "This is current released/v2 API baseline evidence in the shared Component Lab. It is not v3 TextField implementation, Fluent 2 parity, approved Penpot design, native OS contrast, or assistive-technology acceptance.",
-        "assertionScope": "269/269 is the full shared Component Lab probe count in each WebAssembly browser run; 266/266 is the full shared Component Lab count in each InteractiveServer browser run. The aggregate 1070/1070 is across all four runs, not a TextField-only count. The 19 explicitly named TextField-targeted checks passed in each run.",
+        "assertionScope": "273/273 is the full shared Component Lab probe count in each WebAssembly browser run; 270/270 is the full shared Component Lab count in each InteractiveServer browser run. The aggregate 1086/1086 is across all four runs, not a TextField-only count. The 23 explicitly named TextField-targeted checks passed in each run.",
         "fullSharedLabAssertionsByRenderMode": {
-          "WebAssembly": 269,
-          "InteractiveServer": 266
+          "WebAssembly": 273,
+          "InteractiveServer": 270
         }
       },
       "exactHeadGitHubCI": {
