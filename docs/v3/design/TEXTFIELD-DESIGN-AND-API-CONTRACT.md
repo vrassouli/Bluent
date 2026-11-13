@@ -1,6 +1,6 @@
 # TextField design and API contract — Issue #432
 
-> **Status:** draft design/API audit, updated 2026-11-11. This is not a released v3 API, runtime implementation, or maintainer parity sign-off. Task branch: **v3/issue-432-textfield**, based on **bluent-v3** commit **bcd56ac8f6d8271f341747dbf2e6816fa768ff4f**.
+> **Status:** draft design/API audit, updated 2026-11-13. This is not a released v3 API, runtime implementation, or maintainer parity sign-off. Task branch: **v3/issue-432-textfield**, based on **bluent-v3** commit **bcd56ac8f6d8271f341747dbf2e6816fa768ff4f**.
 
 ## 1. Identity and design provenance
 
@@ -117,6 +117,30 @@ Source read from task branch base commit bcd56ac8f6d8271f341747dbf2e6816fa768ff4
 
 No TextField-specific focus/change/blur EventCallbacks or generic ChildContent exist in current source. StartAddon and EndAddon are the supported slots.
 
+### Inherited public and framework surface
+
+The public contract is larger than the six parameters declared directly on `TextField`. The current source inheritance chain contributes the following members:
+
+| Member | Origin | CLR shape / behavior | API classification |
+| --- | --- | --- | --- |
+| `Value` | `InputBase<string?>` | `string?`; current value | Blazor parameter; supports `@bind-Value` |
+| `ValueChanged` | `InputBase<string?>` | `EventCallback<string?>` | Blazor parameter; paired with `Value` |
+| `ValueExpression` | `InputBase<string?>` | `Expression<Func<string?>>` | Blazor parameter; drives `FieldIdentifier` and validation |
+| `AdditionalAttributes` | `InputBase<string?>` | `IReadOnlyDictionary<string, object>?` capture-unmatched-values | Blazor parameter; forwarded to the native input/textarea except `class` |
+| `DisplayName` | `InputBase<string?>` | `string?` | Blazor parameter; validation/display text |
+| `Class` | `BluentInputComponentBase<string?>` | `string?` | Bluent parameter; applied to wrapper class list |
+| `Style` | `BluentInputComponentBase<string?>` | `string?` | Bluent parameter; applied to wrapper `style` |
+| `StartAddon` / `EndAddon` | `BluentFieldComponentBase<string?>` | `RenderFragment?` | Bluent parameters; separate leading/trailing wrapper slots |
+| `Size` | `BluentFieldComponentBase<string?>` | `FieldSize`, default `Medium` | Bluent parameter; `Small`, `Medium`, `Large` |
+| `BindValueEvent` | `BluentFieldComponentBase<string?>` | `string`, default `onchange` | Bluent parameter; selects the native value-binding event |
+| `Element` | `BluentInputComponentBase<string?>` | public `ElementReference?`, `[DisallowNull]` | Public component property populated by `@ref`; not a `[Parameter]` |
+| `Id` | `BluentInputComponentBase<string?>` | public getter / protected setter | Public derived identity; caller id wins, otherwise generated/member-name behavior |
+| `Field` | `BluentInputComponentBase<string?>` | public `FieldIdentifier` getter | Public read-only projection of the inherited `FieldIdentifier` |
+| `EditContext` / `FieldIdentifier` / `CssClass` | `InputBase<string?>` | framework context and computed members | Inherited framework behavior; not TextField-specific parameters |
+| `DomHelper` | `BluentInputComponentBase<string?>` | protected injected `IDomHelper?` | Internal inherited service dependency; used for accesskey platform hint behavior |
+
+The base implementation synthesizes a temporary `ValueExpression` when none is supplied outside an `EditForm`, filters unmatched `class` out of native attributes, composes `Class` and `CssClass` on the wrapper, and obtains the native `name` through `NameAttributeValue`. The current disabled CSS helper checks the unmatched `disabled` value; no separate TextField `Disabled` or `ReadOnly` parameter exists. `Element`, `Field` and `Id` are public members but are not consumer-settable Razor parameters.
+
 ### Fluent counterpart and Bluent-extension map
 
 | Existing Bluent API / behavior | Closest Fluent counterpart | Disposition for v3 review |
@@ -143,7 +167,7 @@ The current ValueStringProxy setter applies enabled transforms in this exact ord
 2. AsciiDigits → ToAsciiDigits(): maps Persian and Arabic-Indic numerals to ASCII.
 3. ArabicToPersianConversion → ToPersianChars(): with default normalization, maps Arabic kaf to Persian kaf and Arabic yeh/alef maksura to Persian yeh; it is not full Arabic normalization.
 
-All three flags default to false. Combined-flag behavior, cursor preservation, paste composition and IME interaction need explicit tests before claiming parity. Do not silently reorder this pipeline.
+All three flags default to false. **Current-API regression evidence (2026-11-13):** all eight boolean combinations (none, each single flag, each pair and all three) now have live Component Lab specimens. Each of the four multi-flag combinations has a real native browser Ctrl+V clipboard test. `DigitOnly + AsciiDigits` filters to decimal digits and then yields ASCII `123456`; `DigitOnly + ArabicToPersianConversion` filters first, normalizes Arabic kaf/yeh, and keeps the original Persian/Arabic-Indic digit script (`۱۲٣٤56`). `AsciiDigits + ArabicToPersianConversion` and the three-flag pipeline are also covered by real paste; the three-flag pipeline has an additional native browser text-insertion/bound-model check. This does **not** prove physical OS IME stability or caret/selection preservation: the existing `insertCompositionText`/`isComposing` case is synthetic DOM observation only. Do not silently reorder this pipeline.
 
 ### Native markup and lifecycle
 
@@ -214,7 +238,7 @@ Do not publish proposed parameters such as Appearance, ReadOnly, HelperText, Err
 
 ## 5. Demo and test coverage to build
 
-The #421 Component Lab platform is reusable infrastructure, not complete TextField acceptance. On 2026-11-11 its current-API TextField pilot was expanded to seventeen live specimens: oninput and default onchange binding, input/textarea, both textarea resize modes, disabled and readonly, each of the three text transforms, combined and independent StartAddon/EndAddon, Small/Large sizes, first-render GainFocus, required DataAnnotations/EditContext validation, Bluent Label Display/Required association, and native attribute plus Class/Style forwarding. A seventeenth current-API fixture nests a named Clear button in EndAddon beside a disabled native input; the browser probe verifies it stays independently focusable/enabled, receives the next Tab stop and activates once with Enter. Final local Chromium CDP checks passed in all four Chrome/Edge × WebAssembly/published InteractiveServer combinations: 273/273 full-Lab assertions per WASM run and 270/270 per Server run (1086/1086 aggregate). All 23 TextField-targeted checks passed in each run, including GainFocus, invalid-to-valid form validation, default onchange, independent addon slots, native attributes, the interactive keyboard-operated addon, and real Ctrl+V clipboard-paste normalization for all three transforms. A synthetic DOM insertCompositionText/isComposing observation also normalized through the current v2 setter; this is not a real OS IME engine or native IME stability test. Server runs completed real SignalR HTTP 101 handshakes; every run ended with zero owned browser processes remaining. Exact current evidence and its limitations are recorded in `docs/v3/quality/COMPONENT-LAB-COVERAGE.json`. This remains v2/current-API regression evidence only: it does not implement the v3 TextField, prove approved design parity, or complete the exhaustive scenario matrix below.
+The #421 Component Lab platform is reusable infrastructure, not complete TextField acceptance. On 2026-11-13 the existing current-API TextField pilot was expanded to **21 live specimens**. The three transform flags have all **eight on/off combinations** represented, and each of the four multi-flag combinations has real native Ctrl+V coverage. The suite has **28 explicitly named TextField-targeted checks per run**. Final local Dev01 matrix: Chrome/Edge WebAssembly **278/278 full shared-Lab assertions each**, and Chrome/Edge published InteractiveServer **275/275 each**, aggregate **1106/1106** across all four runs. The 28 TextField checks are a subset of those totals, not an additional count. Every run recorded no browser JS errors and owned profile cleanup `remaining=0`; both Server runs completed SignalR WebSocket HTTP 101. The dedicated fixture verifies every transform combination; a named EndAddon button remains independently focusable/enabled beside a disabled input, receives the next Tab stop and activates once with Enter; form validation, `GainFocus`, `onchange`, attributes and label associations remain covered. Synthetic DOM composition is not a physical OS IME test. Exact-head GitHub CI on commit `160c26bc3a0fcc482e78080bfdcd3062ff4942d8` passed **23/23 checks across seven workflows**, including Release build/tests/five-package validation, Component Lab, compatibility browsers, Popover, Button runtime, source/census and docs. The first Edge/WASM native-site-zoom attempt exposed a transient Chart.js startup canvas snapshot/label-focus failure; the isolated retry passed Edge at native site zoom 200% and 400% (`10/10` each, overflow 0, cleanup remaining 0), with the full exact-head workflow green. This remains v2/current-API regression evidence only: it does not implement the v3 TextField, prove approved design parity or complete the exhaustive scenario matrix below.
 
 Component-specific demo scenarios:
 
@@ -277,7 +301,7 @@ Add a component-specific Skill only after a real v3 API and canonical reference 
 
 ## 6. Dependencies, gating and next steps
 
-Live GitHub Project #5 checked on 2026-11-11:
+Live GitHub Project #5 checked on 2026-11-13:
 
 - #417 architecture: Done.
 - #419 Penpot workflow: Done.
@@ -286,6 +310,10 @@ Live GitHub Project #5 checked on 2026-11-11:
 - #421 Component Lab / 66-family ledger: In progress; platform exists, but the TextField pilot is not exhaustive.
 - #418 tokens/themes: Review; exact token names/values and production mappings still await acceptance.
 - #432 TextField: In progress.
+
+Exact-head engineering verification on `160c26bc3a0fcc482e78080bfdcd3062ff4942d8`: **23/23 GitHub checks passed across 7 workflows**. The Edge/WebAssembly native-site-zoom job passed on isolated retry: 200% and 400% each 10/10, zero settled overflow, zero cleanup residue. The complete checks are linked from [PR #562](https://github.com/vrassouli/Bluent/pull/562).
+
+The Penpot working file contains four #432 review pages (17–20): full appearance/state matrix, anatomy/sizing/RTL, keyboard/forced-colors/reflow, and Fluent crosswalk/composite state rules. All four corresponding #432 boards remain explicitly **DRAFT**. The design pages are evidence of a reviewable proposal, not approval. #418 remains Review and #421 remains In progress; therefore final token mapping and the shared demo/coverage contract are not complete prerequisites.
 
 The accepted #417 architecture and completed #419 design workflow are not substitutes for #418 token acceptance. This document and Penpot boards may progress with visible provisional annotations. Runtime CSS consuming new semantic/component token aliases must wait for actual #418 acceptance and the current bluent-v3 integration.
 
@@ -296,4 +324,4 @@ Next sequence:
 4. Run zero-warning Release build/tests, pack checks, browser visual/keyboard/RTL/theme/forced-colors validation and available assistive-technology tests.
 5. Open a PR from v3/issue-432-textfield to bluent-v3. Do not merge into Dev, publish stable packages or close #432 from this task branch.
 
-**Current boundary (2026-11-11):** design/API audit plus current-API Lab regression coverage are active; v3 runtime implementation and Fluent-parity acceptance are not complete. The expanded Lab evidence must not be represented as v3 component acceptance.
+**Current boundary (2026-11-13):** design/API audit plus current-API Lab regression coverage are active; v3 runtime implementation and Fluent-parity acceptance are not complete. The expanded Lab evidence must not be represented as v3 component acceptance.
