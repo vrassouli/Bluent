@@ -613,3 +613,14 @@ The four page-16 `variantError` metadata records remain open even though their `
 The five active Filled darker placeholders still measure **4.347:1** (`#62758a` on `#f5f5f5`). No color was substituted; use only the final #418 approved token mapping after its maintainer acceptance. The current #418 project state is still Review, so runtime CSS based on preview token names/values remains gated.
 
 GitHub Actions for exact head `741aa3331b3dd87910ba0d7f71ef7377c835cc5d` completed **7/7 workflows successfully**: Documentation Contract, Public Component Census, Baseline Quality Gate, Component Lab Pilot, Button Runtime Contract, Interaction Source Contract and Real Compatibility Browsers. This is shared repository/branch quality evidence, not v3 TextField acceptance. #432 remains In progress, PR #562 remains open/unmerged and targets `bluent-v3`; no stable/v2 branch, package, release or deployment changed.
+
+## TextField #432 — Penpot variant metadata repaired; placeholder role sent to #418 — 2026-11-13
+
+Repaired the four invalid page-16 TextField variant-name metadata records in the owned Penpot file. The fix had to be applied to each original main-instance shape while page 16 (`e31294c6-7c55-805f-8008-c51213e75deb`) was the active page; changing the library wrapper name or editing from another active page did not clear the diagnostic. After editing the four originals and reopening page 16, the source model reports **28 variants / 28 unique State × Appearance pairs / zero `variantError` values**. All State and Appearance property values are unchanged; no geometry, fills, text, size, position or membership changed.
+
+Investigated the remaining Filled darker placeholder contrast issue. Current `#62758a` on `#f5f5f5` measures **4.3472:1**. Across all 20 emitted theme files (10 brands × Light/Dark), existing neutral roles yield:
+
+- `--colorNeutralForeground4`: Light `#707070` = **4.5423:1** on the TextField specimen; Dark `#999999` = **5.1064:1** on `#292929`.
+- `--colorNeutralForeground3`: Light `#616161` = **5.6807:1**; Dark `#adadad` = **6.4827:1** on `#292929`.
+
+The preview schema has no explicit placeholder semantic/component token. Fluent React v9 evidence points to FG4, but that is not a universal Fluent rule and the TextField design crosswalk distinguishes React Input from Web Components TextField. A downstream role decision request is now posted on #418 PR #500 (comment `6855027097`), comparing FG4, FG3 and a dedicated placeholder role. No role is selected, no preview or Penpot colors were changed, and no product CSS/runtime work is authorized. #418 remains Review; #432 remains In progress.

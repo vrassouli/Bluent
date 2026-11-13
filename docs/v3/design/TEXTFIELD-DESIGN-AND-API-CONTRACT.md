@@ -402,3 +402,31 @@ The earlier PNG endpoint failure and `openPage` timeout were transient session/t
 - Disabled examples remain separately scoped to disabled controls and are not reclassified as ordinary text failures. ReadOnly values and dark/forced-colors sample pairs passed against their actual inner surfaces.
 
 No persistent Penpot shapes, fills, dimensions, positions or component mappings were modified during this follow-up. No runtime API, Razor, C#, CSS, token or package change is authorized by this design review.
+
+## TextField #432 — repair Penpot variant-name metadata and placeholder token decision request — 2026-11-13
+
+### Page-16 variant metadata repair
+
+The four non-empty `variantError` diagnostics reported in the previous audit have now been repaired in the owned **Bluent v3 Design System** Penpot file (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`). Root cause: the invalid-name diagnostics are stored against the library variant component, and the repair must rename the original main-instance shape while its owning source page is active. Updating the `LibraryElement.name` wrapper or editing a component from a different active page does not repair this metadata.
+
+- Activated source page 16, `16 · Bluent TextField variants` (`e31294c6-7c55-805f-8008-c51213e75deb`).
+- For each of the four affected variants, set the original main-instance shape name to the existing property-pair syntax (`State=<value>, Appearance=<value>`). This clears Penpot’s invalid-name metadata without changing `variantProps`.
+- Repaired component IDs: `e31294c6-7c55-805f-8008-c5126f8392cc`, `e31294c6-7c55-805f-8008-c5126f8822cf`, `e31294c6-7c55-805f-8008-c5126f8c17f3`, and `e31294c6-7c55-805f-8008-c5126f8f4697`.
+- Switched away from page 16 and reopened it before verifying persistence.
+
+Final source-model verification: **28 components, 28 unique State × Appearance pairs, zero non-empty `variantError` values**, and all State/Appearance values remain within the expected seven/four enumerations. No variant property, visual fill, size, position, text content or component membership was changed. The earlier audit entries documenting the original four errors remain as historical evidence; this follow-up supersedes their “still open” status.
+
+### Filled darker placeholder — measured alternatives, no token selection
+
+The current page-17 Filled darker placeholder sample remains `#62758a` on its immediate `#f5f5f5` input surface (**4.3472:1**). The #418 branch schema currently has no explicit TextField placeholder semantic/component alias. I inspected the ten emitted theme CSS files in both Light and Dark modes (20 brand×mode outputs); the neutral source values are shared across all ten emitted brand themes.
+
+| Existing Fluent source role | Light value | Contrast on #f5f5f5 | Dark value | Contrast on #292929 |
+| --- | ---: | ---: | ---: | ---: |
+| `--colorNeutralForeground4` | `#707070` | 4.5423:1 | `#999999` | 5.1064:1 |
+| `--colorNeutralForeground3` | `#616161` | 5.6807:1 | `#adadad` | 6.4827:1 |
+
+The investigation also found Fluent React v9 placeholder usage of `--colorNeutralForeground4` in [Fluent UI discussion #34002](https://github.com/microsoft/fluentui/discussions/34002). This is useful compatibility evidence, not a universal Fluent contract: the #432 crosswalk distinguishes Fluent React Input from Fluent Web Components TextField. FG4 narrowly passes the current light Filled darker specimen; FG3 gives more contrast headroom but is visually stronger.
+
+A downstream decision request was posted to #418 PR #500 (comment `6855027097`) asking the foundation owner to choose between the closer React-aligned FG4 role, the higher-contrast FG3 role, or a dedicated placeholder semantic role with an explicitly selected source mapping. This is a request for review, not an approval. No Penpot placeholder color, #418 token schema, opt-in CSS, production CSS, or runtime code was changed.
+
+#418 remains Review and PR #500 remains open. TextField placeholder styling stays gated until the shared semantic role/source mapping and design are explicitly accepted.
