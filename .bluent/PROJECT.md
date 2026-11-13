@@ -592,3 +592,14 @@ Exact run records: `43416474367`, `43416474377`, `43416474380`, `43416474385`, `
 Local verification on the same head: TextField source/API contract guard passed; focused guard tests **14/14**; v3 docs contract **0 findings**; Markdown links **171 files**; `git diff --check` passed; worktree was clean at push. This exact-head CI closeout supersedes the earlier 'still running' checkpoint for `233bf220`.
 
 This proves the shared repository quality and compatibility workflows on the current branch head; it does **not** implement the v3 TextField or prove caret/selection preservation, physical OS IME, native accessibility, or Penpot parity. #418 remains Review with its token/API approval still outstanding, Penpot TextField pages 17–20 remain DRAFT, #432 remains In progress and PR #562 remains open/unmerged. No stable/v2 branch, NuGet package, release or deployment was changed.
+
+
+## TextField #432 — Penpot model and contrast audit — 2026-11-13
+
+Audited the connected **Bluent v3 Design System** Penpot file without changing its contents. Pages 17–20 are the four #432 design boards; page 17 contains all 28 unique State × Appearance combinations and the four boards have zero measured descendants outside their bounds. The source variant set on page 16 has four non-empty Penpot variantError metadata records, while their variantProps still contain the intended values.
+
+Calculated text contrast for the 28 TextField sample text nodes using each node's actual containing input-surface fill. Active Outline, Filled lighter and Underline placeholders are 4.74:1. The five active Filled darker state placeholders are **4.347:1** (#62758a over #f5f5f5), below the 4.5:1 normal-text threshold and requiring a design correction. Four Disabled examples are 2.314–2.523:1 and are retained as disabled-state review examples; four ReadOnly values are 9.218–10.05:1. The Dark anatomy and black forced-colors samples pass when compared with their actual inner surfaces.
+
+The Penpot model and SVG markup can be inspected, but the PNG export endpoint returned a network fetch error and page activation timed out. No rendered PNG/pixel-parity review or maintainer sign-off is claimed; pages 17–20 remain DRAFT. No shapes or product source were modified. Keep the contrast/variant metadata findings open for design review and do not substitute unapproved #418 tokens or arbitrary colors.
+
+Latest prior exact-head GitHub CI on 1a4bfe87329a36b8f174dfa83652941a556003ae: all seven workflows succeeded (23/23 jobs). This audit is documentation/evidence only; #418 remains Review, #432 remains In progress, and PR #562 remains open/unmerged. No v3 runtime implementation, merge, package publish, deployment, or stable/v2 changes are claimed.

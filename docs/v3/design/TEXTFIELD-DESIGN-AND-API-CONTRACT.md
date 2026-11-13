@@ -339,3 +339,45 @@ The v3 Documentation Contract workflow now runs `scripts/quality/check_v3_textfi
 - Workflow path filters and the actual CI step invoking the checker/tests, so the guard cannot quietly stop running when its source or API docs change.
 
 Twelve local source/API guard tests include positive source/documentation parity and negative mutations for direct/inherited API drift, transform reordering, native textarea removal, evidence overclaiming and CI trigger removal. In addition, the NUnit suite now has ten direct tests of the internal value pipeline: all eight transform-flag combinations plus null and empty input. Negative source-guard mutations run against temporary copies and do not modify the working tree. These tests protect the existing transform behavior; they are not browser, caret/IME, v3 component implementation or design-approval evidence.
+
+
+## 8. Penpot model audit and contrast findings — 2026-11-13
+
+A source-model audit was performed against the connected **Bluent v3 Design System** file (Penpot file ID b64f6665-c9ab-80b5-8008-c4ac99d9d000). The authoritative TextField boards are:
+
+| Penpot page | Board | Scope |
+| --- | --- | --- |
+| 17 · TextField full matrix | 343383cb-23d3-80b8-8008-ec424306af65 | 7 states × 4 appearances |
+| 18 · TextField anatomy, sizing & RTL | 343383cb-23d3-80b8-8008-ec43be3b98e5 | Input/textarea anatomy, addons, sizes and direction |
+| 19 · TextField keyboard, contrast & reflow | 343383cb-23d3-80b8-8008-ec440d2d8ed7 | Keyboard, forced-colors and responsive acceptance intent |
+| 20 · Fluent crosswalk & state precedence | 343383cb-23d3-80b8-8008-ec45d29ff553 | Web Components versus React reference scope and composite states |
+
+### Structural/model results
+
+- Page 17 exposes all **28 unique State × Appearance combinations** (Rest, Hover, Pressed, Focus, Error, Disabled, ReadOnly × Outline, Filled lighter, Filled darker, Underline); no duplicate pairing was found.
+- The four boards have **zero descendants outside their board bounds** by the measured shape geometry.
+- The source variant container on page 16 has the intended State and Appearance properties and 28 combinations. Four variant components still expose non-empty Penpot variantError metadata (IDs: e31294c6-7c55-805f-8008-c5126f8392cc, e31294c6-7c55-805f-8008-c5126f8822cf, e31294c6-7c55-805f-8008-c5126f8c17f3, e31294c6-7c55-805f-8008-c5126f8f4697). Their variantProps still report the intended state/appearance values; this is a component-name/variant metadata defect, not evidence that the property mapping itself is wrong.
+- No Penpot shapes, text, fills, sizes, or positions were changed during this audit.
+
+### Text contrast calculation from page 17 fills
+
+The calculation uses the actual input-surface rectangle containing each text node, not the outer board/card background. It applies the WCAG relative-luminance contrast formula to the stored foreground and surface hex fills. The 28 sample text nodes consist of 24 placeholders and four ReadOnly values.
+
+| Appearance / state | Foreground on surface | Measured contrast | Result |
+| --- | --- | ---: | --- |
+| Outline / active five states | #62758a on #ffffff | 4.74:1 | Meets 4.5:1 |
+| Filled lighter / active five states | #62758a on #ffffff | 4.74:1 | Meets 4.5:1 |
+| Underline / active five states | #62758a on #ffffff | 4.74:1 | Meets 4.5:1 |
+| Filled darker / Rest, Hover, Pressed, Focus, Error | #62758a on #f5f5f5 | **4.347:1** | **Below 4.5:1; design correction required** |
+| Disabled / four appearances | #a3a3a3 on #ffffff or #f5f5f5 | 2.314–2.523:1 | Disabled-state contrast exception; retain as an explicit review item |
+| ReadOnly / four appearances | #424242 on #ffffff or #f5f5f5 | 9.218–10.05:1 | Meets 4.5:1 |
+
+The five active Filled darker placeholder samples share the same 4.347:1 result. This is a **design finding**, not a production-code defect or approval of an alternative color. Do not choose a replacement hex value or consume a new semantic token here; resolve the foreground/surface pair in the authoritative design after #418 approves the token mapping.
+
+The dark anatomy sample and the black forced-colors sample were separately checked against their actual inner surfaces (#292929 and #000000 respectively); the earlier apparent low-contrast readings against the outer light board background were false positives from using the wrong comparison surface.
+
+### Visual-export limitation and acceptance boundary
+
+Penpot model inspection and SVG markup generation succeeded. The Penpot PNG export endpoint failed with a network fetch error, and attempts to activate the TextField pages through openPage timed out. Consequently this is **model/geometry/contrast evidence only**: no fresh PNG visual review, rendered-pixel parity review, or maintainer visual sign-off is claimed. All four boards remain **DRAFT**. The four variant metadata defects and the Filled darker placeholder contrast finding remain open for design review.
+
+#418 remains Review, with token vocabulary/values and production mappings awaiting acceptance. #432 remains In progress. This audit does not authorize v3 runtime CSS, merge, package publication, deployment, or changes to stable/v2 branches.
