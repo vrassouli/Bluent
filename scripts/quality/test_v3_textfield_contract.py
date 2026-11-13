@@ -109,6 +109,13 @@ class TextFieldContractTests(unittest.TestCase):
     def test_native_textarea_branch_is_required(self):
         self._check_mutation("razor", "<textarea @attributes=GetInputAdditionalAttributes()", "<textarea disabled")
 
+    def test_transform_caret_acceptance_scenario_cannot_disappear(self):
+        self._check_mutation(
+            "contract",
+            "TF-TRANSFORM-005 | Mid-string digit normalization",
+            "TF-TRANSFORM-005 | missing caret scenario",
+        )
+
     def test_evidence_scope_cannot_claim_v3_implementation(self):
         self._check_mutation("contract", "This is not a released v3 API", "This is a released v3 API")
 

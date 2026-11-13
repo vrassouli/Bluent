@@ -204,7 +204,7 @@ def check_textfield_contract(root: Path) -> None:
     _require(contract, (
         "all eight boolean combinations", "DigitOnly + AsciiDigits", "DigitOnly + ArabicToPersianConversion",
         "AsciiDigits + ArabicToPersianConversion", "21 live specimens", "28 explicitly named TextField-targeted checks",
-        "not a released v3 API", "does not implement the v3 TextField", "not a physical OS IME test",
+        "not a released v3 API", "does not implement the v3 TextField", "not a physical OS IME test", "TF-TRANSFORM-005 | Mid-string digit normalization", "selectionStart/selectionEnd",
     ), "TextField canonical design/API contract")
 
     _require(docs_workflow, (
