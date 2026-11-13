@@ -54,11 +54,32 @@ class TextFieldContractTests(unittest.TestCase):
     def test_direct_parameter_documentation_type_drift_is_rejected(self):
         self._check_mutation("contract", "| Rows | int? | null |", "| Rows | string | null |")
 
+    def test_direct_boolean_parameter_cannot_gain_an_explicit_true_default(self):
+        self._check_mutation(
+            "code",
+            "[Parameter] public bool DigitOnly { get; set; }",
+            "[Parameter] public bool DigitOnly { get; set; } = true;",
+        )
+
     def test_inherited_parameter_documentation_cannot_disappear(self):
         self._check_mutation(
             "contract",
             "| `BindValueEvent` | `BluentFieldComponentBase<string?>` | `string`",
             "| `BindValueEvent` | `BluentFieldComponentBase<string?>` | `event`",
+        )
+
+    def test_inherited_bind_event_default_is_checked_against_source(self):
+        self._check_mutation(
+            "field_base",
+            '[Parameter] public string BindValueEvent { get; set; } = "onchange";',
+            '[Parameter] public string BindValueEvent { get; set; } = "oninput";',
+        )
+
+    def test_inherited_size_default_is_checked_against_source(self):
+        self._check_mutation(
+            "field_base",
+            "[Parameter] public FieldSize Size { get; set; } = FieldSize.Medium;",
+            "[Parameter] public FieldSize Size { get; set; } = FieldSize.Small;",
         )
 
     def test_inherited_source_parameter_cannot_disappear(self):

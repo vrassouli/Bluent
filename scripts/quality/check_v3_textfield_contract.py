@@ -18,7 +18,8 @@ _DIRECT_PARAMETERS = {
 }
 _PARAMETER_RE = re.compile(
     r"\[Parameter\]\s*public\s+(?P<type>[\w<>?,.]+)\s+"
-    r"(?P<name>\w+)\s*\{\s*get;\s*set;\s*\}"
+    r"(?P<name>\w+)\s*\{\s*get;\s*set;\s*\}\s*"
+    r"(?:=\s*(?P<initializer>[^;]+);)?"
 )
 
 
@@ -37,6 +38,24 @@ def _require(text: str, needles: tuple[str, ...], origin: str) -> None:
 
 def _direct_parameter_map(source: str) -> dict[str, str]:
     return {match.group("name"): match.group("type") for match in _PARAMETER_RE.finditer(source)}
+
+
+def _parameter_initializers(source: str) -> dict[str, str | None]:
+    return {
+        match.group("name"): (match.group("initializer").strip() if match.group("initializer") else None)
+        for match in _PARAMETER_RE.finditer(source)
+    }
+
+
+def _normalized_default(initializer: str | None) -> str | None:
+    if initializer is None:
+        return None
+    value = initializer.strip()
+    if len(value) >= 2 and value[0] == value[-1] == '"':
+        return value[1:-1]
+    if value.startswith("FieldSize."):
+        return value.rsplit(".", 1)[-1]
+    return value
 
 
 def _table_rows(markdown: str, heading: str) -> dict[str, tuple[str, ...]]:
@@ -72,6 +91,7 @@ def check_textfield_contract(root: Path) -> None:
 
     # Direct CLR declarations and the documented direct parameter matrix must agree.
     source_parameters = _direct_parameter_map(code)
+    source_defaults = _parameter_initializers(code)
     direct_rows = _table_rows(contract, "TextField parameters")
     expected_source = {name: shape[0] for name, shape in _DIRECT_PARAMETERS.items()}
     if source_parameters != expected_source:
@@ -87,6 +107,12 @@ def check_textfield_contract(root: Path) -> None:
         if len(row) < 2 or row[0] != expected_type or row[1] != expected_default:
             raise TextFieldContractError(
                 f"TextField parameter {name} docs drifted: expected {expected_type}/{expected_default}, found {row}"
+            )
+        # These direct parameters rely on CLR defaults (false/null). An explicit initializer
+        # would silently change consumer behavior while keeping the same type and name.
+        if source_defaults.get(name) is not None:
+            raise TextFieldContractError(
+                f"TextField parameter {name} has an explicit initializer {source_defaults[name]!r}; expected CLR default {expected_default}"
             )
 
     # Verify the actual inheritance chain and the Bluent-owned inherited Razor parameters.
@@ -105,6 +131,10 @@ def check_textfield_contract(root: Path) -> None:
         **_direct_parameter_map(field_base),
         **_direct_parameter_map(input_base),
     }
+    inherited_defaults = {
+        **_parameter_initializers(field_base),
+        **_parameter_initializers(input_base),
+    }
     for name, (expected_type, _) in expected_inherited.items():
         if inherited_source.get(name) != expected_type:
             raise TextFieldContractError(
@@ -116,6 +146,14 @@ def check_textfield_contract(root: Path) -> None:
         if row is None or len(row) < 2 or row[0] != origin or expected_type not in row[1]:
             raise TextFieldContractError(
                 f"Inherited TextField API row {name} is missing/inconsistent; expected {origin}/{expected_type}, found {row}"
+            )
+    inherited_expected_defaults = {"Size": "Medium", "BindValueEvent": "onchange"}
+    for name, expected_default in inherited_expected_defaults.items():
+        actual_default = _normalized_default(inherited_defaults.get(name))
+        documented = inherited_rows[name][1]
+        if actual_default != expected_default or f"default {expected_default}" not in documented:
+            raise TextFieldContractError(
+                f"Inherited TextField parameter {name} default drifted: source={actual_default!r}, docs={documented!r}, expected={expected_default!r}"
             )
     framework_members = (
         "Value", "ValueChanged", "ValueExpression", "AdditionalAttributes", "DisplayName",
