@@ -441,3 +441,34 @@ Added a separate, explicitly **DRAFT** decision aid below the existing page-19 a
 - All 25 children are within the board bounds. A PNG export was generated and visually reviewed; labels, swatches, measured ratios and the decision gate are readable.
 
 This is an editable comparison/review aid only. It adds no Penpot design token, changes no token binding or placeholder color, and is not a design approval. See #418 PR #500 downstream request comment `6855027097`.
+## TextField #432 — exact pinned Fluent placeholder source and corrected Filled darker contrast — 2026-11-13
+
+### Exact upstream version verification
+
+Downloaded the exact pinned `@fluentui/web-components@3.1.3` package with `npm pack` and inspected its compiled `dist/esm/text-input/text-input.styles.css` (package metadata confirms version 3.1.3). The npm tarball integrity `sha512-1jl4CHoFFSfevkr8l7F+dKNJzyMWBZqwQfB/khNZtwyY0rv87799mpDWSVu0QeiZAFEbqCtnAOnXWsxJ/kek+Q==` matches the frozen #552 package-version evidence.
+
+The exact pinned CSS confirms:
+- `.control::placeholder` → `var(--colorNeutralForeground4)` (CSS line 82).
+- Disabled placeholder selector → `var(--colorNeutralForegroundDisabled)` (lines 129–132).
+- `[appearance=filled-darker] .root` background → `var(--colorNeutralBackground3)` (lines 193–194).
+
+This is direct evidence from the pinned package, not current Fluent `master` or a React-only comparator.
+
+### Correct Filled darker contrast comparison
+
+The prior comparison used the wrong Dark surface (`colorNeutralBackground1`, `#292929`). The exact Fluent 3.1.3 Filled darker surface is `colorNeutralBackground3`; the emitted #418 themes use `#f5f5f5` in Light and `#141414` in Dark. All ten emitted brand themes share these neutral role values per mode.
+
+| Source role | Light foreground / BG3 | Light contrast | Dark foreground / BG3 | Dark contrast |
+| --- | --- | ---: | --- | ---: |
+| `--colorNeutralForeground4` | `#707070` / `#f5f5f5` | **4.5423:1** | `#999999` / `#141414` | **6.4663:1** |
+| `--colorNeutralForeground3` | `#616161` / `#f5f5f5` | **5.6807:1** | `#adadad` / `#141414` | **8.2092:1** |
+
+The current TextField design sample remains `#62758a` on Light BG3 `#f5f5f5` (**4.3472:1**), below the 4.5:1 normal-text threshold. FG4 is the exact pinned Fluent Web Components placeholder role and passes both modes; the Light pair has only 0.0423:1 headroom. FG3 gives higher contrast but is a stronger visual treatment than the pinned upstream role. The exact pinned source separately maps disabled placeholder text to `colorNeutralForegroundDisabled`.
+
+### Penpot comparison board updated
+
+Updated the existing DRAFT comparison board on page 19: `#432 · Placeholder role comparison · DRAFT`, board `07d10be0-910e-8048-8008-f09180896f55`. Dark pairs now use BG3 `#141414` and ratios 6.4663:1 / 8.2092:1. Re-exported and visually reviewed the PNG. All 25 children remain within bounds. The source TextField matrix and its 28 specimens are unchanged; no token, binding, or production color was changed.
+
+### Foundation decision request
+
+Updated the downstream decision request on #418 PR #500 (comment `6855027097`) with the exact pinned package evidence. Recommendation: use FG4 as the source role for ordinary placeholders and FGDisabled for disabled placeholders, then have #418 approve the semantic/public placeholder mapping. FG3 remains a contrast-heavier departure option. The current #418 preview schema has no explicit TextField placeholder role, and no maintainer decision has been recorded; therefore #432 does not consume an unapproved token or implement CSS.
