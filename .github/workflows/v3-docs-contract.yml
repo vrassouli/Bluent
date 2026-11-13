@@ -21,6 +21,12 @@ on:
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Labels.razor"
       - "scripts/quality/check_v3_label_contract.py"
       - "scripts/quality/test_v3_label_contract.py"
+      - "src/Bluent.UI/Components/TextFieldComponent/**"
+      - "src/Bluent.UI/Components/BluentFieldComponentBase.cs"
+      - "src/Bluent.UI/Components/BluentInputComponentBase.cs"
+      - "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md"
+      - "scripts/quality/check_v3_textfield_contract.py"
+      - "scripts/quality/test_v3_textfield_contract.py"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       - "src/Bluent.UI/Components/MenuListComponent/MenuList.razor"
@@ -62,6 +68,10 @@ jobs:
         run: |
           python scripts/quality/check_v3_label_contract.py
           python -m unittest discover -s scripts/quality -p 'test_v3_label_contract.py' -v
+      - name: Validate TextField source/API and inherited contract
+        run: |
+          python scripts/quality/check_v3_textfield_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_textfield_contract.py' -v
       - name: Validate stale summary negative cases
         run: python -m unittest discover -s scripts/quality -p "test_v3_docs_contract.py" -v
       - name: Validate all repository-local Markdown links

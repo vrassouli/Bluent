@@ -325,3 +325,16 @@ Next sequence:
 5. Open a PR from v3/issue-432-textfield to bluent-v3. Do not merge into Dev, publish stable packages or close #432 from this task branch.
 
 **Current boundary (2026-11-13):** design/API audit plus current-API Lab regression coverage are active; v3 runtime implementation and Fluent-parity acceptance are not complete. The expanded Lab evidence must not be represented as v3 component acceptance.
+
+
+## 7. Automated source/API drift guard
+
+The v3 Documentation Contract workflow now runs `scripts/quality/check_v3_textfield_contract.py` and `test_v3_textfield_contract.py` whenever the TextField component, either inherited Bluent field/input base, this contract, or the guard itself changes. The fail-closed checker verifies:
+
+- The exact six direct `[Parameter]` names, CLR types and documented defaults.
+- The concrete inheritance chain `TextField → BluentFieldComponentBase<string?> → BluentInputComponentBase<string?> → InputBase<string?>` and the six Bluent-owned inherited parameters (`StartAddon`, `EndAddon`, `Size`, `BindValueEvent`, `Class`, `Style`).
+- The inherited framework/public surface rows in this document, native input and textarea branches, `@ref`/binding event wiring, and unmatched-attribute behavior.
+- The setter transform order (`DigitOnly → AsciiDigits → ArabicToPersianConversion`) and the documented distinction between current-API regression evidence and future v3 acceptance.
+- Workflow path filters and the actual CI step invoking the checker/tests, so the guard cannot quietly stop running when its source or API docs change.
+
+Nine local contract tests include positive source/documentation parity and negative mutations for direct/inherited API drift, transform reordering, native textarea removal, evidence overclaiming and CI trigger removal. Negative mutations run against temporary copies and do not modify the working tree. This is a documentation/API-baseline guard, not a v3 component implementation or design approval.
