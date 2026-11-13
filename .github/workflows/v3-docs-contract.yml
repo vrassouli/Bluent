@@ -22,6 +22,8 @@ on:
       - "scripts/quality/check_v3_label_contract.py"
       - "scripts/quality/test_v3_label_contract.py"
       - "src/Bluent.UI/Components/TextFieldComponent/**"
+      - "src/Bluent.UI/Bluent.UI.csproj"
+      - "tests/RegexSampleGeneratorTest/TextFieldValuePipelineTests.cs"
       - "src/Bluent.UI/Components/BluentFieldComponentBase.cs"
       - "src/Bluent.UI/Components/BluentInputComponentBase.cs"
       - "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md"

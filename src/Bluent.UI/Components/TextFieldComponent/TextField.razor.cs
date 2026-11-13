@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
-using Bluent.UI.Extensions;
 
 namespace Bluent.UI.Components;
 
@@ -21,15 +20,12 @@ public partial class TextField
         }
         set
         {
-            if (DigitOnly)
-                value = value?.ToDigits();
+            value = TextFieldValuePipeline.Normalize(
+                value,
+                DigitOnly,
+                AsciiDigits,
+                ArabicToPersianConversion);
 
-            if (AsciiDigits)
-                value = value?.ToAsciiDigits();
-
-            if (ArabicToPersianConversion)
-                value = value?.ToPersianChars();
-            
             CurrentValueAsString = value;
         }
     }

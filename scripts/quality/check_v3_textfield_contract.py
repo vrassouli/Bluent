@@ -84,6 +84,7 @@ def check_textfield_contract(root: Path) -> None:
     component = "src/Bluent.UI/Components/TextFieldComponent"
     razor = _read(root, f"{component}/TextField.razor")
     code = _read(root, f"{component}/TextField.razor.cs")
+    pipeline = _read(root, f"{component}/TextFieldValuePipeline.cs")
     field_base = _read(root, "src/Bluent.UI/Components/BluentFieldComponentBase.cs")
     input_base = _read(root, "src/Bluent.UI/Components/BluentInputComponentBase.cs")
     contract = _read(root, "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md")
@@ -177,17 +178,23 @@ def check_textfield_contract(root: Path) -> None:
         "ValueExpression = () => _temp!;",
     ), "BluentInputComponentBase")
 
-    # Protect the v2 setter order relied on by all multi-flag combinations.
+    # The render component delegates to a pure internal helper; protect both
+    # the delegation and the established transform order independently.
+    _require(code, (
+        "TextFieldValuePipeline.Normalize(",
+        "DigitOnly,", "AsciiDigits,", "ArabicToPersianConversion);",
+        "CurrentValueAsString = value;",
+    ), "TextField value setter")
     cursor = 0
     for marker in (
-        "if (DigitOnly)", "value = value?.ToDigits();",
-        "if (AsciiDigits)", "value = value?.ToAsciiDigits();",
-        "if (ArabicToPersianConversion)", "value = value?.ToPersianChars();",
-        "CurrentValueAsString = value;",
+        "if (digitOnly)", "value = value?.ToDigits();",
+        "if (asciiDigits)", "value = value?.ToAsciiDigits();",
+        "if (arabicToPersianConversion)", "value = value?.ToPersianChars();",
+        "return value;",
     ):
-        found = code.find(marker, cursor)
+        found = pipeline.find(marker, cursor)
         if found < 0:
-            raise TextFieldContractError(f"TextField transform pipeline is missing/reordered at: {marker}")
+            raise TextFieldContractError(f"TextField value pipeline is missing/reordered at: {marker}")
         cursor = found + len(marker)
     if "if (firstRender && GainFocus && Element != null)" not in code:
         raise TextFieldContractError("GainFocus must remain scoped to first interactive render")
@@ -204,6 +211,9 @@ def check_textfield_contract(root: Path) -> None:
         '      - "src/Bluent.UI/Components/TextFieldComponent/**"',
         '      - "src/Bluent.UI/Components/BluentFieldComponentBase.cs"',
         '      - "src/Bluent.UI/Components/BluentInputComponentBase.cs"',
+        '      - "src/Bluent.UI/Components/TextFieldComponent/**"',
+        '      - "src/Bluent.UI/Bluent.UI.csproj"',
+        '      - "tests/RegexSampleGeneratorTest/TextFieldValuePipelineTests.cs"',
         '      - "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md"',
         '      - "scripts/quality/check_v3_textfield_contract.py"',
         '      - "scripts/quality/test_v3_textfield_contract.py"',

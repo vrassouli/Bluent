@@ -161,7 +161,7 @@ This table is a source-backed disposition, not a proposed final v3 parameter lis
 
 ### Exact text transformation behavior and order
 
-The current ValueStringProxy setter applies enabled transforms in this exact order:
+The current ValueStringProxy setter delegates to the internal, rendering-independent `TextFieldValuePipeline.Normalize` helper. The helper applies enabled transforms in this exact order:
 
 1. DigitOnly → ToDigits(): preserves ASCII, Persian and Arabic-Indic digits, removing other characters.
 2. AsciiDigits → ToAsciiDigits(): maps Persian and Arabic-Indic numerals to ASCII.
@@ -337,4 +337,4 @@ The v3 Documentation Contract workflow now runs `scripts/quality/check_v3_textfi
 - The setter transform order (`DigitOnly → AsciiDigits → ArabicToPersianConversion`) and the documented distinction between current-API regression evidence and future v3 acceptance.
 - Workflow path filters and the actual CI step invoking the checker/tests, so the guard cannot quietly stop running when its source or API docs change.
 
-Twelve local contract tests include positive source/documentation parity and negative mutations for direct/inherited API drift, transform reordering, native textarea removal, evidence overclaiming and CI trigger removal. Negative mutations run against temporary copies and do not modify the working tree. This is a documentation/API-baseline guard, not a v3 component implementation or design approval.
+Twelve local source/API guard tests include positive source/documentation parity and negative mutations for direct/inherited API drift, transform reordering, native textarea removal, evidence overclaiming and CI trigger removal. In addition, the NUnit suite now has ten direct tests of the internal value pipeline: all eight transform-flag combinations plus null and empty input. Negative source-guard mutations run against temporary copies and do not modify the working tree. These tests protect the existing transform behavior; they are not browser, caret/IME, v3 component implementation or design-approval evidence.

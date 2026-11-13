@@ -19,6 +19,7 @@ class TextFieldContractTests(unittest.TestCase):
             "src/Bluent.UI/Components/TextFieldComponent/TextField.razor",
             "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
             "src/Bluent.UI/Components/BluentInputComponentBase.cs",
+            "src/Bluent.UI/Components/TextFieldComponent/TextFieldValuePipeline.cs",
             "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md",
             ".github/workflows/v3-docs-contract.yml",
         )
@@ -31,8 +32,9 @@ class TextFieldContractTests(unittest.TestCase):
             "razor": self.temp_root / relative_paths[1],
             "field_base": self.temp_root / relative_paths[2],
             "input_base": self.temp_root / relative_paths[3],
-            "contract": self.temp_root / relative_paths[4],
-            "workflow": self.temp_root / relative_paths[5],
+            "pipeline": self.temp_root / relative_paths[4],
+            "contract": self.temp_root / relative_paths[5],
+            "workflow": self.temp_root / relative_paths[6],
         }
         self.original = {key: file.read_text(encoding="utf-8-sig") for key, file in self.paths.items()}
 
@@ -86,16 +88,23 @@ class TextFieldContractTests(unittest.TestCase):
         self._check_mutation("field_base", "[Parameter] public string BindValueEvent", "public string BindValueEvent")
 
     def test_transform_setter_order_is_fail_closed(self):
-        old = self.original["code"]
+        old = self.original["pipeline"]
         changed = old.replace(
-            "if (DigitOnly)\n                value = value?.ToDigits();\n\n            if (AsciiDigits)",
-            "if (AsciiDigits)\n                value = value?.ToAsciiDigits();\n\n            if (DigitOnly)",
+            "if (digitOnly)\n            value = value?.ToDigits();\n\n        if (asciiDigits)",
+            "if (asciiDigits)\n            value = value?.ToAsciiDigits();\n\n        if (digitOnly)",
             1,
         )
         self.assertNotEqual(old, changed)
-        self.paths["code"].write_text(changed, encoding="utf-8")
+        self.paths["pipeline"].write_text(changed, encoding="utf-8")
         with self.assertRaises(TextFieldContractError):
             check_textfield_contract(self.temp_root)
+
+    def test_textfield_setter_must_delegate_to_the_value_pipeline(self):
+        self._check_mutation(
+            "code",
+            "TextFieldValuePipeline.Normalize(",
+            "TextFieldValuePipeline.NormalizeRemoved(",
+        )
 
     def test_native_textarea_branch_is_required(self):
         self._check_mutation("razor", "<textarea @attributes=GetInputAdditionalAttributes()", "<textarea disabled")
