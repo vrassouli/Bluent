@@ -662,3 +662,19 @@ The regression was exercised with real CDP native text insertion: 12345, caret i
 All four runs reported the same final value and selection offsets, no HTTP asset failures and no unhandled JavaScript exceptions. The shared Lab also records pre-existing unrelated InteractiveServer Slider/RangeSlider known gaps under #442/#443; those are not TextField failures. The shared Lab 18 representative pilots do not complete TextField own exhaustive demo/DoD.
 
 Local automated checks include value-pipeline NUnit tests, fail-closed source/contract mutation tests, docs contract tests, Component Lab source contract and the Release Bluent.UI build. Exact results are in PR #562 and its exact-head CI checkpoint once pushed. Browser composition simulation is not physical OS IME certification; native screen-reader/OS forced-colors acceptance and selected-range coverage across all transformations remain open. The four primary Penpot boards remain DRAFT and #418 semantic token/public placeholder approval remains outstanding. Therefore #432 stays In Progress and PR #562 stays open/unmerged; no stable/v2 source, package, release or deployment changed.
+
+## TextField #432 — native range, textarea and UTF-16 verification expansion — 2026-11-13
+
+Expanded the current-API selection-preservation regression evidence without changing the public API or production component implementation. The NUnit pipeline suite now covers selected-range mapping for all eight combinations of `DigitOnly`, `AsciiDigits` and `ArabicToPersianConversion`, plus UTF-16 offsets after a supplementary Unicode character. The focused suite is **24/24** (previously 15).
+
+The Component Lab now exposes a real `DigitOnly + AsciiDigits` textarea specimen with `oninput` model feedback. Its copyable Razor example matches the rendered specimen. The real browser probe now covers (1) native Persian-digit insertion after an emoji in an input, preserving the mapped UTF-16 caret, and (2) a backward textarea selection, preserving both mapped endpoints, `selectionDirection=backward`, focus and Blazor model value.
+
+Fresh current-source production browser matrix, all assertions passed:
+- Chrome / InteractiveWebAssembly: **289/289**, cleanup remaining=0.
+- Edge / InteractiveWebAssembly: **289/289**, cleanup remaining=0.
+- Chrome / InteractiveServer: **286/286**, cleanup remaining=0.
+- Edge / InteractiveServer: **286/286**, cleanup remaining=0.
+
+All four runs observed the input value `😀192345` with caret `[4,4]`, and textarea value `192` with selection `[1,2]`, direction `backward`, focused and bound. The existing mid-string insertion still yields `129345` with caret `[3,3]`. Each run had zero HTTP asset failures and zero unhandled JavaScript exceptions. These are Component Lab representative runtime checks, not exhaustive TextField acceptance or native operating-system IME/screen-reader/forced-colors certification.
+
+Additional checks on the same working tree: TextField source contract **20/20**, TextField contract mutation tests **20/20**, focused NUnit **24/24**, Component Lab source checker PASS, Node syntax check PASS, and `git diff --check` PASS. Exact-head GitHub CI is still pending for the follow-up commit; the previous `d1dacbff` head had all seven workflows green. #432 remains In Progress and PR #562 remains open/unmerged. TextField design boards pages 17–20 remain DRAFT, #418 placeholder-role approval is still pending, and exhaustive 24-scenario family acceptance, migration/Skill, and maintainer sign-off remain open. No stable/v2 branch, package, release or deployment changed.

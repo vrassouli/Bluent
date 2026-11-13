@@ -101,6 +101,40 @@ public class TextFieldValuePipelineTests
         });
     }
 
+    [TestCase(false, false, false, 2, 4, "A1۹كB")]
+    [TestCase(false, false, true,  2, 4, "A1۹کB")]
+    [TestCase(false, true,  false, 2, 4, "A19كB")]
+    [TestCase(false, true,  true,  2, 4, "A19کB")]
+    [TestCase(true,  false, false, 1, 2, "1۹")]
+    [TestCase(true,  false, true,  1, 2, "1۹")]
+    [TestCase(true,  true,  false, 1, 2, "19")]
+    [TestCase(true,  true,  true,  1, 2, "19")]
+    public void NormalizeWithSelection_maps_selected_range_for_all_eight_transform_combinations(
+        bool digitOnly, bool asciiDigits, bool arabicToPersianConversion,
+        int expectedStart, int expectedEnd, string expectedValue)
+    {
+        var result = TextFieldValuePipeline.NormalizeWithSelection(
+            "A1۹كB", 2, 4, digitOnly, asciiDigits, arabicToPersianConversion);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Value, Is.EqualTo(expectedValue));
+            Assert.That(result.SelectionStart, Is.EqualTo(expectedStart));
+            Assert.That(result.SelectionEnd, Is.EqualTo(expectedEnd));
+        });
+    }
+
+    [Test]
+    public void NormalizeWithSelection_maps_offsets_using_utf16_code_units_after_a_surrogate_pair()
+    {
+        var result = TextFieldValuePipeline.NormalizeWithSelection(
+            "😀1۹B2", 3, 5, digitOnly: true, asciiDigits: true, arabicToPersianConversion: false);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Value, Is.EqualTo("192"));
+            Assert.That(result.SelectionStart, Is.EqualTo(1));
+            Assert.That(result.SelectionEnd, Is.EqualTo(2));
+        });
+    }
     [Test]
     public void NormalizeWithSelection_clamps_offsets_to_the_source_bounds()
     {

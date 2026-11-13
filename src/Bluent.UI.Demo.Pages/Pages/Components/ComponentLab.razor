@@ -352,9 +352,10 @@
                         <p role="status" class="lab-tf-value">Value: @_labTextValue</p>
                     </div>
                     <div class="lab-textfield-card">
-                        <label for="lab-tf-notes">Textarea (3 rows, no resize)</label>
+                        <label for="lab-tf-notes">Textarea (3 rows, no resize, DigitOnly + AsciiDigits)</label>
                         <TextField id="lab-tf-notes" @bind-Value="_labTextNotes"
-                                   Rows="3" ResizeTextarea="false" />
+                                   BindValueEvent="oninput" Rows="3" ResizeTextarea="false" DigitOnly AsciiDigits />
+                        <p id="lab-tf-notes-value" role="status" class="lab-tf-value">Value: @_labTextNotes</p>
                     </div>
                     <div class="lab-textfield-card">
                         <label for="lab-tf-disabled">Disabled native input</label>
@@ -1028,7 +1029,7 @@
     private string SelectedTextFieldRazor =>
         "@using System.ComponentModel.DataAnnotations\n" +
         "<TextField id=\"lab-tf-input\" @bind-Value=\"_labTextValue\" BindValueEvent=\"oninput\" />\n" +
-        "<TextField id=\"lab-tf-notes\" @bind-Value=\"_labTextNotes\" Rows=\"3\" ResizeTextarea=\"false\" />\n" +
+        "<TextField id=\"lab-tf-notes\" @bind-Value=\"_labTextNotes\" BindValueEvent=\"oninput\" Rows=\"3\" ResizeTextarea=\"false\" DigitOnly AsciiDigits />\n" +
         "<TextField id=\"lab-tf-disabled\" Value=\"Disabled sample\" disabled />\n" +
         "<TextField id=\"lab-tf-readonly\" Value=\"Selectable read-only value\" readonly />\n" +
         "<TextField id=\"lab-tf-digits-only\" @bind-Value=\"_labTextDigitsOnly\" BindValueEvent=\"oninput\" DigitOnly />\n" +
