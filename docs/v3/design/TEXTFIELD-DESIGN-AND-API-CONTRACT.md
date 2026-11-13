@@ -308,13 +308,13 @@ Live GitHub Project #5 checked on 2026-11-13:
 - #419 Penpot workflow: Done.
 - #420 Blazor conventions: Done.
 - #425 quality gates: Done.
-- #421 Component Lab / 66-family ledger: In progress; platform exists, but the TextField pilot is not exhaustive.
+- #421 Component Lab / 66-family ledger: In progress; the reusable platform contract was accepted by the maintainer on 2026-11-02; the current-API TextField pilot is evidence only and does not complete TextField v3 acceptance.
 - #418 tokens/themes: Review; exact token names/values and production mappings still await acceptance.
 - #432 TextField: In progress.
 
 Exact-head engineering verification on `160c26bc3a0fcc482e78080bfdcd3062ff4942d8`: **23/23 GitHub checks passed across 7 workflows**. The Edge/WebAssembly native-site-zoom job passed on isolated retry: 200% and 400% each 10/10, zero settled overflow, zero cleanup residue. The complete checks are linked from [PR #562](https://github.com/vrassouli/Bluent/pull/562).
 
-The Penpot working file contains four #432 review pages (17–20): full appearance/state matrix, anatomy/sizing/RTL, keyboard/forced-colors/reflow, and Fluent crosswalk/composite state rules. All four corresponding #432 boards remain explicitly **DRAFT**. The design pages are evidence of a reviewable proposal, not approval. #418 remains Review and #421 remains In progress; therefore final token mapping and the shared demo/coverage contract are not complete prerequisites.
+The Penpot working file contains four #432 review pages (17–20): full appearance/state matrix, anatomy/sizing/RTL, keyboard/forced-colors/reflow, and Fluent crosswalk/composite state rules. All four corresponding #432 boards remain explicitly **DRAFT**. The design pages are evidence of a reviewable proposal, not approval. Maintainer comment [#6573052748](https://github.com/vrassouli/Bluent/issues/421#issuecomment-6573052748) accepted the reusable #421 Component Lab platform as an independent prerequisite for starting component work; #421 remains In Progress only for the wider family ledger. The shared platform is therefore not an outstanding start gate, but TextField must still deliver its own exhaustive demo and family-specific coverage as part of #432 DoD. #418 remains Review; final semantic/public token mapping and approval are still outstanding.
 
 The accepted #417 architecture and completed #419 design workflow are not substitutes for #418 token acceptance. This document and Penpot boards may progress with visible provisional annotations. Runtime CSS consuming new semantic/component token aliases must wait for actual #418 acceptance and the current bluent-v3 integration.
 
