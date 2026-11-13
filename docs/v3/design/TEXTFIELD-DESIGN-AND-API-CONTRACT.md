@@ -430,3 +430,14 @@ The investigation also found Fluent React v9 placeholder usage of `--colorNeutra
 A downstream decision request was posted to #418 PR #500 (comment `6855027097`) asking the foundation owner to choose between the closer React-aligned FG4 role, the higher-contrast FG3 role, or a dedicated placeholder semantic role with an explicitly selected source mapping. This is a request for review, not an approval. No Penpot placeholder color, #418 token schema, opt-in CSS, production CSS, or runtime code was changed.
 
 #418 remains Review and PR #500 remains open. TextField placeholder styling stays gated until the shared semantic role/source mapping and design are explicitly accepted.
+
+### Editable Penpot comparison board — placeholder source roles
+
+Added a separate, explicitly **DRAFT** decision aid below the existing page-19 acceptance board in the same owned Penpot file. It does not alter the original keyboard/contrast/reflow board or any of the 28 TextField state/appearance specimens.
+
+- Page: `19 · TextField keyboard, contrast & reflow` (`343383cb-23d3-80b8-8008-ec440d228749`).
+- New board: `#432 · Placeholder role comparison · DRAFT` (`07d10be0-910e-8048-8008-f09180896f55`), 1850 × 540.
+- The board presents the current 4.3472:1 baseline and side-by-side FG4/FG3 candidate source roles with the measured Light/Dark immediate-surface pairs. It explicitly states that neither option is approved and asks #418 to decide the semantic role/source mapping.
+- All 25 children are within the board bounds. A PNG export was generated and visually reviewed; labels, swatches, measured ratios and the decision gate are readable.
+
+This is an editable comparison/review aid only. It adds no Penpot design token, changes no token binding or placeholder color, and is not a design approval. See #418 PR #500 downstream request comment `6855027097`.
