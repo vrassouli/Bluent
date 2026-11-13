@@ -483,3 +483,16 @@ The board shows Rest, Hover, Pressed, Focus and Error as five separate columns. 
 The board has 53 children, **zero out-of-bounds shapes**, and its exported PNG was visually reviewed. The original page-17 28-variant source matrix and the earlier page-19 decision board are unchanged. After switching to page 16 and back to page 19, source verification still reports 28 variants / 28 unique pairs / zero `variantError` values.
 
 No token binding, component variant, placeholder fill, product CSS or runtime source was changed. The #418 semantic/public mapping decision is still outstanding.
+
+### Full four-board visual export review — 2026-11-13
+
+Re-exported and visually inspected the four primary TextField design boards from the owned Penpot file (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`):
+
+| Page | Board | Visual review |
+| --- | --- | --- |
+| 17 · TextField full matrix | `343383cb-23d3-80b8-8008-ec424306af65` | All 28 appearance/state specimens and row/column labels are visible; state distinctions and immediate input surfaces are legible; no clipped field or label. |
+| 18 · Anatomy, sizing & RTL | `343383cb-23d3-80b8-8008-ec43be3b98e5` | Single-line/addon, textarea, size, Persian RTL and light/dark anatomy sections export cleanly; explanatory captions are visible. |
+| 19 · Keyboard, contrast & reflow | `343383cb-23d3-80b8-8008-ec440d2d8ed7` | Keyboard/native-state, schematic forced-colors, narrow reflow and acceptance checklist sections are legible; no clipped content. |
+| 20 · Fluent crosswalk & precedence | `343383cb-23d3-80b8-8008-ec45d29ff553` | Primary Web Components scope is separated from React visual fallback; appearance mapping and composite-state precedence remain readable. |
+
+No additional geometry or text clipping defect was identified in these exports. These are visual-export checks only: all four primary boards remain marked **DRAFT**, so this does not claim maintainer design approval, real-browser parity, native forced-colors acceptance, or assistive-technology sign-off.
