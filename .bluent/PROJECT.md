@@ -646,3 +646,19 @@ For TextField #432, the shared Lab platform is therefore **not an outstanding st
 The active external foundation decision for token-bound TextField styling remains #418: the ordinary/disabled placeholder semantic/public mapping has been recommended from the exact pinned Fluent Web Components 3.1.3 source (FG4 / FGDisabled) but has not been approved. The four primary TextField Penpot boards remain DRAFT. No public token alias or production styling is consumed until #418 acceptance.
 
 Latest exact-head verification for `2a7584e31bae74a8901d761ba09f60f64dd3a407`: **23/23 GitHub jobs passed across seven workflows**. PR #562 remains open and mergeable against `bluent-v3`; #432 remains In Progress. No stable/v2 branch, package, release or deployment changed.
+
+## TextField #432 — native selection preservation implementation slice — 2026-11-13
+
+Implemented the current-API TextField repair for TF-TRANSFORM-005 on the isolated v3/issue-432-textfield branch. This is not the completed v3 TextField API, not a full 24-scenario family acceptance, and not an authorization to merge or release.
+
+The pure TextFieldValuePipeline.NormalizeWithSelection helper maps both native UTF-16 selection offsets by normalizing each source prefix, preserving selection direction and clamping out-of-range offsets. The component commits the normalized string to InputBase<string?>, retains EditContext, and maps the native input/textarea range after render. A per-element capture-phase input listener snapshots the post-edit selection synchronously before Blazor delegated input handler; the one-shot snapshot is consumed and listener/cache are cleaned up on component disposal. Unsupported native selection APIs remain no-op.
+
+The regression was exercised with real CDP native text insertion: 12345, caret index 2, insert Persian ۹ → DOM and Blazor model 129345, caret/selection index 3. Final current-source Component Lab runs:
+- Chrome/WebAssembly: 283/283, cleanup remaining=0.
+- Chrome/InteractiveServer: 280/280, cleanup remaining=0.
+- Edge/WebAssembly: 283/283, cleanup remaining=0.
+- Edge/InteractiveServer: 280/280, cleanup remaining=0.
+
+All four runs reported the same final value and selection offsets, no HTTP asset failures and no unhandled JavaScript exceptions. The shared Lab also records pre-existing unrelated InteractiveServer Slider/RangeSlider known gaps under #442/#443; those are not TextField failures. The shared Lab 18 representative pilots do not complete TextField own exhaustive demo/DoD.
+
+Local automated checks include value-pipeline NUnit tests, fail-closed source/contract mutation tests, docs contract tests, Component Lab source contract and the Release Bluent.UI build. Exact results are in PR #562 and its exact-head CI checkpoint once pushed. Browser composition simulation is not physical OS IME certification; native screen-reader/OS forced-colors acceptance and selected-range coverage across all transformations remain open. The four primary Penpot boards remain DRAFT and #418 semantic token/public placeholder approval remains outstanding. Therefore #432 stays In Progress and PR #562 stays open/unmerged; no stable/v2 source, package, release or deployment changed.

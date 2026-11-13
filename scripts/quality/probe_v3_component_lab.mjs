@@ -541,6 +541,29 @@ try {
  await pasteClipboard('lab-tf-ascii-digits','۱۲۳٤۵');
  const tfAsciiPaste=await poll(()=>js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 12345'&&document.getElementById('lab-tf-ascii-digits')?.value==='12345'"),12000);
  check('TextField AsciiDigits normalizes a real native Ctrl+V clipboard paste',tfAsciiPaste);
+
+// Reproduce the mid-string caret regression using Chromium's native text-input
+// command (not a synthetic input event): the normalized value must keep the
+// caret at the mapped prefix offset instead of moving it to the end.
+await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(e,'12345');e.dispatchEvent(new Event('input',{bubbles:true}));})()");
+const tfCaretReady=await poll(()=>js("document.getElementById('lab-tf-ascii-digits')?.value==='12345'&&document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 12345'"),12000);
+check('TextField caret regression fixture is bound to the expected source value',tfCaretReady);
+const tfCaretSelectionReady=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');e.focus();e.setSelectionRange(2,2);return {start:e.selectionStart,end:e.selectionEnd,active:document.activeElement===e}})()");
+check('TextField caret regression fixture establishes native focus and selection at index 2',tfCaretSelectionReady?.active&&tfCaretSelectionReady.start===2&&tfCaretSelectionReady.end===2,tfCaretSelectionReady);
+await send('Input.insertText',{text:'۹'});
+
+const tfCaretValueReady=await poll(()=>js("document.getElementById('lab-tf-ascii-digits')?.value==='129345'"),20000).catch(()=>false);
+const tfCaretValueEvidence=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return {value:e?.value,selectionStart:e?.selectionStart,selectionEnd:e?.selectionEnd,active:document.activeElement===e,status:document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()}})()");
+check('TextField native CDP insertion normalizes the mid-string value to 129345',tfCaretValueReady,tfCaretValueEvidence);
+
+const tfCaretBindingReady=await poll(()=>js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 129345'"),20000).catch(()=>false);
+const tfCaretBindingEvidence=await js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()");
+check('TextField mid-string normalized value commits to the Blazor binding',tfCaretBindingReady,tfCaretBindingEvidence);
+
+const tfCaretSelectionRestored=await poll(()=>js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return e?.selectionStart===3&&e?.selectionEnd===3&&document.activeElement===e})()"),20000).catch(()=>false);
+const tfCaretEvidence=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return {value:e?.value,selectionStart:e?.selectionStart,selectionEnd:e?.selectionEnd,active:document.activeElement===e,status:document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()}})()");
+check('TextField AsciiDigits restores the native caret to mapped mid-string offset 3',tfCaretSelectionRestored,tfCaretEvidence);
+console.log('TEXTFIELD_CARET_DETAIL',JSON.stringify(tfCaretEvidence));
  await pasteClipboard('lab-tf-persian-chars','كيى');
  const tfPersianPaste=await poll(()=>js("document.querySelector('#lab-tf-persian-value')?.textContent?.trim()==='Value: کیی'&&document.getElementById('lab-tf-persian-chars')?.value==='کیی'"),12000);
  check('TextField ArabicToPersianConversion normalizes a real native Ctrl+V clipboard paste',tfPersianPaste);

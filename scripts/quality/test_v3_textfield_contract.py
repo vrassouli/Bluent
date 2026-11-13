@@ -20,6 +20,8 @@ class TextFieldContractTests(unittest.TestCase):
             "src/Bluent.UI/Components/BluentFieldComponentBase.cs",
             "src/Bluent.UI/Components/BluentInputComponentBase.cs",
             "src/Bluent.UI/Components/TextFieldComponent/TextFieldValuePipeline.cs",
+            "src/Bluent.UI.Scripts/src/TextField/TextField.ts",
+            "src/Bluent.UI.Scripts/src/index.ts",
             "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md",
             ".github/workflows/v3-docs-contract.yml",
         )
@@ -33,8 +35,10 @@ class TextFieldContractTests(unittest.TestCase):
             "field_base": self.temp_root / relative_paths[2],
             "input_base": self.temp_root / relative_paths[3],
             "pipeline": self.temp_root / relative_paths[4],
-            "contract": self.temp_root / relative_paths[5],
-            "workflow": self.temp_root / relative_paths[6],
+            "interop": self.temp_root / relative_paths[5],
+            "script_entry": self.temp_root / relative_paths[6],
+            "contract": self.temp_root / relative_paths[7],
+            "workflow": self.temp_root / relative_paths[8],
         }
         self.original = {key: file.read_text(encoding="utf-8-sig") for key, file in self.paths.items()}
 
@@ -106,6 +110,46 @@ class TextFieldContractTests(unittest.TestCase):
             "TextFieldValuePipeline.NormalizeRemoved(",
         )
 
+    def test_normalized_value_not_raw_text_is_committed_to_input_base(self):
+        self._check_mutation(
+            "code",
+            "CurrentValueAsString = normalized;",
+            "CurrentValueAsString = value;",
+        )
+
+    def test_native_selection_mapping_cannot_be_removed(self):
+        self._check_mutation(
+            "code",
+            "TextFieldValuePipeline.NormalizeWithSelection(",
+            "TextFieldValuePipeline.NormalizeWithoutSelection(",
+        )
+
+    def test_javascript_selection_restore_cannot_be_removed(self):
+        self._check_mutation(
+            "interop",
+            "element.setSelectionRange(start, end, direction);",
+            "element.focus();",
+        )
+    def test_capture_phase_selection_tracking_must_be_installed(self):
+        self._check_mutation(
+            "code",
+            'InvokeVoidAsync("trackTextSelection", Element.Value)',
+            'InvokeVoidAsync("trackTextSelectionRemoved", Element.Value)',
+        )
+
+    def test_capture_phase_listener_must_run_before_blazor_input_handler(self):
+        self._check_mutation(
+            "interop",
+            'element.addEventListener("input", listener, true);',
+            'element.addEventListener("input", listener, false);',
+        )
+
+    def test_native_selection_listener_must_be_removed_on_dispose(self):
+        self._check_mutation(
+            "code",
+            'InvokeVoidAsync("stopTrackingTextSelection", Element.Value)',
+            'InvokeVoidAsync("disposeTextSelection", Element.Value)',
+        )
     def test_native_textarea_branch_is_required(self):
         self._check_mutation("razor", "<textarea @attributes=GetInputAdditionalAttributes()", "<textarea disabled")
 

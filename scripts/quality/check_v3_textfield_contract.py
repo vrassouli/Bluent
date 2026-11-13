@@ -85,6 +85,8 @@ def check_textfield_contract(root: Path) -> None:
     razor = _read(root, f"{component}/TextField.razor")
     code = _read(root, f"{component}/TextField.razor.cs")
     pipeline = _read(root, f"{component}/TextFieldValuePipeline.cs")
+    interop_source = _read(root, "src/Bluent.UI.Scripts/src/TextField/TextField.ts")
+    script_entry = _read(root, "src/Bluent.UI.Scripts/src/index.ts")
     field_base = _read(root, "src/Bluent.UI/Components/BluentFieldComponentBase.cs")
     input_base = _read(root, "src/Bluent.UI/Components/BluentInputComponentBase.cs")
     contract = _read(root, "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md")
@@ -183,8 +185,49 @@ def check_textfield_contract(root: Path) -> None:
     _require(code, (
         "TextFieldValuePipeline.Normalize(",
         "DigitOnly,", "AsciiDigits,", "ArabicToPersianConversion);",
-        "CurrentValueAsString = value;",
-    ), "TextField value setter")
+        "_sourceValueForSelection = value;",
+        "_selectionMappingRequired = !string.Equals(value, normalized, StringComparison.Ordinal);",
+        "CurrentValueAsString = normalized;",
+        "TextFieldValuePipeline.NormalizeWithSelection(",
+        "_pendingSelection = new PendingTextSelection(start, end, selection.Direction);",
+        '"getTextSelection"',
+        '"setTextSelection"',
+    ), "TextField value setter and native selection mapping")
+
+    _require(code, (
+        'InvokeVoidAsync("trackTextSelection", Element.Value)',
+        'InvokeVoidAsync("stopTrackingTextSelection", Element.Value)',
+        "if (firstRender && Element is not null)",
+        "await base.OnAfterRenderAsync(firstRender);",
+    ), "TextField native selection listener lifecycle")
+    _require(interop_source, (
+        'element.addEventListener("input", listener, true);',
+        'element.removeEventListener("input", listener, true);',
+        "selectionSnapshots.set(element, selection);",
+        "selectionSnapshots.delete(element);",
+        "selectionListeners.delete(element);",
+        "export function trackTextSelection(",
+        "export function stopTrackingTextSelection(",
+    ), "TextField capture-phase snapshot and listener cleanup")
+
+    if razor.count('@bind-value:after="OnValueBoundAsync"') != 2:
+        raise TextFieldContractError("Both native input and textarea must run the post-bind selection mapping callback")
+
+    _require(interop_source, (
+        "export function getTextSelection(",
+        "element.selectionStart",
+        "element.selectionEnd",
+        "element.selectionDirection",
+        "export function setTextSelection(",
+        "element.setSelectionRange(start, end, direction);",
+        "return null;",
+        "return false;",
+    ), "TextField native selection interop")
+    _require(script_entry, (
+        "getTextSelection",
+        "setTextSelection",
+        "./TextField/TextField",
+    ), "TextField JavaScript bundle entry")
     cursor = 0
     for marker in (
         "if (digitOnly)", "value = value?.ToDigits();",
@@ -196,8 +239,8 @@ def check_textfield_contract(root: Path) -> None:
         if found < 0:
             raise TextFieldContractError(f"TextField value pipeline is missing/reordered at: {marker}")
         cursor = found + len(marker)
-    if "if (firstRender && GainFocus && Element != null)" not in code:
-        raise TextFieldContractError("GainFocus must remain scoped to first interactive render")
+    if "if (firstRender && Element is not null)" not in code or "if (GainFocus && !_disposed)" not in code:
+        raise TextFieldContractError("GainFocus must remain scoped to first interactive render after native selection tracking is installed")
     if "Rows != null && !ResizeTextarea" not in code:
         raise TextFieldContractError("Textarea no-resize behavior no longer follows Rows/ResizeTextarea")
 
@@ -205,6 +248,8 @@ def check_textfield_contract(root: Path) -> None:
         "all eight boolean combinations", "DigitOnly + AsciiDigits", "DigitOnly + ArabicToPersianConversion",
         "AsciiDigits + ArabicToPersianConversion", "21 live specimens", "28 explicitly named TextField-targeted checks",
         "not a released v3 API", "does not implement the v3 TextField", "not a physical OS IME test", "TF-TRANSFORM-005 | Mid-string digit normalization", "selectionStart/selectionEnd",
+        "NormalizeWithSelection",
+        "mapped UTF-16 selection offsets",
     ), "TextField canonical design/API contract")
 
     _require(docs_workflow, (
@@ -213,6 +258,13 @@ def check_textfield_contract(root: Path) -> None:
         '      - "src/Bluent.UI/Components/BluentInputComponentBase.cs"',
         '      - "src/Bluent.UI/Components/TextFieldComponent/**"',
         '      - "src/Bluent.UI/Bluent.UI.csproj"',
+        '      - "src/Bluent.UI.Scripts/src/index.ts"',
+        '      - "src/Bluent.UI.Scripts/src/TextField/**"',
+        '      - "src/Bluent.UI.Scripts/dist/**"',
+        '      - "src/Bluent.UI/wwwroot/bluent.ui.js"',
+        '      - "src/Bluent.UI/wwwroot/bluent.ui.global.js"',
+        '      - "scripts/quality/check_v3_component_lab.py"',
+        '      - "scripts/quality/probe_v3_component_lab.mjs"',
         '      - "tests/RegexSampleGeneratorTest/TextFieldValuePipelineTests.cs"',
         '      - "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md"',
         '      - "scripts/quality/check_v3_textfield_contract.py"',

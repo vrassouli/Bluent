@@ -338,7 +338,7 @@ The v3 Documentation Contract workflow now runs `scripts/quality/check_v3_textfi
 - The setter transform order (`DigitOnly → AsciiDigits → ArabicToPersianConversion`) and the documented distinction between current-API regression evidence and future v3 acceptance.
 - Workflow path filters and the actual CI step invoking the checker/tests, so the guard cannot quietly stop running when its source or API docs change.
 
-Twelve local source/API guard tests include positive source/documentation parity and negative mutations for direct/inherited API drift, transform reordering, native textarea removal, evidence overclaiming and CI trigger removal. In addition, the NUnit suite now has ten direct tests of the internal value pipeline: all eight transform-flag combinations plus null and empty input. Negative source-guard mutations run against temporary copies and do not modify the working tree. These tests protect the existing transform behavior; they are not browser, caret/IME, v3 component implementation or design-approval evidence.
+Twenty local source/API guard tests include positive source/documentation parity and negative mutations for direct/inherited API drift, transform reordering, native textarea removal, evidence overclaiming and CI trigger removal. In addition, the NUnit suite now has fifteen direct tests of the internal value pipeline: all eight transform-flag combinations plus null and empty input, caret and selected-range offset mapping, length-preserving replacements, clamped offsets and missing offsets. Negative source-guard mutations run against temporary copies and do not modify the working tree. These tests protect the existing transform behavior; they are not browser, caret/IME, v3 component implementation or design-approval evidence.
 
 
 ## 8. Penpot model audit and contrast findings — 2026-11-13
@@ -496,3 +496,22 @@ Re-exported and visually inspected the four primary TextField design boards from
 | 20 · Fluent crosswalk & precedence | `343383cb-23d3-80b8-8008-ec45d29ff553` | Primary Web Components scope is separated from React visual fallback; appearance mapping and composite-state precedence remain readable. |
 
 No additional geometry or text clipping defect was identified in these exports. These are visual-export checks only: all four primary boards remain marked **DRAFT**, so this does not claim maintainer design approval, real-browser parity, native forced-colors acceptance, or assistive-technology sign-off.
+## 9. Native selection preservation implementation slice — 2026-11-13
+
+The current TextField source now contains an implementation slice for the documented TF-TRANSFORM-005 regression. This is a repair to the existing/current-API TextField behavior on the isolated #432 branch; it is **not** the completed v3 TextField API or a substitute for the remaining 24-scenario component DoD.
+
+- TextFieldValuePipeline.NormalizeWithSelection normalizes the text in the unchanged order (DigitOnly → AsciiDigits → ArabicToPersianConversion) and independently maps selectionStart and selectionEnd by normalizing each source prefix. The mapper computes mapped UTF-16 selection offsets by normalizing each source prefix; offsets follow the HTML input UTF-16 code-unit convention and are clamped to the source bounds.
+- The Razor input and textarea both use @bind-value:after="OnValueBoundAsync". When the setter changes the value, the component reads native selection through its own packaged ES module, stores the mapped range, and restores it after render. Selection direction is retained.
+- A per-element native input listener is installed in the capture phase on first interactive render. It snapshots the browser post-edit selection synchronously before Blazor delegated input handler can rerender and move the caret; the snapshot is consumed once, and the listener plus cached range are removed during component disposal. This capture-phase ordering was required to make Chrome and Edge behave consistently.
+- The ES module returns a no-op result when the native element does not expose a usable selection API (for example, input types that do not support selectionStart / setSelectionRange). It does not move focus merely to read or restore selection.
+- The InputBase<string?> / EditContext binding path is preserved. The value committed to CurrentValueAsString is the normalized value, so the rendered DOM, model and selection mapper use the same text.
+- No public parameter, event, CSS selector, design token or theme mapping was added or changed.
+
+### Verification completed for this slice
+
+- NUnit value-pipeline tests: **15/15** (eight flag combinations, null/empty, caret mapping, selected range, replacements, bounded and missing offsets).
+- Real native CDP insertion in the Component Lab: start with 12345, set caret to index 2, insert Persian ۹; the resulting value and bound Blazor value are 129345, and the collapsed native selection is restored to index 3.
+- Final local matrix after the capture-phase fix: Chrome/WebAssembly 283/283, Chrome/InteractiveServer 280/280, Edge/WebAssembly 283/283, Edge/InteractiveServer 280/280. All four runs recorded value=129345, selectionStart=3, selectionEnd=3, the input remained active, no unhandled JavaScript errors, and temporary-browser cleanup remaining=0.
+- The caret scenario has passed in Chrome and Edge, each with WebAssembly and InteractiveServer. The exact four current Component Lab run totals and cleanup summaries are recorded in the linked PR evidence; those broad totals are shared Lab assertions and are not TextField-specific test counts.
+- Component Lab still records representative specimens for 18 families and 66 source-mapped candidates. Its shared Lab pass does **not** mean TextField's dedicated exhaustive demo or the 24 planned acceptance scenarios are complete.
+- Synthetic browser composition events are not a physical OS IME test. Native screen-reader/OS forced-colors acceptance, selection behavior for every relevant input type, selected-range behavior across all transforms/directions, full v3 demo and migration evidence remain outstanding.
