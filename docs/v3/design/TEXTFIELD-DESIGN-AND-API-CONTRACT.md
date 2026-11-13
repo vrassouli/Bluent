@@ -472,3 +472,14 @@ Updated the existing DRAFT comparison board on page 19: `#432 · Placeholder rol
 ### Foundation decision request
 
 Updated the downstream decision request on #418 PR #500 (comment `6855027097`) with the exact pinned package evidence. Recommendation: use FG4 as the source role for ordinary placeholders and FGDisabled for disabled placeholders, then have #418 approve the semantic/public placeholder mapping. FG3 remains a contrast-heavier departure option. The current #418 preview schema has no explicit TextField placeholder role, and no maintainer decision has been recorded; therefore #432 does not consume an unapproved token or implement CSS.
+### Five-state visual comparison — current placeholder vs pinned FG4 proposal
+
+Added a second separate **DRAFT** visual study below the page-19 decision aid in the same owned Penpot file:
+- Page: `19 · TextField keyboard, contrast & reflow` (`343383cb-23d3-80b8-8008-ec440d228749`).
+- Board: `#432 · Filled darker placeholder contrast study · DRAFT` (`07d10be0-910e-8048-8008-f095c3e3c41c`), 1850 × 520.
+
+The board shows Rest, Hover, Pressed, Focus and Error as five separate columns. Each repeats the same immediate BG3 surface (`#f5f5f5`) with the current placeholder (`#62758a`, 4.3472:1) and the pinned-source FG4 candidate (`#707070`, 4.5423:1). The page keeps surface/layout unchanged and explicitly labels the FG4 treatment as a proposal, not an accepted product color. Disabled placeholder remains a separate FGDisabled role; ReadOnly shows a value rather than a placeholder.
+
+The board has 53 children, **zero out-of-bounds shapes**, and its exported PNG was visually reviewed. The original page-17 28-variant source matrix and the earlier page-19 decision board are unchanged. After switching to page 16 and back to page 19, source verification still reports 28 variants / 28 unique pairs / zero `variantError` values.
+
+No token binding, component variant, placeholder fill, product CSS or runtime source was changed. The #418 semantic/public mapping decision is still outstanding.
