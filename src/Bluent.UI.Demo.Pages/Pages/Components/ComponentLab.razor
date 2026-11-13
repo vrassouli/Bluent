@@ -383,6 +383,30 @@
                         <p id="lab-tf-persian-value" role="status">Value: @_labTextPersianChars</p>
                     </div>
                     <div class="lab-textfield-card">
+                        <label for="lab-tf-digit-ascii">DigitOnly + AsciiDigits</label>
+                        <TextField id="lab-tf-digit-ascii" @bind-Value="_labTextDigitAscii"
+                                   BindValueEvent="oninput" DigitOnly AsciiDigits />
+                        <p id="lab-tf-digit-ascii-value" role="status">Value: @_labTextDigitAscii</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-digit-persian">DigitOnly + ArabicToPersianConversion</label>
+                        <TextField id="lab-tf-digit-persian" @bind-Value="_labTextDigitPersian"
+                                   BindValueEvent="oninput" DigitOnly ArabicToPersianConversion />
+                        <p id="lab-tf-digit-persian-value" role="status">Value: @_labTextDigitPersian</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-ascii-persian">AsciiDigits + ArabicToPersianConversion</label>
+                        <TextField id="lab-tf-ascii-persian" @bind-Value="_labTextAsciiPersian"
+                                   BindValueEvent="oninput" AsciiDigits ArabicToPersianConversion />
+                        <p id="lab-tf-ascii-persian-value" role="status">Value: @_labTextAsciiPersian</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-all-transforms">All transforms (DigitOnly → AsciiDigits → ArabicToPersianConversion)</label>
+                        <TextField id="lab-tf-all-transforms" @bind-Value="_labTextAllTransforms"
+                                   BindValueEvent="oninput" DigitOnly AsciiDigits ArabicToPersianConversion />
+                        <p id="lab-tf-all-transforms-value" role="status">Value: @_labTextAllTransforms</p>
+                    </div>
+                    <div class="lab-textfield-card">
                         <label for="lab-tf-addons">Small size with StartAddon and EndAddon</label>
                         <TextField id="lab-tf-addons" @bind-Value="_labTextAddon" Size="FieldSize.Small">
                             <StartAddon>+98</StartAddon>
@@ -963,6 +987,10 @@
     private string? _labTextDigitsOnly = "123";
     private string? _labTextAsciiDigits = "123";
     private string? _labTextPersianChars = "متن";
+    private string? _labTextDigitAscii = "123456";
+    private string? _labTextDigitPersian = "۱۲٣٤56";
+    private string? _labTextAsciiPersian = "کیی 123";
+    private string? _labTextAllTransforms = "123456";
     private string? _labTextAddon = "Search";
     private string? _labTextLarge = "Large field";
     private string? _labTextResizable = "Resizable\ntextarea";
@@ -1006,6 +1034,10 @@
         "<TextField id=\"lab-tf-digits-only\" @bind-Value=\"_labTextDigitsOnly\" BindValueEvent=\"oninput\" DigitOnly />\n" +
         "<TextField id=\"lab-tf-ascii-digits\" @bind-Value=\"_labTextAsciiDigits\" BindValueEvent=\"oninput\" AsciiDigits />\n" +
         "<TextField id=\"lab-tf-persian-chars\" @bind-Value=\"_labTextPersianChars\" BindValueEvent=\"oninput\" ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-digit-ascii\" @bind-Value=\"_labTextDigitAscii\" BindValueEvent=\"oninput\" DigitOnly AsciiDigits />\n" +
+        "<TextField id=\"lab-tf-digit-persian\" @bind-Value=\"_labTextDigitPersian\" BindValueEvent=\"oninput\" DigitOnly ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-ascii-persian\" @bind-Value=\"_labTextAsciiPersian\" BindValueEvent=\"oninput\" AsciiDigits ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-all-transforms\" @bind-Value=\"_labTextAllTransforms\" BindValueEvent=\"oninput\" DigitOnly AsciiDigits ArabicToPersianConversion />\n" +
         "<TextField id=\"lab-tf-addons\" @bind-Value=\"_labTextAddon\" Size=\"FieldSize.Small\">\n  <StartAddon>+98</StartAddon><EndAddon>IR</EndAddon>\n</TextField>\n" +
         "<TextField id=\"lab-tf-large\" @bind-Value=\"_labTextLarge\" Size=\"FieldSize.Large\" />\n" +
         "<TextField id=\"lab-tf-resizable\" @bind-Value=\"_labTextResizable\" Rows=\"3\" ResizeTextarea=\"true\" />\n" +
@@ -1016,7 +1048,7 @@
         "<TextField id=\"lab-tf-start-addon\" @bind-Value=\"_labTextStartAddon\"><StartAddon>https://</StartAddon></TextField>\n" +
         "<TextField id=\"lab-tf-end-addon\" @bind-Value=\"_labTextEndAddon\"><EndAddon>.com</EndAddon></TextField>\n" +
         "<TextField id=\"lab-tf-addon-action\" Value=\"@_labTextAddonActionValue\" disabled><EndAddon><button id=\"lab-tf-addon-action-button\" type=\"button\" aria-label=\"Clear disabled field value\" @onclick=\"ClearLabTextAddonAction\">Clear</button></EndAddon></TextField>\n" +
-        "@code { private TextFieldValidationModel _labTextFieldValidation = new(); private string? _labTextDefaultChange = \"Before\"; private string? _labTextStartAddon = \"https://example.org\"; private string? _labTextEndAddon = \"support\"; private string? _labTextAddonActionValue; private int _labTextAddonActionClearCount; private TextFieldNativeAttributesModel _labTextFieldAttributes = new(); private void ClearLabTextAddonAction() { _labTextAddonActionValue = null; _labTextAddonActionClearCount++; } private void OnLabTextFieldValid() { } private void OnLabTextFieldInvalid() { }\n" +
+        "@code { private TextFieldValidationModel _labTextFieldValidation = new(); private string? _labTextDefaultChange = \"Before\"; private string? _labTextDigitAscii = \"123456\"; private string? _labTextDigitPersian = \"۱۲٣٤56\"; private string? _labTextAsciiPersian = \"کیی 123\"; private string? _labTextAllTransforms = \"123456\"; private string? _labTextStartAddon = \"https://example.org\"; private string? _labTextEndAddon = \"support\"; private string? _labTextAddonActionValue; private int _labTextAddonActionClearCount; private TextFieldNativeAttributesModel _labTextFieldAttributes = new(); private void ClearLabTextAddonAction() { _labTextAddonActionValue = null; _labTextAddonActionClearCount++; } private void OnLabTextFieldValid() { } private void OnLabTextFieldInvalid() { }\n" +
         "private sealed class TextFieldValidationModel { [Required] public string? Name { get; set; } }\n" +
         "private sealed class TextFieldNativeAttributesModel { [Display(Name = \"Work email\")] [Required] public string? Email { get; set; } = \"person@example.com\"; }";
 

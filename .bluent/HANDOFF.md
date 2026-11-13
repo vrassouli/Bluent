@@ -150,3 +150,40 @@ This does not change the #432 acceptance boundary: the 23 TextField assertions p
 
 
 The first CI run on the package-remediation commit then exposed two stale fail-closed test fixtures in `scripts/quality/test_v3_quality_gate_contract.py`: they asserted the repository still contained `10.0.14`, then tried to downgrade it to `10.0.13`. Updated the quality-contract checker minimum for the ASP.NET Core `WebAssembly.Server` and `WebAssembly.DevServer` packages to `10.0.15`, and changed each negative control to inject `10.0.14` into a copy of the current project text. All **50/50** quality-contract tests and the standalone checker now pass; the negative controls still prove that the vulnerable pre-fix patch is rejected.
+
+## TextField #432 — full transform matrix and final local verification — 2026-11-13
+
+Branch: `v3/issue-432-textfield` → `bluent-v3`; PR #562 remains open. The latest engineering changes are recorded in the task branch; exact-head GitHub CI must run on the next evidence commit.
+
+### Current-API Component Lab coverage expansion
+
+Expanded the shared Component Lab TextField section to **21 live specimens** on the existing released/v2 API. The three transform flags (`DigitOnly`, `AsciiDigits`, `ArabicToPersianConversion`) now have all **eight on/off combinations** represented: none, each single flag, each pair and all three. Each multi-flag combination has a real browser Ctrl+V clipboard test. The two final pairwise cases verify both behavior and ordering:
+
+- `DigitOnly + AsciiDigits`: mixed-script paste filters to Unicode decimal digits, then converts Persian/Arabic-Indic numerals to ASCII (`123456`).
+- `DigitOnly + ArabicToPersianConversion`: filtering happens first and Arabic letter variants are normalized; digit script remains Persian/Arabic-Indic because `AsciiDigits` is not enabled (`۱۲٣٤56`).
+- `AsciiDigits + ArabicToPersianConversion` and all three flags are also exercised with real Ctrl+V; the all-three path is additionally exercised through native browser text insertion and bound-model feedback.
+
+The copyable Razor example includes all combined cases and their backing state. The browser Probe checks the rendered value and bound status after native clipboard operations, not just the DOM input value. The suite has **28 explicitly named TextField-targeted checks per run**; the full shared Component Lab counts are distinct from that subset.
+
+### Four-mode local browser evidence
+
+Final local Dev01 runs on the 21-specimen / 28-check source passed:
+
+| Browser / render mode | Full shared Component Lab | TextField-targeted | SignalR / cleanup |
+|---|---:|---:|---|
+| Chrome / WebAssembly | 278/278 | 28/28 | no JS errors; cleanup remaining 0 |
+| Edge / WebAssembly | 278/278 | 28/28 | no JS errors; cleanup remaining 0 |
+| Chrome / published InteractiveServer | 275/275 | 28/28 | WebSocket HTTP 101; no JS errors; cleanup remaining 0 |
+| Edge / published InteractiveServer | 275/275 | 28/28 | WebSocket HTTP 101; no JS errors; cleanup remaining 0 |
+
+Aggregate: **1106/1106 full shared Component Lab assertions across four runs**. The 28 TextField checks are a subset, not an extra 112 checks. Each run completed browser/profile cleanup with `remaining=0`.
+
+Additional validation after the ComponentLab markup update: `python scripts/quality/check_v3_component_lab.py` passed; generated family queue `--check` passed; Node Probe syntax passed; quality-gate contract tests passed **50/50**; full `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` passed; full `dotnet test Bluent.sln --configuration Release --no-build` passed **46/46**; `git diff --check` clean.
+
+### Boundaries / remaining acceptance
+
+This evidence is still a **current v2/released-API regression baseline**, not implementation acceptance for a v3 TextField. No production TextField API/C#/CSS or stable/v2 assets were changed. The composition event is a synthetic DOM `insertCompositionText`/`isComposing` observation only; physical OS IME behavior, composition cancel/commit, caret and selection preservation remain unverified.
+
+Penpot pages 17–20 remain **DRAFT** and #418 remains Review; final token vocabulary/values and maintainer design sign-off are not approved. Do not use provisional tokens to author final product CSS. Still open: actual v3 TextField runtime/API/CSS, final Penpot/token approval and parity review, responsive/RTL/theme/forced-colors visual acceptance, native keyboard/accessibility/screen-reader review, real OS IME/caret/selection, component documentation/Skill/migration and exhaustive product acceptance. #432 remains In progress; PR #562 remains open and unmerged. No package publish or deployment.
+
+The prior exact-head CI on `7d8ead3b` was green; this expanded 21-specimen matrix is not yet on that head. Run GitHub CI on the next pushed evidence commit and verify every job before updating the status again. The standalone `dotnet list package --vulnerable` report remains unverified because NuGet report retrieval stalled; the 10.0.15 security package remediation, restore, warning-as-error Release build and tests are successful, but do not claim the separate inventory command passed.
