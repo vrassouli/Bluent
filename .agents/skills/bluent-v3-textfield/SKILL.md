@@ -1,6 +1,6 @@
 # Bluent v3 TextField — task-branch handoff
 
-> **Issue #432 is review-ready after exact-head CI.** This is a source-backed implementation handoff for v3/issue-432-textfield targeting bluent-v3, not a released consumer API or a global #418 token approval. The existing 2.x consumer Skill and reference remain authoritative for released packages.
+> **Issue #432 is accepted and merged into bluent-v3 via PR #562 (task head 5d0aef5d).** This is an unreleased v3 component implementation, not a stable consumer API or a global #418 token approval. The existing 2.x consumer Skill and reference remain authoritative for released packages.
 
 ## Retrieval order
 
@@ -62,3 +62,8 @@ The persistent Windows matrix is in .github/workflows/v3-compatibility-browsers.
 - Evidence files: docs/v3/quality/evidence/BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.json/.png and BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.json/.png.
 - High Contrast flags were restored to 126/off, original Custom.theme restored, and active keyboard layout restored to English 0x04090409.
 - Task-specific design/token acceptance is recorded in Penpot pages 17–20. Those boards retain DRAFT labels; the global #418 foundation remains under Review.
+## Accepted implementation — 2026-11-14
+
+PR #562 is merged into bluent-v3 after delegated technical review. Exact task-head CI passed 8/8 workflows and 28/28 checks, with the four-way Chrome/Edge × WebAssembly/InteractiveServer TextField matrix all green. Native Windows High Contrast and direct Persian keyboard-layout selection/caret behavior were also verified and recorded in JSON/PNG evidence.
+
+Do not claim composition-based OS IME lifecycle or spoken Narrator output: neither was certified. Penpot pages 17–20 retain DRAFT labels; task-specific decisions were accepted, while #418 global token foundation remains separate. The public TextField API contains no Appearance parameter; Filled visual boards are not a shipped public appearance API. Stable 2.x/Dev packages and deployments remain unchanged.

@@ -758,3 +758,8 @@ The isolated v3/issue-432-textfield branch now contains genuine native Windows e
 - Chromium accessibility tree: 21/21 named textboxes. Spoken Narrator output was not captured/listened to and remains unverified.
 
 Evidence is under docs/v3/quality/evidence/BLUENT-TEXTFIELD-WINDOWS-*. The next evidence commit must receive fresh exact-head CI. Task-specific Penpot comments accept the component decisions; page DRAFT markers remain and #418 retains global token ownership. No v2/stable change, release, NuGet publication or deployment.
+## TextField #432 — accepted and integrated — 2026-11-14
+
+PR #562 was accepted by delegated technical review and squash-merged into bluent-v3 after exact task head 5d0aef5d7b15c7511b55570cf3090dab75dafcc7 passed 8/8 workflows and 28/28 checks. All four TextField browser cells passed (Chrome/Edge × WASM/InteractiveServer). Local Release build completed with zero warnings/errors, .NET tests 70/70, TextField contract tests 48/48, docs contract zero findings, and Markdown links checked in 174 files.
+
+Native Windows High Contrast and direct Persian keyboard-layout input/caret restoration were verified; original Windows settings and English keyboard layout were restored. Composition-based OS IME lifecycle and spoken Narrator output remain unverified. Penpot pages 17–20 retain DRAFT labels, while task-specific design decisions were accepted under delegated review. #418 global token ownership remains separate. The current TextField has no public Appearance parameter; the Filled visual samples remain non-API references and host-boundary contrast is a future appearance follow-up. No stable Dev/main/v2 merge, NuGet publication, release or deployment occurred.

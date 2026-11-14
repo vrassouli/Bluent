@@ -1,6 +1,6 @@
-# Bluent v3 TextField — implementation record (review-ready; unreleased)
+# Bluent v3 TextField — accepted implementation record (integrated; unreleased)
 
-> **Status:** implementation and task-specific design decisions are complete; review-ready after exact-head CI. This remains an unreleased v3 API, not a claim of complete Fluent parity. Issue #432 and PR #562 track integration into bluent-v3. The 2.x reference remains authoritative for released packages.
+> **Status:** accepted and integrated into bluent-v3 through PR #562 (task head 5d0aef5d). This remains unreleased v3 work, not a stable package or a claim of complete Fluent parity. The 2.x reference remains authoritative for released packages.
 
 ## Identity and design provenance
 
@@ -140,7 +140,7 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 | JavaScript / Sass asset pipeline | Clean `npm ci` + webpack ESM/Global build and clean `npm ci` + Sass compilation passed | Generated CSS is consumed by the existing BundlerMinifier pipeline; Sass reports legacy Bootstrap/import deprecation notices, not compilation errors. |
 | NuGet package content | Local `Bluent.UI.1.0.0.nupkg` pack passed; verified minified component CSS, ESM JS and Global JS are present, and packaged CSS contains `.bui-text-field` | Local pack validation only; package was not published. |
 | InteractiveServer host | Debug SSR host built with warnings-as-errors; focused showcase reused in a real InteractiveServer circuit | Same source-owned showcase; not a second component implementation. |
-| Hosted real-browser matrix | **100/100 passed** on commit 14b8357522dc81f991a2e028ebc8f4254179ec11 across Chrome/Edge × WebAssembly/InteractiveServer: Chrome/WASM 25/25, Edge/WASM 25/25, Chrome/Server 24/24, Edge/Server 26/26. | Exact-head GitHub Actions run 43585766019; four JSON/PNG artifacts uploaded. A later local Edge/InteractiveServer refresh passed 26/26 on the real SSR host, including CSS, 320px reflow and SignalR HTTP 101. New evidence commit still requires its own exact-head CI. |
+| Hosted real-browser matrix | Baseline 100/100 on 14b8357522dc81f991a2e028ebc8f4254179ec11; latest task head 5d0aef5d7b15c7511b55570cf3090dab75dafcc7 also passed all four TextField cells. | Baseline artifacts in run 43585766019; exact-head final CI on 5d0aef5 completed 8/8 workflows and 28/28 checks with Chrome/Edge × WebAssembly/InteractiveServer all green. |
 | Native Persian Windows keyboard layout | **Pass, scoped** | Windows input method 0429:00000429 active; real OS key events A/S/D entered شسی without Unicode injection. A real key event replaced selected range [1,2] in the Persian-normalization specimen; beforeinput/input reported ش, resulting value کشس, caret collapsed at index 2. Evidence: BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.json/.png. No composition events occurred, so composition-based IME lifecycle is not certified; English layout restored. |
 | Native Windows High Contrast | **Pass** | Real Windows High Contrast White; Edge forced-colors active; component CSS loaded (883 rules). Field border mapped to CanvasText, disabled border/input to GrayText, 2px focus underline to Highlight. 21/21 textboxes had accessible names in the Chromium AX tree, with native disabled/readonly states. Windows flags and Custom.theme restored. Not spoken screen-reader acceptance. |
 | Screen-reader spoken output | **Not certified** | 21/21 named textboxes in Chromium AX tree; Narrator speech was not captured/listened to. Do not claim spoken AT acceptance. |
@@ -149,7 +149,7 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 
 ### Real-browser evidence files
 
-The exact-head hosted matrix on 14b8357522dc81f991a2e028ebc8f4254179ec11 passed Chrome/WASM 25/25, Edge/WASM 25/25, Chrome/InteractiveServer 24/24 and Edge/InteractiveServer 26/26 (100/100 aggregate; Compatibility Browsers run 43585766019). Four JSON/PNG browser artifacts are uploaded. A later local Edge/InteractiveServer run passed 26/26 against the real SSR host with final CSS loaded and SignalR HTTP 101. Native Windows evidence is retained in BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.* and BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.*. The new evidence commit still needs exact-head CI.
+The initial exact-head hosted TextField matrix on 14b8357522dc81f991a2e028ebc8f4254179ec11 passed 100/100 assertions across Chrome/Edge × WebAssembly/InteractiveServer (Compatibility Browsers run 43585766019). The final evidence/documentation head 5d0aef5d7b15c7511b55570cf3090dab75dafcc7 then passed all four TextField browser jobs and all 8 workflows / 28 checks. A local Edge/InteractiveServer run also passed 26/26 against the real SSR host with final CSS loaded and SignalR HTTP 101. Native Windows evidence is retained in BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.* and BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.*.
 
 - BLUENT-TEXTFIELD-CHROME-WASM.json / .png
 - BLUENT-TEXTFIELD-EDGE-WASM.json / .png
@@ -173,4 +173,4 @@ dotnet build Bluent.sln --configuration Release --no-restore -warnaserror
 dotnet test Bluent.sln --configuration Release --no-build
 ```
 
-Issue #432 is ready for Review after the new evidence commit passes exact-head CI; PR #562 remains open and targets bluent-v3. This is unreleased v3 development; no stable Dev/main/v2 merge, NuGet publication, deployment or release has occurred.
+Issue #432 is accepted for integration through PR #562 targeting bluent-v3. The current source-backed API is integrated by that PR; this remains unreleased v3 development. No stable Dev/main/v2 merge, NuGet publication, deployment or release has occurred.

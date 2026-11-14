@@ -517,3 +517,17 @@ The current TextField source now contains an implementation slice for the docume
 - The caret scenario has passed in Chrome and Edge, each with WebAssembly and InteractiveServer. The exact four current Component Lab run totals and cleanup summaries are recorded in the linked PR evidence; those broad totals are shared Lab assertions and are not TextField-specific test counts.
 - Component Lab still records representative specimens for 18 families and 66 source-mapped candidates. Its shared Lab pass does **not** mean TextField's dedicated exhaustive demo or the 24 planned acceptance scenarios are complete.
 - Synthetic browser composition events are not a physical OS IME test. Native screen-reader/OS forced-colors acceptance, selection behavior for every relevant input type, selected-range behavior across all transforms/directions, full v3 demo and migration evidence remain outstanding.
+
+## Final TextField #432 technical acceptance and integration — 2026-11-14
+
+The current implementation and task-specific design/API decisions are accepted under the maintainer's explicit delegation to perform the technical review autonomously. PR #562 is merged into bluent-v3; the task head was 5d0aef5d7b15c7511b55570cf3090dab75dafcc7. This is component-specific acceptance only; it does not close #418 or approve its global token foundation.
+
+- Exact-head CI: 8/8 workflows and 28/28 checks succeeded. The four TextField cells (Chrome/Edge × WebAssembly/InteractiveServer) all passed. Component Lab, Popover, Button Runtime, docs, skill, source/consumer compile and baseline release validation also passed.
+- Local verification: Release solution build with -warnaserror had zero warnings/errors; .NET tests 70/70; TextField source/API tests 48/48; documentation contract zero findings; Markdown links checked in 174 files.
+- Native Windows High Contrast White: Edge observed forced-colors active with the real component CSS loaded. Border mapped to CanvasText, disabled border/input to GrayText, focus underline to Highlight. The Chromium accessibility tree exposed 21/21 named textboxes and native disabled/readonly states. Original Windows theme/flags were restored.
+- Native Persian Windows keyboard layout: physical A/S/D key events entered شسی without Unicode injection. A real keyboard event replaced selection [1,2], yielding کشس and caret index 2. This validates direct keyboard-layout input and selection mapping, not a composition/candidate-based IME lifecycle; no composition events were emitted by the selected layout.
+- Narrator spoken output was not recorded/listened to. Accessibility-tree names/states are not spoken-screen-reader acceptance.
+- Penpot pages 17–20 retain DRAFT labels. The task-specific design decisions are accepted by delegated review, while global token names/mappings remain under #418. Four variant-name metadata errors on page 16 were subsequently repaired and the 28 State × Appearance pairs were rechecked.
+- The public TextField API has no Appearance parameter. The Filled/Underline/lighter/darker matrix is design-reference material only. Its consumer-host Filled-boundary contrast therefore remains a follow-up for any future appearance API, not a claim that a current public Filled mode shipped. The source-backed placeholder uses the exact upstream FG4 role and existing disabled role.
+
+Residual limits are deliberately recorded: composition-based OS IME lifecycle and spoken Narrator output are unverified. No stable Dev/main/v2 source, package, release or deployment was changed.
