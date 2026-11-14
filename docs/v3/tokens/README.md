@@ -324,3 +324,26 @@ The Dark foreground preview now uses an actual Bluent `Button` for Action Rest a
 ### TextField placeholder mapping (2026-11-14)
 
 The TextField consumer uses the pinned Fluent Web Components role --colorNeutralForeground4 for ordinary placeholder text through bluent.semantic.text.placeholder / --bui-v3-text-placeholder. Disabled placeholder text reuses the existing bluent.semantic.text.disabled alias to --colorNeutralForegroundDisabled. The FG4/BG3 contrast pair is checked in all 20 brand/mode CSS files; see the TextField placeholder decision in CONTRAST-AUDIT.md. This is a selected component mapping in the opt-in preview, not approval of the entire public token foundation.
+
+## 2026-11-14 — current D2 portal and D5 accessibility evidence reconciliation
+
+This section supersedes older **current-status** wording in the historical portal/D5 checkpoints below. Their original results are retained as an audit trail; do not treat their old `Remaining` bullets as the present implementation state.
+
+### D2 — theme ownership and concurrent brand portals
+
+- Authoritative editable design remains Penpot **Bluent v3 Design System**, page 33 / board `acf5f619-7d81-80da-8008-c5fec0b7ec61` (portal owner decision, still **DRAFT**) and page 34 / board `acf5f619-7d81-80da-8008-c60b36beac74` (Excel/Light + Word/Dark concurrent owners, still a **prototype**, not an approved API).
+- The source matrix covers the 20 existing brand × Light/Dark stylesheets. The scoped generator identifies 49 brand-sensitive variables among the 450 declared source variables; it emits 20 opt-in scopes without changing the other 401 inherited variables.
+- The real Blazor portal prototype passed **126/126 Chrome WebAssembly** and **126/126 Chrome published InteractiveServer** assertions. The matrix includes simultaneous Excel/Light and Word/Dark owners, their detached Dialog/Popover surfaces, owner updates, no-scope fallback, forced-colors role propagation, reduced motion, and a bounded 320px/200% reflow specimen. NUnit passed **40/40**. These are two scoped Chrome executions, not Firefox/Safari, native AT or universal accessibility acceptance.
+- `PortalThemeScope`, `SetThemeScope`, and the preview CSS remain opt-in research. The demo asset is Demo.Pages-only; the public component API, stable 2.x bundle, Dev and NuGet are unchanged.
+
+### D5 — current opt-in Dialog/Popover proof packs
+
+The earlier four D5 baseline observations (Dialog role/name/initial focus and Popover expanded/controls) are now **historical baseline findings** for the no-opt-in/earlier prototype. The later opt-in path now has separately recorded evidence:
+
+- [Nested Modal keyboard stack](D5-MODAL-KEYBOARD-STACK-PROTOTYPE.md) and [Escape/initial-focus priority](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md): Tab/Shift+Tab containment, topmost/nested Escape ownership, focus return, caller-validated initial focus, child-first Popover dismissal and reduced-motion safety. The expanded probe passed **176/176** checks in each of Chrome/Edge × WebAssembly/published InteractiveServer.
+- [Dialog heading / accessible-name mapping](D5-DIALOG-HEADING-AX-AUDIT.md): the standard visible title is the `aria-labelledby` target; heading-less custom content keeps its explicit localized `aria-label`. Four Chrome/Edge × WASM/published InteractiveServer executions passed **183/183** each.
+- [Visible description, live title and reduced-motion dismissal](D5-DESCRIPTION-LIVE-TITLE-AUDIT.md): visible `aria-describedby`, changing title reflected in the Chromium AX name, real initial TextField focus, Escape close under zero-duration motion and caller focus restoration. Four Chrome/Edge × WASM/published InteractiveServer executions passed **190/190** each; NUnit **58/58** and Release build 0 warnings/errors.
+- These are **separate proof-pack counts**, not additive totals or native assistive-technology acceptance. Chrome and Edge are both Chromium. Native NVDA/VoiceOver speech, independent Firefox/Safari engine behavior, Windows Contrast Themes with Dialog/Popover, uncoordinated third-party popup event arbitration, route/unmount/iframe races, and final title/description/Popover API design remain open.
+- The D5 Dialog/Popover design boards on pages 33, 36, 37 and 38 remain **DRAFT**. The opt-in helper and CSS remain isolated research; no stable component stylesheet, public v3 Dialog/Popover contract, Dev branch or released NuGet was changed.
+
+**Foundation decision boundary:** this D2/D5 evidence corrects old prototype status descriptions; it does not approve #418's full token vocabulary/values or the remaining native AT and design gates. #418 remains in Project #5 **Review**, and PR #500 remains open against `bluent-v3`. Do not infer a final API or mark the foundation Done from these browser counts.
