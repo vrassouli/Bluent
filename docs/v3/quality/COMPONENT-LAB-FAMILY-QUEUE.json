@@ -98,12 +98,12 @@
       ],
       "existingConsumerExampleFiles": [],
       "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon-clipboard-ime-observation-all-transform-combinations",
-      "scenarioEvidence": "accepted_exact_head_chrome_edge_wasm_server_native_windows_contrast_and_persian_keyboard",
-      "apiPropertiesEventsMapped": true,
-      "completeDemoAcceptance": true,
-      "componentDesignAccepted": true,
-      "browserMatrixAccepted": true,
-      "outstanding": "Composition-based OS IME lifecycle and spoken Narrator output remain unverified. Penpot boards retain DRAFT labels; global #418 token foundation remains separate. A Filled host-surface contrast check is follow-up only because no public TextField Appearance parameter exists. The global 66-family demo/API coverage queue remains incomplete."
+      "scenarioEvidence": "chrome_and_edge_wasm_server_native_text_input_binding_observed",
+      "apiPropertiesEventsMapped": false,
+      "completeDemoAcceptance": false,
+      "componentDesignAccepted": false,
+      "browserMatrixAccepted": false,
+      "outstanding": "Full public API/property/event/state mapping, design parity, theme/RTL/keyboard/accessibility and all render-mode tests"
     },
     {
       "family": "NumericField",
