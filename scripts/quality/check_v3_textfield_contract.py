@@ -238,12 +238,18 @@ def check_textfield_contract(root: Path) -> None:
         '@rendermode InteractiveServer',
         '<Containers />',
         '<TextFields />',
+        'id="textfield-interactive-ready"',
+        "OnAfterRenderAsync(bool firstRender)",
+        "_interactiveReady = true;",
+        "StateHasChanged();",
     ), "TextField InteractiveServer host")
     _require(browser_probe, (
         "process.env.BLUENT_TEXTFIELD_ROUTE",
         "const renderMode = process.env.BLUENT_TEXTFIELD_RENDER_MODE || 'WebAssembly';",
         "process.env.CHROME_PATH",
         "Page.navigate",
+        "document.querySelector('#textfield-interactive-ready')?.dataset.ready === 'true'",
+        "InteractiveServer circuit completes its first interactive render before input",
         "setNativeValue",
         "Emulation.setDeviceMetricsOverride",
         "Page.captureScreenshot",

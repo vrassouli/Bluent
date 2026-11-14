@@ -1,17 +1,38 @@
 {
   "issue": 432,
-  "date": "2026-11-14T07:07:04.977Z",
+  "date": "2026-11-14T07:16:48.981Z",
   "browser": "Edge headless local Dev01",
   "renderMode": "InteractiveServer",
-  "route": "http://127.0.0.1:5082/compatibility/text-fields-server",
-  "checksPassed": 23,
-  "checksTotal": 23,
+  "route": "http://127.0.0.1:5081/compatibility/text-fields-server",
+  "checksPassed": 24,
+  "checksTotal": 24,
   "checks": [
     {
       "name": "focused TextField route loads in real Edge InteractiveServer",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:5082/compatibility/text-fields-server"
+        "url": "http://127.0.0.1:5081/compatibility/text-fields-server"
+      }
+    },
+    {
+      "name": "InteractiveServer circuit completes its first interactive render before input",
+      "pass": true,
+      "detail": {
+        "runtimeSignals": [
+          {
+            "type": "interactive-resource",
+            "status": 200,
+            "url": "http://127.0.0.1:5081/_blazor/negotiate?negotiateVersion=1"
+          },
+          {
+            "type": "websocket-created",
+            "url": "ws://127.0.0.1:5081/_blazor?id=WUsdGNA___zvIIfBmGMUqQ"
+          },
+          {
+            "type": "websocket-handshake",
+            "status": 101
+          }
+        ]
       }
     },
     {
@@ -214,11 +235,11 @@
     {
       "type": "interactive-resource",
       "status": 200,
-      "url": "http://127.0.0.1:5082/_blazor/negotiate?negotiateVersion=1"
+      "url": "http://127.0.0.1:5081/_blazor/negotiate?negotiateVersion=1"
     },
     {
       "type": "websocket-created",
-      "url": "ws://127.0.0.1:5082/_blazor?id=Aa6Zwwi4BhcI1aU1JNXcPQ"
+      "url": "ws://127.0.0.1:5081/_blazor?id=WUsdGNA___zvIIfBmGMUqQ"
     },
     {
       "type": "websocket-handshake",

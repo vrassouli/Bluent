@@ -1,6 +1,6 @@
 {
   "issue": 432,
-  "date": "2026-11-14T06:51:47.444Z",
+  "date": "2026-11-14T07:16:26.614Z",
   "browser": "Chrome headless local Dev01",
   "renderMode": "WebAssembly",
   "route": "http://127.0.0.1:5080/components/text-fields",
@@ -210,7 +210,13 @@
       "detail": []
     }
   ],
-  "runtimeSignals": [],
+  "runtimeSignals": [
+    {
+      "type": "interactive-resource",
+      "status": 200,
+      "url": "http://127.0.0.1:5080/_content/Bluent.UI/bluent.ui.js"
+    }
+  ],
   "result": "PASS",
   "boundary": "Focused route runtime evidence only; not native Windows Contrast Themes, screen-reader speech, physical OS IME certification, full API acceptance or Penpot/token approval."
 }

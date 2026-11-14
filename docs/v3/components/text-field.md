@@ -135,12 +135,12 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 
 | Check | Result | Boundary |
 |---|---|---|
-| TextField source/API/demo/browser-CI guard | 39/39 positive/negative tests passed | Source/API/demo/CI invariants only. |
+| TextField source/API/demo/browser-CI guard | 41/41 positive/negative tests passed | Source/API/demo/CI invariants only. |
 | Release build / .NET tests | Full Solution Release build: 0 warnings / 0 errors; full solution tests: 70/70 passed | Compilation and unit/regression tests; browser evidence is reported separately. |
 | JavaScript / Sass asset pipeline | Clean `npm ci` + webpack ESM/Global build and clean `npm ci` + Sass compilation passed | Generated CSS is consumed by the existing BundlerMinifier pipeline; Sass reports legacy Bootstrap/import deprecation notices, not compilation errors. |
 | NuGet package content | Local `Bluent.UI.1.0.0.nupkg` pack passed; verified minified component CSS, ESM JS and Global JS are present, and packaged CSS contains `.bui-text-field` | Local pack validation only; package was not published. |
 | InteractiveServer host | Debug SSR host built with warnings-as-errors; focused showcase reused in a real InteractiveServer circuit | Same source-owned showcase; not a second component implementation. |
-| Real-browser runtime matrix | **92/92 passed**: Chrome/Edge × WebAssembly/InteractiveServer, 23/23 per combination | Live CDP browser interaction on the focused route; zero browser runtime/HTTP errors and zero QA-owned browser processes after cleanup. |
+| Real-browser runtime matrix | **94/94 passed**: Chrome/Edge × WebAssembly (23/23 each) and InteractiveServer (24/24 each) | Live CDP browser interaction on the focused route; Server cases wait for the first interactive render and verify HTTP 101 SignalR; zero browser runtime/HTTP errors and zero QA-owned browser processes after cleanup. |
 | Native Windows Contrast Themes / screen reader | Not performed for this implementation | Browser emulation or source inspection is not native OS/AT certification. |
 | Penpot design approval | Pending; pages 17–20 remain DRAFT | No pixel-parity or maintainer approval claim. |
 | #418 token mapping | Review | No final semantic placeholder/component mapping is claimed. |

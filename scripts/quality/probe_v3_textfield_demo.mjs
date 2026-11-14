@@ -183,6 +183,34 @@ try {
   }
   check('focused TextField route loads in real ' + browserLabel + ' ' + renderMode, true, { url: base + route });
 
+  if (renderMode === 'InteractiveServer') {
+    let interactiveReady = false;
+    try {
+      interactiveReady = await poll(() => evaluate(
+        "document.querySelector('#textfield-interactive-ready')?.dataset.ready === 'true'"
+      ), 30000);
+    } catch (error) {
+      const readinessDiagnosticFn = function () {
+        const marker = document.querySelector('#textfield-interactive-ready');
+        return {
+          url: location.href,
+          readyState: document.readyState,
+          markerPresent: !!marker,
+          markerReady: marker?.dataset.ready,
+          blazorPresent: !!window.Blazor,
+          scripts: [...document.scripts].map(script => script.src).filter(Boolean),
+          bodyText: document.body?.innerText?.slice(0, 900)
+        };
+      };
+      console.error('QA SERVER INTERACTIVE READY DIAGNOSTICS ' + JSON.stringify({
+        browser: await evaluate('(' + readinessDiagnosticFn.toString() + ')()'),
+        runtimeSignals
+      }));
+      throw error;
+    }
+    check('InteractiveServer circuit completes its first interactive render before input', interactiveReady, { runtimeSignals });
+  }
+
   const structureFn = function () {
     const basic = document.querySelector('#textfield-basic');
     const label = document.querySelector('label[for="textfield-basic"]');

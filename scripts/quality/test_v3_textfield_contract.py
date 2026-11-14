@@ -239,6 +239,20 @@ class TextFieldContractTests(unittest.TestCase):
             '<None Include="Pages\\Components\\TextFields.razor" />',
         )
 
+    def test_interactive_server_readiness_marker_is_rendered_after_first_circuit_render(self):
+        self._check_mutation(
+            "server_probe",
+            'id="textfield-interactive-ready"',
+            'id="removed-interactive-ready"',
+        )
+
+    def test_server_probe_waits_for_interactive_readiness_before_input(self):
+        self._check_mutation(
+            "browser_probe",
+            "document.querySelector('#textfield-interactive-ready')?.dataset.ready === 'true'",
+            "document.querySelector('#removed-interactive-ready')?.dataset.ready === 'true'",
+        )
+
     def test_interactive_server_host_remains_a_real_server_circuit(self):
         self._check_mutation(
             "server_probe",
