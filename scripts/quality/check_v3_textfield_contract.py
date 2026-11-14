@@ -198,7 +198,7 @@ def check_textfield_contract(root: Path) -> None:
         ".bui-text-field",
         "> input::placeholder",
         "> textarea::placeholder",
-        "var(--bui-v3-text-placeholder, var(--colorNeutralForeground4))",
+        "color: var(--colorNeutralForeground4);",
         "opacity: 1;",
         "> input:disabled::placeholder",
         "> textarea:disabled::placeholder",

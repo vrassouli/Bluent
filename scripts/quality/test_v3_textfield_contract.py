@@ -207,7 +207,7 @@ class TextFieldContractTests(unittest.TestCase):
     def test_normal_placeholder_uses_fluent_source_fallback(self):
         self._check_mutation(
             "textfield_styles",
-            "var(--bui-v3-text-placeholder, var(--colorNeutralForeground4))",
+            "color: var(--colorNeutralForeground4);",
             "var(--colorNeutralForeground1)",
         )
 

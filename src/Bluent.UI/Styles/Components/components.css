@@ -2199,7 +2199,7 @@
 
 .bui-text-field > input::placeholder,
 .bui-text-field > textarea::placeholder {
-  color: var(--bui-v3-text-placeholder, var(--colorNeutralForeground4));
+  color: var(--colorNeutralForeground4);
   opacity: 1;
 }
 .bui-text-field {

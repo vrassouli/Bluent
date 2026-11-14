@@ -114,7 +114,7 @@ The current state-layer stylesheet keeps these conditions distinct:
 
 Decorative addons are not focusable. Interactive addon content (for example a Button) is a separate, independently named control and its keyboard stop remains in semantic DOM order. Logical layout properties are used by the shared field shell for RTL placement.
 
-Placeholder semantics follow the pinned Fluent Web Components source: normal placeholder uses --colorNeutralForeground4, exposed as --bui-v3-text-placeholder when the #418 opt-in bridge is loaded; the source variable is the CSS fallback. Disabled placeholder reuses --bui-v3-text-disabled with --colorNeutralForegroundDisabled fallback. Placeholder is not an accessible name. The FG4/BG3 numeric contrast regression covers all 10 brands × Light/Dark (minimums 4.5423:1 Light and 6.4663:1 Dark); this does not certify native OS contrast or assistive technology. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md.
+Placeholder semantics follow the pinned Fluent Web Components 3.1.3 source: ordinary placeholder currently uses --colorNeutralForeground4 directly; the proposed --bui-v3-text-placeholder semantic alias is not consumed until #418 integration. Disabled placeholder reuses the existing shared --bui-v3-text-disabled role with --colorNeutralForegroundDisabled fallback. Placeholder is not an accessible name. The FG4/BG3 numeric contrast regression covers all 10 brands × Light/Dark (minimums 4.5423:1 Light and 6.4663:1 Dark); this does not certify native OS contrast or assistive technology. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md.
 
 ## Demo and coverage
 

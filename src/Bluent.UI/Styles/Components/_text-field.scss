@@ -4,7 +4,7 @@
   // semantic bridge is not loaded by a consumer.
   > input::placeholder,
   > textarea::placeholder {
-    color: var(--bui-v3-text-placeholder, var(--colorNeutralForeground4));
+    color: var(--colorNeutralForeground4);
     opacity: 1;
   }
 

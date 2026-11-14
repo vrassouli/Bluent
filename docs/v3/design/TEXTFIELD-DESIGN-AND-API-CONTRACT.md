@@ -1,6 +1,6 @@
 # TextField design and API contract — Issue #432
 
-> **Status:** draft design/API audit, updated 2026-11-13. This is not a released v3 API, runtime implementation, or maintainer parity sign-off. Task branch: **v3/issue-432-textfield**, based on **bluent-v3** commit **bcd56ac8f6d8271f341747dbf2e6816fa768ff4f**.
+> **Status:** TextField-specific design/API decisions accepted under delegated review on 2026-11-14. This is not a released v3 API, approval of the complete #418 token foundation, or native OS/assistive-technology sign-off. Task branch: **v3/issue-432-textfield**, based on **bluent-v3** commit **bcd56ac8f6d8271f341747dbf2e6816fa768ff4f**.
 
 ## 1. Identity and design provenance
 
@@ -57,14 +57,14 @@ The 28 linked appearance/state variants are base visual specimens, not the full 
 Other visual/semantic constraints from the React reference:
 - Input uses a native HTML input; the browser retains caret, selection, IME composition, autofill and password behavior. Use native textarea semantics for the Bluent multiline mode.
 - Labels are not inferred from placeholder text. A visible Label must be programmatically associated; Field-style composition wires IDs, aria-labelledby, aria-describedby, aria-invalid and native required where supported.
-- Normal placeholder uses Fluent Web Components colorNeutralForeground4 through --bui-v3-text-placeholder with --colorNeutralForeground4 fallback; disabled placeholder reuses --bui-v3-text-disabled with --colorNeutralForegroundDisabled fallback. Placeholder is supporting hint text, never an accessible name.
+- Normal placeholder reads Fluent Web Components colorNeutralForeground4 directly until the #418 semantic placeholder bridge is integrated; disabled placeholder reuses the existing shared --bui-v3-text-disabled role with --colorNeutralForegroundDisabled fallback. Placeholder is supporting hint text, never an accessible name.
 - Pinned Fluent Filled-darker BG3 pairs are checked across 10 brands × Light/Dark: Light FG4/BG3 4.5423:1; Dark FG4/BG3 6.4663:1. The #418 numeric regression is not native OS/AT certification.
 - An aria-invalid state without a readable associated reason is incomplete validation feedback.
 - A visible input boundary must meet at least **3:1** against its immediate host surface. Outline and Underline use a sufficiently contrasting bottom stroke; Filled lighter/darker rely on the field surface contrasting with the surface behind it. The Penpot matrix now places both Filled samples on a contrasting dark host surface; a real consumer surface still needs browser contrast verification.
 - filled-lighter-shadow and filled-darker-shadow are deprecated upstream and are intentionally excluded.
 - React's focus underline is a 2px ::after border driven by :focus-within; the source also has reduced-motion handling. Verify the chosen keyboard focus treatment in actual forced-colors and assistive-technology environments rather than copying a transparent outline blindly.
 
-The new Penpot page 20 board is a review aid for the crosswalk and composite rules; it is not runtime, contrast certification or maintainer approval.
+The page 20 board is accepted as the crosswalk and composite-state specification for #432 under delegated review; it is not runtime/contrast certification or approval of the #418 foundation.
 ### State and appearance coverage
 
 The native variant set contains **28 unique linked variants**. The four-appearance axis is based on Fluent React Input plus proposed Bluent coverage; it is not a claim that Fluent Web Components Text Field exposes all four appearance props:
@@ -74,7 +74,7 @@ The native variant set contains **28 unique linked variants**. The four-appearan
 
 Each appearance has all seven states. Page 17 is a linked-instance review matrix; page 16 remains the variant source. Medium is the reference size shown in the state matrix; Small and Large are included in the anatomy page pending final measured/token-backed geometry.
 
-Draft decisions:
+Accepted component design decisions — delegated review 2026-11-14:
 - Focus uses a **2px active underline**; do not add a generic full-rectangle focus ring.
 - Underline appearance has no surrounding rectangle.
 - Filled lighter and Filled darker are distinct surfaces.
@@ -87,7 +87,7 @@ Draft decisions:
 
 ### Token boundary
 
-Penpot colors and dimensions remain provisional review values. The TextField consumer decision is now explicit: ordinary placeholder uses the pinned Fluent Web Components 3.1.3 source role colorNeutralForeground4, exposed by #418 as bluent.semantic.text.placeholder / --bui-v3-text-placeholder; disabled placeholder reuses the existing bluent.semantic.text.disabled / --bui-v3-text-disabled role and source colorNeutralForegroundDisabled. The TextField stylesheet uses those aliases only with their exact Fluent source variables as fallbacks, so behavior does not depend on the preview CSS being loaded. This selects the TextField consumer mapping; it does not approve the complete #418 public token vocabulary or draft Penpot boards. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md and docs/v3/tokens/CONTRAST-AUDIT.md.
+The task-specific TextField consumer decision was accepted by delegated design review on 2026-11-14. Ordinary placeholder uses the pinned Fluent Web Components 3.1.3 source role colorNeutralForeground4. Until #418 integrates the semantic placeholder bridge (bluent.semantic.text.placeholder / --bui-v3-text-placeholder), the stylesheet consumes --colorNeutralForeground4 directly; it does not reference the unmerged alias. Disabled placeholder reuses the existing shared bluent.semantic.text.disabled / --bui-v3-text-disabled role with exact colorNeutralForegroundDisabled fallback. This is a consumer decision for #432 only; it does not approve the complete #418 public token vocabulary or theme mappings. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md and docs/v3/tokens/CONTRAST-AUDIT.md.
 
 ## 2. Existing v2 source/API baseline
 

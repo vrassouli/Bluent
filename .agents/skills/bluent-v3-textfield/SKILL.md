@@ -6,7 +6,7 @@
 
 1. [Canonical v3 TextField implementation record](../../../docs/v3/components/text-field.md) for the current direct/inherited API, usage and evidence boundaries.
 2. [Design/API contract](../../../docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md) for exact source audit, Fluent Web Components vs React crosswalk, 24 acceptance scenarios, caret mapping and Penpot IDs.
-3. The connected owned Penpot file **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, pages 16–20. Pages 17–20 remain DRAFT; do not infer approval from their existence.
+3. The connected owned Penpot file **Bluent v3 Design System**, file b64f6665-c9ab-80b5-8008-c4ac99d9d000, pages 16–20. Pages 17–20 remain visibly DRAFT; decision comments on pages 17–20 record task-specific delegated acceptance for #432 only (2026-11-14). Do not treat the board labels or that task decision as approval of #418 or native OS/AT acceptance.
 4. Source under `src/Bluent.UI/Components/TextFieldComponent/`, state stylesheet `src/Bluent.UI/Styles/Components/_text-field.scss`, and shared field shell `src/Bluent.UI/Styles/Components/_field.scss`.
 5. Focused showcase `/components/text-fields`; the reusable current-API regression pilot is separate at `/component-lab`.
 6. [TextField source/API/demo guard](../../../scripts/quality/check_v3_textfield_contract.py) and its negative tests.
@@ -21,8 +21,8 @@
 - Validation errors from the active EditContext set `aria-invalid=true` on the native element. Consumers still render and associate readable validation text with `aria-describedby`.
 - An interactive addon is a separate control with its own accessible name and focus stop; never treat an addon as part of the input itself.
 - Do not invent `Appearance`, `HelperText`, `ErrorMessage`, `Required`, a new `ReadOnly` parameter, focus callback or new size enum. Final TextField token names/modes/brand mappings belong to #418 and remain pending review.
-- Placeholder mapping selected from pinned Fluent Web Components 3.1.3: ordinary placeholder uses colorNeutralForeground4 through --bui-v3-text-placeholder; disabled placeholder reuses --bui-v3-text-disabled → colorNeutralForegroundDisabled. Both aliases have the exact Fluent source token as fallback. Placeholder is not an accessible name. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md.
-- The #418 preview schema adds source bluent.color.foreground4 and semantic bluent.semantic.text.placeholder; its 20 brand/mode FG4/BG3 contrast regression must remain green. This resolves the TextField consumer mapping, not the entire foundation's public token approval.
+- Placeholder mapping accepted for #432 under delegated design review: pinned Fluent Web Components 3.1.3 uses colorNeutralForeground4 for ordinary placeholder and colorNeutralForegroundDisabled when disabled. Until #418 integrates bluent.semantic.text.placeholder / --bui-v3-text-placeholder, use --colorNeutralForeground4 directly; do not consume the unmerged alias. Reuse the existing shared --bui-v3-text-disabled role for the disabled state with exact source fallback. Placeholder is not an accessible name. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md.
+- The #418 preview schema includes source bluent.color.foreground4 and proposed semantic bluent.semantic.text.placeholder; its 20 brand/mode FG4/BG3 contrast regression must remain green. The TextField-specific source-role choice is accepted, but the semantic alias remains unconsumed until #418 integration; the entire foundation public token vocabulary/mapping is still under review.
 
 ## Verification
 
