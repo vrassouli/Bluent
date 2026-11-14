@@ -501,3 +501,8 @@ The selected consumer mapping has been recorded in #418 and PR #500, and cross-r
 ## #418 CI asset-sync correction — 2026-11-14
 
 The first exact-head Token Contract run after the placeholder alias failed only at the existing demo-asset freshness step: src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css had not yet been regenerated from the four canonical preview sources. Ran scripts/quality/sync_v3_token_demo_asset.py; its subsequent --check passes. This file is demo-only/opt-in. The shipped Bluent.UI CSS and legacy variables remain untouched. Generator drift check passes, the FG4/BG3 audit still reports 360 checks / 20 placeholder pairs / zero below 4.5:1, and TextField placeholder contract tests remain 13/13.
+
+
+## #418 CI Release-gate dependency remediation — 2026-11-14
+
+The first #418 Release Gate exposed existing NU1903 for Microsoft.AspNetCore.WebUtilities 10.0.7 (GHSA-x33c-w48q-qrgc). This was the same existing #425 security finding already remediated on the isolated #432 task branch. To keep this v3 token PR buildable without suppressing the advisory, aligned the direct ASP.NET Core / Extensions package references in the same ten library/demo/sample project files to patched 10.0.15. Scope remains the isolated v3 task branch only; no stable/2.x release assets were touched. The exact #432 remediation diff is the source of this targeted consistency update. Full restore, warning-as-error Release build and solution tests must pass before treating this gate as closed.
