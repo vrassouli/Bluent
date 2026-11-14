@@ -40,6 +40,57 @@ public partial class TextField : IAsyncDisposable
         }
     }
 
+    /// <summary>
+    /// Keeps validation state on the native control so browser and assistive
+    /// technology semantics agree with the current EditContext.
+    /// </summary>
+    private Dictionary<string, object>? GetTextFieldAdditionalAttributes()
+    {
+        var attributes = GetInputAdditionalAttributes();
+        var hasEditContextErrors = EditContext?.GetValidationMessages(FieldIdentifier).Any() == true;
+
+        if (!hasEditContextErrors)
+            return attributes;
+
+        attributes ??= new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var key in attributes.Keys
+                     .Where(key => string.Equals(key, "aria-invalid", StringComparison.OrdinalIgnoreCase))
+                     .ToArray())
+        {
+            attributes.Remove(key);
+        }
+
+        attributes["aria-invalid"] = "true";
+        return attributes;
+    }
+
+    private bool HasNativeAttribute(string name)
+    {
+        if (AdditionalAttributes is null)
+            return false;
+
+        foreach (var attribute in AdditionalAttributes)
+        {
+            if (!string.Equals(attribute.Key, name, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            return attribute.Value switch
+            {
+                bool value => value,
+                string value when string.Equals(value, "false", StringComparison.OrdinalIgnoreCase) => false,
+                null => false,
+                _ => true
+            };
+        }
+
+        return false;
+    }
+
+    private bool IsFieldInvalid =>
+        HasNativeAttribute("aria-invalid") ||
+        EditContext?.GetValidationMessages(FieldIdentifier).Any() == true;
+
     private async Task OnValueBoundAsync()
     {
         if (!_selectionMappingRequired || _disposed || Element is null)
@@ -150,8 +201,17 @@ public partial class TextField : IAsyncDisposable
 
         yield return "bui-text-field";
 
+        if (Rows != null)
+            yield return "multiline";
+
         if (Rows != null && !ResizeTextarea)
             yield return "no-resize";
+
+        if (HasNativeAttribute("readonly"))
+            yield return "readonly";
+
+        if (IsFieldInvalid)
+            yield return "invalid";
     }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)

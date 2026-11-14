@@ -11,7 +11,7 @@
 
     @if (Rows == null)
     {
-        <input @attributes=GetInputAdditionalAttributes()
+        <input @attributes=GetTextFieldAdditionalAttributes()
                @ref=Element
                id="@GetInputId()"
                name="@NameAttributeValue"
@@ -21,7 +21,7 @@
     }
     else
     {
-        <textarea @attributes=GetInputAdditionalAttributes()
+        <textarea @attributes=GetTextFieldAdditionalAttributes()
                   @ref=Element
                   id="@GetInputId()"
                   name="@NameAttributeValue"

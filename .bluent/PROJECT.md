@@ -678,3 +678,30 @@ Fresh current-source production browser matrix, all assertions passed:
 All four runs observed the input value `😀192345` with caret `[4,4]`, and textarea value `192` with selection `[1,2]`, direction `backward`, focused and bound. The existing mid-string insertion still yields `129345` with caret `[3,3]`. Each run had zero HTTP asset failures and zero unhandled JavaScript exceptions. These are Component Lab representative runtime checks, not exhaustive TextField acceptance or native operating-system IME/screen-reader/forced-colors certification.
 
 Additional checks on the same working tree: TextField source contract **20/20**, TextField contract mutation tests **20/20**, focused NUnit **24/24**, Component Lab source checker PASS, Node syntax check PASS, and `git diff --check` PASS. Exact-head GitHub CI is still pending for the follow-up commit; the previous `d1dacbff` head had all seven workflows green. #432 remains In Progress and PR #562 remains open/unmerged. TextField design boards pages 17–20 remain DRAFT, #418 placeholder-role approval is still pending, and exhaustive 24-scenario family acceptance, migration/Skill, and maintainer sign-off remain open. No stable/v2 branch, package, release or deployment changed.
+
+### TextField #432 — 2026-11-14
+
+- Branch: v3/issue-432-textfield → bluent-v3; PR #562 remains open; GitHub Project #5 issue #432 remains In progress.
+- Added source-backed state/validation behavior and the focused /components/text-fields showcase; API remains the six direct v2 parameters plus existing inherited InputBase/field contract. No speculative Appearance/HelperText/ErrorMessage/ReadOnly API was published.
+- Added TextField state-layer stylesheet using existing global Fluent role variables, including invalid/focus precedence, readonly/disabled/multiline, forced-colors and reduced-motion.
+- Added 30 positive/negative source/API/demo contract tests. They pass. The focused Demo project Release build passed with zero warnings/errors.
+- Penpot TextField pages 17–20 remain DRAFT. #418 is still Review; final token roles/mappings and maintainer design decision remain gates. New-route real-browser validation and native OS/AT are pending.
+- Do not merge to Dev or publish/release. Existing 2.x behavior and stable branches remain untouched.
+
+### TextField #432 — four-mode browser evidence — 2026-11-14
+
+- Real Chrome/Edge CDP: 23/23 each on WebAssembly and InteractiveServer; 92/92 aggregate assertions.
+- Four JSON/PNG evidence pairs are stored in docs/v3/quality/evidence/BLUENT-TEXTFIELD-*.{json,png}. Every run had zero runtime signals and zero QA-owned browser processes after cleanup.
+- Added a real InteractiveServer compatibility host that reuses /components/text-fields and added a permanent Windows GitHub Actions matrix to .github/workflows/v3-compatibility-browsers.yml.
+- Exact-head GitHub Actions for the new CI matrix await push. Native Windows Contrast Themes, spoken screen-reader acceptance and physical OS IME testing are not claimed.
+- Keep #432 In progress until #418 token mapping and TextField Penpot design are approved and PR #562 is reviewed/merged into bluent-v3. Do not merge to stable Dev or publish packages.
+
+## TextField #432 implementation, asset pipeline and four-mode runtime verification — 2026-11-14
+
+The existing task branch `v3/issue-432-textfield` now contains the native Blazor `InputBase<string?>` TextField implementation, validation semantics, explicit readonly/invalid/multiline states, transform/caret-preservation pipeline, focused showcase, InteractiveServer probe route, component reference, family Skill, migration/coverage records, and a fail-closed API/demo/browser-CI guard. Existing 2.x code and stable `Dev` remain isolated.
+
+The actual published asset path is now verified: `src/Bluent.UI/package.json` declares the Sass compiler and a cross-platform `build:scss` entrypoint that compiles `components.scss` to the tracked `components.css`; the existing BundlerMinifier build produces `wwwroot/bluent.ui.components.css` and `.min.css`. The JS package clean-installs and builds ESM/Global bundles; Debug build copies the generated JS files into `Bluent.UI/wwwroot`. The exact-head browser workflow repeats both npm clean installs/builds before building and launching either host. A local `Bluent.UI.1.0.0.nupkg` pack was inspected and contains minified component CSS plus both JS bundles; this was a validation artifact, not a publication.
+
+Local verification on 2026-11-14: TextField guard **37/37**; Docs contract **0 findings**; local Markdown links **172 files**; full Solution Release and Debug builds with `-warnaserror` **0 warnings / 0 errors**; full solution .NET tests **70/70**; clean npm install/build for both JS and Sass packages; focused live browser matrix **92/92** (Chrome/Edge × WebAssembly/InteractiveServer, 23/23 each), with zero HTTP/JS diagnostics and QA browser cleanup `remaining=0`. Four JSON/PNG artifacts are committed alongside the test probe. The Sass compiler emits existing legacy Bootstrap/import deprecation notices; compilation succeeds and .NET builds remain warning-free.
+
+**Acceptance boundary:** #432 remains **In progress** and PR #562 remains open against `bluent-v3`; this checkpoint is not merge/release approval. Penpot pages 17–20 remain DRAFT, #418 remains Review and owns final public token/semantic mapping, and native OS IME, Windows Contrast Themes and spoken assistive-technology acceptance remain unperformed. Exact-head GitHub Actions for the new npm + four-mode matrix must complete after push. No merge, NuGet publication, stable/v2 release or deployment occurred.

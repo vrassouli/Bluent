@@ -22,8 +22,16 @@ class TextFieldContractTests(unittest.TestCase):
             "src/Bluent.UI/Components/TextFieldComponent/TextFieldValuePipeline.cs",
             "src/Bluent.UI.Scripts/src/TextField/TextField.ts",
             "src/Bluent.UI.Scripts/src/index.ts",
+            "src/Bluent.UI/Styles/Components/_text-field.scss",
+            "src/Bluent.UI/Styles/Components/components.scss",
             "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md",
             ".github/workflows/v3-docs-contract.yml",
+            "src/Bluent.UI.Demo.Pages/Pages/Components/TextFields.razor",
+            "src/Bluent.UI.Demo.Pages/Layout/Side.razor",
+            "src/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.csproj",
+            "src/Bluent.UI.Demo.SSR/Components/Pages/TextFieldInteractiveServerProbe.razor",
+            "scripts/quality/probe_v3_textfield_demo.mjs",
+            ".github/workflows/v3-compatibility-browsers.yml",
         )
         for relative in relative_paths:
             destination = self.temp_root / relative
@@ -37,8 +45,16 @@ class TextFieldContractTests(unittest.TestCase):
             "pipeline": self.temp_root / relative_paths[4],
             "interop": self.temp_root / relative_paths[5],
             "script_entry": self.temp_root / relative_paths[6],
-            "contract": self.temp_root / relative_paths[7],
-            "workflow": self.temp_root / relative_paths[8],
+            "contract": self.temp_root / relative_paths[9],
+            "workflow": self.temp_root / relative_paths[10],
+            "textfield_styles": self.temp_root / relative_paths[7],
+            "component_styles": self.temp_root / relative_paths[8],
+            "demo": self.temp_root / relative_paths[11],
+            "demo_navigation": self.temp_root / relative_paths[12],
+            "demo_project": self.temp_root / relative_paths[13],
+            "server_probe": self.temp_root / relative_paths[14],
+            "browser_probe": self.temp_root / relative_paths[15],
+            "browser_workflow": self.temp_root / relative_paths[16],
         }
         self.original = {key: file.read_text(encoding="utf-8-sig") for key, file in self.paths.items()}
 
@@ -151,7 +167,129 @@ class TextFieldContractTests(unittest.TestCase):
             'InvokeVoidAsync("disposeTextSelection", Element.Value)',
         )
     def test_native_textarea_branch_is_required(self):
-        self._check_mutation("razor", "<textarea @attributes=GetInputAdditionalAttributes()", "<textarea disabled")
+        self._check_mutation("razor", "<textarea @attributes=GetTextFieldAdditionalAttributes()", "<textarea disabled")
+
+    def test_native_validation_sets_aria_invalid_on_the_control(self):
+        self._check_mutation(
+            "code",
+            'attributes["aria-invalid"] = "true";',
+            'attributes["aria-invalid"] = "false";',
+        )
+
+    def test_readonly_state_class_cannot_disappear(self):
+        self._check_mutation(
+            "code",
+            'HasNativeAttribute("readonly")',
+            'HasNativeAttribute("readonly-removed")',
+        )
+
+    def test_focus_precedence_for_invalid_state_is_required(self):
+        self._check_mutation(
+            "textfield_styles",
+            "&.invalid:focus-within",
+            "&.invalid:blurred",
+        )
+
+    def test_forced_colors_disabled_mapping_is_required(self):
+        self._check_mutation(
+            "textfield_styles",
+            "border-bottom-color: GrayText;",
+            "border-bottom-color: red;",
+        )
+
+    def test_reduced_motion_rule_is_required(self):
+        self._check_mutation(
+            "textfield_styles",
+            "@media (prefers-reduced-motion: reduce)",
+            "@media (prefers-reduced-motion: no-preference)",
+        )
+
+    def test_textfield_css_import_cannot_disappear(self):
+        self._check_mutation(
+            "component_styles",
+            '@import "_text-field.scss";',
+            '@import "_text-field-removed.scss";',
+        )
+
+    def test_textfield_demo_route_cannot_disappear(self):
+        self._check_mutation(
+            "demo",
+            '@page "/components/text-fields"',
+            '@page "/components/text-field-removed"',
+        )
+
+    def test_textfield_demo_keeps_all_transform_combinations(self):
+        self._check_mutation(
+            "demo",
+            'Name = "All three transforms"',
+            'Name = "Missing final transform"',
+        )
+
+    def test_textfield_demo_navigation_cannot_disappear(self):
+        self._check_mutation(
+            "demo_navigation",
+            'Href="components/text-fields"',
+            'Href="components/fields"',
+        )
+
+    def test_textfield_demo_remains_an_analyzer_additional_file(self):
+        self._check_mutation(
+            "demo_project",
+            '<AdditionalFiles Include="Pages\\Components\\TextFields.razor" />',
+            '<None Include="Pages\\Components\\TextFields.razor" />',
+        )
+
+    def test_interactive_server_host_remains_a_real_server_circuit(self):
+        self._check_mutation(
+            "server_probe",
+            "@rendermode InteractiveServer",
+            "@rendermode InteractiveWebAssembly",
+        )
+
+    def test_browser_probe_keeps_render_mode_selection(self):
+        self._check_mutation(
+            "browser_probe",
+            "process.env.BLUENT_TEXTFIELD_RENDER_MODE",
+            "process.env.BLUENT_TEXTFIELD_RENDER_MODE_REMOVED",
+        )
+
+    def test_browser_ci_keeps_all_four_browser_render_mode_pairs(self):
+        self._check_mutation(
+            "browser_workflow",
+            "render_mode: [InteractiveServer, WebAssembly]",
+            "render_mode: [WebAssembly]",
+        )
+
+    def test_browser_ci_requires_github_matrix_expressions(self):
+        original = self.original["browser_workflow"]
+        self.assertIn("${{ matrix.browser }}", original)
+        self.paths["browser_workflow"].write_text(
+            original.replace("${{ matrix.browser }}", "${{ matrix.browser_name }}"),
+            encoding="utf-8",
+        )
+        with self.assertRaises(TextFieldContractError):
+            check_textfield_contract(self.temp_root)
+
+    def test_browser_ci_builds_javascript_and_css_assets(self):
+        self._check_mutation(
+            "browser_workflow",
+            "npm --prefix src/Bluent.UI run build:scss",
+            "npm --prefix src/Bluent.UI run compile:scss",
+        )
+
+    def test_browser_ci_builds_javascript_bundle(self):
+        self._check_mutation(
+            "browser_workflow",
+            "npm --prefix src/Bluent.UI.Scripts run build",
+            "npm --prefix src/Bluent.UI.Scripts run bundle",
+        )
+
+    def test_browser_ci_invokes_the_real_textfield_probe(self):
+        self._check_mutation(
+            "browser_workflow",
+            "node scripts/quality/probe_v3_textfield_demo.mjs",
+            "node scripts/quality/probe_v3_textfield_demo_removed.mjs",
+        )
 
     def test_transform_caret_acceptance_scenario_cannot_disappear(self):
         self._check_mutation(

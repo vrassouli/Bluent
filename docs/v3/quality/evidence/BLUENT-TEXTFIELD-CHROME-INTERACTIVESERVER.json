@@ -1,0 +1,216 @@
+{
+  "issue": 432,
+  "date": "2026-11-14T06:52:02.645Z",
+  "browser": "Chrome headless local Dev01",
+  "renderMode": "InteractiveServer",
+  "route": "http://127.0.0.1:5081/compatibility/text-fields-server",
+  "checksPassed": 23,
+  "checksTotal": 23,
+  "checks": [
+    {
+      "name": "focused TextField route loads in real Chrome InteractiveServer",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:5081/compatibility/text-fields-server"
+      }
+    },
+    {
+      "name": "native input and visible Label association render",
+      "pass": true,
+      "detail": {
+        "basicTag": "INPUT",
+        "labelFor": "textfield-basic",
+        "initialValue": "Ada Lovelace",
+        "fixedRows": 3,
+        "fixedResize": "none",
+        "resizableRows": 3,
+        "resizableResize": "both",
+        "disabled": true,
+        "readonly": true,
+        "rtlDirection": "rtl",
+        "transformCount": 8
+      }
+    },
+    {
+      "name": "native textarea modes render with requested rows and resize behavior",
+      "pass": true,
+      "detail": {
+        "basicTag": "INPUT",
+        "labelFor": "textfield-basic",
+        "initialValue": "Ada Lovelace",
+        "fixedRows": 3,
+        "fixedResize": "none",
+        "resizableRows": 3,
+        "resizableResize": "both",
+        "disabled": true,
+        "readonly": true,
+        "rtlDirection": "rtl",
+        "transformCount": 8
+      }
+    },
+    {
+      "name": "disabled and readonly remain separate native attributes",
+      "pass": true,
+      "detail": {
+        "basicTag": "INPUT",
+        "labelFor": "textfield-basic",
+        "initialValue": "Ada Lovelace",
+        "fixedRows": 3,
+        "fixedResize": "none",
+        "resizableRows": 3,
+        "resizableResize": "both",
+        "disabled": true,
+        "readonly": true,
+        "rtlDirection": "rtl",
+        "transformCount": 8
+      }
+    },
+    {
+      "name": "Persian field inherits RTL direction",
+      "pass": true,
+      "detail": {
+        "basicTag": "INPUT",
+        "labelFor": "textfield-basic",
+        "initialValue": "Ada Lovelace",
+        "fixedRows": 3,
+        "fixedResize": "none",
+        "resizableRows": 3,
+        "resizableResize": "both",
+        "disabled": true,
+        "readonly": true,
+        "rtlDirection": "rtl",
+        "transformCount": 8
+      }
+    },
+    {
+      "name": "all eight normalization specimens are present",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "name": "onchange binding updates the InputBase model",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "value": "Grace Hopper"
+      }
+    },
+    {
+      "name": "oninput binding updates the model before change/blur",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "value": "Live update verified"
+      }
+    },
+    {
+      "name": "readonly remains keyboard-focusable/selectable while disabled is skipped",
+      "pass": true,
+      "detail": {
+        "disabledSkipped": true,
+        "readonlyFocused": true,
+        "selected": "Ada"
+      }
+    },
+    {
+      "name": "EndAddon action remains an independent named button and invokes its callback",
+      "pass": true,
+      "detail": {
+        "tag": "BUTTON",
+        "tabIndex": 0,
+        "name": "Search"
+      }
+    },
+    {
+      "name": "GainFocus targets the native input on its first interactive render",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-none",
+      "pass": true,
+      "detail": {
+        "expected": "A١۲۳٤-5 ك ي"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-digits",
+      "pass": true,
+      "detail": {
+        "expected": "١۲۳٤5"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-ascii",
+      "pass": true,
+      "detail": {
+        "expected": "A1234-5 ك ي"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-persian",
+      "pass": true,
+      "detail": {
+        "expected": "A١۲۳٤-5 ک ی"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-digits-ascii",
+      "pass": true,
+      "detail": {
+        "expected": "12345"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-digits-persian",
+      "pass": true,
+      "detail": {
+        "expected": "١۲۳٤5"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-ascii-persian",
+      "pass": true,
+      "detail": {
+        "expected": "A1234-5 ک ی"
+      }
+    },
+    {
+      "name": "normalization pipeline: textfield-transform-all",
+      "pass": true,
+      "detail": {
+        "expected": "12345"
+      }
+    },
+    {
+      "name": "EditContext validation exposes aria-invalid and readable message on native input",
+      "pass": true,
+      "detail": {
+        "ariaInvalid": "true",
+        "wrapperClass": "bui-field bui-text-field invalid  invalid"
+      }
+    },
+    {
+      "name": "valid form submission updates the form status",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px viewport reflows without horizontal page overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 305,
+        "scrollWidth": 305,
+        "fields": 22
+      }
+    },
+    {
+      "name": "no browser JavaScript exceptions, console errors or HTTP failures",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "runtimeSignals": [],
+  "result": "PASS",
+  "boundary": "Focused route runtime evidence only; not native Windows Contrast Themes, screen-reader speech, physical OS IME certification, full API acceptance or Penpot/token approval."
+}

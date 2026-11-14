@@ -72,3 +72,19 @@ examples, implementation links and exact acceptance limits appear in
 | Focus styling | Link suppressed the browser focus outline without supplying a replacement. | Adds a visible keyboard focus-visible ring and forced-colors Highlight fallback using existing theme variables. | Additive visible focus treatment; no new public CSS token or parameter. |
 
 Implementation and verification are tracked by [Issue #431](https://github.com/vrassouli/Bluent/issues/431). This is unshipped task-branch work only. It does not alter stable 2.x source, NuGet packages or deployments. Browser/render-mode, visual parity, native OS contrast and assistive-technology evidence must be recorded separately before acceptance.
+
+## TextField #432 task-branch implementation checkpoint — 2026-11-14
+
+The isolated v3/issue-432-textfield branch now adds a source-backed implementation record and focused /components/text-fields showcase while preserving the existing direct/inherited InputBase contract. The direct API remains Rows, ResizeTextarea, GainFocus, DigitOnly, AsciiDigits and ArabicToPersianConversion; StartAddon/EndAddon, Size, BindValueEvent, Class/Style and InputBase binding remain inherited. No new public appearance/helper/error/readonly parameter or enum is introduced.
+
+The task branch adds native-control aria-invalid when the active EditContext contains field messages; readonly/disabled/multiline/invalid CSS state hooks; forced-colors and reduced-motion rules; and the existing caret/selection-preserving normalization path remains covered. The focused showcase exercises binding, sizes, addons, native states, textarea, validation, GainFocus, all eight transform-flag combinations and Persian RTL.
+
+Current source/API/demo guard tests pass 30/30 and the Demo project Release build passed with zero warnings/errors. These are static/source and compilation evidence only: real-browser acceptance on the new route, native Windows Contrast Themes/assistive technology, reviewed Penpot parity and token approval remain open. Pages 17–20 remain DRAFT and #418 remains Review; no production semantic token mapping has been inferred. Issue #432 remains In progress and PR #562 remains open against bluent-v3. Stable 2.x and Dev are unchanged.
+
+## TextField #432 — four-mode browser runtime and CI evidence — 2026-11-14
+
+The focused source-owned /components/text-fields showcase has now passed the same 23-assertion real-browser probe in four independent combinations: Chrome/WebAssembly, Edge/WebAssembly, Chrome/InteractiveServer and Edge/InteractiveServer (92/92 aggregate assertions). The Server route is a dedicated InteractiveServer host that reuses the shared TextFields showcase; it does not duplicate the component implementation. Assertions cover native markup/Label association, textarea resize, disabled versus readonly focus/selection, RTL, onchange/oninput binding, addon action semantics, first-render GainFocus, all eight transform combinations, EditContext validation/aria-invalid, successful submit, 320px no-overflow and zero JS/HTTP diagnostics.
+
+Each run captured a JSON report and PNG screenshot under docs/v3/quality/evidence/BLUENT-TEXTFIELD-{CHROME,EDGE}-{WASM,INTERACTIVESERVER}. All four runs reported zero runtime signals and the disposable browser cleanup returned zero remaining QA-owned processes. This is browser/DOM evidence only: physical OS IME, native Windows Contrast Themes and spoken screen-reader acceptance remain unperformed.
+
+A permanent Windows GitHub Actions matrix was added to v3-compatibility-browsers.yml for Chrome/Edge × InteractiveServer/WebAssembly. The job builds both hosts, runs the same CDP probe and uploads JSON/PNG artifacts. Exact-head GitHub Actions for the newly added matrix remain pending until this task-branch commit is pushed. Issue #432 remains In progress; PR #562 targets bluent-v3; Penpot pages 17–20 remain DRAFT and #418 remains Review. Stable 2.x/Dev are untouched.

@@ -55,6 +55,7 @@
       <AdditionalFiles Include="Pages\Components\DrawingCanvases.razor" />
       <AdditionalFiles Include="Pages\Components\Dropdowns.razor" />
       <AdditionalFiles Include="Pages\Components\Fields.razor" />
+      <AdditionalFiles Include="Pages\Components\TextFields.razor" />
       <AdditionalFiles Include="Pages\Components\FileSelects.razor" />
       <AdditionalFiles Include="Pages\Components\Icons.razor" />
       <AdditionalFiles Include="Pages\Components\Labels.razor" />

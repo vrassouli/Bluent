@@ -91,6 +91,14 @@ def check_textfield_contract(root: Path) -> None:
     input_base = _read(root, "src/Bluent.UI/Components/BluentInputComponentBase.cs")
     contract = _read(root, "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md")
     docs_workflow = _read(root, ".github/workflows/v3-docs-contract.yml")
+    textfield_styles = _read(root, "src/Bluent.UI/Styles/Components/_text-field.scss")
+    component_styles = _read(root, "src/Bluent.UI/Styles/Components/components.scss")
+    demo = _read(root, "src/Bluent.UI.Demo.Pages/Pages/Components/TextFields.razor")
+    demo_navigation = _read(root, "src/Bluent.UI.Demo.Pages/Layout/Side.razor")
+    demo_project = _read(root, "src/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.csproj")
+    server_probe = _read(root, "src/Bluent.UI.Demo.SSR/Components/Pages/TextFieldInteractiveServerProbe.razor")
+    browser_probe = _read(root, "scripts/quality/probe_v3_textfield_demo.mjs")
+    browser_workflow = _read(root, ".github/workflows/v3-compatibility-browsers.yml")
 
     # Direct CLR declarations and the documented direct parameter matrix must agree.
     source_parameters = _direct_parameter_map(code)
@@ -166,14 +174,99 @@ def check_textfield_contract(root: Path) -> None:
     if missing_framework_rows:
         raise TextFieldContractError(f"Inherited/framework TextField rows missing from reference: {missing_framework_rows}")
 
-    # Native input/textarea, attributes, slots and binding are compatibility behavior.
+    # Native input/textarea, validation semantics, slots and binding are compatibility behavior.
     _require(razor, (
-        "<input @attributes=GetInputAdditionalAttributes()",
-        "<textarea @attributes=GetInputAdditionalAttributes()",
+        "<input @attributes=GetTextFieldAdditionalAttributes()",
+        "<textarea @attributes=GetTextFieldAdditionalAttributes()",
         '@bind-value:event="@BindValueEvent"',
+        '@bind-value:after="OnValueBoundAsync"',
         "@ref=Element",
         "@StartAddon", "@EndAddon", "@Rows",
     ), "TextField.razor")
+    _require(code, (
+        "GetTextFieldAdditionalAttributes()",
+        'EditContext?.GetValidationMessages(FieldIdentifier).Any() == true',
+        'attributes["aria-invalid"] = "true";',
+        "private bool HasNativeAttribute(string name)",
+        'HasNativeAttribute("readonly")',
+        'HasNativeAttribute("aria-invalid")',
+        'yield return "multiline";',
+        'yield return "readonly";',
+        'yield return "invalid";',
+    ), "TextField native validation and state classes")
+    _require(textfield_styles, (
+        ".bui-text-field",
+        "&.invalid:not(:focus-within)",
+        "&.invalid:focus-within",
+        "&.readonly",
+        "&.disabled",
+        "&.multiline",
+        "@media (forced-colors: active)",
+        "border-bottom-color: Highlight;",
+        "border-bottom-color: GrayText;",
+        "@media (prefers-reduced-motion: reduce)",
+    ), "TextField state, forced-colors and reduced-motion styles")
+    _require(component_styles, (
+        '@import "_field.scss";',
+        '@import "_text-field.scss";',
+    ), "TextField stylesheet registration")
+    _require(demo, (
+        '@page "/components/text-fields"',
+        'BindValueEvent="oninput"',
+        'StartAddon', 'EndAddon', 'ResizeTextarea', 'GainFocus',
+        'disabled', 'readonly', '<EditForm Model="_validationModel"',
+        '<ValidationMessage For="() => _validationModel.DisplayName"',
+        'aria-describedby="textfield-required-message"',
+        '<button type="submit"',
+        'dir="rtl"', 'dir="ltr"',
+        'one of the eight flag combinations',
+        'DigitOnly', 'AsciiDigits', 'ArabicToPersianConversion',
+        'Name = "DigitOnly + AsciiDigits"',
+        'Name = "DigitOnly + ArabicToPersianConversion"',
+        'Name = "AsciiDigits + ArabicToPersianConversion"',
+        'Name = "All three transforms"',
+    ), "TextField exhaustive current-API demo")
+    _require(demo_navigation, (
+        'Href="components/text-fields"',
+        'Text fields',
+    ), "TextField demo navigation")
+    _require(demo_project, (
+        '<AdditionalFiles Include="Pages\\Components\\TextFields.razor" />',
+    ), "TextField demo analyzer/project mapping")
+    _require(server_probe, (
+        '@page "/compatibility/text-fields-server"',
+        '@rendermode InteractiveServer',
+        '<Containers />',
+        '<TextFields />',
+    ), "TextField InteractiveServer host")
+    _require(browser_probe, (
+        "process.env.BLUENT_TEXTFIELD_ROUTE",
+        "const renderMode = process.env.BLUENT_TEXTFIELD_RENDER_MODE || 'WebAssembly';",
+        "process.env.CHROME_PATH",
+        "Page.navigate",
+        "setNativeValue",
+        "Emulation.setDeviceMetricsOverride",
+        "Page.captureScreenshot",
+        "QA CLEANUP browser processes remaining=",
+    ), "TextField real-browser probe")
+    _require(browser_workflow, (
+        "  textfield-runtime:",
+        "browser: [Chrome, Edge]",
+        "render_mode: [InteractiveServer, WebAssembly]",
+        "${{ matrix.browser }}",
+        "${{ matrix.render_mode }}",
+        "${{ github.sha }}",
+        "Build current Bluent UI JavaScript and CSS assets",
+        "npm --prefix src/Bluent.UI.Scripts ci",
+        "npm --prefix src/Bluent.UI.Scripts run build",
+        "npm --prefix src/Bluent.UI ci",
+        "npm --prefix src/Bluent.UI run build:scss",
+        "node scripts/quality/probe_v3_textfield_demo.mjs",
+        "BLUENT_TEXTFIELD_ROUTE",
+        "BLUENT_TEXTFIELD_RENDER_MODE",
+        "Build current WebAssembly and Server hosts",
+        "src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
+    ), "TextField four-mode browser CI matrix")
     _require(input_base, (
         'AdditionalAttributes["disabled"] is true',
         'if (!item.Key.Equals("class", StringComparison.InvariantCultureIgnoreCase))',
@@ -256,6 +349,11 @@ def check_textfield_contract(root: Path) -> None:
         '      - "src/Bluent.UI/Components/TextFieldComponent/**"',
         '      - "src/Bluent.UI/Components/BluentFieldComponentBase.cs"',
         '      - "src/Bluent.UI/Components/BluentInputComponentBase.cs"',
+        '      - "src/Bluent.UI/Styles/Components/_text-field.scss"',
+        '      - "src/Bluent.UI/Styles/Components/components.scss"',
+        '      - "src/Bluent.UI.Demo.Pages/Pages/Components/TextFields.razor"',
+        '      - "src/Bluent.UI.Demo.Pages/Layout/Side.razor"',
+        '      - "src/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.csproj"',
         '      - "src/Bluent.UI/Components/TextFieldComponent/**"',
         '      - "src/Bluent.UI/Bluent.UI.csproj"',
         '      - "src/Bluent.UI.Scripts/src/index.ts"',

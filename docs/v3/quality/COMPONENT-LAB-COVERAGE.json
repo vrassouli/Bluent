@@ -291,6 +291,7 @@
       "id": "textfield",
       "family": "TextField",
       "existingDemoRoute": "/components/fields",
+      "focusedDemoRoute": "/components/text-fields",
       "labRoute": "/component-lab",
       "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon-clipboard-ime-observation-all-transform-combinations",
       "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",

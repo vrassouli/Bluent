@@ -1,0 +1,202 @@
+@page "/components/text-fields"
+@namespace Bluent.UI.Demo.Pages.Components
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-75 m-auto">
+        <ShowcaseHeader Title="TextField"
+                        Purpose="Collect short or multiline text with native browser input behavior, Blazor form binding, validation, addons and Persian text normalization."
+                        Package="Bluent.UI"
+                        Namespace="Bluent.UI.Components"
+                        ApiSummary="InputBase<string?> binding, StartAddon/EndAddon, Size, BindValueEvent, Rows/ResizeTextarea, GainFocus and the three existing text-normalization flags."
+                        SourcePath="TextFields.razor"
+                        Notes="This page demonstrates the current source-backed TextField API. It does not expose proposed v3 Appearance or helper-text parameters; appearance and token mapping remain under design review." />
+
+        <h3>Binding and native attributes</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Person name" for="textfield-basic" Class="d-block mb-1" />
+            <TextField @bind-Value="_personName"
+                       id="textfield-basic"
+                       name="personName"
+                       placeholder="Type a name..."
+                       autocomplete="name"
+                       Class="w-100" />
+            <p class="mt-3 mb-0" role="status">Bound value: <strong>@(_personName ?? "(empty)")</strong></p>
+
+            <Label Text="Live input (oninput)" for="textfield-oninput" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_liveValue"
+                       id="textfield-oninput"
+                       BindValueEvent="oninput"
+                       placeholder="Updates on each input event"
+                       aria-describedby="textfield-live-description" />
+            <p id="textfield-live-description" class="mt-2 mb-0">Current value: @_liveValue</p>
+        </section>
+
+        <h3>Sizes</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Small" for="textfield-small" Class="d-block mb-1" />
+            <TextField @bind-Value="_smallValue" id="textfield-small" Size="FieldSize.Small" />
+
+            <Label Text="Medium (default)" for="textfield-medium" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_mediumValue" id="textfield-medium" Size="FieldSize.Medium" />
+
+            <Label Text="Large" for="textfield-large" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_largeValue" id="textfield-large" Size="FieldSize.Large" />
+        </section>
+
+        <h3>Addons and independent actions</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Search records" for="textfield-addons" Class="d-block mb-1" />
+            <TextField @bind-Value="_searchText"
+                       id="textfield-addons"
+                       placeholder="Name, email or record number">
+                <StartAddon>
+                    <Icon Value="@FluentIcons.Search" aria-hidden="true" />
+                </StartAddon>
+                <EndAddon>
+                    <Button Text="Search" Appearance="ButtonAppearance.Subtle" OnClick="SearchRecords" />
+                </EndAddon>
+            </TextField>
+            <p class="mt-3 mb-0" role="status">@_searchStatus</p>
+            <p class="mt-2 mb-0">The Search button is a separate keyboard stop; the addon does not become part of the input's accessible name.</p>
+        </section>
+
+        <h3>Disabled and read-only</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Disabled" for="textfield-disabled" Class="d-block mb-1" />
+            <TextField Value="Disabled value" id="textfield-disabled" disabled />
+
+            <Label Text="Read-only (still focusable and selectable)" for="textfield-readonly" Class="d-block mb-1 mt-4" />
+            <TextField Value="Ada Lovelace" id="textfield-readonly" readonly />
+        </section>
+
+        <h3>Multiline textarea</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="No resize (default)" for="textfield-textarea-fixed" Class="d-block mb-1" />
+            <TextField @bind-Value="_fixedNotes" id="textfield-textarea-fixed" Rows="3" />
+
+            <Label Text="Native resize enabled" for="textfield-textarea-resize" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_resizableNotes" id="textfield-textarea-resize" Rows="3" ResizeTextarea />
+        </section>
+
+        <h3>Validation and accessible description</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="_validationModel" OnValidSubmit="SubmitValidationForm">
+                <DataAnnotationsValidator />
+                <Label Text="Required display name" for="textfield-required" Required="LabelRequiredState.Required" Class="d-block mb-1" />
+                <TextField @bind-Value="_validationModel.DisplayName"
+                           id="textfield-required"
+                           placeholder="Enter a display name"
+                           aria-describedby="textfield-required-message" />
+                <ValidationMessage For="() => _validationModel.DisplayName" id="textfield-required-message" />
+                <div class="mt-3">
+                    <button type="submit" class="bui-button primary">Submit</button>
+                </div>
+                <p class="mt-3 mb-0" role="status">@_validationStatus</p>
+            </EditForm>
+        </section>
+
+        <h3>Initial focus</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <p>Mount the field to exercise GainFocus on its first interactive render. It is not re-applied on later renders.</p>
+            @if (!_showFocusField)
+            {
+                <Button Text="Mount and focus the field" OnClick="ShowFocusField" />
+            }
+            else
+            {
+                <Label Text="Focused field" for="textfield-gain-focus" Class="d-block mb-1" />
+                <TextField @bind-Value="_focusValue" id="textfield-gain-focus" GainFocus />
+            }
+        </section>
+
+        <h3>Digit and Persian-character normalization</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <p>Each row is an actual TextField using one of the eight flag combinations. Try typing or pasting mixed scripts in the fields.</p>
+            @foreach (var sample in _transformSamples)
+            {
+                <div @key="sample.Id" class="mb-4">
+                    <Label Text="@sample.Name" for="@sample.Id" Class="d-block mb-1" />
+                    <TextField @bind-Value="sample.Value"
+                               id="@sample.Id"
+                               DigitOnly="@sample.DigitOnly"
+                               AsciiDigits="@sample.AsciiDigits"
+                               ArabicToPersianConversion="@sample.ArabicToPersianConversion"
+                               placeholder="Paste mixed Latin/Persian/Arabic text" />
+                    <small class="d-block mt-1">Value: @sample.Value</small>
+                </div>
+            }
+        </section>
+
+        <h3>Persian RTL and mixed-direction content</h3>
+        <section class="p-7 rounded-5 shadow-3" dir="rtl">
+            <Label Text="نام کاربر" for="textfield-rtl-name" Class="d-block mb-1" />
+            <TextField @bind-Value="_persianName" id="textfield-rtl-name" placeholder="نام و نام خانوادگی" />
+
+            <Label Text="شناسه لاتین / کد پیگیری" for="textfield-rtl-code" Class="d-block mb-1 mt-4" />
+            <TextField @bind-Value="_trackingCode" id="textfield-rtl-code" dir="ltr" placeholder="AB-12345" />
+            <p class="mt-3 mb-0">مقدار: @_persianName — کد: @_trackingCode</p>
+        </section>
+    </div>
+</div>
+
+@code {
+    private string? _personName = "Ada Lovelace";
+    private string? _liveValue = "Live binding";
+    private string? _smallValue = "Small";
+    private string? _mediumValue = "Medium";
+    private string? _largeValue = "Large";
+    private string? _searchText;
+    private string _searchStatus = "No search submitted yet.";
+    private string? _fixedNotes = "Textarea with native resizing disabled.";
+    private string? _resizableNotes = "Textarea with native resizing enabled.";
+    private string? _focusValue;
+    private bool _showFocusField;
+    private string? _persianName = "وحید رضایی";
+    private string? _trackingCode = "AB-12345";
+    private string _validationStatus = "Submit the form to see validation feedback.";
+    private readonly TextFieldValidationModel _validationModel = new();
+
+    private readonly List<TextTransformSample> _transformSamples =
+    [
+        new() { Id = "textfield-transform-none", Name = "No transforms", Value = "ABC ۱۲٣٤ 56" },
+        new() { Id = "textfield-transform-digits", Name = "DigitOnly", Value = "ABC ۱۲٣٤ 56", DigitOnly = true },
+        new() { Id = "textfield-transform-ascii", Name = "AsciiDigits", Value = "۱۲٣٤٠١", AsciiDigits = true },
+        new() { Id = "textfield-transform-persian", Name = "ArabicToPersianConversion", Value = "كی ي", ArabicToPersianConversion = true },
+        new() { Id = "textfield-transform-digits-ascii", Name = "DigitOnly + AsciiDigits", Value = "ABC ۱۲٣٤ 56", DigitOnly = true, AsciiDigits = true },
+        new() { Id = "textfield-transform-digits-persian", Name = "DigitOnly + ArabicToPersianConversion", Value = "ABC كی ۱۲٣٤ 56", DigitOnly = true, ArabicToPersianConversion = true },
+        new() { Id = "textfield-transform-ascii-persian", Name = "AsciiDigits + ArabicToPersianConversion", Value = "كی ۱۲٣٤", AsciiDigits = true, ArabicToPersianConversion = true },
+        new() { Id = "textfield-transform-all", Name = "All three transforms", Value = "ABC كی ۱۲٣٤ 56", DigitOnly = true, AsciiDigits = true, ArabicToPersianConversion = true }
+    ];
+
+    private void SearchRecords()
+    {
+        _searchStatus = string.IsNullOrWhiteSpace(_searchText)
+            ? "Enter a search term first."
+            : $"Search requested for: {_searchText}";
+    }
+
+    private void ShowFocusField() => _showFocusField = true;
+
+    private void SubmitValidationForm()
+    {
+        _validationStatus = $"Submitted: {_validationModel.DisplayName}";
+    }
+
+    private sealed class TextFieldValidationModel
+    {
+        [Required(ErrorMessage = "Please enter a display name.")]
+        public string? DisplayName { get; set; }
+    }
+
+    private sealed class TextTransformSample
+    {
+        public string Id { get; init; } = string.Empty;
+        public string Name { get; init; } = string.Empty;
+        public bool DigitOnly { get; init; }
+        public bool AsciiDigits { get; init; }
+        public bool ArabicToPersianConversion { get; init; }
+        public string? Value { get; set; }
+    }
+}
