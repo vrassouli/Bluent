@@ -1,6 +1,6 @@
 # Bluent v3 TextField — task-branch handoff
 
-> **Issue #432 is In progress.** This is a source-backed implementation handoff for `v3/issue-432-textfield` targeting `bluent-v3`, not a released consumer API or an accepted Fluent parity claim. The existing [2.x consumer Skill](../bluent/SKILL.md) and [2.x TextField reference](../../../docs/components/text-field.md) remain authoritative for released packages.
+> **Issue #432 is review-ready after exact-head CI.** This is a source-backed implementation handoff for v3/issue-432-textfield targeting bluent-v3, not a released consumer API or a global #418 token approval. The existing 2.x consumer Skill and reference remain authoritative for released packages.
 
 ## Retrieval order
 
@@ -52,4 +52,13 @@ The reusable scripts/quality/probe_v3_textfield_demo.mjs uses Chrome DevTools Pr
 - BLUENT_TEXTFIELD_ROUTE: defaults to /components/text-fields; Server uses /compatibility/text-fields-server.
 - BLUENT_TEXTFIELD_RENDER_MODE: defaults to WebAssembly; Server uses InteractiveServer.
 
-It tests 23 assertions per run and writes a JSON + PNG pair to docs/v3/quality/evidence/. Verified local matrix: Chrome/Edge × WebAssembly/InteractiveServer, 23/23 each (92/92 total). All runs had zero runtime signals and QA-owned browser cleanup remaining=0. The persistent Windows matrix is in .github/workflows/v3-compatibility-browsers.yml; exact-head GitHub CI must still finish after push.
+The persistent Windows matrix is in .github/workflows/v3-compatibility-browsers.yml. Exact-head CI on 14b8357522dc81f991a2e028ebc8f4254179ec11 passed Chrome/WASM 25/25, Edge/WASM 25/25, Chrome/InteractiveServer 24/24 and Edge/InteractiveServer 26/26 (100/100 aggregate; workflow run 43585766019). A later local Edge/InteractiveServer refresh passed 26/26 against the real SSR host, final CSS and SignalR HTTP 101. After the native evidence commit, rerun exact-head CI before moving #432 to Review.
+## Native Windows and Persian keyboard verification — 2026-11-14
+
+- Native Windows High Contrast White was enabled through the system-parameters API and observed by Edge as forced-colors active. With the actual Bluent component stylesheet loaded (883 rules), field border computed to CanvasText, disabled border/input to GrayText, and active 2px underline to Highlight.
+- The live showcase exposed 21/21 named textboxes in the Chromium accessibility tree, including distinct native disabled and readonly states. Actual Narrator spoken output was not captured/listened to, so spoken AT acceptance remains unverified.
+- Windows Persian input method 0429:00000429 was selected via Win+Space. Physical key events A/S/D produced Persian شسی without Unicode injection. A real key event replaced selection range [1,2] in the Persian-normalization specimen; beforeinput/input reported ش, the value became کشس, and the caret returned to index 2.
+- The standard Persian keyboard layout produced direct text input (isComposing=false); no compositionstart, compositionupdate or compositionend event occurred. This does not certify a composition/candidate-based IME lifecycle.
+- Evidence files: docs/v3/quality/evidence/BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.json/.png and BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.json/.png.
+- High Contrast flags were restored to 126/off, original Custom.theme restored, and active keyboard layout restored to English 0x04090409.
+- Task-specific design/token acceptance is recorded in Penpot pages 17–20. Those boards retain DRAFT labels; the global #418 foundation remains under Review.

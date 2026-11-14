@@ -232,3 +232,24 @@ Accepted for #432: page 17's 28 Appearance × State matrix; page 18 anatomy, nat
 Placeholder consumer decision: pinned @fluentui/web-components@3.1.3 uses colorNeutralForeground4 for ordinary placeholder and colorNeutralForegroundDisabled for disabled placeholder. FG4/BG3 arithmetic is 4.5423:1 Light and 6.4663:1 Dark. The task branch's ordinary placeholder CSS now reads --colorNeutralForeground4 directly until #418 integration; it no longer consumes the proposed unmerged --bui-v3-text-placeholder semantic alias. The disabled state reuses the existing shared --bui-v3-text-disabled role with exact upstream fallback. Canonical decision and contrast records are docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md and docs/v3/tokens/CONTRAST-AUDIT.md.
 
 GitHub decision records: Issue #432 comment 6875863220; PR #562 comment 6875862842. This is delegated task-specific acceptance only. #418 remains Review and owns the global token foundation. Native Windows Contrast Themes, actual filled-field host-boundary contrast, physical Persian OS IME with caret/selection, and spoken screen-reader acceptance remain unverified. #432 remains In Progress; PR #562 remains open/unmerged against bluent-v3. No stable/v2 change, NuGet publication, release, merge or deployment was performed.
+
+## TextField #432 — native evidence completion and final review handoff — 2026-11-14
+
+Latest task worktree: C:\Projects\Bluent-issue432, branch v3/issue-432-textfield. The existing exact-head green commit is 14b8357522dc81f991a2e028ebc8f4254179ec11; native evidence/docs below require a fresh exact-head CI run after commit/push.
+
+### Native evidence added
+- BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.json/.png: native Windows High Contrast White; Edge observed forced-colors active; actual component CSS loaded (883 rules). Field border = CanvasText; disabled border/input = GrayText; focus underline = Highlight at 2px. 21/21 textboxes were named in Chromium accessibility tree; native disabled/readonly states exposed.
+- BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.json/.png: Windows input method 0429:00000429 active; actual OS key events A/S/D produced شسی without Unicode injection. A real A key replaced selection [1,2] in Persian normalization; beforeinput/input data ش, result کشس, caret collapsed at index 2. Direct Persian keyboard layout only; no composition events occurred, so composition-based IME lifecycle is not claimed.
+- Windows state restored: High Contrast flags 126/off, Custom.theme current, keyboard layout English 0x04090409.
+- Chromium accessibility tree exposed 21/21 named textboxes. Narrator speech was not captured/listened to; spoken screen-reader acceptance is not claimed.
+
+### Runtime and build evidence
+- Exact-head CI on 14b8357522dc81f991a2e028ebc8f4254179ec11: 8/8 workflows, 28/28 jobs green; hosted TextField matrix 100/100 (Chrome/WASM 25, Edge/WASM 25, Chrome/Server 24, Edge/Server 26).
+- Follow-up local Edge/InteractiveServer on the real SSR host: 26/26; final component CSS loaded, zero browser JS/console/HTTP failures, SignalR HTTP 101, 320px no-overflow reflow.
+- Previously verified locally: Release solution build -warnaserror zero warnings/errors; .NET tests 70/70; TextField contract tests 48/48; docs contract 0 findings; Markdown links 174 files; Sass/JS builds.
+- The new evidence/documentation commit needs exact-head CI; previous checks do not automatically apply to it.
+
+### Acceptance boundary
+- Task-specific Penpot decision is recorded in comments on pages 17–20 under user-delegated review. Visible DRAFT labels remain, distinguishing this task decision from full design-system approval. #418 remains Review and owns global token approval.
+- Native High Contrast and direct Windows Persian keyboard input/caret replacement are supported by evidence. Composition-based IME candidate lifecycle and spoken Narrator output remain unverified.
+- Keep #432 In Progress until exact-head CI is green, then move Project #5 Status to Review. PR #562 stays open/unmerged until normal review/branch protection permits merge. Do not fabricate an approving review or bypass protections. No stable Dev/main/v2 merge, NuGet publication, release or deployment.

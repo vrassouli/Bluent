@@ -1,6 +1,6 @@
-# Bluent v3 TextField — implementation record (in progress)
+# Bluent v3 TextField — implementation record (review-ready; unreleased)
 
-> **Status:** task-branch implementation in progress; not a released v3 API and not accepted Fluent parity. This page records the source-backed work for [Issue #432](https://github.com/vrassouli/Bluent/issues/432). The existing [Bluent 2.x TextField reference](../../components/text-field.md) remains the consumer authority for released packages.
+> **Status:** implementation and task-specific design decisions are complete; review-ready after exact-head CI. This remains an unreleased v3 API, not a claim of complete Fluent parity. Issue #432 and PR #562 track integration into bluent-v3. The 2.x reference remains authoritative for released packages.
 
 ## Identity and design provenance
 
@@ -140,21 +140,23 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 | JavaScript / Sass asset pipeline | Clean `npm ci` + webpack ESM/Global build and clean `npm ci` + Sass compilation passed | Generated CSS is consumed by the existing BundlerMinifier pipeline; Sass reports legacy Bootstrap/import deprecation notices, not compilation errors. |
 | NuGet package content | Local `Bluent.UI.1.0.0.nupkg` pack passed; verified minified component CSS, ESM JS and Global JS are present, and packaged CSS contains `.bui-text-field` | Local pack validation only; package was not published. |
 | InteractiveServer host | Debug SSR host built with warnings-as-errors; focused showcase reused in a real InteractiveServer circuit | Same source-owned showcase; not a second component implementation. |
-| Exact-head hosted real-browser matrix | **102/102 passed** across Chrome/Edge × WebAssembly/InteractiveServer: Chrome 26/26 in both modes; Edge 25/25 in both modes. All four cells pass normal and disabled `::placeholder` computed-style checks; each records QA cleanup `remaining=0`. | Windows GitHub Actions run 43574692277 on head `b7e4182a`; JSON/PNG evidence is retained as four workflow artifacts. The local refreshed Server host had a Development static-web-assets limitation, so hosted Windows evidence is authoritative for the two Server cells. |
-| Native Windows Contrast Themes / screen reader / physical OS Persian IME | Not yet accepted | Hosted browser runs are not native OS/AT or physical IME certification. |
-| Penpot design approval | Pending; pages 17–20 remain DRAFT | No pixel-parity or maintainer approval claim. Penpot comment/write attempt timed out and was not confirmed. |
-| #418 token mapping | Selected TextField consumer mapping is implemented; #418 foundation remains Review | Normal placeholder uses `bluent.semantic.text.placeholder`; disabled reuses the shared `bluent.semantic.text.disabled`. The full #418 vocabulary/values still await maintainer acceptance. |
+| Hosted real-browser matrix | **100/100 passed** on commit 14b8357522dc81f991a2e028ebc8f4254179ec11 across Chrome/Edge × WebAssembly/InteractiveServer: Chrome/WASM 25/25, Edge/WASM 25/25, Chrome/Server 24/24, Edge/Server 26/26. | Exact-head GitHub Actions run 43585766019; four JSON/PNG artifacts uploaded. A later local Edge/InteractiveServer refresh passed 26/26 on the real SSR host, including CSS, 320px reflow and SignalR HTTP 101. New evidence commit still requires its own exact-head CI. |
+| Native Persian Windows keyboard layout | **Pass, scoped** | Windows input method 0429:00000429 active; real OS key events A/S/D entered شسی without Unicode injection. A real key event replaced selected range [1,2] in the Persian-normalization specimen; beforeinput/input reported ش, resulting value کشس, caret collapsed at index 2. Evidence: BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.json/.png. No composition events occurred, so composition-based IME lifecycle is not certified; English layout restored. |
+| Native Windows High Contrast | **Pass** | Real Windows High Contrast White; Edge forced-colors active; component CSS loaded (883 rules). Field border mapped to CanvasText, disabled border/input to GrayText, 2px focus underline to Highlight. 21/21 textboxes had accessible names in the Chromium AX tree, with native disabled/readonly states. Windows flags and Custom.theme restored. Not spoken screen-reader acceptance. |
+| Screen-reader spoken output | **Not certified** | 21/21 named textboxes in Chromium AX tree; Narrator speech was not captured/listened to. Do not claim spoken AT acceptance. |
+| Penpot task decision | **Accepted for #432 under delegated review** | Verified decision comments on pages 17–20. Visible DRAFT labels remain: this does not approve global #418 tokens or claim universal pixel parity. |
+| #418 token mapping | TextField consumer source-role decision accepted; foundation remains Review | Ordinary placeholder reads the exact upstream --colorNeutralForeground4 directly until #418 integrates/approves its semantic bridge. Disabled placeholder reuses the existing shared disabled foreground role. No unmerged TextField-only alias is consumed. |
 
 ### Real-browser evidence files
 
-The latest exact-head hosted Windows matrix on `b7e4182af8be5d94e5a06aad66bc122dc71cbc6a` passed all four cells: Chrome/WebAssembly 26/26, Chrome/InteractiveServer 26/26, Edge/WebAssembly 25/25, and Edge/InteractiveServer 25/25 (102/102 aggregate). Every cell records both placeholder source-role checks, zero browser JS/console/HTTP failures, and `QA CLEANUP ... remaining=0`. The JSON/PNG pairs are uploaded to GitHub workflow run [43574692277](https://github.com/vrassouli/Bluent/actions/runs/43574692277) as artifacts `v3-textfield-Chrome-WebAssembly-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`, `v3-textfield-Chrome-InteractiveServer-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`, `v3-textfield-Edge-WebAssembly-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`, and `v3-textfield-Edge-InteractiveServer-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`. The checked-in local evidence JSON/PNG is earlier; use the exact-head hosted artifacts for current four-mode proof.
+The exact-head hosted matrix on 14b8357522dc81f991a2e028ebc8f4254179ec11 passed Chrome/WASM 25/25, Edge/WASM 25/25, Chrome/InteractiveServer 24/24 and Edge/InteractiveServer 26/26 (100/100 aggregate; Compatibility Browsers run 43585766019). Four JSON/PNG browser artifacts are uploaded. A later local Edge/InteractiveServer run passed 26/26 against the real SSR host with final CSS loaded and SignalR HTTP 101. Native Windows evidence is retained in BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.* and BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.*. The new evidence commit still needs exact-head CI.
 
 - BLUENT-TEXTFIELD-CHROME-WASM.json / .png
 - BLUENT-TEXTFIELD-EDGE-WASM.json / .png
 - BLUENT-TEXTFIELD-CHROME-INTERACTIVESERVER.json / .png
 - BLUENT-TEXTFIELD-EDGE-INTERACTIVESERVER.json / .png
 
-The permanent v3-compatibility-browsers.yml TextField job restores and builds the JavaScript and Sass asset pipelines from clean lockfiles, builds both hosts, runs the same probe in a Chrome/Edge × InteractiveServer/WebAssembly matrix on Windows, and uploads the JSON/PNG evidence as workflow artifacts. Exact-head GitHub CI on `b7e4182a` completed all 8 workflows successfully, including Compatibility 12/12 jobs and Interaction Source 5/5.
+The permanent v3-compatibility-browsers.yml job restores/builds the JavaScript and Sass asset pipelines, builds both hosts, and runs the Chrome/Edge × InteractiveServer/WebAssembly matrix on Windows. It uploads JSON/PNG evidence. The exact-head CI run for the next evidence commit must be checked before Review.
 
 Reproducible checks:
 
@@ -171,4 +173,4 @@ dotnet build Bluent.sln --configuration Release --no-restore -warnaserror
 dotnet test Bluent.sln --configuration Release --no-build
 ```
 
-Issue #432 remains **In progress** and PR #562 remains open against `bluent-v3`. This branch is not a released v3 package, no merge into stable `Dev`/2.x is authorized, and no NuGet publication/deployment has occurred.
+Issue #432 is ready for Review after the new evidence commit passes exact-head CI; PR #562 remains open and targets bluent-v3. This is unreleased v3 development; no stable Dev/main/v2 merge, NuGet publication, deployment or release has occurred.
