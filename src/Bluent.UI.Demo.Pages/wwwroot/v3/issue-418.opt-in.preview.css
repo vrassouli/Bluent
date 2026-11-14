@@ -8,6 +8,7 @@
   /* semantic: aliases only; legacy variables are never overwritten. */
   --bui-v3-surface-default: var(--colorNeutralBackground1);
   --bui-v3-text-primary: var(--colorNeutralForeground1);
+  --bui-v3-text-placeholder: var(--colorNeutralForeground4);
   --bui-v3-action-background: var(--colorBrandBackground);
   --bui-v3-action-foreground: var(--colorBrandForeground1);
   --bui-v3-action-on-brand: var(--colorNeutralForegroundOnBrand);
