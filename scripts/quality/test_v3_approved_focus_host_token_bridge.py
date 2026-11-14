@@ -26,9 +26,14 @@ class FocusHostTokenContractTests(unittest.TestCase):
         actual,matrix=contract(self.schema)
         self.assertEqual(actual,self.css)
         self.assertEqual(len(matrix["brands"]),10)
-        self.assertEqual(len(self.schema["layers"]["source"]),15)
-        self.assertEqual(len(self.schema["layers"]["semantic"]),16)
+        self.assertEqual(len(self.schema["layers"]["source"]),16)
+        self.assertEqual(len(self.schema["layers"]["semantic"]),17)
         self.assertEqual(len(self.schema["layers"]["component"]),13)
+        source = {item["name"]: item for item in self.schema["layers"]["source"]}
+        semantic = {item["name"]: item for item in self.schema["layers"]["semantic"]}
+        self.assertEqual(source["bluent.color.foreground4"]["css"], "--colorNeutralForeground4")
+        self.assertEqual(semantic["bluent.semantic.text.placeholder"]["alias"], "bluent.color.foreground4")
+        self.assertEqual(semantic["bluent.semantic.text.placeholder"]["css"], "--bui-v3-text-placeholder")
         self.assertNotIn(".bui-button",actual)
         self.assertNotIn("outline-color:",actual)
         self.assertNotIn(":root {",actual)
