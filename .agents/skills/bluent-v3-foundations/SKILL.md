@@ -4,7 +4,7 @@ Use this skill while designing v3 Fluent 2 focus-visible tokens and controls und
 
 ## Token role contract (2026-11-10)
 
-- The color preview schema is **15 source + 16 semantic + 13 component = 44 logical aliases** per brand/mode combination. The separate non-color foundation bridge is **96 CSS source + 5 design/policy source → 104 semantic → 14 component candidates**, checked across 20 brand/mode themes; keep these counts separate.
+- The color preview schema is **16 source + 17 semantic + 13 component = 46 logical aliases** per brand/mode combination. The separate non-color foundation bridge is **96 CSS source + 5 design/policy source → 104 semantic → 14 component candidates**, checked across 20 brand/mode themes; keep these counts separate.
 - Links have three distinct source roles (`--colorBrandForegroundLink`, `...Hover`, `...Pressed`), three semantic roles and three component roles. Every role must alias the matching upstream state; never substitute Hover or Pressed for Rest.
 - The native Penpot shared Brand×Mode preview sets now carry Action Rest and Link Rest/Hover/Pressed values. Each of the 20 themes activates exactly one matching Light or Dark source set plus shared foundations; never leave both active.
 - Foundation crosswalk: Fluent 2 design Large=8px maps to source `--borderRadiusXLarge`; X-Large=12px is a separate design value; legacy `--borderRadiusLarge`=6px is preserved as `legacyCodeLarge`. Density compact/regular/comfortable aliases existing spacing 8/12/16. TextField min-height 24/32/40 is not a generic Button height.

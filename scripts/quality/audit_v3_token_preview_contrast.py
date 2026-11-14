@@ -29,6 +29,8 @@ NAMES = (
     "--colorNeutralForeground1",
     "--colorNeutralForeground2Link",
     "--colorNeutralForeground3",
+    "--colorNeutralForeground4",
+    "--colorNeutralBackground3",
 )
 EXPECTED_DARK_FOREGROUND2_GAPS = {
     "default",
@@ -67,11 +69,17 @@ def main() -> int:
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     issues = []
     rows = []
+    placeholder_pairs = []
     for brand, modes in matrix["brands"].items():
         for mode, entry in modes.items():
             t = entry["tokens"]
             source = load_source_tokens(THEME_DIR / f"theme-{brand}-{mode}.css", list(NAMES))
             bg = t["bluent.semantic.surface.default"]
+            # TextField placeholder follows Fluent Web Components' normal
+            # placeholder role on the actual Filled-darker BG3 surface.
+            placeholder_foreground = source["--colorNeutralForeground4"]
+            placeholder_surface = source["--colorNeutralBackground3"]
+            placeholder_ratio = contrast(placeholder_foreground, placeholder_surface)
             ratios = {
                 "primaryText": contrast(t["bluent.semantic.text.primary"], bg),
                 "onBrand": contrast(t["bluent.semantic.action.onBrand"], t["bluent.component.button.backgroundPrimary"]),
@@ -122,7 +130,24 @@ def main() -> int:
             if mode == "light" and ratios["brandLinkPressed"] < 4.5:
                 issues.append(f"Brand link pressed unexpectedly below 4.5 in Light: {brand}")
 
-            rows.append({"brand": brand, "mode": mode, **ratios})
+            if placeholder_ratio < 4.5:
+                issues.append(
+                    f"TextField placeholder below 4.5 on Filled-darker BG3: "
+                    f"{brand}/{mode}={placeholder_ratio:.4f}"
+                )
+            placeholder_pairs.append({
+                "brand": brand,
+                "mode": mode,
+                "foreground": placeholder_foreground.upper(),
+                "background": placeholder_surface.upper(),
+                "ratio": placeholder_ratio,
+            })
+            rows.append({
+                "brand": brand,
+                "mode": mode,
+                "placeholderText": placeholder_ratio,
+                **ratios,
+            })
 
     if len(rows) != 20:
         issues.append(f"Expected 20 source brand/mode combinations; got {len(rows)}")
@@ -231,10 +256,24 @@ def main() -> int:
     }
     print(json.dumps({
         "pass": not issues,
-        "classification": "300 source-backed opaque-pair diagnostics plus 40 generated per-brand Dark foreground preview pairs; not full WCAG/AT",
+        "classification": "300 existing source-backed opaque-pair diagnostics plus 20 TextField Placeholder/BG3 pairs and 40 generated per-brand Dark foreground preview pairs; not full WCAG/AT",
         "brandModePairs": len(rows),
-        "checks": len(rows) * 15 + len(candidate_pairs),
+        "checks": len(rows) * 15 + len(placeholder_pairs) + len(candidate_pairs),
         "sourceDiagnosticChecks": len(rows) * 15,
+        "placeholderContrastPairs": len(placeholder_pairs),
+        "placeholderBelow4_5": sum(item["ratio"] < 4.5 for item in placeholder_pairs),
+        "placeholderMinimum": round(min((item["ratio"] for item in placeholder_pairs), default=0), 4),
+        "placeholderMinimumByMode": {
+            mode: round(min((item["ratio"] for item in placeholder_pairs if item["mode"] == mode), default=0), 4)
+            for mode in ("light", "dark")
+        },
+        "placeholderMapping": {
+            "source": "--colorNeutralForeground4",
+            "semantic": "bluent.semantic.text.placeholder",
+            "css": "--bui-v3-text-placeholder",
+            "disabledSource": "--colorNeutralForegroundDisabled",
+            "disabledSemantic": "bluent.semantic.text.disabled",
+        },
         "darkBrandForegroundCandidatePairs": len(candidate_pairs),
         "darkBrandForegroundCandidatesBelow4_5": sum(item["ratio"] < 4.5 for item in candidate_pairs),
         "darkBrandForegroundCandidatesBelow4_6": sum(item["ratio"] < 4.6 for item in candidate_pairs),

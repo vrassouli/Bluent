@@ -90,6 +90,14 @@
         }
       },
       {
+        "name": "bluent.color.foreground4",
+        "css": "--colorNeutralForeground4",
+        "default": {
+          "light": "#707070",
+          "dark": "#999999"
+        }
+      },
+      {
         "name": "bluent.color.brandBackground",
         "css": "--colorBrandBackground",
         "default": {
@@ -204,6 +212,11 @@
         "name": "bluent.semantic.text.primary",
         "alias": "bluent.color.foreground1",
         "css": "--bui-v3-text-primary"
+      },
+      {
+        "name": "bluent.semantic.text.placeholder",
+        "alias": "bluent.color.foreground4",
+        "css": "--bui-v3-text-placeholder"
       },
       {
         "name": "bluent.semantic.action.background",

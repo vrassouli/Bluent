@@ -144,7 +144,7 @@ def contract(manifest: dict) -> tuple[str, dict]:
         raise ValueError("Unexpected issue contract")
     layers = manifest["layers"]
     source, semantic, components = (layers[n] for n in ("source", "semantic", "component"))
-    if [len(source), len(semantic), len(components)] != [15, 16, 13]:
+    if [len(source), len(semantic), len(components)] != [16, 17, 13]:
         raise ValueError("Unexpected #418 layer inventory")
     if len({item["css"] for item in semantic + components}) != len(semantic + components):
         raise ValueError("Duplicate v3 CSS variable")

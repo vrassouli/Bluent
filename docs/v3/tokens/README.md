@@ -7,7 +7,7 @@
 **Workflow:** Issue #418 is now **Review** in GitHub Project #5. [PR #500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, is open, non-draft and mergeable. Exact-head CI on merge commit `fe991e92cfe50f995d67e54fd0a857e2bb0035b9` completed **11/11 workflows successfully, zero failures and zero pending**. The synchronized branch includes accepted #430 Label and #431 Link work. It has not been merged or accepted as Done.
 
 **Current evidence inventory:**
-- Color bridge: **15 source → 16 semantic → 13 component roles** (44 logical tokens) across 10 brands × Light/Dark. The independent Dark brand-preserving foreground direction is approved, but exact generated colors and public token vocabulary remain opt-in review candidates.
+- Color bridge: **16 source → 17 semantic → 13 component roles** (46 logical tokens) across 10 brands × Light/Dark. The independent Dark brand-preserving foreground direction is approved, but exact generated colors and public token vocabulary remain opt-in review candidates.
 - Non-color foundation: **96 emitted CSS values + 5 design/policy values → 104 semantic aliases → 14 component-consumption candidates**, with 1,920 source observations. Penpot page 31 is the editable source; its current audit is revision 727 with **1,202 checks passed**, 95 native semantic aliases and 14 component candidates. Nine cubic-bezier curves remain CSS-source-only because Penpot has no native easing-token type.
 - Label's three shared consumer roles are explicitly approved by the maintainer on [#430](https://github.com/vrassouli/Bluent/issues/430): `text.primary` → `--colorNeutralForeground1`, `text.disabled` → `--colorNeutralForegroundDisabled` (visual-only), and `text.dangerAccessible` → `--colorPaletteRedForeground1` (decorative marker; the input owns validation). The current schema matches these mappings; no `component.label.*` family is intended. They remain preview aliases pending the wider #418 decision.
 - Link's component contract was accepted and merged under [#431](https://github.com/vrassouli/Bluent/issues/431); Link consumes published CSS variables only. That acceptance does not approve #418 preview aliases or global token values.
@@ -91,7 +91,7 @@ python scripts/quality/audit_v3_token_preview_contrast.py
 python scripts/quality/probe_v3_token_nested_theme_scope.py
 ```
 
-[Generator](../../../scripts/quality/generate_v3_token_preview.py) validates existing **20 emitted brand/mode source files**, resolves all 44 logical tokens per combination (15 source + 16 semantic + 13 component), rejects missing/conflicting source declarations, forward/cyclic aliases and schema drift. It writes [the deterministic 10×2 source-color matrix](issue-418-brand-matrix.preview.json) and [the opt-in CSS bridge](issue-418-opt-in.preview.css) under `docs/v3/tokens`.
+[Generator](../../../scripts/quality/generate_v3_token_preview.py) validates existing **20 emitted brand/mode source files**, resolves all 46 logical tokens per combination (16 source + 17 semantic + 13 component), rejects missing/conflicting source declarations, forward/cyclic aliases and schema drift. It writes [the deterministic 10×2 source-color matrix](issue-418-brand-matrix.preview.json) and [the opt-in CSS bridge](issue-418-opt-in.preview.css) under `docs/v3/tokens`.
 
 **Important D1 safety:** The CSS is **not included in `bundleconfig.json`, the current static-asset CSS or NuGet release** and never defines or overwrites a preexisting `--color*`, `--spacing*`, `--fui-*` variable. The new aliases exist *only* under `[data-bui-v3-tokens][data-bui-theme]` and descendant `[data-bui-theme]` scopes **when a consumer explicitly includes this research CSS file**.
 
@@ -103,7 +103,7 @@ Run `python scripts/quality/probe_v3_token_nested_theme_scope.py` for a repeatab
 
 The fixture loads **all ten existing brands** independently and checks a non-opted-in subtree, a Light opt-in host, a nested Dark host, a nested Light host and an outside Dark subtree. It verifies the current legacy brand source variable remains correct, that opt-in aliases resolve to each mode's computed color, and that unopted regions receive no v3 token alias.
 
-**Results: 10 brands × 10 computed-style expectations = 100/100 PASS (0 errors).** Default brand Button-background samples: `rgb(18, 103, 180)` Light and `rgb(24, 89, 155)` Dark. The generator's `--check` mode also passes across 20 brand/mode combinations with 44 logical tokens each.
+**Results: 10 brands × 10 computed-style expectations = 100/100 PASS (0 errors).** Default brand Button-background samples: `rgb(18, 103, 180)` Light and `rgb(24, 89, 155)` Dark. The generator's `--check` mode also passes across 20 brand/mode combinations with 46 logical tokens each.
 
 **Limit:** This tests nested DOM CSS inheritance, **not** service-hosted Dialog/Popover outside its ancestry, keyboard, screen readers, forced colors or full accessibility. Runtime portal propagation (ADR D2) still requires implementation and real Blazor testing.
 
@@ -314,8 +314,13 @@ The [Focus host token crosswalk](FOCUS-HOST-TOKEN-CROSSWALK.md) maps the approve
 
 The maintainer approved the brand-preserving direction for #418: each of the ten brands receives independent Dark foreground candidates. The preview now derives four roles separately (Action Rest, Link Rest, Link Hover and Link Pressed) from their matching source CSS roles. The minimum normal-text floor remains 4.5:1; the generator targets 4.6:1 after 8-bit RGB rounding. The generated companion board and exact values are recorded in [CONTRAST-AUDIT.md](CONTRAST-AUDIT.md) and on the owned [Penpot page 45](https://design.penpot.app/#/workspace?file-id=b64f6665-c9ab-80b5-8008-c4ac99d9d000&page-id=d0bcea67-3af4-8071-8008-d8e442b90ed1).
 
-This adds a separate per-brand preview candidate map and four scoped CSS aliases; it does **not** change the existing 44 logical-token inventory, stable 2.x theme files, published bundles or public API. The 40 candidate pairs all measure at least 4.6001:1 against the emitted Dark neutral surface. Exact color values and public naming remain under Review pending actual rendered Blazor, forced-colors and assistive-technology checks.
+This adds a separate per-brand preview candidate map and four scoped CSS aliases; it does **not** change the existing 46 logical-token inventory, stable 2.x theme files, published bundles or public API. The 40 candidate pairs all measure at least 4.6001:1 against the emitted Dark neutral surface. Exact color values and public naming remain under Review pending actual rendered Blazor, forced-colors and assistive-technology checks.
 
 ### 2026-11-01 rendered consumer follow-up
 
 The Dark foreground preview now uses an actual Bluent `Button` for Action Rest and actual anchor elements for the three link states. A published Blazor SSR Styling Lab run on Edge passed **80/80 computed-style assertions** across 10 brands × LTR/RTL × four roles, with a **4.6001:1** minimum. The Button's accessible name and three link names were present in the browser Accessibility Tree. The test is documented in [CONTRAST-AUDIT.md](CONTRAST-AUDIT.md). It does not approve the draft values/names, does not claim spoken AT acceptance, and does not promote the opt-in CSS into a published component bundle.
+
+
+### TextField placeholder mapping (2026-11-14)
+
+The TextField consumer uses the pinned Fluent Web Components role --colorNeutralForeground4 for ordinary placeholder text through bluent.semantic.text.placeholder / --bui-v3-text-placeholder. Disabled placeholder text reuses the existing bluent.semantic.text.disabled alias to --colorNeutralForegroundDisabled. The FG4/BG3 contrast pair is checked in all 20 brand/mode CSS files; see the TextField placeholder decision in CONTRAST-AUDIT.md. This is a selected component mapping in the opt-in preview, not approval of the entire public token foundation.

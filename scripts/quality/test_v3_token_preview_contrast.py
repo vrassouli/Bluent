@@ -29,7 +29,36 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertEqual(self.report["additionalCandidateRoleDiagnosticPairs"], 120)
         self.assertEqual(self.report["sourceDiagnosticChecks"], 300)
         self.assertEqual(self.report["darkBrandForegroundCandidatePairs"], 40)
-        self.assertEqual(self.report["checks"], 340)
+        self.assertEqual(self.report["checks"], 360)
+        self.assertEqual(self.report["placeholderContrastPairs"], 20)
+        self.assertEqual(self.report["placeholderBelow4_5"], 0)
+
+    def test_textfield_placeholder_uses_fluent_fg4_and_passes_filled_darker_bg3(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        schema = json.loads((root / "docs/v3/tokens/issue-418-token-schema.preview.json").read_text(encoding="utf-8"))
+        matrix = json.loads((root / "docs/v3/tokens/issue-418-brand-matrix.preview.json").read_text(encoding="utf-8"))
+        css = (root / "docs/v3/tokens/issue-418-opt-in.preview.css").read_text(encoding="utf-8")
+        source = {item["name"]: item for item in schema["layers"]["source"]}
+        semantic = {item["name"]: item for item in schema["layers"]["semantic"]}
+        self.assertEqual(source["bluent.color.foreground4"]["css"], "--colorNeutralForeground4")
+        self.assertEqual(source["bluent.color.foreground4"]["default"], {"light": "#707070", "dark": "#999999"})
+        self.assertEqual(semantic["bluent.semantic.text.placeholder"]["alias"], "bluent.color.foreground4")
+        self.assertEqual(semantic["bluent.semantic.text.placeholder"]["css"], "--bui-v3-text-placeholder")
+        self.assertIn("--bui-v3-text-placeholder: var(--colorNeutralForeground4);", css)
+
+        self.assertEqual(self.report["placeholderMapping"]["source"], "--colorNeutralForeground4")
+        self.assertEqual(self.report["placeholderMapping"]["semantic"], "bluent.semantic.text.placeholder")
+        self.assertEqual(self.report["placeholderMapping"]["disabledSource"], "--colorNeutralForegroundDisabled")
+        self.assertEqual(self.report["placeholderMinimumByMode"], {"light": 4.5423, "dark": 6.4663})
+        self.assertEqual(self.report["placeholderMinimum"], 4.5423)
+        self.assertEqual(self.report["placeholderBelow4_5"], 0)
+
+        for brand, modes in matrix["brands"].items():
+            for mode, entry in modes.items():
+                with self.subTest(brand=brand, mode=mode):
+                    tokens = entry["tokens"]
+                    self.assertEqual(tokens["bluent.semantic.text.placeholder"], tokens["bluent.color.foreground4"])
+                    self.assertEqual(tokens["bluent.color.foreground4"], "#707070" if mode == "light" else "#999999")
 
     def test_dark_action_and_link_foreground_gap_is_explicit(self) -> None:
         self.assertEqual(self.report["actionForegroundBelow4_5"], 10)
@@ -134,7 +163,7 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
                 self.assertIn(f"{semantic_css}: var({source[source_name]['css']});", css)
                 self.assertIn(f"{component_css}: var({semantic_css});", css)
 
-        self.assertEqual([len(schema["layers"][name]) for name in ("source", "semantic", "component")], [15, 16, 13])
+        self.assertEqual([len(schema["layers"][name]) for name in ("source", "semantic", "component")], [16, 17, 13])
         browser = (root / "scripts/quality/probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8-sig")
         self.assertIn("darkBrandForegroundCandidates", browser)
         self.assertIn("rendered Dark candidate surface matches source", browser)
