@@ -1,4 +1,4 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<string?>
 
 <div class="@GetComponentClass()" style="@Style">
@@ -11,22 +11,24 @@
 
     @if (Rows == null)
     {
-        <input @attributes=GetInputAdditionalAttributes()
+        <input @attributes=GetTextFieldAdditionalAttributes()
                @ref=Element
                id="@GetInputId()"
                name="@NameAttributeValue"
-               @bind-value="ValueStringProxy" 
-               @bind-value:event="@BindValueEvent" />
+               @bind-value="ValueStringProxy"
+               @bind-value:event="@BindValueEvent"
+               @bind-value:after="OnValueBoundAsync" />
     }
     else
     {
-        <textarea @attributes=GetInputAdditionalAttributes()
+        <textarea @attributes=GetTextFieldAdditionalAttributes()
                   @ref=Element
                   id="@GetInputId()"
                   name="@NameAttributeValue"
                   rows="@Rows"
                   @bind-value="ValueStringProxy"
-                  @bind-value:event="@BindValueEvent"></textarea>
+                  @bind-value:event="@BindValueEvent"
+                  @bind-value:after="OnValueBoundAsync"></textarea>
     }
 
     @if (EndAddon != null)

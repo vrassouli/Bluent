@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --zIndexFloatingContainer: 1000;
   --zIndexSplitPanelResizer: 1100;
   --zIndexOverlay: 1200;
@@ -27,6 +27,7 @@
 @import "_drawer.scss";
 @import "_dropdown-select.scss";
 @import "_field.scss";
+@import "_text-field.scss";
 @import "_file-select.scss";
 @import "_label.scss";
 @import "_link.scss";

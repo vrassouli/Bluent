@@ -13,6 +13,7 @@ on:
       - "docs/v3/design/MIGRATION-IMPACT-LEDGER.md"
       - "docs/v3/inventory/public-component-contracts.json"
       - ".agents/skills/bluent-v3-label/**"
+      - ".agents/skills/bluent-v3-textfield/**"
       - "docs/v3/skills/README.md"
       - "src/Bluent.UI/Components/LabelComponent/**"
       - "src/Bluent.UI/Styles/Components/_label.scss"
@@ -21,6 +22,28 @@ on:
       - "src/Bluent.UI.Demo.Pages/Pages/Components/Labels.razor"
       - "scripts/quality/check_v3_label_contract.py"
       - "scripts/quality/test_v3_label_contract.py"
+      - "src/Bluent.UI/Components/TextFieldComponent/**"
+      - "src/Bluent.UI/Bluent.UI.csproj"
+      - "src/Bluent.UI.Scripts/src/index.ts"
+      - "src/Bluent.UI.Scripts/src/TextField/**"
+      - "src/Bluent.UI.Scripts/dist/**"
+      - "src/Bluent.UI/wwwroot/bluent.ui.js"
+      - "src/Bluent.UI/wwwroot/bluent.ui.global.js"
+      - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/probe_v3_component_lab.mjs"
+      - "tests/RegexSampleGeneratorTest/TextFieldValuePipelineTests.cs"
+      - "src/Bluent.UI/Components/BluentFieldComponentBase.cs"
+      - "src/Bluent.UI/Components/BluentInputComponentBase.cs"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/TextFields.razor"
+      - "src/Bluent.UI.Demo.Pages/Layout/Side.razor"
+      - "src/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.csproj"
+      - "src/Bluent.UI.Demo.SSR/Components/Pages/TextFieldInteractiveServerProbe.razor"
+      - "src/Bluent.UI/Styles/Components/_text-field.scss"
+      - "src/Bluent.UI/Styles/Components/components.scss"
+      - "docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md"
+      - "scripts/quality/probe_v3_textfield_demo.mjs"
+      - "scripts/quality/check_v3_textfield_contract.py"
+      - "scripts/quality/test_v3_textfield_contract.py"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       - "src/Bluent.UI/Components/MenuListComponent/MenuList.razor"
@@ -62,6 +85,10 @@ jobs:
         run: |
           python scripts/quality/check_v3_label_contract.py
           python -m unittest discover -s scripts/quality -p 'test_v3_label_contract.py' -v
+      - name: Validate TextField source/API and inherited contract
+        run: |
+          python scripts/quality/check_v3_textfield_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_textfield_contract.py' -v
       - name: Validate stale summary negative cases
         run: python -m unittest discover -s scripts/quality -p "test_v3_docs_contract.py" -v
       - name: Validate all repository-local Markdown links

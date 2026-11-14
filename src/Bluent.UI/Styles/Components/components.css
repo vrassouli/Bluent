@@ -2197,6 +2197,107 @@
   color: var(--colorPaletteRedForeground1);
 }
 
+.bui-text-field > input::placeholder,
+.bui-text-field > textarea::placeholder {
+  color: var(--colorNeutralForeground4);
+  opacity: 1;
+}
+.bui-text-field {
+  border-color: var(--colorNeutralStrokeAccessible);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+}
+.bui-text-field:hover {
+  border-color: var(--colorNeutralStrokeAccessibleHover);
+  border-bottom-color: var(--colorNeutralStrokeAccessibleHover);
+}
+.bui-text-field:active {
+  border-color: var(--colorNeutralStrokeAccessiblePressed);
+  border-bottom-color: var(--colorNeutralStrokeAccessiblePressed);
+}
+.bui-text-field:focus-within {
+  border-color: var(--colorNeutralStrokeAccessible);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+}
+.bui-text-field:focus-within::after {
+  height: 2px;
+  border-radius: 0;
+  border-bottom-color: var(--colorCompoundBrandStroke);
+}
+.bui-text-field.invalid:not(:focus-within) {
+  border-color: var(--colorPaletteRedBorder2);
+  border-bottom-color: var(--colorPaletteRedBorder2);
+}
+.bui-text-field.invalid:focus-within {
+  border-color: var(--colorNeutralStrokeAccessible);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+}
+.bui-text-field.invalid:focus-within::after {
+  border-bottom-color: var(--colorCompoundBrandStroke);
+}
+.bui-text-field.readonly {
+  background-color: var(--colorNeutralBackground1);
+  cursor: text;
+}
+.bui-text-field.readonly > input,
+.bui-text-field.readonly > textarea {
+  color: var(--colorNeutralForeground1);
+  cursor: text;
+}
+.bui-text-field.disabled {
+  border-color: var(--colorNeutralStrokeDisabled);
+  border-bottom-color: var(--colorNeutralStrokeDisabled);
+  background-color: var(--colorTransparentBackground);
+  cursor: not-allowed;
+}
+.bui-text-field.disabled > input,
+.bui-text-field.disabled > textarea {
+  color: var(--colorNeutralForegroundDisabled);
+  cursor: not-allowed;
+}
+.bui-text-field.disabled > input:disabled::placeholder,
+.bui-text-field.disabled > textarea:disabled::placeholder {
+  color: var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled));
+  opacity: 1;
+}
+.bui-text-field.disabled::after {
+  transform: scaleX(0);
+}
+.bui-text-field.multiline {
+  align-items: stretch;
+}
+.bui-text-field.multiline > textarea {
+  align-self: stretch;
+  min-height: 100%;
+  padding-block: var(--spacingVerticalS);
+  line-height: inherit;
+}
+
+@media (forced-colors: active) {
+  .bui-text-field {
+    border-color: CanvasText;
+    border-bottom-color: CanvasText;
+  }
+  .bui-text-field:focus-within::after {
+    border-bottom-color: Highlight;
+  }
+  .bui-text-field.invalid:not(:focus-within) {
+    border-color: CanvasText;
+    border-bottom-color: CanvasText;
+  }
+  .bui-text-field.disabled {
+    border-color: GrayText;
+    border-bottom-color: GrayText;
+  }
+  .bui-text-field.disabled > input,
+  .bui-text-field.disabled > textarea {
+    color: GrayText;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bui-text-field::after {
+    transition: none;
+  }
+}
 .bui-file-select > .input-wrapper > input[type=file] {
   display: none;
 }

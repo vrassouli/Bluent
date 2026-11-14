@@ -1,0 +1,63 @@
+{
+  "issue": 432,
+  "timestamp": "2026-11-14T15:00:44.7499551+03:30",
+  "host": "Windows local Dev01; Chrome against Bluent InteractiveServer TextField showcase",
+  "windowsKeyboard": {
+    "inputMethodTip": "0429:00000429",
+    "selectedUsing": "Win+Space",
+    "activeKeyboardLayout": "0x04290429",
+    "languageTag": "fa"
+  },
+  "directKeyEntry": {
+    "resultingVisibleText": "شسی",
+    "evidence": "Actual Windows key events translated to Persian glyphs while the native Persian layout was active.",
+    "keys": [
+      "A",
+      "S",
+      "D"
+    ],
+    "unicodeInjectionUsed": false
+  },
+  "replacementAndCaret": {
+    "keyboardEventKey": "ش",
+    "preconditionValueArabic": "كيس",
+    "fieldAutomationId": "textfield-transform-persian",
+    "physicalKey": "A",
+    "beforeInput": {
+      "selectionStart": 1,
+      "selectionEnd": 2,
+      "inputType": "insertText",
+      "isComposing": false,
+      "data": "ش"
+    },
+    "compositionEvents": [],
+    "finalSelection": {
+      "direction": "forward",
+      "start": 2,
+      "end": 2
+    },
+    "selectedRange": {
+      "start": 1,
+      "end": 2
+    },
+    "resultingCodePoints": [
+      "U+06A9",
+      "U+0634",
+      "U+0633"
+    ],
+    "normalizerResultBeforeReplacement": "کیس",
+    "input": {
+      "isComposing": false,
+      "resultingValue": "کشس",
+      "inputType": "insertText",
+      "data": "ش",
+      "selectionStart": 2,
+      "selectionEnd": 2
+    }
+  },
+  "scopeAndLimits": {
+    "proved": "Native Windows Persian keyboard-layout translation, beforeinput/input event data, Persian normalization and caret collapse after replacing a selected character.",
+    "setupNote": "The Arabic precondition string was inserted through the DOM value setter for a deterministic selection/normalization test; the replacement character itself was entered by a real OS-layout key event, not Unicode injection.",
+    "notProved": "IME candidate/composition lifecycle; no compositionstart, compositionupdate or compositionend was raised for the standard Persian keyboard layout. This is direct keyboard-layout input, not a composition-based IME."
+  }
+}

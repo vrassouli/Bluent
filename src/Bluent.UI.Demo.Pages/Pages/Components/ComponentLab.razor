@@ -3,6 +3,7 @@
 @using Bluent.UI.Enums
 @using Bluent.UI.Components.FileSelectComponent
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.JSInterop
 @inject IJSRuntime JS
 
@@ -343,7 +344,7 @@
             }
             else if (_selected == "textfield")
             {
-                <div class="lab-textfield-grid" aria-label="Current TextField input textarea and disabled states">
+                <div class="lab-textfield-grid" aria-label="Current TextField input, transforms, addons, sizing and native states">
                     <div class="lab-textfield-card">
                         <label for="lab-tf-input">Live text binding</label>
                         <TextField id="lab-tf-input" @bind-Value="_labTextValue"
@@ -351,16 +352,139 @@
                         <p role="status" class="lab-tf-value">Value: @_labTextValue</p>
                     </div>
                     <div class="lab-textfield-card">
-                        <label for="lab-tf-notes">Textarea (3 rows, no resize)</label>
+                        <label for="lab-tf-notes">Textarea (3 rows, no resize, DigitOnly + AsciiDigits)</label>
                         <TextField id="lab-tf-notes" @bind-Value="_labTextNotes"
-                                   Rows="3" ResizeTextarea="false" />
+                                   BindValueEvent="oninput" Rows="3" ResizeTextarea="false" DigitOnly AsciiDigits />
+                        <p id="lab-tf-notes-value" role="status" class="lab-tf-value">Value: @_labTextNotes</p>
                     </div>
                     <div class="lab-textfield-card">
                         <label for="lab-tf-disabled">Disabled native input</label>
-                        <TextField id="lab-tf-disabled" Value="Read only sample" disabled />
+                        <TextField id="lab-tf-disabled" Value="Disabled sample" disabled />
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-readonly">Read-only native input</label>
+                        <TextField id="lab-tf-readonly" Value="Selectable read-only value" readonly />
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-digits-only">DigitOnly (keeps Persian, Arabic-Indic and ASCII digits)</label>
+                        <TextField id="lab-tf-digits-only" @bind-Value="_labTextDigitsOnly"
+                                   BindValueEvent="oninput" DigitOnly />
+                        <p id="lab-tf-digits-value" role="status">Value: @_labTextDigitsOnly</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-ascii-digits">AsciiDigits (normalizes digits to ASCII)</label>
+                        <TextField id="lab-tf-ascii-digits" @bind-Value="_labTextAsciiDigits"
+                                   BindValueEvent="oninput" AsciiDigits />
+                        <p id="lab-tf-ascii-value" role="status">Value: @_labTextAsciiDigits</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-persian-chars">ArabicToPersianConversion</label>
+                        <TextField id="lab-tf-persian-chars" @bind-Value="_labTextPersianChars"
+                                   BindValueEvent="oninput" ArabicToPersianConversion />
+                        <p id="lab-tf-persian-value" role="status">Value: @_labTextPersianChars</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-digit-ascii">DigitOnly + AsciiDigits</label>
+                        <TextField id="lab-tf-digit-ascii" @bind-Value="_labTextDigitAscii"
+                                   BindValueEvent="oninput" DigitOnly AsciiDigits />
+                        <p id="lab-tf-digit-ascii-value" role="status">Value: @_labTextDigitAscii</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-digit-persian">DigitOnly + ArabicToPersianConversion</label>
+                        <TextField id="lab-tf-digit-persian" @bind-Value="_labTextDigitPersian"
+                                   BindValueEvent="oninput" DigitOnly ArabicToPersianConversion />
+                        <p id="lab-tf-digit-persian-value" role="status">Value: @_labTextDigitPersian</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-ascii-persian">AsciiDigits + ArabicToPersianConversion</label>
+                        <TextField id="lab-tf-ascii-persian" @bind-Value="_labTextAsciiPersian"
+                                   BindValueEvent="oninput" AsciiDigits ArabicToPersianConversion />
+                        <p id="lab-tf-ascii-persian-value" role="status">Value: @_labTextAsciiPersian</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-all-transforms">All transforms (DigitOnly → AsciiDigits → ArabicToPersianConversion)</label>
+                        <TextField id="lab-tf-all-transforms" @bind-Value="_labTextAllTransforms"
+                                   BindValueEvent="oninput" DigitOnly AsciiDigits ArabicToPersianConversion />
+                        <p id="lab-tf-all-transforms-value" role="status">Value: @_labTextAllTransforms</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-addons">Small size with StartAddon and EndAddon</label>
+                        <TextField id="lab-tf-addons" @bind-Value="_labTextAddon" Size="FieldSize.Small">
+                            <StartAddon>+98</StartAddon>
+                            <EndAddon>IR</EndAddon>
+                        </TextField>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-large">Large field size</label>
+                        <TextField id="lab-tf-large" @bind-Value="_labTextLarge" Size="FieldSize.Large" />
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-resizable">Textarea (3 rows, native resize enabled)</label>
+                        <TextField id="lab-tf-resizable" @bind-Value="_labTextResizable"
+                                   Rows="3" ResizeTextarea="true" />
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-gain-focus">GainFocus (first interactive render)</label>
+                        <TextField id="lab-tf-gain-focus" Value="Focused on first interactive render" GainFocus />
+                    </div>
+                    <div class="lab-textfield-card">
+                        <EditForm id="lab-tf-validation-form" Model="_labTextFieldValidation"
+                                  OnValidSubmit="OnLabTextFieldValid" OnInvalidSubmit="OnLabTextFieldInvalid">
+                            <DataAnnotationsValidator />
+                            <label for="lab-tf-required">Required name (EditContext validation)</label>
+                            <TextField id="lab-tf-required" @bind-Value="_labTextFieldValidation.Name" />
+                            <ValidationMessage For="() => _labTextFieldValidation.Name" />
+                            <button id="lab-tf-validate" type="submit">Validate field</button>
+                            <p id="lab-tf-validation-state" role="status">@_labTextFieldValidationStatus</p>
+                        </EditForm>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-default-change">Default onchange binding</label>
+                        <TextField id="lab-tf-default-change" @bind-Value="_labTextDefaultChange"
+                                   placeholder="Commit on change" />
+                        <p id="lab-tf-default-change-value" role="status">Value: @_labTextDefaultChange</p>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <EditForm id="lab-tf-native-attributes-form" Model="_labTextFieldAttributes">
+                            <DataAnnotationsValidator />
+                            <Label ForExpression="() => _labTextFieldAttributes.Email" />
+                            <TextField @bind-Value="_labTextFieldAttributes.Email"
+                                       type="email" autocomplete="email" inputmode="email"
+                                       aria-describedby="lab-tf-email-help"
+                                       data-testid="textfield-email-native"
+                                       Class="lab-tf-root-custom"
+                                       Style="--lab-textfield-probe: 1;" />
+                            <p id="lab-tf-email-help">Use your work email address.</p>
+                            <ValidationMessage For="() => _labTextFieldAttributes.Email" />
+                        </EditForm>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-start-addon">StartAddon only</label>
+                        <TextField id="lab-tf-start-addon" @bind-Value="_labTextStartAddon">
+                            <StartAddon>https://</StartAddon>
+                        </TextField>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-end-addon">EndAddon only</label>
+                        <TextField id="lab-tf-end-addon" @bind-Value="_labTextEndAddon">
+                            <EndAddon>.com</EndAddon>
+                        </TextField>
+                    </div>
+                    <div class="lab-textfield-card">
+                        <label for="lab-tf-addon-action">Disabled input with independent action addon</label>
+                        <TextField id="lab-tf-addon-action" Value="@_labTextAddonActionValue" disabled>
+                            <EndAddon>
+                                <button id="lab-tf-addon-action-button" type="button"
+                                        aria-label="Clear disabled field value"
+                                        @onclick="ClearLabTextAddonAction">Clear</button>
+                            </EndAddon>
+                        </TextField>
+                        <p id="lab-tf-addon-action-status" role="status">
+                            Clear clicks: @_labTextAddonActionClearCount; value: @_labTextAddonActionValue
+                        </p>
                     </div>
                 </div>
-                <p class="lab-controls-note">Existing TextField API only. Focus, RTL, disabled contrast and field validation for #432 remain unapproved.</p>
+                <p class="lab-controls-note">Current released TextField API baseline only. These scenarios verify existing v2 behavior; they do not represent the pending Bluent v3 design, token, visual-parity or accessibility acceptance for #432.</p>
             }
             else if (_selected == "checkbox")
             {
@@ -779,8 +903,8 @@
             "The existing Badge variants and optional icon/shadow flags, not production Fluent v3 parity.",
             "<Badge Text=\"3\" Color=\"BadgeColor.Brand\" />",
             "Representative runnable scenario only"),
-        new("textfield", "TextField", "components/fields", "Native input and textarea",
-            "Existing TextField input binding, multiline, and native disabled states. Not a v3 field redesign.",
+        new("textfield", "TextField", "components/fields", "Native editing and validation",
+            "Existing TextField binding, transforms, addons, sizing, textarea, focus and EditContext validation. Not a v3 field redesign.",
             "<TextField @bind-Value=\"_labTextValue\" BindValueEvent=\"oninput\" />",
             "Representative runnable scenario only"),
         new("checkbox", "Checkbox", "components/checkboxes", "Checked and indeterminate",
@@ -861,8 +985,73 @@
 
     private string? _labTextValue = "Ada";
     private string? _labTextNotes = "Line one";
+    private string? _labTextDigitsOnly = "123";
+    private string? _labTextAsciiDigits = "123";
+    private string? _labTextPersianChars = "متن";
+    private string? _labTextDigitAscii = "123456";
+    private string? _labTextDigitPersian = "۱۲٣٤56";
+    private string? _labTextAsciiPersian = "کیی 123";
+    private string? _labTextAllTransforms = "123456";
+    private string? _labTextAddon = "Search";
+    private string? _labTextLarge = "Large field";
+    private string? _labTextResizable = "Resizable\ntextarea";
+    private TextFieldValidationModel _labTextFieldValidation = new();
+    private string _labTextFieldValidationStatus = "Not submitted";
+    private string? _labTextDefaultChange = "Before";
+    private string? _labTextStartAddon = "example.org";
+    private string? _labTextEndAddon = "support";
+    private string? _labTextAddonActionValue = "Locked value";
+    private int _labTextAddonActionClearCount;
+    private TextFieldNativeAttributesModel _labTextFieldAttributes = new();
+
+    private sealed class TextFieldNativeAttributesModel
+    {
+        [Display(Name = "Work email")]
+        [Required(ErrorMessage = "Work email is required.")]
+        public string? Email { get; set; } = "person@example.com";
+    }
+
+    private sealed class TextFieldValidationModel
+    {
+        [Required(ErrorMessage = "Name is required.")]
+        public string? Name { get; set; }
+    }
+
+    private void OnLabTextFieldValid() => _labTextFieldValidationStatus = "Valid";
+    private void OnLabTextFieldInvalid() => _labTextFieldValidationStatus = "Invalid";
+
+    private void ClearLabTextAddonAction()
+    {
+        _labTextAddonActionValue = null;
+        _labTextAddonActionClearCount++;
+    }
+
     private string SelectedTextFieldRazor =>
-        "<TextField id=\"lab-tf-input\" @bind-Value=\"_labTextValue\" BindValueEvent=\"oninput\" />\n<TextField id=\"lab-tf-notes\" @bind-Value=\"_labTextNotes\" Rows=\"3\" ResizeTextarea=\"false\" />\n<TextField id=\"lab-tf-disabled\" Value=\"Read only sample\" disabled />\n@code { private string? _labTextValue = \"Ada\"; private string? _labTextNotes = \"Line one\"; }";
+        "@using System.ComponentModel.DataAnnotations\n" +
+        "<TextField id=\"lab-tf-input\" @bind-Value=\"_labTextValue\" BindValueEvent=\"oninput\" />\n" +
+        "<TextField id=\"lab-tf-notes\" @bind-Value=\"_labTextNotes\" BindValueEvent=\"oninput\" Rows=\"3\" ResizeTextarea=\"false\" DigitOnly AsciiDigits />\n" +
+        "<TextField id=\"lab-tf-disabled\" Value=\"Disabled sample\" disabled />\n" +
+        "<TextField id=\"lab-tf-readonly\" Value=\"Selectable read-only value\" readonly />\n" +
+        "<TextField id=\"lab-tf-digits-only\" @bind-Value=\"_labTextDigitsOnly\" BindValueEvent=\"oninput\" DigitOnly />\n" +
+        "<TextField id=\"lab-tf-ascii-digits\" @bind-Value=\"_labTextAsciiDigits\" BindValueEvent=\"oninput\" AsciiDigits />\n" +
+        "<TextField id=\"lab-tf-persian-chars\" @bind-Value=\"_labTextPersianChars\" BindValueEvent=\"oninput\" ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-digit-ascii\" @bind-Value=\"_labTextDigitAscii\" BindValueEvent=\"oninput\" DigitOnly AsciiDigits />\n" +
+        "<TextField id=\"lab-tf-digit-persian\" @bind-Value=\"_labTextDigitPersian\" BindValueEvent=\"oninput\" DigitOnly ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-ascii-persian\" @bind-Value=\"_labTextAsciiPersian\" BindValueEvent=\"oninput\" AsciiDigits ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-all-transforms\" @bind-Value=\"_labTextAllTransforms\" BindValueEvent=\"oninput\" DigitOnly AsciiDigits ArabicToPersianConversion />\n" +
+        "<TextField id=\"lab-tf-addons\" @bind-Value=\"_labTextAddon\" Size=\"FieldSize.Small\">\n  <StartAddon>+98</StartAddon><EndAddon>IR</EndAddon>\n</TextField>\n" +
+        "<TextField id=\"lab-tf-large\" @bind-Value=\"_labTextLarge\" Size=\"FieldSize.Large\" />\n" +
+        "<TextField id=\"lab-tf-resizable\" @bind-Value=\"_labTextResizable\" Rows=\"3\" ResizeTextarea=\"true\" />\n" +
+        "<TextField id=\"lab-tf-gain-focus\" Value=\"Focused on first interactive render\" GainFocus />\n" +
+        "<EditForm Model=\"_labTextFieldValidation\" OnValidSubmit=\"OnLabTextFieldValid\" OnInvalidSubmit=\"OnLabTextFieldInvalid\">\n  <DataAnnotationsValidator />\n  <TextField id=\"lab-tf-required\" @bind-Value=\"_labTextFieldValidation.Name\" />\n  <ValidationMessage For=\"() => _labTextFieldValidation.Name\" />\n  <button type=\"submit\">Validate field</button>\n</EditForm>\n" +
+        "<TextField id=\"lab-tf-default-change\" @bind-Value=\"_labTextDefaultChange\" placeholder=\"Commit on change\" />\n" +
+        "<EditForm Model=\"_labTextFieldAttributes\">\n  <DataAnnotationsValidator />\n  <Label ForExpression=\"() => _labTextFieldAttributes.Email\" />\n  <TextField @bind-Value=\"_labTextFieldAttributes.Email\" type=\"email\" autocomplete=\"email\" inputmode=\"email\" aria-describedby=\"lab-tf-email-help\" data-testid=\"textfield-email-native\" Class=\"lab-tf-root-custom\" Style=\"--lab-textfield-probe: 1;\" />\n</EditForm>\n" +
+        "<TextField id=\"lab-tf-start-addon\" @bind-Value=\"_labTextStartAddon\"><StartAddon>https://</StartAddon></TextField>\n" +
+        "<TextField id=\"lab-tf-end-addon\" @bind-Value=\"_labTextEndAddon\"><EndAddon>.com</EndAddon></TextField>\n" +
+        "<TextField id=\"lab-tf-addon-action\" Value=\"@_labTextAddonActionValue\" disabled><EndAddon><button id=\"lab-tf-addon-action-button\" type=\"button\" aria-label=\"Clear disabled field value\" @onclick=\"ClearLabTextAddonAction\">Clear</button></EndAddon></TextField>\n" +
+        "@code { private TextFieldValidationModel _labTextFieldValidation = new(); private string? _labTextDefaultChange = \"Before\"; private string? _labTextDigitAscii = \"123456\"; private string? _labTextDigitPersian = \"۱۲٣٤56\"; private string? _labTextAsciiPersian = \"کیی 123\"; private string? _labTextAllTransforms = \"123456\"; private string? _labTextStartAddon = \"https://example.org\"; private string? _labTextEndAddon = \"support\"; private string? _labTextAddonActionValue; private int _labTextAddonActionClearCount; private TextFieldNativeAttributesModel _labTextFieldAttributes = new(); private void ClearLabTextAddonAction() { _labTextAddonActionValue = null; _labTextAddonActionClearCount++; } private void OnLabTextFieldValid() { } private void OnLabTextFieldInvalid() { }\n" +
+        "private sealed class TextFieldValidationModel { [Required] public string? Name { get; set; } }\n" +
+        "private sealed class TextFieldNativeAttributesModel { [Display(Name = \"Work email\")] [Required] public string? Email { get; set; } = \"person@example.com\"; }";
 
     private bool _labChecked;
     private bool? _labNullableChecked;

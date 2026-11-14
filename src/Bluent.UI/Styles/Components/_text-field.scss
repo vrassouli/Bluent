@@ -1,0 +1,126 @@
+.bui-text-field {
+  // Placeholder is supporting hint text, not the control's accessible name.
+  // Keep the exact Fluent Web Components source fallback when #418's opt-in
+  // semantic bridge is not loaded by a consumer.
+  > input::placeholder,
+  > textarea::placeholder {
+    color: var(--colorNeutralForeground4);
+    opacity: 1;
+  }
+
+  border-color: var(--colorNeutralStrokeAccessible);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+
+  &:hover {
+    border-color: var(--colorNeutralStrokeAccessibleHover);
+    border-bottom-color: var(--colorNeutralStrokeAccessibleHover);
+  }
+
+  &:active {
+    border-color: var(--colorNeutralStrokeAccessiblePressed);
+    border-bottom-color: var(--colorNeutralStrokeAccessiblePressed);
+  }
+
+  &:focus-within {
+    border-color: var(--colorNeutralStrokeAccessible);
+    border-bottom-color: var(--colorNeutralStrokeAccessible);
+
+    &::after {
+      height: 2px;
+      border-radius: 0;
+      border-bottom-color: var(--colorCompoundBrandStroke);
+    }
+  }
+
+  &.invalid:not(:focus-within) {
+    border-color: var(--colorPaletteRedBorder2);
+    border-bottom-color: var(--colorPaletteRedBorder2);
+  }
+
+  &.invalid:focus-within {
+    // Keep the focus cue dominant while native/Blazor invalid semantics remain present.
+    border-color: var(--colorNeutralStrokeAccessible);
+    border-bottom-color: var(--colorNeutralStrokeAccessible);
+
+    &::after {
+      border-bottom-color: var(--colorCompoundBrandStroke);
+    }
+  }
+
+  &.readonly {
+    background-color: var(--colorNeutralBackground1);
+    cursor: text;
+
+    > input,
+    > textarea {
+      color: var(--colorNeutralForeground1);
+      cursor: text;
+    }
+  }
+
+  &.disabled {
+    border-color: var(--colorNeutralStrokeDisabled);
+    border-bottom-color: var(--colorNeutralStrokeDisabled);
+    background-color: var(--colorTransparentBackground);
+    cursor: not-allowed;
+
+    > input,
+    > textarea {
+      color: var(--colorNeutralForegroundDisabled);
+      cursor: not-allowed;
+    }
+
+    > input:disabled::placeholder,
+    > textarea:disabled::placeholder {
+      color: var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled));
+      opacity: 1;
+    }
+
+    &::after {
+      transform: scaleX(0);
+    }
+  }
+
+  &.multiline {
+    align-items: stretch;
+
+    > textarea {
+      align-self: stretch;
+      min-height: 100%;
+      padding-block: var(--spacingVerticalS);
+      line-height: inherit;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .bui-text-field {
+    border-color: CanvasText;
+    border-bottom-color: CanvasText;
+
+    &:focus-within::after {
+      border-bottom-color: Highlight;
+    }
+
+    &.invalid:not(:focus-within) {
+      border-color: CanvasText;
+      border-bottom-color: CanvasText;
+    }
+
+    &.disabled {
+      border-color: GrayText;
+      border-bottom-color: GrayText;
+
+      > input,
+      > textarea {
+        color: GrayText;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bui-text-field::after {
+    transition: none;
+  }
+}

@@ -1,0 +1,28 @@
+@page "/compatibility/text-fields-server"
+@rendermode InteractiveServer
+@layout Bluent.UI.Demo.Interactive.Client.Layout.CompatibilityLayout
+@using Bluent.UI.Demo.Pages.Components
+
+@* Reuse the focused source-owned TextFields showcase in a real Server circuit.
+   This route is a compatibility host only; it does not declare a second API. *@
+<Containers />
+<TextFields />
+
+@* This marker is emitted only after the first interactive Server render.
+   Static SSR alone cannot satisfy the browser compatibility probe. *@
+<div id="textfield-interactive-ready" data-ready="@(_interactiveReady ? "true" : "false")" hidden></div>
+
+@code {
+    private bool _interactiveReady;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactiveReady = true;
+            StateHasChanged();
+        }
+
+        return Task.CompletedTask;
+    }
+}

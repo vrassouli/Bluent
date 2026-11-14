@@ -12,7 +12,7 @@
     ],
     "approval": "pending"
   },
-  "note": "Six representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate. 2026-10-17 incremental EXISTING-API Button Lab specimens for Toggled/ToggledChanged (two native CDP Enter events + exact callback count) and Href native anchor, with synchronized Razor source. New exact-head 32-check four-mode CI is pending; 27/27 entries are historical proof, not claims about new specimens. Toggle aria-pressed/AT remains unapproved #428 work. 2026-10-17 advanced current API pilot: Badge/Compound/Compact and Dropdown/BottomEnd with two real menu callbacks, 40/40 Edge/WASM actual local, remaining three new-head CI pending; 16/20 declared Button params represented in Lab (plus disabled AdditionalAttributes); NOT full API or design parity. 2026-10-17 local Chrome/published InteractiveServer 40/40 also passed after adding same-interactive-boundary PopoverContainer to SERVER-ONLY test host; no stable library change. 2026-10-17 Icon+Label live parameter explorers added. Icon both declared parameters Value/Variant in lab; Label all six declared parameters shown in representative specimens incl Auto [Required] / native label-input focus and Info Popover. These counts DO NOT imply complete API permutations, Fluent design or AT acceptance. Original 40-check exact-head CI prior commit remains historical; new suite 53 checks pending. Current source local Edge/WASM and Chrome/published Server each 53/53 real tests PASS after Label Info, plus source-only regression gates; four-mode new-head CI pending. Color SVG source-backed research prototype uses existing FromSvg and HCM fallback only, not new public IconVariant.Color. 2026-10-17 Color Icon decorative accessibility proof strengthened: +4 real native keyboard, DOM aria-hidden, Chromium AX exclusion and forced-colors Filled fallback checks; local Edge/fresh WASM 61/61, Chrome/published Server 61/61 PASS, CI exact-head pending. No public API or native OS/AT acceptance. 2026-10-17 advanced existing-API Button source coverage now all 20 declared [Parameter] names represented (plus disabled attribute), adding Icon/TextClass, Vertical Orientation and Rotated alongside real CDP geometry, keyboard focus and copyable Razor contracts; exact-head CI pending. Still representative-only. New 2026-10-18 TextField current-API sixth interactive pilot: Chrome/WASM and Edge/Server 103/103 actual native CDP checks each. All four Dev01 modes 103/103 each; exact GitHub latest-head CI pending. No #432 product implementation or final a11y/Penpot acceptance. 2026-10-18 seventh current-API Checkbox pilot added, actual browser matrix still pending; not product implementation. Current source Checkbox 2026-10-18 all four independent Dev01 browser modes 113/113 (452/452), GitHub exact-head CI pending; native OS/AT not certified. 2026-10-18 eighth current public Switch example added; browser QA pending, no #435 product implementation. Eighth current Switch pilot 2026-10-18 all independent source browser modes 123/123 (492/492), exact-head GitHub CI pending. Ninth current public NumericField sample added 2026-10-18; actual browser not yet verified. Ninth current NumericField pilot all four source Dev01 real browser modes 133/133, latest-head GitHub CI pending. Min/Max invalid ranges not accepted. Tenth existing RadioGroup/Radio source-only pilot added 2026-10-18; browser evidence pending. Tenth current RadioGroup existing API pilot 2026-10-18: real 4-mode QA 148/148 each (592/592), exact-head GitHub CI pending. Native radiogroup arrow keys / AT unaccepted. 2026-10-18 11th existing SelectField native specimen; actual browser matrix pending. 2026-10-18 11th SelectField current API real native keyboard and value binding: 4 x 158/158 local tests. GitHub CI new head pending. 2026-10-18 12th current DateField existing-API sample added; browser verification pending. 12th DateField current API all 4 source browser modes 168/168 (672/672), latest-head GitHub CI pending. Disabled backing model independent to avoid false assertion. 2026-10-18 13th source-backed current TimeField API sample added; browser matrix pending. Current TimeField 13th pilot 2026-10-18 four independent real browser modes 177/177 each (708/708); GitHub exact head CI pending. No OS/AT acceptance. Current 14th native MaskedField demo added 2026-10-18. On 2026-10-19 four independent real browser runs passed 187/187 each (Chrome and Edge x WebAssembly and published InteractiveServer; 748/748 total): regex bound input, Persian digit to ASCII, disabled native focus, copyable source, RTL 320px compact card spacing >=8px and #440 queue launch. Temporary Chromium processes cleaned (remaining=0). This is source-backed representative Lab evidence, not v3 Fluent2 Penpot acceptance, native OS/AT certification, full API permutations or exact-head GitHub CI. 2026-10-19 fifteenth OtpField current JS-backed live pilot passed actual independent four-mode Dev01 runtime Chrome/Edge x WebAssembly/published InteractiveServer 199/199 each (796/796 total). Real digit insertion focuses next cell, updates Blazor Value, completes AutoSubmit form exactly once; 320px RTL compact cards have >=8px gap without clipping. Source contract and Debug demo build passed; no native OS/AT or Penpot approval, and exact-head GitHub CI pending. #441 remains product backlog; no new v3 API or component acceptance. 2026-10-19 sixteenth Slider current-API source pilot: local Chrome/Edge WebAssembly 208/208 each including real pointer value changes; Chrome/Edge published InteractiveServer 206/206 each for existing other families and Slider render/RTL/layout ONLY. InteractiveServer Slider CDP click left bound value unchanged (unverified; excluded from passed checks). WebAssembly pointer coordinate discrepancy ScreenX vs DOM Rect observed. This remains an open product gap #442; no four-mode Slider pointer acceptance. New GitHub exact-head CI and Penpot design approval pending. 2026-10-19 seventeenth current public RangeSlider pilot: real Chrome and Edge WASM each 217/217 including int/decimal pointer-driven bound ValueRange changes; Chrome and Edge published InteractiveServer each 213/213 for render/layout/queue only. Server pointer intentionally NOT tested as success due to sibling Slider #442 gap. Across all modes 860/860 passing verified assertions, but no four-mode pointer acceptance. No production API/CSS or #443 product approval. 2026-10-19 eighteenth FileSelect source-backed pilot verified via CDP synthetic QA fixture uploads/removal in Chrome and Edge x WebAssembly/published InteractiveServer: 228/228 WASM each, 224/224 Server each, 904/904 actual PASS. Server CSS had an actual file Card 6px spacing override; tightened Lab scoped CSS to >=8px and reran all modes. Existing FileSelect demo uses undocumented Multiple; new Lab correctly uses MaxFiles. Real native OS file picker, AT, upload server validation, product #444 and Penpot parity still pending. SSR host Release build surfaced two NU1903 advisories for 10.0.7 (not fixed by this Lab change).",
+  "note": "Six representative live pilots / 66-family source queue, NOT full API or Fluent visual acceptance. Actual Dev01 Chrome/Edge x WebAssembly/published InteractiveServer each passed 27/27 live browser checks on 2026-10-16 after adding real pointer Copy source, Enter/focus, disabled focus and hit testing. Previous commit aac0d057 passed all 8 jobs in two CI runs; new exact-head CI remains pending. Penpot page 42 source-owned QA annotations updated, not maintainer approved. Native OS/AT and all 66 exhaustive demos remain separate. 2026-10-17 incremental EXISTING-API Button Lab specimens for Toggled/ToggledChanged (two native CDP Enter events + exact callback count) and Href native anchor, with synchronized Razor source. New exact-head 32-check four-mode CI is pending; 27/27 entries are historical proof, not claims about new specimens. Toggle aria-pressed/AT remains unapproved #428 work. 2026-10-17 advanced current API pilot: Badge/Compound/Compact and Dropdown/BottomEnd with two real menu callbacks, 40/40 Edge/WASM actual local, remaining three new-head CI pending; 16/20 declared Button params represented in Lab (plus disabled AdditionalAttributes); NOT full API or design parity. 2026-10-17 local Chrome/published InteractiveServer 40/40 also passed after adding same-interactive-boundary PopoverContainer to SERVER-ONLY test host; no stable library change. 2026-10-17 Icon+Label live parameter explorers added. Icon both declared parameters Value/Variant in lab; Label all six declared parameters shown in representative specimens incl Auto [Required] / native label-input focus and Info Popover. These counts DO NOT imply complete API permutations, Fluent design or AT acceptance. Original 40-check exact-head CI prior commit remains historical; new suite 53 checks pending. Current source local Edge/WASM and Chrome/published Server each 53/53 real tests PASS after Label Info, plus source-only regression gates; four-mode new-head CI pending. Color SVG source-backed research prototype uses existing FromSvg and HCM fallback only, not new public IconVariant.Color. 2026-10-17 Color Icon decorative accessibility proof strengthened: +4 real native keyboard, DOM aria-hidden, Chromium AX exclusion and forced-colors Filled fallback checks; local Edge/fresh WASM 61/61, Chrome/published Server 61/61 PASS, CI exact-head pending. No public API or native OS/AT acceptance. 2026-10-17 advanced existing-API Button source coverage now all 20 declared [Parameter] names represented (plus disabled attribute), adding Icon/TextClass, Vertical Orientation and Rotated alongside real CDP geometry, keyboard focus and copyable Razor contracts; exact-head CI pending. Still representative-only. New 2026-10-18 TextField current-API sixth interactive pilot: Chrome/WASM and Edge/Server 103/103 actual native CDP checks each. All four Dev01 modes 103/103 each; exact GitHub latest-head CI pending. No #432 product implementation or final a11y/Penpot acceptance. 2026-10-18 seventh current-API Checkbox pilot added, actual browser matrix still pending; not product implementation. Current source Checkbox 2026-10-18 all four independent Dev01 browser modes 113/113 (452/452), GitHub exact-head CI pending; native OS/AT not certified. 2026-10-18 eighth current public Switch example added; browser QA pending, no #435 product implementation. Eighth current Switch pilot 2026-10-18 all independent source browser modes 123/123 (492/492), exact-head GitHub CI pending. Ninth current public NumericField sample added 2026-10-18; actual browser not yet verified. Ninth current NumericField pilot all four source Dev01 real browser modes 133/133, latest-head GitHub CI pending. Min/Max invalid ranges not accepted. Tenth existing RadioGroup/Radio source-only pilot added 2026-10-18; browser evidence pending. Tenth current RadioGroup existing API pilot 2026-10-18: real 4-mode QA 148/148 each (592/592), exact-head GitHub CI pending. Native radiogroup arrow keys / AT unaccepted. 2026-10-18 11th existing SelectField native specimen; actual browser matrix pending. 2026-10-18 11th SelectField current API real native keyboard and value binding: 4 x 158/158 local tests. GitHub CI new head pending. 2026-10-18 12th current DateField existing-API sample added; browser verification pending. 12th DateField current API all 4 source browser modes 168/168 (672/672), latest-head GitHub CI pending. Disabled backing model independent to avoid false assertion. 2026-10-18 13th source-backed current TimeField API sample added; browser matrix pending. Current TimeField 13th pilot 2026-10-18 four independent real browser modes 177/177 each (708/708); GitHub exact head CI pending. No OS/AT acceptance. Current 14th native MaskedField demo added 2026-10-18. On 2026-10-19 four independent real browser runs passed 187/187 each (Chrome and Edge x WebAssembly and published InteractiveServer; 748/748 total): regex bound input, Persian digit to ASCII, disabled native focus, copyable source, RTL 320px compact card spacing >=8px and #440 queue launch. Temporary Chromium processes cleaned (remaining=0). This is source-backed representative Lab evidence, not v3 Fluent2 Penpot acceptance, native OS/AT certification, full API permutations or exact-head GitHub CI. 2026-10-19 fifteenth OtpField current JS-backed live pilot passed actual independent four-mode Dev01 runtime Chrome/Edge x WebAssembly/published InteractiveServer 199/199 each (796/796 total). Real digit insertion focuses next cell, updates Blazor Value, completes AutoSubmit form exactly once; 320px RTL compact cards have >=8px gap without clipping. Source contract and Debug demo build passed; no native OS/AT or Penpot approval, and exact-head GitHub CI pending. #441 remains product backlog; no new v3 API or component acceptance. 2026-10-19 sixteenth Slider current-API source pilot: local Chrome/Edge WebAssembly 208/208 each including real pointer value changes; Chrome/Edge published InteractiveServer 206/206 each for existing other families and Slider render/RTL/layout ONLY. InteractiveServer Slider CDP click left bound value unchanged (unverified; excluded from passed checks). WebAssembly pointer coordinate discrepancy ScreenX vs DOM Rect observed. This remains an open product gap #442; no four-mode Slider pointer acceptance. New GitHub exact-head CI and Penpot design approval pending. 2026-10-19 seventeenth current public RangeSlider pilot: real Chrome and Edge WASM each 217/217 including int/decimal pointer-driven bound ValueRange changes; Chrome and Edge published InteractiveServer each 213/213 for render/layout/queue only. Server pointer intentionally NOT tested as success due to sibling Slider #442 gap. Across all modes 860/860 passing verified assertions, but no four-mode pointer acceptance. No production API/CSS or #443 product approval. 2026-10-19 eighteenth FileSelect source-backed pilot verified via CDP synthetic QA fixture uploads/removal in Chrome and Edge x WebAssembly/published InteractiveServer: 228/228 WASM each, 224/224 Server each, 904/904 actual PASS. Server CSS had an actual file Card 6px spacing override; tightened Lab scoped CSS to >=8px and reran all modes. Existing FileSelect demo uses undocumented Multiple; new Lab correctly uses MaxFiles. Real native OS file picker, AT, upload server validation, product #444 and Penpot parity still pending. SSR host Release build surfaced two NU1903 advisories for 10.0.7 (not fixed by this Lab change). 2026-11-13 TextField transform combinations extended: two live current-API fixtures cover AsciiDigits+ArabicToPersianConversion and all three flags; real native Ctrl+V and native insertion are included. Four-mode Dev01 result 1098/1098 full shared-Lab checks with 26 TextField-targeted checks per mode. Synthetic DOM IME observation remains explicitly non-native. New exact-head CI pending; v3 implementation and design approval remain open. 2026-11-13 transform matrix complete: all 8 boolean combinations of DigitOnly, AsciiDigits and ArabicToPersianConversion have current-API live specimens; all four multi-flag combinations have real native Ctrl+V coverage. Four-mode Dev01 runs 1106/1106 shared-Lab assertions (278 WASM, 275 Server; 28 dedicated TextField checks per run), with browser cleanup remaining=0. This remains existing API regression coverage and is not a v3 runtime/IME/design sign-off.",
   "families": [
     {
       "id": "button",
@@ -291,8 +291,9 @@
       "id": "textfield",
       "family": "TextField",
       "existingDemoRoute": "/components/fields",
+      "focusedDemoRoute": "/components/text-fields",
       "labRoute": "/component-lab",
-      "scenarioId": "textfield-input-textarea-disabled",
+      "scenarioId": "textfield-binding-validation-focus-transforms-addons-sizing-native-states-label-attrs-interactive-addon-clipboard-ime-observation-all-transform-combinations",
       "source": "src/Bluent.UI.Demo.Pages/Pages/Components/ComponentLab.razor",
       "propertiesDemonstrated": [
         "Value",
@@ -300,19 +301,122 @@
         "BindValueEvent",
         "Rows",
         "ResizeTextarea",
-        "disabled"
+        "DigitOnly",
+        "AsciiDigits",
+        "ArabicToPersianConversion",
+        "StartAddon",
+        "EndAddon",
+        "Size",
+        "readonly",
+        "disabled",
+        "GainFocus",
+        "EditContext",
+        "DataAnnotationsValidator",
+        "ValidationMessage",
+        "Label",
+        "Display",
+        "Required",
+        "InputAdditionalAttributes",
+        "Class",
+        "Style",
+        "InteractiveAddon",
+        "Keyboard",
+        "Clipboard",
+        "Paste",
+        "ImeCompositionSimulation",
+        "TransformCombinations",
+        "AllTransformFlagCombinations"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: TextField native Blazor browser 103/103, interactive input binding, textarea, disabled, source queue, cleanup remaining=0",
-        "Edge/WebAssembly Dev01: TextField native Blazor browser 103/103, interactive input binding, textarea, disabled, source queue, cleanup remaining=0",
-        "Chrome/Server Dev01: TextField native Blazor browser 103/103, published InteractiveServer input binding and queue, cleanup remaining=0",
-        "Edge/Server Dev01: TextField native Blazor browser 103/103, published InteractiveServer input binding and queue, cleanup remaining=0"
+        "Chrome/WebAssembly Dev01: 21 specimens; full shared Component Lab 278/278; 28 TextField-targeted checks pass; errors=[]; cleanup remaining=0",
+        "Edge/WebAssembly Dev01: 21 specimens; full shared Component Lab 278/278; 28 TextField-targeted checks pass; errors=[]; cleanup remaining=0",
+        "Chrome/Server Dev01: 21 specimens; full shared Component Lab 275/275; 28 TextField-targeted checks pass; SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0",
+        "Edge/Server Dev01: 21 specimens; full shared Component Lab 275/275; 28 TextField-targeted checks pass; SignalR WebSocket HTTP 101; errors=[]; cleanup remaining=0"
       ],
-      "remaining": "Representative input live oninput binding, 3-row nonresizable textarea and native disabled only. Current TextField-specific DigitOnly, AsciiDigits, ArabicToPersianConversion, GainFocus, addons, sizing, inherited form validation, full field semantics/keyboard matrix, focus underline versus outer ring, RTL, native Windows AT, light/dark/forced-colors visual parity and all combinations are NOT accepted. #432 remains Backlog; this is #421 current-API lab research only.",
+      "remaining": "Current-API Lab demonstrates live oninput and default onchange binding; native input/textarea; both textarea resize modes; disabled versus readonly; DigitOnly, AsciiDigits and ArabicToPersianConversion; real Ctrl+V clipboard-paste normalization for each transform; a synthetic DOM insertCompositionText/isComposing observation (not a real OS IME); independent and combined StartAddon/EndAddon; a separately named, keyboard-focusable EndAddon button that remains enabled beside a disabled native input; Small/Large sizes; first-interactive-render GainFocus; required DataAnnotations/EditContext validation; Bluent Label Display/Required association; native type/autocomplete/inputmode/aria-describedby/data-* forwarding; and Class/Style wrapper ownership. Still outstanding: all eight on/off combinations of DigitOnly, AsciiDigits and ArabicToPersianConversion now have live specimens and browser-paste coverage; real OS/physical IME engine behavior and native IME stability; caret/selection preservation under filtering/paste/composition; mobile/external keyboard behavior; the complete keyboard/focus state matrix; RTL and theme/forced-colors visual verification; native Windows assistive technology; Fluent 2 Penpot approval; v3 runtime implementation and migration acceptance. These remain current-API regression evidence only; no #432 implementation or product acceptance is implied.",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-textfield-live-rtl-chrome-wasm.png",
-      "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 browser/render modes 103/103 each (412/412); no failed checks, errors=[], browser cleanup remaining=0",
-      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused, human approval pending. #432 TextField Backlog; no production component API/style changes; native OS ScreenReader not tested."
+      "fourModeLocalBrowserEvidence": "2026-11-13 final local Dev01 runs after completing all eight flag combinations: Chrome/Edge WebAssembly 278/278 shared-Lab assertions each; Chrome/Edge published InteractiveServer 275/275 each; aggregate 1106/1106 across four runs. All 28 named TextField-targeted checks passed in every run; browser errors=[] and cleanup remaining=0. Each of the eight on/off combinations of DigitOnly, AsciiDigits and ArabicToPersianConversion has a live fixture; the four enabled combinations that contain more than one transform are exercised by native Ctrl+V clipboard cases, including Unicode-digit filtering/normalization order. Synthetic DOM insertCompositionText/isComposing remains non-native OS IME evidence.",
+      "designAndAcceptance": "Canonical #421 Penpot source-owned Lab design reference reused; human visual approval pending. #432 TextField is In progress; this is current v2 API baseline evidence only, with no v3 implementation or product acceptance. Native OS ScreenReader/AT is not tested.",
+      "expandedCurrentApiEvidence": {
+        "date": "2026-11-13",
+        "environment": "Dev01 local Chromium DevTools Protocol against the actual Blazor Component Lab",
+        "matrix": [
+          "Chrome / WebAssembly",
+          "Chrome / published InteractiveServer (SignalR WebSocket HTTP 101)",
+          "Microsoft Edge / WebAssembly",
+          "Microsoft Edge / published InteractiveServer (SignalR WebSocket HTTP 101)"
+        ],
+        "result": "All 28 explicitly named TextField-targeted checks passed in all four Chrome/Edge × WebAssembly/published InteractiveServer combinations. Full shared Component Lab counts: 278/278 per WebAssembly run and 275/275 per InteractiveServer run; aggregate 1106/1106. Browser errors=[] and owned profile cleanup remaining=0 in every run.",
+        "verified": [
+          "native input and textarea; Rows=3; resize enabled and disabled",
+          "disabled versus readonly native semantics and focus behavior",
+          "DigitOnly preserves ASCII, Persian and Arabic-Indic digits while removing non-digits",
+          "AsciiDigits normalizes Persian and Arabic-Indic numerals to ASCII",
+          "ArabicToPersianConversion normalizes Arabic kaf and yeh variants",
+          "StartAddon and EndAddon composition; Small and Large sizes",
+          "live oninput Blazor binding and copyable Razor source",
+          "GainFocus requests focus on the native input after its first interactive render",
+          "InputBase/EditContext required validation displays and clears the DataAnnotations message on form submit",
+          "default BindValueEvent=onchange does not update on input and commits on change",
+          "Bluent Label ForExpression derives Display name, associates with the TextField member id and renders the required marker",
+          "native type, autocomplete, inputmode, aria-describedby and data-testid attributes reach the input; Class and Style remain on the wrapper",
+          "StartAddon-only and EndAddon-only rendering without the opposite addon slot",
+          "interactive EndAddon button has an explicit accessible name and remains independently focusable/enabled when its parent TextField input is disabled",
+          "Tab from the preceding input reaches the EndAddon button and Enter activates its callback exactly once",
+          "real native Ctrl+V clipboard paste into DigitOnly normalizes mixed ASCII/Persian/Arabic-Indic digits and strips non-digits",
+          "real native Ctrl+V clipboard paste into AsciiDigits normalizes Persian and Arabic-Indic numerals to ASCII",
+          "real native Ctrl+V clipboard paste into ArabicToPersianConversion normalizes Arabic kaf/yeh to Persian kaf/yeh",
+          "synthetic DOM insertCompositionText input with isComposing=true is observed and normalized by the current v2 setter; this is not native OS/IME engine acceptance",
+          "AsciiDigits and ArabicToPersianConversion together normalize Arabic kaf/yeh and Arabic/Persian numerals in one real Ctrl+V paste",
+          "All three transform flags together preserve legacy DigitOnly → AsciiDigits → ArabicToPersianConversion order on mixed-script native Ctrl+V paste and native text entry",
+          "All eight on/off combinations of DigitOnly, AsciiDigits and ArabicToPersianConversion have live current-API fixtures (no flags, each single, each pair, all three)",
+          "DigitOnly plus AsciiDigits on native clipboard paste filters non-digits then converts Persian/Arabic-Indic digits to ASCII",
+          "DigitOnly plus ArabicToPersianConversion on native clipboard paste filters non-digits before Arabic-letter mapping, retaining Unicode decimal digit script"
+        ],
+        "boundary": "This is current released/v2 API baseline evidence in the shared Component Lab. It is not v3 TextField implementation, Fluent 2 parity, approved Penpot design, native OS contrast, or assistive-technology acceptance.",
+        "assertionScope": "278/278 is the full shared Component Lab probe count in each WebAssembly browser run; 275/275 is the full shared Component Lab count in each InteractiveServer browser run. The aggregate 1106/1106 is across all four runs, not a TextField-only count. The 28 explicitly named TextField-targeted checks passed in each run.",
+        "fullSharedLabAssertionsByRenderMode": {
+          "WebAssembly": 273,
+          "InteractiveServer": 270
+        }
+      },
+      "exactHeadGitHubCI": {
+        "commit": "23d733aca0060192800cf328fa28f24895ddef06",
+        "status": "success",
+        "componentLab": {
+          "runId": 42988085048,
+          "jobs": {
+            "Chrome/InteractiveServer": "success",
+            "Chrome/WebAssembly": "success",
+            "Edge/InteractiveServer": "success",
+            "Edge/WebAssembly": "success"
+          }
+        },
+        "compatibilityBrowsers": {
+          "runId": 42988085043,
+          "jobs": {
+            "Chrome/InteractiveServer": "success",
+            "Chrome/WebAssembly": "success",
+            "Edge/InteractiveServer": "success",
+            "Edge/WebAssembly": "success",
+            "LabelInfo/Chrome/en-US": "success",
+            "LabelInfo/Chrome/fa-IR": "success",
+            "LabelInfo/Edge/en-US": "success",
+            "LabelInfo/Edge/fa-IR": "success"
+          }
+        },
+        "qualityGate": {
+          "runId": 42988085036,
+          "releaseBuildTestsFivePackageValidation": "success",
+          "evidencePolicySourceDocs": "success"
+        },
+        "documentationContract": {
+          "runId": 42988085252,
+          "status": "success"
+        },
+        "note": "GitHub exact-head checks validate the shared Component Lab and reusable compatibility gates. These are not TextField-only accessibility, visual parity, or native OS acceptance."
+      }
     },
     {
       "id": "checkbox",

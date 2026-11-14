@@ -34,3 +34,9 @@ WCAG 2.2 SC 1.4.3 applies the 4.5:1 requirement to normal text. Inactive UI comp
 ## Release boundary
 
 This selected TextField consumer contract is represented in the #418 opt-in token preview only. It does not approve the full #418 public token vocabulary, brand candidate values, Penpot design, Windows native Contrast Themes, or spoken assistive-technology acceptance. Generated preview CSS remains outside published bundles. The TextField implementation may use the semantic variable with the exact Fluent source token as its fallback; no public Razor parameter or TextField-only disabled token is introduced.
+
+## Authority boundary
+
+This decision is scoped to #432 and was recorded in the owned Penpot pages 17–20 and GitHub Issue #432 / PR #562 on 2026-11-14 under the user's delegated instruction. It does not approve the complete #418 token names, values, theme mappings or opt-in API; general Fluent parity beyond the pinned source behavior; native Windows Contrast Themes, physical Persian IME/caret/selection, spoken screen-reader acceptance; or merge, publication, deployment or release.
+
+PR #562 remains the integration vehicle targeting bluent-v3; keep #432 In Progress until remaining evidence gates, review and merge are complete.

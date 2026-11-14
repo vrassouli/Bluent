@@ -1,4 +1,4 @@
-"""Issue #425: every-PR v3 quality gate with non-interchangeable evidence."""
+﻿"""Issue #425: every-PR v3 quality gate with non-interchangeable evidence."""
 from __future__ import annotations
 import re
 import xml.etree.ElementTree as ET
@@ -196,8 +196,8 @@ def check_server_patch(project_xml:str)->None:
     need(re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+",version) is not None,
          "SSR package patch must use an explicit stable version")
     major,minor,patch=map(int,version.split("."))
-    need((major,minor)==(10,0) and patch>=14,
-         "SSR WebAssembly.Server must be at least patched 10.0.14 (Oct 25 2026 advisory update)")
+    need((major,minor)==(10,0) and patch>=15,
+         "SSR WebAssembly.Server must be at least patched 10.0.15 (Nov 10 2026 security advisory)")
 
 def check_devserver_patch(project_xml:str,project_label:str)->None:
     root=ET.fromstring(project_xml)
@@ -208,8 +208,8 @@ def check_devserver_patch(project_xml:str,project_label:str)->None:
     need(re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+",version) is not None,
          f"{project_label} DevServer patch must use an explicit stable version")
     major,minor,patch=map(int,version.split("."))
-    need((major,minor)==(10,0) and patch>=14,
-         f"{project_label} WebAssembly.DevServer must be at least patched 10.0.14 (Oct 25 2026 advisory update)")
+    need((major,minor)==(10,0) and patch>=15,
+         f"{project_label} WebAssembly.DevServer must be at least patched 10.0.15 (Nov 10 2026 security advisory)")
 
 def check_devserver_projects()->None:
     projects=sorted((*ROOT.glob("src/**/*.csproj"),*ROOT.glob("samples/**/*.csproj")))
