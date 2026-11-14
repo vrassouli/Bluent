@@ -161,3 +161,15 @@ The same neutral FG4/BG3 values are emitted by all ten brand themes in the curre
 - They do not measure the field outer boundary against arbitrary host surfaces. The component border is a separate non-text boundary cue and must be checked in the actual consumer composition.
 - They are not native Windows Contrast Themes / forced-colors runtime evidence.
 - They are not physical OS IME, keyboard, screen-reader or spoken AT evidence.
+
+## 2026-11-14 — narrow Label `dangerAccessible` mapping approval
+
+The maintainer's 2026-11-07 Label decision (issue comment `6711740619`) explicitly approved this **Label-only consumer mapping**:
+
+| Label visual role | Logical token | Preview CSS alias | Source fallback |
+| --- | --- | --- | --- |
+| Required marker text | `bluent.semantic.text.dangerAccessible` | `--bui-v3-text-danger-accessible` | `--colorPaletteRedForeground1` |
+
+The required marker is visual-only/decorative to assistive technology; the associated input owns required/validation semantics. This mapping does **not** approve a generic Danger status-text role, Alert/Toast/Button Danger foreground, or a new general-purpose public Danger API. The alias remains in the opt-in preview until the wider #418 foundation gate is accepted.
+
+Keep the distinct contrast finding visible: the current `--colorStatusDangerForeground1` source measures **4.164:1** on Dark neutral BG1 (`#292929`) in all ten Dark brands; the `--colorPaletteRedForeground1` candidate measures **5.204:1** on the studied Dark neutral pair (and **5.848:1** on the studied Light white pair). Those opaque-pair numbers support Label's narrow mapping only; they do not certify other component surfaces, forced colors, alpha/gradient composition, or native assistive technology. Do not silently substitute the Label candidate into generic Danger roles.
