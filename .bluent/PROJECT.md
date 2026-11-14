@@ -511,3 +511,8 @@ The first #418 Release Gate exposed existing NU1903 for Microsoft.AspNetCore.Web
 ## #418 Token Contract legacy inventory assertion updated — 2026-11-14
 
 The exact-head Token Contract identified one remaining hard-coded inventory assertion in test_v3_approved_focus_host_token_bridge.py that still expected 15 source / 16 semantic entries. Updated it to 16 / 17 and added explicit source/semantic/CSS assertions for bluent.color.foreground4 and bluent.semantic.text.placeholder. This preserves the focus preview contract and proves the new TextField role is present without widening the public Button rule. Local Focus bridge tests pass **7/7**, TextField token contrast tests **13/13**, generator/sync checks pass, and the 360-case audit still reports all 20 Placeholder/BG3 pairs passing.
+
+
+## #418 Release Gate security mutation tests aligned to patched dependency — 2026-11-14
+
+The exact-head Evidence Policy job reported two stale negative-control assertions that expected the pre-remediation 10.0.14 reference in SSR and WASM DevServer projects. The product project references are now correctly pinned to patched 10.0.15, so updated the mutation tests to verify 10.0.15 is present and that deliberately downgrading to vulnerable 10.0.7 is rejected by the fail-closed contract. The release/security guard remains enabled; no NU1903 warning suppression was introduced. Local quality-gate suite passes **50/50**, including both downgrade mutation controls; docs contract is 0 findings and Markdown links checked in 217 files.
