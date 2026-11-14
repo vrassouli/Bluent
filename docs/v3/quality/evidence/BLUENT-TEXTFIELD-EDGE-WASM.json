@@ -1,17 +1,17 @@
 {
   "issue": 432,
-  "date": "2026-11-14T07:16:34.194Z",
+  "date": "2026-11-14T08:03:45.009Z",
   "browser": "Edge headless local Dev01",
   "renderMode": "WebAssembly",
-  "route": "http://127.0.0.1:5080/components/text-fields",
-  "checksPassed": 23,
-  "checksTotal": 23,
+  "route": "http://127.0.0.1:5180/components/text-fields",
+  "checksPassed": 25,
+  "checksTotal": 25,
   "checks": [
     {
       "name": "focused TextField route loads in real Edge WebAssembly",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:5080/components/text-fields"
+        "url": "http://127.0.0.1:5180/components/text-fields"
       }
     },
     {
@@ -86,6 +86,32 @@
       "name": "all eight normalization specimens are present",
       "pass": true,
       "detail": 8
+    },
+    {
+      "name": "normal placeholder renders Fluent colorNeutralForeground4 source role",
+      "pass": true,
+      "detail": {
+        "normal": "rgb(112, 112, 112)",
+        "normalOpacity": "1",
+        "expectedNormal": "rgb(112, 112, 112)",
+        "disabled": "rgb(189, 189, 189)",
+        "disabledOpacity": "1",
+        "expectedDisabled": "rgb(189, 189, 189)",
+        "disabledHasPlaceholder": true
+      }
+    },
+    {
+      "name": "disabled placeholder reuses Fluent disabled foreground source role",
+      "pass": true,
+      "detail": {
+        "normal": "rgb(112, 112, 112)",
+        "normalOpacity": "1",
+        "expectedNormal": "rgb(112, 112, 112)",
+        "disabled": "rgb(189, 189, 189)",
+        "disabledOpacity": "1",
+        "expectedDisabled": "rgb(189, 189, 189)",
+        "disabledHasPlaceholder": true
+      }
     },
     {
       "name": "onchange binding updates the InputBase model",
@@ -214,7 +240,7 @@
     {
       "type": "interactive-resource",
       "status": 200,
-      "url": "http://127.0.0.1:5080/_content/Bluent.UI/bluent.ui.js"
+      "url": "http://127.0.0.1:5180/_content/Bluent.UI/bluent.ui.js"
     }
   ],
   "result": "PASS",

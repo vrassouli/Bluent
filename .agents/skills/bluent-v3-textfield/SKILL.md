@@ -21,6 +21,8 @@
 - Validation errors from the active EditContext set `aria-invalid=true` on the native element. Consumers still render and associate readable validation text with `aria-describedby`.
 - An interactive addon is a separate control with its own accessible name and focus stop; never treat an addon as part of the input itself.
 - Do not invent `Appearance`, `HelperText`, `ErrorMessage`, `Required`, a new `ReadOnly` parameter, focus callback or new size enum. Final TextField token names/modes/brand mappings belong to #418 and remain pending review.
+- Placeholder mapping selected from pinned Fluent Web Components 3.1.3: ordinary placeholder uses colorNeutralForeground4 through --bui-v3-text-placeholder; disabled placeholder reuses --bui-v3-text-disabled → colorNeutralForegroundDisabled. Both aliases have the exact Fluent source token as fallback. Placeholder is not an accessible name. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md.
+- The #418 preview schema adds source bluent.color.foreground4 and semantic bluent.semantic.text.placeholder; its 20 brand/mode FG4/BG3 contrast regression must remain green. This resolves the TextField consumer mapping, not the entire foundation's public token approval.
 
 ## Verification
 

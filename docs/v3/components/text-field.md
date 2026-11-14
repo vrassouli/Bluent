@@ -114,7 +114,7 @@ The current state-layer stylesheet keeps these conditions distinct:
 
 Decorative addons are not focusable. Interactive addon content (for example a Button) is a separate, independently named control and its keyboard stop remains in semantic DOM order. Logical layout properties are used by the shared field shell for RTL placement.
 
-The current state-layer styles use existing Fluent global role variables. Final TextField semantic/component token vocabulary, modes, brand mappings and production aliases remain owned by #418 and are not inferred from draft Penpot colors.
+Placeholder semantics follow the pinned Fluent Web Components source: normal placeholder uses --colorNeutralForeground4, exposed as --bui-v3-text-placeholder when the #418 opt-in bridge is loaded; the source variable is the CSS fallback. Disabled placeholder reuses --bui-v3-text-disabled with --colorNeutralForegroundDisabled fallback. Placeholder is not an accessible name. The FG4/BG3 numeric contrast regression covers all 10 brands × Light/Dark (minimums 4.5423:1 Light and 6.4663:1 Dark); this does not certify native OS contrast or assistive technology. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md.
 
 ## Demo and coverage
 
@@ -135,19 +135,19 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 
 | Check | Result | Boundary |
 |---|---|---|
-| TextField source/API/demo/browser-CI guard | 43/43 positive/negative tests passed | Source/API/demo/CI invariants only. |
+| TextField source/API/demo/browser-CI guard | **48/48** positive/negative tests passed | Source/API/demo/CI invariants, including the ordinary/disabled placeholder source mappings and rendered-browser probe hooks. |
 | Release build / .NET tests | Full Solution Release build: 0 warnings / 0 errors; full solution tests: 70/70 passed | Compilation and unit/regression tests; browser evidence is reported separately. |
 | JavaScript / Sass asset pipeline | Clean `npm ci` + webpack ESM/Global build and clean `npm ci` + Sass compilation passed | Generated CSS is consumed by the existing BundlerMinifier pipeline; Sass reports legacy Bootstrap/import deprecation notices, not compilation errors. |
 | NuGet package content | Local `Bluent.UI.1.0.0.nupkg` pack passed; verified minified component CSS, ESM JS and Global JS are present, and packaged CSS contains `.bui-text-field` | Local pack validation only; package was not published. |
 | InteractiveServer host | Debug SSR host built with warnings-as-errors; focused showcase reused in a real InteractiveServer circuit | Same source-owned showcase; not a second component implementation. |
-| Real-browser runtime matrix | **94/94 passed**: Chrome/Edge × WebAssembly (23/23 each) and InteractiveServer (24/24 each) | Live CDP browser interaction on the focused route; Server cases wait for the first interactive render and verify HTTP 101 SignalR; zero browser runtime/HTTP errors and zero QA-owned browser processes after cleanup. |
+| Latest local real-browser evidence | **50/50 passed** on Chrome/Edge × WebAssembly (25/25 each), including the two new computed-style checks for normal and disabled placeholders. | The previous local InteractiveServer evidence was 24/24 per browser before these two new checks. Its refreshed local run is not claimed because the Development static-asset handler failed to locate generated host assets; the exact-head hosted CI matrix is the required Server verification. |
 | Native Windows Contrast Themes / screen reader | Not performed for this implementation | Browser emulation or source inspection is not native OS/AT certification. |
 | Penpot design approval | Pending; pages 17–20 remain DRAFT | No pixel-parity or maintainer approval claim. |
 | #418 token mapping | Review | No final semantic placeholder/component mapping is claimed. |
 
 ### Real-browser evidence files
 
-The same focused showcase was exercised in all four combinations. Each JSON file records 23/23 passing assertions, zero runtime signals and the rendered route; each PNG is the corresponding browser screenshot.
+The focused showcase previously passed in all four browser/render-mode combinations. The latest refreshed local WebAssembly JSON/PNG evidence records 25/25 per browser and both placeholder style assertions passing. The checked-in InteractiveServer JSON/PNG files are the earlier 24/24 evidence and must not be mistaken for the new placeholder checks; the exact-head GitHub matrix must refresh that evidence.
 
 - BLUENT-TEXTFIELD-CHROME-WASM.json / .png
 - BLUENT-TEXTFIELD-EDGE-WASM.json / .png

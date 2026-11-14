@@ -196,6 +196,13 @@ def check_textfield_contract(root: Path) -> None:
     ), "TextField native validation and state classes")
     _require(textfield_styles, (
         ".bui-text-field",
+        "> input::placeholder",
+        "> textarea::placeholder",
+        "var(--bui-v3-text-placeholder, var(--colorNeutralForeground4))",
+        "opacity: 1;",
+        "> input:disabled::placeholder",
+        "> textarea:disabled::placeholder",
+        "var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled))",
         "&.invalid:not(:focus-within)",
         "&.invalid:focus-within",
         "&.readonly",
@@ -206,6 +213,13 @@ def check_textfield_contract(root: Path) -> None:
         "border-bottom-color: GrayText;",
         "@media (prefers-reduced-motion: reduce)",
     ), "TextField state, forced-colors and reduced-motion styles")
+    _require(contract, (
+        "bluent.semantic.text.placeholder",
+        "--bui-v3-text-placeholder",
+        "--colorNeutralForeground4",
+        "--colorNeutralForegroundDisabled",
+        "TEXTFIELD-PLACEHOLDER-DECISION.md",
+    ), "TextField placeholder semantic contract")
     _require(component_styles, (
         '@import "_field.scss";',
         '@import "_text-field.scss";',
@@ -226,6 +240,10 @@ def check_textfield_contract(root: Path) -> None:
         'Name = "AsciiDigits + ArabicToPersianConversion"',
         'Name = "All three transforms"',
     ), "TextField exhaustive current-API demo")
+    _require(demo, (
+        'id="textfield-disabled"',
+        'placeholder="Unavailable"',
+    ), "TextField disabled placeholder fixture")
     _require(demo_navigation, (
         'Href="components/text-fields"',
         'Text fields',
@@ -398,6 +416,14 @@ def check_textfield_contract(root: Path) -> None:
         "python scripts/quality/check_v3_textfield_contract.py",
         "python -m unittest discover -s scripts/quality -p 'test_v3_textfield_contract.py' -v",
     ), "v3 docs-contract workflow wiring")
+
+    _require(browser_probe, (
+        "const placeholderStyleFn = function ()",
+        "getComputedStyle(normal, '::placeholder').color",
+        "getComputedStyle(disabled, '::placeholder').color",
+        "normal placeholder renders Fluent colorNeutralForeground4 source role",
+        "disabled placeholder reuses Fluent disabled foreground source role",
+    ), "TextField rendered placeholder contrast probe")
 
 
 def main() -> int:

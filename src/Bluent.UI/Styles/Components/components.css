@@ -2197,6 +2197,11 @@
   color: var(--colorPaletteRedForeground1);
 }
 
+.bui-text-field > input::placeholder,
+.bui-text-field > textarea::placeholder {
+  color: var(--bui-v3-text-placeholder, var(--colorNeutralForeground4));
+  opacity: 1;
+}
 .bui-text-field {
   border-color: var(--colorNeutralStrokeAccessible);
   border-bottom-color: var(--colorNeutralStrokeAccessible);
@@ -2248,6 +2253,11 @@
 .bui-text-field.disabled > textarea {
   color: var(--colorNeutralForegroundDisabled);
   cursor: not-allowed;
+}
+.bui-text-field.disabled > input:disabled::placeholder,
+.bui-text-field.disabled > textarea:disabled::placeholder {
+  color: var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled));
+  opacity: 1;
 }
 .bui-text-field.disabled::after {
   transform: scaleX(0);

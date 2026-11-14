@@ -243,6 +243,39 @@ try {
   check('Persian field inherits RTL direction', structure.rtlDirection === 'rtl', structure);
   check('all eight normalization specimens are present', structure.transformCount === 8, structure.transformCount);
 
+  const placeholderStyleFn = function () {
+    const normal = document.querySelector('#textfield-basic');
+    const disabled = document.querySelector('#textfield-disabled');
+    const sourceNormal = document.createElement('span');
+    sourceNormal.style.color = 'var(--colorNeutralForeground4)';
+    normal.parentElement.appendChild(sourceNormal);
+    const expectedNormal = getComputedStyle(sourceNormal).color;
+    sourceNormal.remove();
+    const sourceDisabled = document.createElement('span');
+    sourceDisabled.style.color = 'var(--colorNeutralForegroundDisabled)';
+    disabled.parentElement.appendChild(sourceDisabled);
+    const expectedDisabled = getComputedStyle(sourceDisabled).color;
+    sourceDisabled.remove();
+    return {
+      normal: getComputedStyle(normal, '::placeholder').color,
+      normalOpacity: getComputedStyle(normal, '::placeholder').opacity,
+      expectedNormal,
+      disabled: getComputedStyle(disabled, '::placeholder').color,
+      disabledOpacity: getComputedStyle(disabled, '::placeholder').opacity,
+      expectedDisabled,
+      disabledHasPlaceholder: disabled.placeholder === 'Unavailable'
+    };
+  };
+  const placeholderStyles = await evaluate('(' + placeholderStyleFn.toString() + ')()');
+  check('normal placeholder renders Fluent colorNeutralForeground4 source role',
+    placeholderStyles.normal === placeholderStyles.expectedNormal && placeholderStyles.normalOpacity === '1',
+    placeholderStyles);
+  check('disabled placeholder reuses Fluent disabled foreground source role',
+    placeholderStyles.disabledHasPlaceholder &&
+      placeholderStyles.disabled === placeholderStyles.expectedDisabled &&
+      placeholderStyles.disabledOpacity === '1',
+    placeholderStyles);
+
   const basicSet = await setNativeValue('textfield-basic', 'Grace Hopper');
   let basicBound = false;
   try {

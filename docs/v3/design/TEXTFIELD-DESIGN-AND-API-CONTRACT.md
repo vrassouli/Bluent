@@ -57,6 +57,8 @@ The 28 linked appearance/state variants are base visual specimens, not the full 
 Other visual/semantic constraints from the React reference:
 - Input uses a native HTML input; the browser retains caret, selection, IME composition, autofill and password behavior. Use native textarea semantics for the Bluent multiline mode.
 - Labels are not inferred from placeholder text. A visible Label must be programmatically associated; Field-style composition wires IDs, aria-labelledby, aria-describedby, aria-invalid and native required where supported.
+- Normal placeholder uses Fluent Web Components colorNeutralForeground4 through --bui-v3-text-placeholder with --colorNeutralForeground4 fallback; disabled placeholder reuses --bui-v3-text-disabled with --colorNeutralForegroundDisabled fallback. Placeholder is supporting hint text, never an accessible name.
+- Pinned Fluent Filled-darker BG3 pairs are checked across 10 brands × Light/Dark: Light FG4/BG3 4.5423:1; Dark FG4/BG3 6.4663:1. The #418 numeric regression is not native OS/AT certification.
 - An aria-invalid state without a readable associated reason is incomplete validation feedback.
 - A visible input boundary must meet at least **3:1** against its immediate host surface. Outline and Underline use a sufficiently contrasting bottom stroke; Filled lighter/darker rely on the field surface contrasting with the surface behind it. The Penpot matrix now places both Filled samples on a contrasting dark host surface; a real consumer surface still needs browser contrast verification.
 - filled-lighter-shadow and filled-darker-shadow are deprecated upstream and are intentionally excluded.
@@ -85,7 +87,7 @@ Draft decisions:
 
 ### Token boundary
 
-Penpot colors and dimensions are provisional review values. #418 is in Review and owns the final source → global → semantic → component token names, approved values, modes/brands and production aliases. Do not add production CSS that consumes draft-only values or invents final public token names before #418 acceptance.
+Penpot colors and dimensions remain provisional review values. The TextField consumer decision is now explicit: ordinary placeholder uses the pinned Fluent Web Components 3.1.3 source role colorNeutralForeground4, exposed by #418 as bluent.semantic.text.placeholder / --bui-v3-text-placeholder; disabled placeholder reuses the existing bluent.semantic.text.disabled / --bui-v3-text-disabled role and source colorNeutralForegroundDisabled. The TextField stylesheet uses those aliases only with their exact Fluent source variables as fallbacks, so behavior does not depend on the preview CSS being loaded. This selects the TextField consumer mapping; it does not approve the complete #418 public token vocabulary or draft Penpot boards. See docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md and docs/v3/tokens/CONTRAST-AUDIT.md.
 
 ## 2. Existing v2 source/API baseline
 

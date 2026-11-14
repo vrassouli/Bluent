@@ -204,6 +204,27 @@ class TextFieldContractTests(unittest.TestCase):
             "@media (prefers-reduced-motion: no-preference)",
         )
 
+    def test_normal_placeholder_uses_fluent_source_fallback(self):
+        self._check_mutation(
+            "textfield_styles",
+            "var(--bui-v3-text-placeholder, var(--colorNeutralForeground4))",
+            "var(--colorNeutralForeground1)",
+        )
+
+    def test_disabled_placeholder_reuses_shared_disabled_role(self):
+        self._check_mutation(
+            "textfield_styles",
+            "var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled))",
+            "var(--colorNeutralForeground1)",
+        )
+
+    def test_placeholder_is_not_treated_as_an_accessible_name_in_contract(self):
+        self._check_mutation(
+            "contract",
+            "bluent.semantic.text.placeholder",
+            "bluent.semantic.text.hint",
+        )
+
     def test_textfield_css_import_cannot_disappear(self):
         self._check_mutation(
             "component_styles",
@@ -223,6 +244,20 @@ class TextFieldContractTests(unittest.TestCase):
             "demo",
             'Name = "All three transforms"',
             'Name = "Missing final transform"',
+        )
+
+    def test_disabled_demo_fixture_keeps_a_native_placeholder(self):
+        self._check_mutation(
+            "demo",
+            'placeholder="Unavailable"',
+            'placeholder="Removed"',
+        )
+
+    def test_browser_probe_checks_rendered_normal_and_disabled_placeholders(self):
+        self._check_mutation(
+            "browser_probe",
+            "normal placeholder renders Fluent colorNeutralForeground4 source role",
+            "normal placeholder source check removed",
         )
 
     def test_textfield_demo_navigation_cannot_disappear(self):

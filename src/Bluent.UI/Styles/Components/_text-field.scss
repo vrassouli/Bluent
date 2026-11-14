@@ -1,4 +1,13 @@
 .bui-text-field {
+  // Placeholder is supporting hint text, not the control's accessible name.
+  // Keep the exact Fluent Web Components source fallback when #418's opt-in
+  // semantic bridge is not loaded by a consumer.
+  > input::placeholder,
+  > textarea::placeholder {
+    color: var(--bui-v3-text-placeholder, var(--colorNeutralForeground4));
+    opacity: 1;
+  }
+
   border-color: var(--colorNeutralStrokeAccessible);
   border-bottom-color: var(--colorNeutralStrokeAccessible);
 
@@ -59,6 +68,12 @@
     > textarea {
       color: var(--colorNeutralForegroundDisabled);
       cursor: not-allowed;
+    }
+
+    > input:disabled::placeholder,
+    > textarea:disabled::placeholder {
+      color: var(--bui-v3-text-disabled, var(--colorNeutralForegroundDisabled));
+      opacity: 1;
     }
 
     &::after {
