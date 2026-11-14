@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/v3-component-lab.yml"
       - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/test_v3_component_lab_acceptance.py"
       - "scripts/quality/generate_v3_component_lab_queue.py"
       - "scripts/quality/generate_v3_component_lab_ui_queue.py"
       - "docs/v3/inventory/public-component-sources.json"
@@ -22,6 +23,7 @@ on:
     paths:
       - ".github/workflows/v3-component-lab.yml"
       - "scripts/quality/check_v3_component_lab.py"
+      - "scripts/quality/test_v3_component_lab_acceptance.py"
       - "scripts/quality/generate_v3_component_lab_queue.py"
       - "scripts/quality/generate_v3_component_lab_ui_queue.py"
       - "docs/v3/inventory/public-component-sources.json"
@@ -51,6 +53,8 @@ jobs:
         run: dotnet restore Bluent.sln --verbosity quiet
       - name: Validate honest source and coverage mapping
         run: python scripts/quality/check_v3_component_lab.py
+      - name: Validate Lab acceptance boundary unit tests
+        run: python -m unittest discover -s scripts/quality -p test_v3_component_lab_acceptance.py -v
       - name: Run owned real ${{ matrix.browser }} / ${{ matrix.mode }} scenario
         shell: pwsh
         run: |
