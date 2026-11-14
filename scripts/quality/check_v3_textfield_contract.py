@@ -276,6 +276,25 @@ def check_textfield_contract(root: Path) -> None:
         "-RedirectStandardError $hostStdErr",
         "Get-Content $logPath -Tail 160",
     ), "TextField four-mode browser CI matrix")
+    runtime_step_start = browser_workflow.find(
+        "      - name: Start host, run real-browser TextField matrix and clean up\n"
+    )
+    artifact_step_start = browser_workflow.find(
+        "      - name: Preserve TextField JSON and viewport screenshots\n",
+        runtime_step_start + 1,
+    )
+    if runtime_step_start < 0 or artifact_step_start < 0:
+        raise TextFieldContractError(
+            "TextField browser CI must keep host startup, readiness, probe and cleanup in one step"
+        )
+    runtime_step = browser_workflow[runtime_step_start:artifact_step_start]
+    _require(runtime_step, (
+        "Start-Process -FilePath dotnet",
+        "Invoke-WebRequest -Uri",
+        "node scripts/quality/probe_v3_textfield_demo.mjs",
+        "taskkill.exe /PID $hostProcess.Id /T /F",
+        "Get-Content $logPath -Tail 160",
+    ), "TextField single-step host/probe/cleanup lifecycle")
     _require(input_base, (
         'AdditionalAttributes["disabled"] is true',
         'if (!item.Key.Equals("class", StringComparison.InvariantCultureIgnoreCase))',

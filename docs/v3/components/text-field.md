@@ -135,7 +135,7 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 
 | Check | Result | Boundary |
 |---|---|---|
-| TextField source/API/demo/browser-CI guard | 41/41 positive/negative tests passed | Source/API/demo/CI invariants only. |
+| TextField source/API/demo/browser-CI guard | 43/43 positive/negative tests passed | Source/API/demo/CI invariants only. |
 | Release build / .NET tests | Full Solution Release build: 0 warnings / 0 errors; full solution tests: 70/70 passed | Compilation and unit/regression tests; browser evidence is reported separately. |
 | JavaScript / Sass asset pipeline | Clean `npm ci` + webpack ESM/Global build and clean `npm ci` + Sass compilation passed | Generated CSS is consumed by the existing BundlerMinifier pipeline; Sass reports legacy Bootstrap/import deprecation notices, not compilation errors. |
 | NuGet package content | Local `Bluent.UI.1.0.0.nupkg` pack passed; verified minified component CSS, ESM JS and Global JS are present, and packaged CSS contains `.bui-text-field` | Local pack validation only; package was not published. |

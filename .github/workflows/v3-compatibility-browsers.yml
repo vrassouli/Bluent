@@ -176,8 +176,7 @@ jobs:
           if (-not $browser) { throw "Requested browser not installed: ${{ matrix.browser }}" }
           "CHROME_PATH=$browser" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           "BLUENT_BROWSER_LABEL=${{ matrix.browser }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-      - name: Start the requested interactive TextField host
-        id: host
+      - name: Start host, run real-browser TextField matrix and clean up
         shell: pwsh
         env:
           BLUENT_MODE: ${{ matrix.render_mode }}
@@ -191,55 +190,58 @@ jobs:
             $port = 5080
             $route = '/components/text-fields'
           }
-          $arguments = "run --project $project --no-build --configuration Debug --urls http://127.0.0.1:$port"
+
           $hostStdOut = Join-Path $env:RUNNER_TEMP "bluent-textfield-$env:BLUENT_MODE-host.log"
           $hostStdErr = Join-Path $env:RUNNER_TEMP "bluent-textfield-$env:BLUENT_MODE-host.err.log"
-          $hostProcess = Start-Process -FilePath dotnet -ArgumentList $arguments -WorkingDirectory $env:GITHUB_WORKSPACE -WindowStyle Hidden -PassThru -RedirectStandardOutput $hostStdOut -RedirectStandardError $hostStdErr
-          "BLUENT_HOST_STDOUT=$hostStdOut" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "BLUENT_HOST_STDERR=$hostStdErr" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "BLUENT_HOST_PID=$($hostProcess.Id)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "BLUENT_HOST_PORT=$port" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "BLUENT_TEXTFIELD_ROUTE=$route" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          "BLUENT_TEXTFIELD_RENDER_MODE=$env:BLUENT_MODE" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          $ready = $false
-          for ($attempt = 0; $attempt -lt 90; $attempt++) {
-            try {
-              $response = Invoke-WebRequest -Uri "http://127.0.0.1:$port$route" -UseBasicParsing -TimeoutSec 3
-              if ($response.StatusCode -eq 200) { $ready = $true; break }
-            } catch {}
-            Start-Sleep -Seconds 1
-          }
-          if (-not $ready) { throw "TextField host did not become ready: $project on port $port" }
-      - name: Run real-browser TextField API and interaction matrix
-        shell: pwsh
-        run: node scripts/quality/probe_v3_textfield_demo.mjs "http://127.0.0.1:$env:BLUENT_HOST_PORT"
-      - name: Stop only this job's host and disposable browser processes
-        if: always()
-        shell: pwsh
-        run: |
-          if ($env:BLUENT_HOST_PID) {
-            & taskkill.exe /PID $env:BLUENT_HOST_PID /T /F 2>$null | Out-Null
-          }
-          Start-Sleep -Milliseconds 250
-          foreach ($logPath in @($env:BLUENT_HOST_STDOUT,$env:BLUENT_HOST_STDERR)) {
-            if ($logPath -and (Test-Path $logPath)) {
-              Write-Output "--- TextField host log: $logPath ---"
-              Get-Content $logPath -Tail 160
+          $hostProcess = $null
+          try {
+            $arguments = "run --project $project --no-build --configuration Debug --urls http://127.0.0.1:$port"
+            $hostProcess = Start-Process -FilePath dotnet -ArgumentList $arguments -WorkingDirectory $env:GITHUB_WORKSPACE -WindowStyle Hidden -PassThru -RedirectStandardOutput $hostStdOut -RedirectStandardError $hostStdErr
+
+            $ready = $false
+            for ($attempt = 0; $attempt -lt 90; $attempt++) {
+              if ($hostProcess.HasExited) {
+                throw "TextField host exited before readiness (exit=$($hostProcess.ExitCode)): $project"
+              }
+              try {
+                $response = Invoke-WebRequest -Uri "http://127.0.0.1:$port$route" -UseBasicParsing -TimeoutSec 3
+                if ($response.StatusCode -eq 200) { $ready = $true; break }
+              } catch {}
+              Start-Sleep -Seconds 1
             }
+            if (-not $ready) { throw "TextField host did not become ready: $project on port $port" }
+
+            $env:BLUENT_HOST_PORT = [string]$port
+            $env:BLUENT_TEXTFIELD_ROUTE = $route
+            $env:BLUENT_TEXTFIELD_RENDER_MODE = $env:BLUENT_MODE
+            node scripts/quality/probe_v3_textfield_demo.mjs "http://127.0.0.1:$port"
+            if ($LASTEXITCODE -ne 0) { throw "TextField browser probe failed with exit code $LASTEXITCODE" }
           }
-          $owned = @(Get-CimInstance Win32_Process | Where-Object {
-            $_.Name -in @('chrome.exe','msedge.exe') -and
-            $_.CommandLine -like '*bluent-v3-432-textfield-*'
-          })
-          foreach ($item in $owned) {
-            Stop-Process -Id ([int]$item.ProcessId) -Force -ErrorAction SilentlyContinue
+          finally {
+            if ($hostProcess) {
+              & taskkill.exe /PID $hostProcess.Id /T /F 2>$null | Out-Null
+            }
+            Start-Sleep -Milliseconds 250
+            foreach ($logPath in @($hostStdOut,$hostStdErr)) {
+              if ($logPath -and (Test-Path $logPath)) {
+                Write-Output "--- TextField host log: $logPath ---"
+                Get-Content $logPath -Tail 160
+              }
+            }
+            $owned = @(Get-CimInstance Win32_Process | Where-Object {
+              $_.Name -in @('chrome.exe','msedge.exe') -and
+              $_.CommandLine -like '*bluent-v3-432-textfield-*'
+            })
+            foreach ($item in $owned) {
+              Stop-Process -Id ([int]$item.ProcessId) -Force -ErrorAction SilentlyContinue
+            }
+            Start-Sleep -Milliseconds 250
+            $remaining = @(Get-CimInstance Win32_Process | Where-Object {
+              $_.Name -in @('chrome.exe','msedge.exe') -and
+              $_.CommandLine -like '*bluent-v3-432-textfield-*'
+            })
+            if ($remaining.Count -gt 0) { throw "QA-owned browser processes remain: $($remaining.Count)" }
           }
-          Start-Sleep -Milliseconds 250
-          $remaining = @(Get-CimInstance Win32_Process | Where-Object {
-            $_.Name -in @('chrome.exe','msedge.exe') -and
-            $_.CommandLine -like '*bluent-v3-432-textfield-*'
-          })
-          if ($remaining.Count -gt 0) { throw "QA-owned browser processes remain: $($remaining.Count)" }
       - name: Preserve TextField JSON and viewport screenshots
         if: always()
         uses: actions/upload-artifact@v4

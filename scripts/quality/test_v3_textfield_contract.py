@@ -312,6 +312,20 @@ class TextFieldContractTests(unittest.TestCase):
             "Write-Output 'no server logs'",
         )
 
+    def test_browser_ci_keeps_host_and_probe_in_the_same_step(self):
+        self._check_mutation(
+            "browser_workflow",
+            "node scripts/quality/probe_v3_textfield_demo.mjs",
+            "node scripts/quality/probe_v3_textfield_demo_removed.mjs",
+        )
+
+    def test_browser_ci_cleans_up_host_in_the_probe_step(self):
+        self._check_mutation(
+            "browser_workflow",
+            "taskkill.exe /PID $hostProcess.Id /T /F",
+            "taskkill.exe /PID $removedHostProcess.Id /T /F",
+        )
+
     def test_browser_ci_invokes_the_real_textfield_probe(self):
         self._check_mutation(
             "browser_workflow",
