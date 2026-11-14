@@ -197,3 +197,5 @@ only failed stale fixture count 7 vs 9, fixed and
 rerun. This is NOT exhaustive permutations,
 Fluent design/user approval, Penpot source mutation,
 public API migration, named OS AT or release readiness.
+
+For the current platform-vs-family boundary and exact merged platform evidence, read [COMPONENT-LAB-ACCEPTANCE.md](../../../docs/v3/quality/COMPONENT-LAB-ACCEPTANCE.md). A representative pilot must never be reported as accepted Fluent v3 component work.
