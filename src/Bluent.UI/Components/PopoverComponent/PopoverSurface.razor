@@ -1,7 +1,13 @@
-﻿@using Bluent.UI.Services
+@using Bluent.UI.Services
 @using Bluent.UI.Services.Abstractions
 @using Humanizer
-<div id="@Context.Config.SurfaceId" class="bui-popover-surface hidden @(Context.Config.Appearance.ToString().Kebaberize()) @(Context.Config.Settings.Placement.ToString().Kebaberize())">
+<div id="@Context.Config.SurfaceId"
+     class="bui-popover-surface hidden @(Context.Config.Appearance.ToString().Kebaberize()) @(Context.Config.Settings.Placement.ToString().Kebaberize())"
+     data-bui-brand="@Context.Config.ThemeScope?.Brand"
+     data-bui-theme="@Context.Config.ThemeScope?.Mode"
+     data-bui-v3-tokens="@(Context.Config.ThemeScope?.UseV3Tokens == true ? "" : null)"
+     data-density="@Context.Config.ThemeScope?.Density"
+     dir="@Context.Config.ThemeScope?.Direction">
     @Context.Content
     @if (Context.Config.DisplayArrow)
     {

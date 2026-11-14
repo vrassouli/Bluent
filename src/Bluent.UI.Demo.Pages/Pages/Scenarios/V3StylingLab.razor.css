@@ -13,10 +13,10 @@
     margin-block: 14px;
 }
 .v3-lab-surface {
-    --v3-lab-surface: var(--colorNeutralBackground1, #fff);
-    --v3-lab-text: var(--colorNeutralForeground1, #242424);
+    --v3-lab-surface: var(--bui-v3-surface-default, var(--colorNeutralBackground1, #fff));
+    --v3-lab-text: var(--bui-v3-text-primary, var(--colorNeutralForeground1, #242424));
     --v3-lab-border: var(--colorNeutralStroke1, #999);
-    --v3-lab-focus: var(--colorBrandStroke1, #0f6cbd);
+    --v3-lab-focus: var(--bui-v3-border-focus, var(--colorBrandStroke1, #0f6cbd));
     --v3-lab-control-height: 40px;
     --v3-lab-radius: var(--borderRadiusMedium, 4px);
     --v3-lab-scrim: rgb(0 0 0 / 48%);
@@ -34,10 +34,18 @@
     min-height: var(--v3-lab-control-height);
     transition-duration: var(--durationFaster, 100ms);
 }
-.v3-lab-surface ::deep .bui-button:focus-visible,
-.v3-lab-surface ::deep .bui-field:focus-within {
+/* Buttons need a keyboard focus ring. Real Bluent fields already expose their
+   own animated, brand-colored bottom stroke; don't add a second frame. */
+.v3-lab-surface ::deep .bui-button:focus-visible {
     outline: 2px solid var(--v3-lab-focus);
     outline-offset: 2px;
+}
+/* The regular field underline remains the focus indicator even when
+   the OS overrides colors and disables ornamental effects. */
+@media (forced-colors: active) {
+    .v3-lab-surface ::deep .bui-field:focus-within::after {
+        border-bottom-color: Highlight;
+    }
 }
 .v3-lab-field {
     display: flex;
@@ -72,4 +80,347 @@
 }
 @media (prefers-reduced-motion: reduce) {
     .v3-lab-surface ::deep .bui-button { transition: none; }
+}
+
+/* #418: real Bluent controls consume research aliases only inside the opt-in lab. */
+.v3-lab-surface ::deep #v3-token-action {
+    background-color: var(--bui-v3-button-background-primary, var(--colorBrandBackground));
+    color: var(--bui-v3-button-foreground-primary, var(--colorNeutralForegroundOnBrand));
+}
+.v3-lab-field ::deep .bui-field {
+    background-color: var(--bui-v3-text-field-background, var(--colorNeutralBackground1));
+    border-color: var(--bui-v3-text-field-stroke, var(--colorNeutralStrokeAccessible));
+}
+.v3-lab-surface ::deep .bui-overlay {
+    animation-duration: var(--bui-v3-motion-duration-fast, var(--durationGentle, 250ms));
+}
+
+/* #418 two independent nested CSS hosts; no global theme mutation. */
+.v3-lab-independent-host {
+    background: var(--bui-v3-surface-default, var(--colorNeutralBackground1));
+    color: var(--bui-v3-text-primary, var(--colorNeutralForeground1));
+    border: 1px solid var(--bui-v3-border-default, var(--colorNeutralStroke1));
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 440px;
+}
+
+/* #418: approved neutral-host Focus alias must resolve within the nested,
+   independent Word source palette. Demo fixture only; no Button API change. */
+.v3-lab-independent-focus-host {
+    --v3-lab-focus: var(--bui-v3-focus-host-ring-candidate);
+    background: var(--colorNeutralBackground1);
+    color: var(--colorNeutralForeground1);
+    border: 1px solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium, 6px);
+    padding: 12px;
+    min-width: 0;
+    max-width: 100%;
+    margin-block: 12px;
+}
+.v3-lab-independent-focus-host ::deep .bui-button {
+    max-width: 100%;
+    min-width: 0;
+}
+@media (forced-colors: active) {
+    .v3-lab-independent-focus-host {
+        --v3-lab-focus: Highlight;
+        background: Canvas;
+        color: CanvasText;
+        border-color: CanvasText;
+    }
+}
+
+/* #418 research reflow: a real 320 CSS-pixel viewport, not a virtual 980px
+   mobile layout viewport. No component library CSS is changed. */
+.v3-lab,
+.v3-lab-surface,
+.v3-lab-independent-host,
+.v3-lab-typography {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+.v3-lab-actions ::deep .bui-button,
+.v3-lab-typography ::deep .bui-button {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+.v3-lab-actions ::deep .bui-button > .text,
+.v3-lab-typography ::deep .bui-button > .text {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-persian-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-block: 12px;
+    max-width: 100%;
+    min-width: 0;
+}
+.v3-lab-typography p,
+.v3-lab-typography label {
+    overflow-wrap: anywhere;
+}
+.v3-lab-typography ::deep .bui-field {
+    max-width: 100%;
+}
+/* #418 candidate only: invalid field explanation is semantic. No global
+   TextField/error-state contract is added to the shipping component stylesheet. */
+.v3-lab-validation {
+    color: var(--bui-v3-text-danger-accessible, var(--colorStatusDangerForeground1));
+    overflow-wrap: anywhere;
+}
+.v3-lab-typography ::deep .bui-field:has(input[aria-invalid="true"]) {
+    border-color: var(--colorStatusDangerBorder2);
+}
+@media (forced-colors: active) {
+    .v3-lab-typography ::deep .bui-field:has(input[aria-invalid="true"]) {
+        border-color: CanvasText;
+    }
+}
+/* #418/#501 opt-in-only research matrix; existing Button styles untouched. */
+.v3-lab-focus-matrix {
+    max-width: 100%;
+    min-width: 0;
+    margin-block: 24px;
+}
+.v3-lab-focus-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.v3-lab-focus-actions ::deep .bui-button {
+    max-width: 100%;
+}
+/* Selected Danger v3 opt-in rule now comes from the actual Bluent.UI
+   static web asset v3/danger-toggle.opt-in.preview.css.
+   The lab only sets data-bui-v3-danger-toggle on its local matrix.
+   Do not duplicate component CSS here. */
+.v3-lab-focus-preview-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block: 12px;
+}
+.v3-lab-focus-preview-controls ::deep .bui-button {
+    max-width: 100%;
+}
+
+/* #418 user-preferred brand ring: isolated preview of the brighter, existing
+   Fluent brandForeground2 on Dark; native TextField underline stays unchanged.
+   Default Button focus remains untouched; no public token/API promotion.
+   Do not treat neutral-host contrast as proof on all filled surfaces. */
+/* Light keeps the selected original brand ring exactly as-is. Only the
+   experimental Dark preview uses the brighter source role approved for
+   research by the page-07 normal+hover comparison board. */
+.v3-lab-surface[data-bui-theme="dark"][data-bui-v3-focus-brand-candidate] {
+    --v3-lab-focus: var(--colorBrandForeground2, var(--colorCompoundBrandStroke, #0f6cbd));
+}
+@media (forced-colors: active) {
+    .v3-lab-surface[data-bui-v3-focus-brand-candidate] {
+        --v3-lab-focus: Highlight;
+    }
+}
+
+/* #418 #501 APPROVED Penpot host-color visuals. The real Blazor review
+   consumes the same explicit generated opt-in semantic candidate as the
+   source-to-CSS contract; never infer surrounding host from Button fill.
+   This demo rule is NOT a general/public Button API. */
+.v3-lab-focus-host-review {
+    max-width: 100%;
+    min-width: 0;
+    margin-block: 24px;
+}
+.v3-lab-focus-host-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 16px;
+    margin-block: 16px;
+}
+.v3-lab-focus-host-card {
+    --v3-lab-focus: var(--colorBrandBackground, #0f6cbd);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+    min-height: 130px;
+    padding: 20px;
+    border-radius: var(--borderRadiusMedium, 6px);
+    background: var(--colorNeutralBackground1);
+    color: var(--colorNeutralForeground1);
+    border: 1px solid var(--colorNeutralStroke1);
+}
+.v3-lab-surface[data-bui-theme="dark"] .v3-lab-focus-host-card {
+    --v3-lab-focus: var(--colorBrandForeground2, #6ca2dc);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="brand"] {
+    background: var(--colorBrandBackground);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="brandHover"] {
+    background: var(--colorBrandBackgroundHover);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="danger"] {
+    background: var(--colorPaletteRedBackground3);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+.v3-lab-focus-host-card[data-v3-focus-host="inverted"] {
+    background: var(--colorNeutralBackgroundInverted);
+    color: var(--colorNeutralForegroundInverted);
+}
+/* The approved focus comes from the generated, opt-in schema only.
+   The comparison baseline below intentionally keeps historical brand color. */
+.v3-lab-focus-host-review[data-v3-focus-host-mode="adaptive"] .v3-lab-focus-host-card {
+    --v3-lab-focus: var(--bui-v3-focus-host-ring-candidate);
+}
+/* 320 CSS px / 200% root text: real Persian+English Button text must
+   wrap inside the card instead of widening the entire token host. */
+.v3-lab-focus-host-review,
+.v3-lab-focus-host-grid,
+.v3-lab-focus-host-card {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+.v3-lab-focus-host-review h3,
+.v3-lab-focus-host-review p {
+    overflow-wrap: anywhere;
+}
+/* In Persian RTL at 320px/200% the interactive comparison launcher has
+   an intrinsic label width. Never let it push past its parent host. */
+.v3-lab-focus-host-review ::deep #v3-focus-host-toggle {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-focus-host-review ::deep #v3-focus-host-toggle .text,
+.v3-lab-focus-host-review ::deep #v3-focus-host-toggle .text > div {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-focus-host-card ::deep .bui-button {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.v3-lab-focus-host-card ::deep .bui-button > .text {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+@media (forced-colors: active) {
+    .v3-lab-focus-host-card {
+        background: Canvas;
+        color: CanvasText;
+        border-color: CanvasText;
+        /* System contrast source must beat theme-specific and adaptive
+           research custom-property declarations in either mode. */
+        --v3-lab-focus: Highlight !important;
+    }
+}
+
+/* #418 contrast proof only: additive source -> semantic -> Button token chain, never default.
+   Gate the alternative so unapproved Penpot focus tokens stay unchanged. */
+.v3-lab-surface[data-bui-v3-focus-contrast-candidate] {
+    --v3-lab-focus: var(--bui-v3-button-focus-outer-candidate, var(--colorStrokeFocus2));
+}
+@media (forced-colors: active) {
+    .v3-lab-surface[data-bui-v3-focus-contrast-candidate] {
+        --v3-lab-focus: Highlight;
+    }
+}
+
+/* #418 / Penpot board cd054205-a525-80d8-8008-c87438620de4:
+   second, independent opt-in-only double-ring experiment.
+   Match #501 corrected native vector bounds: outer 2px stroke starts 3px
+   outside the Button border; inner canvas spacer starts 1px outside.
+   neither stroke changes Button face dimensions. Still unapproved. */
+.v3-lab-surface[data-bui-v3-focus-double-ring-candidate] {
+    --v3-lab-focus: var(--bui-v3-button-focus-outer-candidate, var(--colorStrokeFocus2));
+}
+.v3-lab-surface[data-bui-v3-focus-double-ring-candidate] ::deep .bui-button:focus-visible {
+    outline-offset: 1px;
+    box-shadow: 0 0 0 1px var(--v3-lab-surface);
+    /* Keep the ring painted above tightly stacked subsequent action rows. */
+    position: relative;
+    z-index: 1;
+}
+@media (forced-colors: active) {
+    .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] {
+        --v3-lab-focus: Highlight;
+    }
+    .v3-lab-surface[data-bui-v3-focus-double-ring-candidate] ::deep .bui-button:focus-visible {
+        box-shadow: none;
+        outline-offset: 1px;
+    }
+}
+
+/* #418 — actual Bluent Button, research-only explicit translucent host.
+   Source-backed Figma DRAFT board 38:2; never ship as Button CSS API.
+   Maintain selected brand ring on all pre-existing opaque host fixtures. */
+.v3-lab-alpha-focus-review {
+    max-width: 100%;
+    min-width: 0;
+    margin-block: 24px;
+}
+.v3-lab-alpha-focus-underlay {
+    background: var(--colorBrandBackground);
+    padding: 18px;
+    border-radius: var(--borderRadiusMedium, 6px);
+    margin-block: 12px;
+}
+.v3-lab-alpha-focus-overlay {
+    background: var(--colorNeutralBackgroundAlpha);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 20px;
+    min-width: 0;
+    padding: 24px;
+    border-radius: var(--borderRadiusMedium, 6px);
+}
+.v3-lab-alpha-focus-card {
+    --v3-lab-focus: var(--colorBrandBackground);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 18px;
+    box-sizing: border-box;
+    min-width: 0;
+}
+.v3-lab-surface[data-bui-theme="dark"] .v3-lab-alpha-focus-card[data-v3-alpha-ring="brand"] {
+    --v3-lab-focus: var(--colorBrandForeground2);
+}
+.v3-lab-alpha-focus-card[data-v3-alpha-ring="focus2"] {
+    --v3-lab-focus: var(--colorStrokeFocus2);
+}
+.v3-lab-alpha-focus-card ::deep .bui-button {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+}
+@media (forced-colors: active) {
+    .v3-lab-alpha-focus-underlay,
+    .v3-lab-alpha-focus-overlay {
+        background: Canvas;
+        border: 1px solid CanvasText;
+    }
+    .v3-lab-alpha-focus-card {
+        --v3-lab-focus: Highlight !important;
+    }
 }

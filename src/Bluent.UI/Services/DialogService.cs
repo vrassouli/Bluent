@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Components;
+using Bluent.UI.Components;
 using Bluent.UI.Components.DialogComponent;
 using Bluent.UI.Components.DialogComponent.Resources;
 using Bluent.UI.Services.Abstractions;
@@ -35,6 +35,7 @@ internal class DialogService : IDialogService
     {
         var configurator = new DialogConfigurator();
         configBuilder?.Invoke(configurator);
+        configurator.UseStandardTitleHeading(!string.IsNullOrWhiteSpace(title));
 
         var content = GetContentFragment<TContentComponent>(title,
                                                             parameters,

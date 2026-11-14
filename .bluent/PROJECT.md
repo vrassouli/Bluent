@@ -467,3 +467,52 @@ The Component Lab was extended with a native anchor target that preserves the li
 Actual Dev01 browser matrix: Chrome/WebAssembly **255/255**, Edge/WebAssembly **255/255**, Chrome/Published InteractiveServer **252/252**, Edge/Published InteractiveServer **252/252**. Both Server runs established SignalR WebSocket HTTP 101. Evidence: docs/v3/quality/evidence/link-browser-matrix-20261109.json. The shared Component Lab coverage ledger records the four runs but retains representative_only, because its classification describes the 66-family platform ledger rather than the family issue's acceptance.
 
 The canonical Link reference now inventories all direct and inherited public parameters/attributes, defaults and inherited tooltip lifecycle. Design decisions are traced to Penpot page 50, both board IDs and maintainer-approved behavior contract comments on #431. The Penpot page remains labeled DRAFT; no #418 global token values or aliases were approved by this work. Browser forced-colors emulation and browser AX-tree inspection are not presented as native Windows Contrast Themes or spoken screen-reader acceptance.
+
+## 2026-11-10 #418 — downstream label contract and acceptance evidence reconciliation
+
+The #418 token preview now has an explicit regression contract for the three shared Label consumer roles approved by the maintainer on #430. `text.primary`, visual-only `text.disabled`, and decorative `text.dangerAccessible` are asserted against their exact existing source CSS variables and semantic aliases across all 10 brands × Light/Dark. The test also asserts that no `component.label.*` token family is introduced. This records #430's consumer approval without promoting the aliases to released/public tokens.
+
+The token README now leads with the actual Project #5 state (**In progress**) and current PR/evidence snapshot. The High Contrast / Reduced Motion design note now incorporates the 2026-11-01 real Windows 11 Desert Contrast Theme run and the separate 126/126 WASM + 126/126 Production InteractiveServer opt-in portal probes. It explicitly preserves the limitations: no spoken Narrator/NVDA acceptance, no public portal API acceptance, and the legacy/global Overlay reduced-motion compatibility question remains separate. The Link #431 approval is also distinguished from approval of #418 draft token values.
+
+Local validation before this base sync: Label/contrast tests **12/12**; contrast audit **340 checks, zero issues**; foundation tests **12/12**; v3 docs tests **22/22**; docs contract **0 findings**; local Markdown links checked in **214 files**; both color and foundation preview generators passed `--check`; `git diff --check` passed. These focused checks are being rerun after the Label/Link base synchronization. No stable `Dev`, v2.x asset, NuGet package or deployment is changed.
+
+The issue remains **In progress** in Project #5. PR #500 remains open and non-draft against `bluent-v3`. This update does not replace final maintainer approval of the complete public token vocabulary/values and Penpot page-45 semantics, nor waive remaining design/runtime/accessibility acceptance. Do not merge or mark #418 Done on this evidence alone.
+
+## 2026-11-11 #418 — exact-head acceptance evidence complete; ready for maintainer review
+
+The synchronized #418 branch now includes accepted #430 Label and #431 Link changes and is based on the current `bluent-v3` head. PR #500 head is merge commit `fe991e92cfe50f995d67e54fd0a857e2bb0035b9`; GitHub reports it open, non-draft and mergeable. All **11/11 exact-head workflows succeeded**, with zero failures and zero pending: Token Contract, Documentation Contract, Public Component Census, Local Package Boundary, Baseline Release/build/test/five-package validation, Button Focus, Button Runtime, Component Lab Pilot, Interaction Source Contract, Real Compatibility Browsers and Real Browser Lab.
+
+The browser workflows completed every required cell: Chrome/Edge × WebAssembly/Published InteractiveServer; compatibility adds Label Info in Chrome/Edge × `en-US`/`fa-IR`; Popover interaction passes Chrome/Edge × WASM/Server. Artifacts are retained for the four Popover cells and eight compatibility/Label cells. The local synchronized-tree Release build is **0 warnings / 0 errors**, .NET tests **87/87**, and focused token/foundation/label/interaction/Popover contracts **12/12, 12/12, 10/10, 35/35, 5/5 and 26/26** respectively. Docs/Skills contracts report zero findings/errors; local Markdown links check 216 files.
+
+Penpot page 45's main decision board (`d0bcea67-3af4-8071-8008-d8e4c3d426d0`) and per-brand Dark candidate board (`fce13529-02e2-80e4-8008-df6f76b3b4ac`) were freshly PNG-exported and visually inspected. The decision board still says REVIEW REQUIRED and the companion candidate board remains DRAFT. The source boards' names, statuses, values and shapes were not changed in this pass; a copy-only evidence refresh was not saved because the Penpot plugin tab suspended before the edit. Do not infer approval from the visual export.
+
+The real GitHub Project #5 Status is advanced from **In progress** to **Review** because the PR, exact-head checks, demo/docs/skills, design references, parity evidence and known limitations are ready for maintainer acceptance. #418 is not Done: the maintainer must still approve the page-45 semantic choice and the complete public token vocabulary/roles/values, decide remaining foundation design parity and accessibility/runtime gates, then accept and merge PR #500 into `bluent-v3`. Candidate Dark values remain opt-in, not production. No stable `Dev`, 2.x assets, NuGet publication or deployment changed.
+
+
+## #418 — TextField placeholder source role selected and regression added — 2026-11-14
+
+Resolved the downstream #432 decision from the exact pinned Fluent Web Components 3.1.3 stylesheet and Bluent's existing semantic contract. Ordinary placeholder uses source role bluent.color.foreground4 / --colorNeutralForeground4 and shared semantic bluent.semantic.text.placeholder / --bui-v3-text-placeholder. Disabled placeholder reuses the existing bluent.semantic.text.disabled / --bui-v3-text-disabled role, sourced from --colorNeutralForegroundDisabled. No TextField-specific disabled alias or component alias is added; placeholder remains supplementary hint text, never the accessible name. FG3 is not selected because the pinned Web Components source uses FG4 and all measured Filled-darker BG3 pairs pass the normal-text threshold.
+
+The preview schema/generator now contains **16 source + 17 semantic + 13 component = 46 logical tokens**. The generated semantic alias remains opt-in and excluded from published bundles. The deterministic contrast audit checks the actual BG3 pair for all 10 brands × Light/Dark: **20/20 pass, 0 below 4.5:1** (minimum Light **4.5423:1**, Dark **6.4663:1**). Total diagnostics are **360**: 300 existing source checks, 20 TextField Placeholder/BG3 checks and 40 Dark foreground candidates. The focused token contrast suite passes **13/13** and foundation suite **12/12**; generator --check and git diff --check pass.
+
+The selected consumer mapping has been recorded in #418 and PR #500, and cross-referenced from #432 / PR #562. It resolves the FG4-vs-FG3 component decision only; the full #418 public vocabulary, remaining candidate values, Penpot decision board, and foundation acceptance are not inferred as approved. PR #500 remains open/unmerged; token preview stays outside release bundles. Penpot writes timed out and were not verified; page 45 remains REVIEW REQUIRED and TextField pages 17–20 remain DRAFT.
+
+
+## #418 CI asset-sync correction — 2026-11-14
+
+The first exact-head Token Contract run after the placeholder alias failed only at the existing demo-asset freshness step: src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css had not yet been regenerated from the four canonical preview sources. Ran scripts/quality/sync_v3_token_demo_asset.py; its subsequent --check passes. This file is demo-only/opt-in. The shipped Bluent.UI CSS and legacy variables remain untouched. Generator drift check passes, the FG4/BG3 audit still reports 360 checks / 20 placeholder pairs / zero below 4.5:1, and TextField placeholder contract tests remain 13/13.
+
+
+## #418 CI Release-gate dependency remediation — 2026-11-14
+
+The first #418 Release Gate exposed existing NU1903 for Microsoft.AspNetCore.WebUtilities 10.0.7 (GHSA-x33c-w48q-qrgc). This was the same existing #425 security finding already remediated on the isolated #432 task branch. To keep this v3 token PR buildable without suppressing the advisory, aligned the direct ASP.NET Core / Extensions package references in the same ten library/demo/sample project files to patched 10.0.15. Scope remains the isolated v3 task branch only; no stable/2.x release assets were touched. The exact #432 remediation diff is the source of this targeted consistency update. Full restore, warning-as-error Release build and solution tests must pass before treating this gate as closed.
+
+
+## #418 Token Contract legacy inventory assertion updated — 2026-11-14
+
+The exact-head Token Contract identified one remaining hard-coded inventory assertion in test_v3_approved_focus_host_token_bridge.py that still expected 15 source / 16 semantic entries. Updated it to 16 / 17 and added explicit source/semantic/CSS assertions for bluent.color.foreground4 and bluent.semantic.text.placeholder. This preserves the focus preview contract and proves the new TextField role is present without widening the public Button rule. Local Focus bridge tests pass **7/7**, TextField token contrast tests **13/13**, generator/sync checks pass, and the 360-case audit still reports all 20 Placeholder/BG3 pairs passing.
+
+
+## #418 Release Gate security mutation tests aligned to patched dependency — 2026-11-14
+
+The exact-head Evidence Policy job reported two stale negative-control assertions that expected the pre-remediation 10.0.14 reference in SSR and WASM DevServer projects. The product project references are now correctly pinned to patched 10.0.15, so updated the mutation tests to verify 10.0.15 is present and that deliberately downgrading to vulnerable 10.0.7 is rejected by the fail-closed contract. The release/security guard remains enabled; no NU1903 warning suppression was introduced. Local quality-gate suite passes **50/50**, including both downgrade mutation controls; docs contract is 0 findings and Markdown links checked in 217 files.

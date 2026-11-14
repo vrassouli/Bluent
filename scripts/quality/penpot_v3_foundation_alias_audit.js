@@ -1,0 +1,12 @@
+// #418 real Penpot foundation token aliases + native editable specimens.
+// Does not validate browser fonts, system forced-colors, or CSS reduced motion.
+if(penpot.currentFile?.id!=="b64f6665-c9ab-80b5-8008-c4ac99d9d000")throw Error("Wrong project-owned file");
+const c=penpot.library.local.tokens,s=c.sets.find(x=>x.name==="bluent-v3/418/foundation/aliases"),p=penpotUtils.getPageByName("31 · Typography density and motion foundations · #418"),b=p?.getShapeById("acf5f619-7d81-80da-8008-c5e0d7a2fbf9");
+if(!s||!b)throw Error("Missing actual foundation design/TokenSet");
+const expected={"bluent.semantic.type.bodySize":"14","bluent.semantic.type.bodyLineHeight":"20","bluent.semantic.space.controlGap":"12","bluent.component.button.heightMedium":"32","bluent.semantic.motion.fastMs":"150","bluent.semantic.motion.reducedMs":"0"};
+const errors=[];let checks=0;
+try{for(const mode of ["light","dark"]){const theme=c.themes.find(x=>x.group==="Bluent v3 / Mode"&&x.name.toLowerCase().startsWith(mode));if(!theme)throw Error("Missing theme "+mode);if(!theme.active)theme.toggleActive();checks++;if(!theme.activeSets.some(t=>t.id===s.id))errors.push("Foundation set unbound in "+mode);for(const [name,want] of Object.entries(expected)){checks++;const x=s.tokens.find(t=>t.name===name);if(!x||x.resolvedValueString!==want)errors.push("Alias mismatch "+mode+"/"+name+": "+x?.resolvedValueString+" expected "+want)}}}finally{const light=c.themes.find(t=>t.group==="Bluent v3 / Mode"&&t.name==="Light · Draft");if(light&&!light.active)light.toggleActive()}
+for(const name of ["Token-bound body type 0","Token-bound body type 1"]){const t=b.children.find(s=>s.name===name);checks++;if(!t||t.fontSize!=="14")errors.push("Token-controlled font mismatch "+name)}
+const box=b.children.find(s=>s.name==="Height specimen Medium");checks++;if(!box||Math.abs(box.height-32)>.2)errors.push("Token-controlled Medium height mismatch");
+const fa=penpot.fonts.all;checks++;if(!fa.some(x=>x.name==="Noto Sans Arabic"))errors.push("No Persian preview candidate font");
+return{fileId:penpot.currentFile.id,revision:penpot.currentFile.revn,page:p.id,board:b.id,setId:s.id,pass:errors.length===0,checks,errors,sets:c.sets.length,allNativeTokens:c.sets.reduce((a,x)=>a+x.tokens.length,0),latinFallback:"Inter",originalSourceFontAvailable:fa.some(x=>x.name==="Segoe UI"),persianDraftFont:"Noto Sans Arabic",acceptance:"Geometry/token alias proof only, no browser typography or prefers-reduced-motion approval"};

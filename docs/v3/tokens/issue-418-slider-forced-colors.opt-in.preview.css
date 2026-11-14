@@ -1,0 +1,44 @@
+/* #418 x #552 RESEARCH ONLY — opt-in rendered-rail candidate.
+   NOT included in Bluent v2/v3 component bundles or shipped CSS.
+   Design/color roles await #418 token and #442/#443 component acceptance.
+   Explicit opt-in on a v3-token host; no global selector and no default layer. */
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-slider > .rail,
+  [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-range-slider > .rail,
+  [data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal] .bui-slider > .rail,
+  [data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal] .bui-range-slider > .rail {
+    /* Gradients are removed by forced-colors; a real solid track is required. */
+    position: relative;
+    background-image: none;
+    background-color: CanvasText;
+  }
+  [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-slider > .rail::after,
+  [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-range-slider > .rail::after,
+  [data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal] .bui-slider > .rail::after,
+  [data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal] .bui-range-slider > .rail::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-image: none;
+    background-color: Highlight;
+    /* In Chromium HC, CanvasText white vs Highlight cyan is only 1.46:1.
+       A 1px system Canvas edge demarcates progress from both paints.
+       This is a research fix, NOT native Windows HC/AT approval. */
+    box-sizing: border-box;
+    border: 1px solid Canvas;
+    pointer-events: none;
+  }
+  [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-slider > .rail::after,
+  [data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal] .bui-slider > .rail::after {
+    left: 0;
+    width: var(--progress, 0%);
+  }
+  [data-bui-v3-tokens][data-bui-v3-slider-hc-proposal] .bui-range-slider > .rail::after,
+  [data-bui-v3-tokens] [data-bui-v3-slider-hc-proposal] .bui-range-slider > .rail::after {
+    left: var(--min-progress, 0%);
+    width: calc(var(--max-progress, 100%) - var(--min-progress, 0%));
+  }
+  /* The existing control positions its thumbs with physical LEFT in LTR
+     *and* RTL. This prototype aligns paint, not value semantics / keyboard. */
+}

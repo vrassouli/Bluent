@@ -53,3 +53,7 @@ Abstract exception: source and compiled metadata show Overflow is a public abstr
 - Create one independently traceable implementation issue per confirmed public component, or a justified explicit exception. Capture source path, Fluent/extension status, dependency, existing defects, Penpot reference, docs/demo/Skill/migration and DoD.
 - Upgrade this snapshot gate to strict issue/doc/demo/Skill ownership checks after the route audit, and validate native runtime separately.
 - Keep PR on a task branch targeting bluent-v3. Never merge into stable Dev / 2.x or publish NuGet.
+
+## #418 additive API overlay (isolated task branch)
+
+After #494 merged into bluent-v3, #418's opt-in Dialog/Popover accessibility/theme work added **9 public properties and 2 public methods**. New CLR gate detected the delta and required review BEFORE snapshot acceptance; zero preexisting API members or shared bases changed. Current #418 snapshot: 140 types, 8 bases, 788 component properties, 23 base properties, 196 methods, 139 constructors, 13 events. Original #494 baseline had 779 component properties and 194 methods. See [explicit reviewed #418 additions](../tokens/ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md). These new declarations remain v3 branch experiments, not approved public shipping API.

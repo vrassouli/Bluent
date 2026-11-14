@@ -32,8 +32,9 @@ try {
     $client.Timeout = [TimeSpan]::FromSeconds(6)
     $checks = [ordered]@{}
     foreach ($entry in @(
-        @{ Name="styling_lab"; Path="/v3/styling-lab"; Marker="v3 styling lab"; Type="text/html" },
+        @{ Name="styling_lab"; Path="/v3/styling-lab"; Marker="data-bui-v3-tokens"; Type="text/html" },
         @{ Name="components_css"; Path="/_content/Bluent.UI/bluent.ui.components.min.css"; Marker=".bui-"; Type="text/css" },
+        @{ Name="v3_token_demo_css"; Path="/_content/Bluent.UI.Demo.Pages/v3/issue-418.opt-in.preview.css"; Marker="--bui-v3-button-background-primary"; Type="text/css" },
         @{ Name="blazor_js"; Path="/_framework/blazor.web.js"; Marker="Blazor"; Type="javascript" }
     )) {
         $url = "$origin$($entry.Path)"
