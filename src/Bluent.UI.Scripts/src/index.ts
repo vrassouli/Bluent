@@ -11,3 +11,4 @@ import { Theme } from './Theme/Theme';
 import { initializeBluentUI } from './autoInit';
 
 export { AudioCapture, DataGrid, DomHelper, Overflow, OtpField, Popover, ScrollSync, Theme, initializeBluentUI };
+export { getTextSelection, setTextSelection, trackTextSelection, stopTrackingTextSelection } from './TextField/TextField';

@@ -125,3 +125,130 @@ jobs:
           path: ${{ steps.browser.outputs.evidence }}
           if-no-files-found: error
           retention-days: 7
+
+  textfield-runtime:
+    name: TextField / ${{ matrix.browser }} / ${{ matrix.render_mode }}
+    runs-on: windows-latest
+    timeout-minutes: 24
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        browser: [Chrome, Edge]
+        render_mode: [InteractiveServer, WebAssembly]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build current Bluent UI JavaScript and CSS assets
+        shell: pwsh
+        run: |
+          npm --prefix src/Bluent.UI.Scripts ci --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix src/Bluent.UI.Scripts run build
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix src/Bluent.UI ci --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix src/Bluent.UI run build:scss
+          exit $LASTEXITCODE
+      - name: Restore Bluent solution
+        run: dotnet restore Bluent.sln --nologo
+      - name: Build current WebAssembly and Server hosts
+        shell: pwsh
+        run: |
+          dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj --configuration Debug --no-restore -warnaserror
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet build src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj --configuration Debug --no-restore -warnaserror
+          exit $LASTEXITCODE
+      - name: Select installed browser
+        shell: pwsh
+        run: |
+          if ("${{ matrix.browser }}" -eq "Chrome") {
+            $candidates = @('C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Google/Chrome/Application/chrome.exe')
+          } else {
+            $candidates = @('C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe','C:/Program Files/Microsoft/Edge/Application/msedge.exe')
+          }
+          $browser = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $browser) { throw "Requested browser not installed: ${{ matrix.browser }}" }
+          "CHROME_PATH=$browser" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "BLUENT_BROWSER_LABEL=${{ matrix.browser }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Start host, run real-browser TextField matrix and clean up
+        shell: pwsh
+        env:
+          BLUENT_MODE: ${{ matrix.render_mode }}
+        run: |
+          if ($env:BLUENT_MODE -eq 'InteractiveServer') {
+            $project = 'src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj'
+            $port = 5081
+            $route = '/compatibility/text-fields-server'
+          } else {
+            $project = 'src/Bluent.UI.Demo/Bluent.UI.Demo.csproj'
+            $port = 5080
+            $route = '/components/text-fields'
+          }
+
+          $hostStdOut = Join-Path $env:RUNNER_TEMP "bluent-textfield-$env:BLUENT_MODE-host.log"
+          $hostStdErr = Join-Path $env:RUNNER_TEMP "bluent-textfield-$env:BLUENT_MODE-host.err.log"
+          $hostProcess = $null
+          try {
+            $arguments = "run --project $project --no-build --configuration Debug --urls http://127.0.0.1:$port"
+            $hostProcess = Start-Process -FilePath dotnet -ArgumentList $arguments -WorkingDirectory $env:GITHUB_WORKSPACE -WindowStyle Hidden -PassThru -RedirectStandardOutput $hostStdOut -RedirectStandardError $hostStdErr
+
+            $ready = $false
+            for ($attempt = 0; $attempt -lt 90; $attempt++) {
+              if ($hostProcess.HasExited) {
+                throw "TextField host exited before readiness (exit=$($hostProcess.ExitCode)): $project"
+              }
+              try {
+                $response = Invoke-WebRequest -Uri "http://127.0.0.1:$port$route" -UseBasicParsing -TimeoutSec 3
+                if ($response.StatusCode -eq 200) { $ready = $true; break }
+              } catch {}
+              Start-Sleep -Seconds 1
+            }
+            if (-not $ready) { throw "TextField host did not become ready: $project on port $port" }
+
+            $env:BLUENT_HOST_PORT = [string]$port
+            $env:BLUENT_TEXTFIELD_ROUTE = $route
+            $env:BLUENT_TEXTFIELD_RENDER_MODE = $env:BLUENT_MODE
+            node scripts/quality/probe_v3_textfield_demo.mjs "http://127.0.0.1:$port"
+            if ($LASTEXITCODE -ne 0) { throw "TextField browser probe failed with exit code $LASTEXITCODE" }
+          }
+          finally {
+            if ($hostProcess) {
+              & taskkill.exe /PID $hostProcess.Id /T /F 2>$null | Out-Null
+            }
+            Start-Sleep -Milliseconds 250
+            foreach ($logPath in @($hostStdOut,$hostStdErr)) {
+              if ($logPath -and (Test-Path $logPath)) {
+                Write-Output "--- TextField host log: $logPath ---"
+                Get-Content $logPath -Tail 160
+              }
+            }
+            $owned = @(Get-CimInstance Win32_Process | Where-Object {
+              $_.Name -in @('chrome.exe','msedge.exe') -and
+              $_.CommandLine -like '*bluent-v3-432-textfield-*'
+            })
+            foreach ($item in $owned) {
+              Stop-Process -Id ([int]$item.ProcessId) -Force -ErrorAction SilentlyContinue
+            }
+            Start-Sleep -Milliseconds 250
+            $remaining = @(Get-CimInstance Win32_Process | Where-Object {
+              $_.Name -in @('chrome.exe','msedge.exe') -and
+              $_.CommandLine -like '*bluent-v3-432-textfield-*'
+            })
+            if ($remaining.Count -gt 0) { throw "QA-owned browser processes remain: $($remaining.Count)" }
+          }
+      - name: Preserve TextField JSON and viewport screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-textfield-${{ matrix.browser }}-${{ matrix.render_mode }}-${{ github.sha }}
+          path: |
+            docs/v3/quality/evidence/BLUENT-TEXTFIELD-*.json
+            docs/v3/quality/evidence/BLUENT-TEXTFIELD-*.png
+          if-no-files-found: warn
+          retention-days: 7

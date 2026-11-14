@@ -1,4 +1,4 @@
-"""Explicit negative controls proving v3 quality policy fails closed."""
+﻿"""Explicit negative controls proving v3 quality policy fails closed."""
 from __future__ import annotations
 import unittest
 from pathlib import Path
@@ -45,9 +45,9 @@ class V3QualityContractTests(unittest.TestCase):
 
     def test_reject_vulnerable_server_patch(self):
         original=SSR_PROJ.read_text(encoding="utf-8-sig")
-        self.assertIn('Version="10.0.14"',original)
-        with self.assertRaisesRegex(QualityContractError,"at least patched"):
-            check_server_patch(original.replace('Version="10.0.14"','Version="10.0.13"'))
+        self.assertIn('Version="10.0.15"',original)
+        with self.assertRaisesRegex(QualityContractError,"at least patched 10.0.15"):
+            check_server_patch(original.replace('Version="10.0.15"','Version="10.0.14"'))
 
     def test_current_devserver_dependencies_are_patched(self):
         root=Path(__file__).resolve().parents[2]
@@ -57,9 +57,9 @@ class V3QualityContractTests(unittest.TestCase):
 
     def test_reject_vulnerable_devserver_patch(self):
         original=DEMO_PROJ.read_text(encoding="utf-8-sig")
-        self.assertIn('Version="10.0.14"',original)
-        with self.assertRaisesRegex(QualityContractError,"at least patched"):
-            check_devserver_patch(original.replace('Version="10.0.14"','Version="10.0.13"'),str(DEMO_PROJ))
+        self.assertIn('Version="10.0.15"',original)
+        with self.assertRaisesRegex(QualityContractError,"at least patched 10.0.15"):
+            check_devserver_patch(original.replace('Version="10.0.15"','Version="10.0.14"'),str(DEMO_PROJ))
 
     def test_real_browser_matrix_contract(self):
         check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),

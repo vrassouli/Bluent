@@ -46,10 +46,10 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.15" />
         <PackageReference Include="Humanizer.Core" Version="3.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.15" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.15" />
     </ItemGroup>
     <Target Name="BundleMinify" BeforeTargets="BeforeBuild">
         <Exec Command="dotnet tool restore" />
@@ -61,6 +61,10 @@
         <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.global.js" DestinationFolder="$(ProjectDir)wwwroot\" SkipUnchangedFiles="true" />
         <Copy SourceFiles="..\Bluent.UI.Scripts\dist\bluent.ui.global.js.map" DestinationFolder="$(ProjectDir)wwwroot\" SkipUnchangedFiles="true" />
     </Target>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="RegexSampleGeneratorTest" />
+    </ItemGroup>
 
     <ItemGroup>
         <SupportedPlatform Include="browser" />

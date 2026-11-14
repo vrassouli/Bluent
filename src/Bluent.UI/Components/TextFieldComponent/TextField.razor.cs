@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
-using Bluent.UI.Extensions;
 
 namespace Bluent.UI.Components;
 
-public partial class TextField
+public partial class TextField : IAsyncDisposable
 {
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+
     [Parameter] public int? Rows { get; set; }
     [Parameter] public bool ResizeTextarea { get; set; }
     [Parameter] public bool GainFocus { get; set; }
@@ -13,34 +15,183 @@ public partial class TextField
     [Parameter] public bool AsciiDigits { get; set; }
     [Parameter] public bool ArabicToPersianConversion { get; set; }
 
+    private Task<IJSObjectReference>? _moduleTask;
+    private IJSObjectReference? _module;
+    private string? _sourceValueForSelection;
+    private bool _selectionMappingRequired;
+    private PendingTextSelection? _pendingSelection;
+    private bool _disposed;
+
     protected string? ValueStringProxy
     {
-        get
-        {
-            return CurrentValueAsString;
-        }
+        get => CurrentValueAsString;
         set
         {
-            if (DigitOnly)
-                value = value?.ToDigits();
+            var normalized = TextFieldValuePipeline.Normalize(
+                value,
+                DigitOnly,
+                AsciiDigits,
+                ArabicToPersianConversion);
 
-            if (AsciiDigits)
-                value = value?.ToAsciiDigits();
-
-            if (ArabicToPersianConversion)
-                value = value?.ToPersianChars();
-            
-            CurrentValueAsString = value;
+            _sourceValueForSelection = value;
+            _selectionMappingRequired = !string.Equals(value, normalized, StringComparison.Ordinal);
+            _pendingSelection = null;
+            CurrentValueAsString = normalized;
         }
     }
-    
-    protected override Task OnAfterRenderAsync(bool firstRender)
+
+    /// <summary>
+    /// Keeps validation state on the native control so browser and assistive
+    /// technology semantics agree with the current EditContext.
+    /// </summary>
+    private Dictionary<string, object>? GetTextFieldAdditionalAttributes()
     {
-        if (firstRender && GainFocus && Element != null)
+        var attributes = GetInputAdditionalAttributes();
+        var hasEditContextErrors = EditContext?.GetValidationMessages(FieldIdentifier).Any() == true;
+
+        if (!hasEditContextErrors)
+            return attributes;
+
+        attributes ??= new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var key in attributes.Keys
+                     .Where(key => string.Equals(key, "aria-invalid", StringComparison.OrdinalIgnoreCase))
+                     .ToArray())
         {
-            InvokeAsync(() => Element.Value.FocusAsync());
+            attributes.Remove(key);
         }
-        return base.OnAfterRenderAsync(firstRender);
+
+        attributes["aria-invalid"] = "true";
+        return attributes;
+    }
+
+    private bool HasNativeAttribute(string name)
+    {
+        if (AdditionalAttributes is null)
+            return false;
+
+        foreach (var attribute in AdditionalAttributes)
+        {
+            if (!string.Equals(attribute.Key, name, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            return attribute.Value switch
+            {
+                bool value => value,
+                string value when string.Equals(value, "false", StringComparison.OrdinalIgnoreCase) => false,
+                null => false,
+                _ => true
+            };
+        }
+
+        return false;
+    }
+
+    private bool IsFieldInvalid =>
+        HasNativeAttribute("aria-invalid") ||
+        EditContext?.GetValidationMessages(FieldIdentifier).Any() == true;
+
+    private async Task OnValueBoundAsync()
+    {
+        if (!_selectionMappingRequired || _disposed || Element is null)
+            return;
+
+        _selectionMappingRequired = false;
+        var module = await GetModuleAsync();
+        if (module is null || _disposed)
+            return;
+
+        var selection = await module.InvokeAsync<NativeTextSelection?>("getTextSelection", Element.Value);
+        if (selection is null)
+            return;
+
+        var mapped = TextFieldValuePipeline.NormalizeWithSelection(
+            _sourceValueForSelection,
+            selection.Start,
+            selection.End,
+            DigitOnly,
+            AsciiDigits,
+            ArabicToPersianConversion);
+
+        if (mapped.SelectionStart is not int start || mapped.SelectionEnd is not int end)
+            return;
+
+        _pendingSelection = new PendingTextSelection(start, end, selection.Direction);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Element is not null)
+        {
+            var trackingModule = await GetModuleAsync();
+            if (trackingModule is not null && !_disposed)
+                await trackingModule.InvokeVoidAsync("trackTextSelection", Element.Value);
+
+            if (GainFocus && !_disposed)
+                await Element.Value.FocusAsync();
+        }
+
+        if (_pendingSelection is { } selection && Element is not null && !_disposed)
+        {
+            _pendingSelection = null;
+            var module = await GetModuleAsync();
+            if (module is not null && !_disposed)
+            {
+                await module.InvokeVoidAsync(
+                    "setTextSelection",
+                    Element.Value,
+                    selection.Start,
+                    selection.End,
+                    selection.Direction);
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task<IJSObjectReference?> GetModuleAsync()
+    {
+        if (_disposed)
+            return null;
+
+        _moduleTask ??= JsRuntime.InvokeAsync<IJSObjectReference>(
+            "import",
+            "./_content/Bluent.UI/bluent.ui.js").AsTask();
+
+        var module = await _moduleTask;
+        if (_disposed)
+        {
+            await module.DisposeAsync();
+            return null;
+        }
+
+        return _module ??= module;
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        _disposed = true;
+        _pendingSelection = null;
+
+        try
+        {
+            if (_module is not null)
+            {
+                if (Element is not null)
+                    await _module.InvokeVoidAsync("stopTrackingTextSelection", Element.Value);
+
+                await _module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // InteractiveServer circuits can disconnect before component disposal.
+        }
+        finally
+        {
+            _module = null;
+            _moduleTask = null;
+        }
     }
 
     protected override IEnumerable<string> GetClasses()
@@ -50,8 +201,17 @@ public partial class TextField
 
         yield return "bui-text-field";
 
+        if (Rows != null)
+            yield return "multiline";
+
         if (Rows != null && !ResizeTextarea)
             yield return "no-resize";
+
+        if (HasNativeAttribute("readonly"))
+            yield return "readonly";
+
+        if (IsFieldInvalid)
+            yield return "invalid";
     }
 
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
@@ -60,4 +220,7 @@ public partial class TextField
         validationErrorMessage = null;
         return true;
     }
+
+    private sealed record NativeTextSelection(int Start, int End, string Direction);
+    private sealed record PendingTextSelection(int Start, int End, string Direction);
 }

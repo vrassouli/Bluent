@@ -13,7 +13,7 @@
 
     <ItemGroup>
         <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.15" />
     </ItemGroup>
     
     <ItemGroup>
@@ -55,6 +55,7 @@
       <AdditionalFiles Include="Pages\Components\DrawingCanvases.razor" />
       <AdditionalFiles Include="Pages\Components\Dropdowns.razor" />
       <AdditionalFiles Include="Pages\Components\Fields.razor" />
+      <AdditionalFiles Include="Pages\Components\TextFields.razor" />
       <AdditionalFiles Include="Pages\Components\FileSelects.razor" />
       <AdditionalFiles Include="Pages\Components\Icons.razor" />
       <AdditionalFiles Include="Pages\Components\Labels.razor" />

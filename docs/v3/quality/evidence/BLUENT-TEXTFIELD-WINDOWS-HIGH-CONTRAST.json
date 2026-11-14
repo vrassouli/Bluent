@@ -1,0 +1,273 @@
+{
+  "date": "2026-11-14T11:14:49.493Z",
+  "environment": "Native Windows High Contrast White scheme; Edge headless on the Windows host; CSS loaded before assertions",
+  "result": {
+    "forcedColors": true,
+    "stylesheetLoaded": true,
+    "shellClasses": "bui-field bui-text-field w-100 ",
+    "borderTop": "rgb(61, 61, 61)",
+    "borderBottom": "rgb(61, 61, 61)",
+    "focusUnderline": "rgb(144, 57, 9)",
+    "focusUnderlineWidth": "2px",
+    "disabledClasses": "bui-field disabled bui-text-field  ",
+    "disabledBorder": "rgb(103, 103, 103)",
+    "disabledInput": "rgb(103, 103, 103)",
+    "enabledPlaceholder": "rgb(103, 103, 103)",
+    "disabledPlaceholder": "rgb(103, 103, 103)",
+    "system": {
+      "canvasText": "rgb(61, 61, 61)",
+      "grayText": "rgb(103, 103, 103)",
+      "highlight": "rgb(144, 57, 9)",
+      "canvas": "rgb(255, 250, 239)"
+    },
+    "states": {
+      "disabled": true,
+      "readOnly": true
+    },
+    "viewport": {
+      "width": 756,
+      "scrollWidth": 741
+    }
+  },
+  "stylesheet": {
+    "rules": 883,
+    "href": "http://127.0.0.1:5056/_content/Bluent.UI/bluent.ui.components.min.css",
+    "links": [
+      {
+        "href": "http://127.0.0.1:5056/Bluent.UI.Demo.SSR.79u7tr9vrl.styles.css",
+        "loaded": true
+      },
+      {
+        "href": "http://127.0.0.1:5056/_content/Bluent.UI/bluent.ui.theme.default.min.css",
+        "loaded": true
+      },
+      {
+        "href": "http://127.0.0.1:5056/_content/Bluent.UI/bluent.ui.components.min.css",
+        "loaded": true
+      },
+      {
+        "href": "http://127.0.0.1:5056/_content/Bluent.UI.Diagrams/bluent.ui.diagrams.min.css",
+        "loaded": true
+      }
+    ]
+  },
+  "textboxCount": 21,
+  "namedTextboxes": 21,
+  "textboxes": [
+    {
+      "name": "Person name",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Live input (oninput)",
+      "description": "Current value: Live binding",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Small",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Medium (default)",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Large",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Search records",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Disabled",
+      "description": "",
+      "disabled": true,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Read-only (still focusable and selectable)",
+      "description": "",
+      "disabled": null,
+      "readonly": true,
+      "invalid": "false"
+    },
+    {
+      "name": "No resize (default)",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Native resize enabled",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "No transforms",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "DigitOnly",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "AsciiDigits",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "ArabicToPersianConversion",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "DigitOnly + AsciiDigits",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "DigitOnly + ArabicToPersianConversion",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "AsciiDigits + ArabicToPersianConversion",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "All three transforms",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "نام کاربر",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "شناسه لاتین / کد پیگیری",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    },
+    {
+      "name": "Required display name",
+      "description": "",
+      "disabled": null,
+      "readonly": false,
+      "invalid": "false"
+    }
+  ],
+  "axNodeCount": 440,
+  "network": [
+    {
+      "url": "http://127.0.0.1:5056/compatibility/text-fields-server",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5056/Bluent.UI.Demo.SSR.79u7tr9vrl.styles.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI.Diagrams/bluent.ui.diagrams.min.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI/bluent.ui.theme.default.min.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI/bluent.ui.components.min.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI.Demo.Pages/Bluent.UI.Demo.Pages.w9x0bm4x5t.bundle.scp.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_framework/blazor.web.9hsif5t8mt.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI/fonts/icons/FluentSystemIcons-Resizable.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_blazor/initializers",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_blazor/negotiate?negotiateVersion=1",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI/fonts/icons/FluentSystemIcons-Resizable.woff2?b76a51f286c7828ad6685ee61f569012",
+      "status": 200,
+      "type": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:5056/favicon.png",
+      "status": 200,
+      "type": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:5056/_content/Bluent.UI/bluent.ui.4lsfhqgs7p.js",
+      "status": 200,
+      "type": "Script"
+    }
+  ]
+}

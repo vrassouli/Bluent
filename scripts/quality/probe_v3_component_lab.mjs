@@ -34,6 +34,15 @@ const js=async code=>{
  if(r.exceptionDetails)throw Error('Chromium JS exception: '+r.exceptionDetails.text);
  return r.result?.value;
 };
+const pasteClipboard=async(id,text)=>{
+ await send('Browser.grantPermissions',{origin:base,permissions:['clipboardReadWrite','clipboardSanitizedWrite']});
+ await js("navigator.clipboard.writeText("+JSON.stringify(text)+")");
+ await js("(()=>{const e=document.getElementById("+JSON.stringify(id)+");e.focus();e.setSelectionRange(0,e.value.length)})()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Control',code:'ControlLeft',windowsVirtualKeyCode:17,nativeVirtualKeyCode:17});
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'v',code:'KeyV',modifiers:2,windowsVirtualKeyCode:86,nativeVirtualKeyCode:86});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'v',code:'KeyV',modifiers:2,windowsVirtualKeyCode:86,nativeVirtualKeyCode:86});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Control',code:'ControlLeft',windowsVirtualKeyCode:17,nativeVirtualKeyCode:17});
+};
 try {
  browser=spawn(chrome,['--headless=new','--no-sandbox','--disable-gpu','--no-first-run',
  '--disable-extensions','--remote-debugging-port=0','--remote-allow-origins=*',
@@ -503,9 +512,127 @@ try {
   throw Error("TextField selection/render diagnostic: "+JSON.stringify(state)+"; "+error);
  });
  check('sixth TextField family is a live current Bluent field in filtered catalog',!!textFamily);
- const tfInitial=await js("(()=>{const grid=document.querySelector('.lab-textfield-grid'),input=document.getElementById('lab-tf-input'),area=document.getElementById('lab-tf-notes'),disabled=document.getElementById('lab-tf-disabled');return {cards:grid?.children.length,input:input?.tagName,value:input?.value,area:area?.tagName,rows:area?.rows,noResize:area?.closest('.bui-text-field')?.classList.contains('no-resize'),disabled:disabled?.disabled}})()");
- check('TextField real input textarea Rows 3 no-resize and native disabled render',
-  tfInitial.cards===3&&tfInitial.input==='INPUT'&&tfInitial.value==='Ada'&&tfInitial.area==='TEXTAREA'&&tfInitial.rows===3&&tfInitial.noResize&&tfInitial.disabled,tfInitial);
+ await poll(()=>js("document.activeElement?.id==='lab-tf-gain-focus'"),12000);
+ const tfInitial=await js("(()=>{const grid=document.querySelector('.lab-textfield-grid'),input=document.getElementById('lab-tf-input'),area=document.getElementById('lab-tf-notes'),disabled=document.getElementById('lab-tf-disabled'),readonly=document.getElementById('lab-tf-readonly'),digits=document.getElementById('lab-tf-digits-only'),ascii=document.getElementById('lab-tf-ascii-digits'),persian=document.getElementById('lab-tf-persian-chars'),addons=document.getElementById('lab-tf-addons'),large=document.getElementById('lab-tf-large'),resizable=document.getElementById('lab-tf-resizable'),gainFocus=document.getElementById('lab-tf-gain-focus'),defaultChange=document.getElementById('lab-tf-default-change'),email=document.getElementById('Email'),emailLabel=document.querySelector('label[for=Email]'),emailRoot=email?.closest('.bui-text-field'),startOnly=document.getElementById('lab-tf-start-addon'),endOnly=document.getElementById('lab-tf-end-addon'),actionField=document.getElementById('lab-tf-addon-action'),actionButton=document.getElementById('lab-tf-addon-action-button');return {cards:grid?.children.length,input:input?.tagName,value:input?.value,area:area?.tagName,rows:area?.rows,noResize:area?.closest('.bui-text-field')?.classList.contains('no-resize'),disabled:disabled?.disabled,readonly:readonly?.readOnly,readonlyDisabled:readonly?.disabled,digits:digits?.value,ascii:ascii?.value,persian:persian?.value,small:addons?.closest('.bui-text-field')?.classList.contains('small'),startAddon:!!addons?.closest('.bui-text-field')?.querySelector('.start-addon'),endAddon:!!addons?.closest('.bui-text-field')?.querySelector('.end-addon'),large:large?.closest('.bui-text-field')?.classList.contains('large'),resizable:resizable?.tagName==='TEXTAREA'&&!resizable.closest('.bui-text-field')?.classList.contains('no-resize'),gainFocus:gainFocus?.type==='text'&&document.activeElement===gainFocus,defaultChange:defaultChange?.value,emailType:email?.type,emailAutocomplete:email?.autocomplete,emailInputMode:email?.getAttribute('inputmode'),emailName:email?.name,emailDescribedBy:email?.getAttribute('aria-describedby'),emailTestId:email?.getAttribute('data-testid'),emailLabelAssociated:!!email&&!!emailLabel&&email.labels?.length===1&&email.labels[0]===emailLabel,emailLabelText:emailLabel?.textContent?.trim(),emailRequiredMarker:!!emailLabel?.querySelector('.required[aria-hidden=true]'),emailRootClass:emailRoot?.classList.contains('lab-tf-root-custom'),emailRootStyle:emailRoot?.style.getPropertyValue('--lab-textfield-probe').trim(),startOnly:!!startOnly?.closest('.bui-text-field')?.querySelector('.start-addon')&&!startOnly.closest('.bui-text-field')?.querySelector('.end-addon'),endOnly:!!endOnly?.closest('.bui-text-field')?.querySelector('.end-addon')&&!endOnly.closest('.bui-text-field')?.querySelector('.start-addon'),actionFieldDisabled:actionField?.disabled,actionButtonDisabled:actionButton?.disabled,actionButtonName:actionButton?.getAttribute('aria-label'),actionButtonTabIndex:actionButton?.tabIndex,actionButtonInEndAddon:!!actionButton?.closest('.end-addon')}})()");
+ check('TextField Bluent Label derives Display name, native label association and required marker from ForExpression',tfInitial.emailLabelAssociated&&tfInitial.emailLabelText==='Work email*'&&tfInitial.emailRequiredMarker,tfInitial);
+ check('TextField additional native attributes reach the input while Class and Style remain on the wrapper',tfInitial.emailType==='email'&&tfInitial.emailAutocomplete==='email'&&tfInitial.emailInputMode==='email'&&tfInitial.emailDescribedBy==='lab-tf-email-help'&&tfInitial.emailTestId==='textfield-email-native'&&tfInitial.emailRootClass&&tfInitial.emailRootStyle==='1',tfInitial);
+ check('TextField StartAddon and EndAddon render independently without an opposite slot',tfInitial.startOnly&&tfInitial.endOnly,tfInitial);
+ check('TextField action addon is an accessible independent button even when the native input is disabled',tfInitial.actionFieldDisabled&&tfInitial.actionButtonDisabled===false&&tfInitial.actionButtonName==='Clear disabled field value'&&tfInitial.actionButtonTabIndex===0&&tfInitial.actionButtonInEndAddon,tfInitial);
+ check('TextField current-API pilot renders input, textarea, disabled/readOnly, transforms, addons, sizes, resize and GainFocus',
+  tfInitial.cards===21&&tfInitial.input==='INPUT'&&tfInitial.value==='Ada'&&tfInitial.area==='TEXTAREA'&&tfInitial.rows===3&&tfInitial.noResize&&tfInitial.disabled&&tfInitial.readonly&&!tfInitial.readonlyDisabled&&tfInitial.digits==='123'&&tfInitial.ascii==='123'&&tfInitial.persian==='متن'&&tfInitial.small&&tfInitial.startAddon&&tfInitial.endAddon&&tfInitial.large&&tfInitial.resizable&&tfInitial.gainFocus&&tfInitial.defaultChange==='Before'&&tfInitial.emailType==='email'&&tfInitial.emailAutocomplete==='email'&&tfInitial.emailInputMode==='email'&&tfInitial.emailDescribedBy==='lab-tf-email-help'&&tfInitial.emailTestId==='textfield-email-native'&&tfInitial.emailLabelAssociated&&tfInitial.emailRequiredMarker&&tfInitial.startOnly&&tfInitial.endOnly&&tfInitial.actionFieldDisabled&&tfInitial.actionButtonDisabled===false&&tfInitial.actionButtonName==='Clear disabled field value'&&tfInitial.actionButtonTabIndex===0&&tfInitial.actionButtonInEndAddon,tfInitial);
+ await js("(()=>{const e=document.getElementById('lab-tf-default-change');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'After');e.dispatchEvent(new Event('input',{bubbles:true}));})()");
+ const tfDefaultPending=await js("(()=>({input:document.getElementById('lab-tf-default-change')?.value,status:document.getElementById('lab-tf-default-change-value')?.textContent?.trim()}))()");
+ check('TextField default BindValueEvent remains onchange before native change event',tfDefaultPending.input==='After'&&tfDefaultPending.status==='Value: Before',tfDefaultPending);
+ await js("document.getElementById('lab-tf-default-change')?.dispatchEvent(new Event('change',{bubbles:true}))");
+ const tfDefaultCommitted=await poll(()=>js("document.getElementById('lab-tf-default-change-value')?.textContent?.trim()==='Value: After'"),12000);
+ check('TextField default onchange commits ValueChanged on native change event',tfDefaultCommitted);
+ await js("document.getElementById('lab-tf-validate')?.click()");
+ const tfInvalid=await poll(()=>js("document.getElementById('lab-tf-validation-state')?.textContent?.trim()==='Invalid'&&document.querySelector('#lab-tf-validation-form .validation-message')?.textContent?.trim()==='Name is required.'&&document.getElementById('lab-tf-required')?.closest('.bui-text-field')?.classList.contains('invalid')"),12000);
+ check('TextField inherited InputBase registers in EditContext and displays DataAnnotations invalid state',tfInvalid);
+ await js("(()=>{const e=document.getElementById('lab-tf-required');e.focus();Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'Nima');e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}));})()");
+ await poll(()=>js("document.getElementById('lab-tf-required')?.value==='Nima'"),12000);
+ await js("document.getElementById('lab-tf-validate')?.click()");
+ const tfValid=await poll(()=>js("document.getElementById('lab-tf-validation-state')?.textContent?.trim()==='Valid'&&!document.querySelector('#lab-tf-validation-form .validation-message')?.textContent?.trim()&&document.getElementById('lab-tf-required')?.value==='Nima'"),12000);
+ check('TextField EditContext clears required DataAnnotations error after valid binding and submit',tfValid);
+ // Exercise the browser clipboard and native Ctrl+V path, not insertText as a paste surrogate.
+ await pasteClipboard('lab-tf-digits-only','A۹٨-45');
+ const tfPaste=await poll(()=>js("document.querySelector('#lab-tf-digits-value')?.textContent?.trim()==='Value: ۹٨45'&&document.getElementById('lab-tf-digits-only')?.value==='۹٨45'"),12000);
+ check('TextField DigitOnly normalizes a real native Ctrl+V clipboard paste',tfPaste,await js("(()=>({value:document.getElementById('lab-tf-digits-only')?.value,status:document.querySelector('#lab-tf-digits-value')?.textContent?.trim()}))()"));
+ await pasteClipboard('lab-tf-ascii-digits','۱۲۳٤۵');
+ const tfAsciiPaste=await poll(()=>js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 12345'&&document.getElementById('lab-tf-ascii-digits')?.value==='12345'"),12000);
+ check('TextField AsciiDigits normalizes a real native Ctrl+V clipboard paste',tfAsciiPaste);
+
+// Reproduce the mid-string caret regression using Chromium's native text-input
+// command (not a synthetic input event): the normalized value must keep the
+// caret at the mapped prefix offset instead of moving it to the end.
+await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(e,'12345');e.dispatchEvent(new Event('input',{bubbles:true}));})()");
+const tfCaretReady=await poll(()=>js("document.getElementById('lab-tf-ascii-digits')?.value==='12345'&&document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 12345'"),12000);
+check('TextField caret regression fixture is bound to the expected source value',tfCaretReady);
+const tfCaretSelectionReady=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');e.focus();e.setSelectionRange(2,2);return {start:e.selectionStart,end:e.selectionEnd,active:document.activeElement===e}})()");
+check('TextField caret regression fixture establishes native focus and selection at index 2',tfCaretSelectionReady?.active&&tfCaretSelectionReady.start===2&&tfCaretSelectionReady.end===2,tfCaretSelectionReady);
+await send('Input.insertText',{text:'۹'});
+
+const tfCaretValueReady=await poll(()=>js("document.getElementById('lab-tf-ascii-digits')?.value==='129345'"),20000).catch(()=>false);
+const tfCaretValueEvidence=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return {value:e?.value,selectionStart:e?.selectionStart,selectionEnd:e?.selectionEnd,active:document.activeElement===e,status:document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()}})()");
+check('TextField native CDP insertion normalizes the mid-string value to 129345',tfCaretValueReady,tfCaretValueEvidence);
+
+const tfCaretBindingReady=await poll(()=>js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 129345'"),20000).catch(()=>false);
+const tfCaretBindingEvidence=await js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()");
+check('TextField mid-string normalized value commits to the Blazor binding',tfCaretBindingReady,tfCaretBindingEvidence);
+
+const tfCaretSelectionRestored=await poll(()=>js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return e?.selectionStart===3&&e?.selectionEnd===3&&document.activeElement===e})()"),20000).catch(()=>false);
+const tfCaretEvidence=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return {value:e?.value,selectionStart:e?.selectionStart,selectionEnd:e?.selectionEnd,active:document.activeElement===e,status:document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()}})()");
+check('TextField AsciiDigits restores the native caret to mapped mid-string offset 3',tfCaretSelectionRestored,tfCaretEvidence);
+console.log('TEXTFIELD_CARET_DETAIL',JSON.stringify(tfCaretEvidence));
+// Exercise UTF-16 selection offsets with a native CDP insertion after a surrogate pair.
+await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(e,'😀12345');e.dispatchEvent(new Event('input',{bubbles:true}));})()");
+const tfUtf16Ready=await poll(()=>js("document.getElementById('lab-tf-ascii-digits')?.value==='😀12345'&&document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 😀12345'"),12000);
+check('TextField UTF-16 fixture is bound with a supplementary character before the caret',tfUtf16Ready);
+const tfUtf16Selection=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');e.focus();e.setSelectionRange(3,3);return {start:e.selectionStart,end:e.selectionEnd,active:document.activeElement===e}})()");
+check('TextField UTF-16 fixture places the native caret after the surrogate pair and first digit',tfUtf16Selection?.active&&tfUtf16Selection.start===3&&tfUtf16Selection.end===3,tfUtf16Selection);
+await send('Input.insertText',{text:'۹'});
+const tfUtf16Evidence=await poll(()=>js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return e?.value==='😀192345'&&e?.selectionStart===4&&e?.selectionEnd===4&&document.activeElement===e&&document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 😀192345'})()"),20000).catch(()=>false);
+const tfUtf16Detail=await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');return {value:e?.value,selectionStart:e?.selectionStart,selectionEnd:e?.selectionEnd,active:document.activeElement===e,status:document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()}})()");
+check('TextField preserves the UTF-16 caret after normalizing a Persian digit inserted after a surrogate pair',tfUtf16Evidence,tfUtf16Detail);
+console.log('TEXTFIELD_UTF16_DETAIL',JSON.stringify(tfUtf16Detail));
+
+// Verify textarea selected-range mapping, backward direction and the bound value.
+const tfTextareaSetup=await js("(()=>{const e=document.getElementById('lab-tf-notes');const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set;setter.call(e,'A1۹B2');e.focus();e.setSelectionRange(2,4,'backward');const before={value:e.value,start:e.selectionStart,end:e.selectionEnd,direction:e.selectionDirection,active:document.activeElement===e};e.dispatchEvent(new Event('input',{bubbles:true}));return before})()");
+check('TextField textarea backward-range fixture starts with the native selection direction',tfTextareaSetup?.start===2&&tfTextareaSetup.end===4&&tfTextareaSetup.direction==='backward'&&tfTextareaSetup.active,tfTextareaSetup);
+const tfTextareaEvidence=await poll(()=>js("(()=>{const e=document.getElementById('lab-tf-notes');return e?.value==='192'&&e?.selectionStart===1&&e?.selectionEnd===2&&e?.selectionDirection==='backward'&&document.activeElement===e&&document.querySelector('#lab-tf-notes-value')?.textContent?.trim()==='Value: 192'})()"),20000).catch(()=>false);
+const tfTextareaDetail=await js("(()=>{const e=document.getElementById('lab-tf-notes');return {value:e?.value,selectionStart:e?.selectionStart,selectionEnd:e?.selectionEnd,selectionDirection:e?.selectionDirection,active:document.activeElement===e,status:document.querySelector('#lab-tf-notes-value')?.textContent?.trim()}})()");
+check('TextField textarea normalizes and restores both endpoints of a backward selection while keeping focus and model binding',tfTextareaEvidence,tfTextareaDetail);
+console.log('TEXTFIELD_TEXTAREA_SELECTION_DETAIL',JSON.stringify(tfTextareaDetail));
+ await pasteClipboard('lab-tf-persian-chars','كيى');
+ const tfPersianPaste=await poll(()=>js("document.querySelector('#lab-tf-persian-value')?.textContent?.trim()==='Value: کیی'&&document.getElementById('lab-tf-persian-chars')?.value==='کیی'"),12000);
+ check('TextField ArabicToPersianConversion normalizes a real native Ctrl+V clipboard paste',tfPersianPaste);
+ await pasteClipboard('lab-tf-digit-ascii','A۱۲٣٤-56كيى');
+ await wait(500);
+ const tfDigitAsciiPaste=await js("(()=>({value:document.getElementById('lab-tf-digit-ascii')?.value,status:document.querySelector('#lab-tf-digit-ascii-value')?.textContent?.trim()}))()");
+ check('TextField DigitOnly plus AsciiDigits keeps only Unicode digits then normalizes them to ASCII on native Ctrl+V',tfDigitAsciiPaste.value==='123456'&&tfDigitAsciiPaste.status==='Value: 123456',tfDigitAsciiPaste);
+ await pasteClipboard('lab-tf-digit-persian','A۱۲٣٤-56كيى');
+ await wait(500);
+ const tfDigitPersianPaste=await js("(()=>({value:document.getElementById('lab-tf-digit-persian')?.value,status:document.querySelector('#lab-tf-digit-persian-value')?.textContent?.trim()}))()");
+ check('TextField DigitOnly plus ArabicToPersianConversion filters non-digits before Persian-character conversion on native Ctrl+V',tfDigitPersianPaste.value==='۱۲٣٤56'&&tfDigitPersianPaste.status==='Value: ۱۲٣٤56',tfDigitPersianPaste);
+ await pasteClipboard('lab-tf-ascii-persian','كيى ۱۲٣');
+ await wait(500);
+ const tfAsciiPersianPaste=await js("(()=>({value:document.getElementById('lab-tf-ascii-persian')?.value,status:document.querySelector('#lab-tf-ascii-persian-value')?.textContent?.trim()}))()");
+ check('TextField AsciiDigits plus ArabicToPersianConversion normalize one real native Ctrl+V clipboard paste',tfAsciiPersianPaste.value==='کیی 123'&&tfAsciiPersianPaste.status==='Value: کیی 123',tfAsciiPersianPaste);
+ await pasteClipboard('lab-tf-all-transforms','A۱۲٣٤-56كيى');
+ await wait(500);
+ const tfAllTransformsPaste=await js("(()=>({value:document.getElementById('lab-tf-all-transforms')?.value,status:document.querySelector('#lab-tf-all-transforms-value')?.textContent?.trim()}))()");
+ check('TextField all three transforms preserve legacy order on mixed-script native Ctrl+V paste',tfAllTransformsPaste.value==='123456'&&tfAllTransformsPaste.status==='Value: 123456',tfAllTransformsPaste);
+ // Use native Chromium text insertion after clearing the controlled value. Each
+ // field is bound oninput, so the observable status must reflect the component
+ // transformation and the updated Blazor model, not only a DOM-side preview.
+ await js("(()=>{for(const id of ['lab-tf-digits-only','lab-tf-ascii-digits','lab-tf-persian-chars','lab-tf-digit-ascii','lab-tf-digit-persian','lab-tf-ascii-persian','lab-tf-all-transforms']){const e=document.getElementById(id);Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}));e.focus();}})()");
+ await js("document.getElementById('lab-tf-digits-only')?.focus()");
+ await send('Input.insertText',{text:'A۱۲٣-45'});
+ const tfDigits=await poll(()=>js("document.querySelector('#lab-tf-digits-value')?.textContent?.trim()==='Value: ۱۲٣45'&&document.getElementById('lab-tf-digits-only')?.value==='۱۲٣45'"),12000);
+ check('TextField DigitOnly preserves ASCII, Persian and Arabic-Indic digits and removes other characters',tfDigits);
+ await js("(()=>{const e=document.getElementById('lab-tf-ascii-digits');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}));e.focus();})()");
+ await send('Input.insertText',{text:'۱۲۳٤۵'});
+ const tfAscii=await poll(()=>js("document.querySelector('#lab-tf-ascii-value')?.textContent?.trim()==='Value: 12345'&&document.getElementById('lab-tf-ascii-digits')?.value==='12345'"),12000);
+ check('TextField AsciiDigits normalizes Persian and Arabic-Indic numerals to ASCII',tfAscii);
+ await js("(()=>{const e=document.getElementById('lab-tf-persian-chars');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}));e.focus();})()");
+ await send('Input.insertText',{text:'كيى'});
+ const tfPersian=await poll(()=>js("document.querySelector('#lab-tf-persian-value')?.textContent?.trim()==='Value: کیی'&&document.getElementById('lab-tf-persian-chars')?.value==='کیی'"),12000);
+ check('TextField ArabicToPersianConversion normalizes Arabic kaf and yeh variants',tfPersian);
+ await js("document.getElementById('lab-tf-all-transforms')?.focus()");
+ await send('Input.insertText',{text:'A۱۲٣٤-56كيى'});
+ await wait(500);
+ const tfAllTransformsInput=await js("(()=>({value:document.getElementById('lab-tf-all-transforms')?.value,status:document.querySelector('#lab-tf-all-transforms-value')?.textContent?.trim()}))()");
+ check('TextField all three transforms update the bound value after native mixed-script text entry',tfAllTransformsInput.value==='123456'&&tfAllTransformsInput.status==='Value: 123456',tfAllTransformsInput);
+ await js("(()=>{const e=document.getElementById('lab-tf-persian-chars');window.__tfImeObservation=null;Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}));return true})()");
+ await poll(()=>js("document.getElementById('lab-tf-persian-chars')?.value===''"),12000);
+ await js("(()=>{const e=document.getElementById('lab-tf-persian-chars');const listener=ev=>{if(ev.inputType==='insertCompositionText')window.__tfImeObservation={isComposing:ev.isComposing,inputType:ev.inputType,rawValue:e.value}};e.addEventListener('input',listener,{once:true});e.dispatchEvent(new CompositionEvent('compositionstart',{data:'',bubbles:true}));Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'كي');e.dispatchEvent(new CompositionEvent('compositionupdate',{data:'كي',bubbles:true}));e.dispatchEvent(new InputEvent('input',{data:'كي',inputType:'insertCompositionText',isComposing:true,bubbles:true}));e.dispatchEvent(new CompositionEvent('compositionend',{data:'كي',bubbles:true}));return true})()");
+ const tfCompositionReady=await poll(()=>js("document.getElementById('lab-tf-persian-chars')?.value==='کی'"),12000);
+ const tfComposition=await js("(()=>({ready:document.getElementById('lab-tf-persian-chars')?.value==='کی',seen:window.__tfImeObservation,value:document.getElementById('lab-tf-persian-chars')?.value}))()");
+ check('TextField v2 DOM-composition simulation: ArabicToPersianConversion normalizes insertCompositionText',tfCompositionReady&&tfComposition.seen?.isComposing===true&&tfComposition.value==='کی',tfComposition);
+ await js("document.getElementById('lab-tf-readonly')?.focus()");
+ await send('Input.insertText',{text:'-changed'});
+ const tfReadonly=await js("(()=>{const e=document.getElementById('lab-tf-readonly');return e?.readOnly===true&&e?.disabled===false&&e?.value==='Selectable read-only value'&&document.activeElement===e})()");
+ check('TextField native readonly remains focusable/selectable and rejects edits, unlike disabled',tfReadonly);
  await js("document.getElementById('lab-tf-input')?.focus()");
  await send('Input.insertText',{text:'-tested'});
  const tfLive=await poll(()=>js("document.querySelector('.lab-tf-value')?.textContent?.trim()==='Value: Ada-tested'&&document.getElementById('lab-tf-input')?.value==='Ada-tested'"),12000);
@@ -514,8 +641,19 @@ try {
  check('TextField native label focuses current field and disabled input remains unfocusable',
    tfLabel.label==='Live text binding'&&tfLabel.focused&&tfLabel.disabled,tfLabel);
  const tfCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
- check('sixth TextField copyable Razor includes live oninput textarea disabled and state',
-   tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('_labTextValue'),tfCopy);
+ check('TextField TextArea copy preview includes live normalized binding',tfCopy?.includes('<TextField id=\u0022lab-tf-notes\u0022 @bind-Value=\u0022_labTextNotes\u0022 BindValueEvent=\u0022oninput\u0022 Rows=\u00223\u0022 ResizeTextarea=\u0022false\u0022 DigitOnly AsciiDigits />'),tfCopy);
+check('sixth TextField copyable Razor includes native states, transforms, addons, sizes, focus and validation',
+   tfCopy?.includes('BindValueEvent="oninput"')&&tfCopy?.includes('Rows="3"')&&tfCopy?.includes('ResizeTextarea="false"')&&tfCopy?.includes('ResizeTextarea="true"')&&tfCopy?.includes('DigitOnly')&&tfCopy?.includes('AsciiDigits')&&tfCopy?.includes('ArabicToPersianConversion')&&tfCopy?.includes('StartAddon')&&tfCopy?.includes('EndAddon')&&tfCopy?.includes('FieldSize.Small')&&tfCopy?.includes('FieldSize.Large')&&tfCopy?.includes('readonly />')&&tfCopy?.includes('disabled />')&&tfCopy?.includes('GainFocus')&&tfCopy?.includes('DataAnnotationsValidator')&&tfCopy?.includes('ValidationMessage')&&tfCopy?.includes('_labTextValue')&&tfCopy?.includes('Label ForExpression')&&tfCopy?.includes('autocomplete=')&&tfCopy?.includes('aria-describedby')&&tfCopy?.includes('data-testid')&&tfCopy?.includes('Class=')&&tfCopy?.includes('Style=')&&tfCopy?.includes('lab-tf-default-change')&&tfCopy?.includes('lab-tf-start-addon')&&tfCopy?.includes('lab-tf-end-addon')&&tfCopy?.includes('lab-tf-addon-action-button')&&tfCopy?.includes('aria-label=\"Clear disabled field value\"')&&tfCopy?.includes('ClearLabTextAddonAction')&&tfCopy?.includes('_labTextAddonActionValue')&&tfCopy?.includes('lab-tf-digit-ascii')&&tfCopy?.includes('DigitOnly AsciiDigits')&&tfCopy?.includes('private string? _labTextDigitAscii')&&tfCopy?.includes('lab-tf-digit-persian')&&tfCopy?.includes('DigitOnly ArabicToPersianConversion')&&tfCopy?.includes('private string? _labTextDigitPersian')&&tfCopy?.includes('lab-tf-ascii-persian')&&tfCopy?.includes('AsciiDigits ArabicToPersianConversion')&&tfCopy?.includes('lab-tf-all-transforms')&&tfCopy?.includes('DigitOnly AsciiDigits ArabicToPersianConversion')&&tfCopy?.includes('private string? _labTextAsciiPersian')&&tfCopy?.includes('private string? _labTextAllTransforms')&&tfCopy?.includes('@using System.ComponentModel.DataAnnotations')&&tfCopy?.includes('private string? _labTextDefaultChange')&&tfCopy?.includes('private string? _labTextStartAddon')&&tfCopy?.includes('private string? _labTextEndAddon')&&tfCopy?.includes('TextFieldNativeAttributesModel')&&tfCopy?.includes('TextFieldValidationModel')&&tfCopy?.includes('_labTextFieldValidation = new()')&&tfCopy?.includes('_labTextFieldAttributes = new()')&&tfCopy?.includes('private void OnLabTextFieldValid()')&&tfCopy?.includes('placeholder="Commit on change" />\n<EditForm')&&tfCopy?.includes('</EditForm>\n<TextField id="lab-tf-start-addon"')&&tfCopy?.includes('</TextField>\n<TextField id="lab-tf-end-addon"'),tfCopy);
+ await js("document.getElementById('lab-tf-end-addon')?.focus()");
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,nativeVirtualKeyCode:9});
+ const tfAddonTab=await poll(()=>js("document.activeElement?.id==='lab-tf-addon-action-button'"),12000);
+ check('TextField Tab order moves from the preceding input to its independent EndAddon button',tfAddonTab);
+ await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+ const tfAddonActivated=await poll(()=>js("document.getElementById('lab-tf-addon-action-status')?.textContent?.replace(/\\s+/g,' ').trim()==='Clear clicks: 1; value:'"),12000);
+ const tfAddonState=await js("(()=>({fieldDisabled:document.getElementById('lab-tf-addon-action')?.disabled,buttonDisabled:document.getElementById('lab-tf-addon-action-button')?.disabled,focused:document.activeElement?.id==='lab-tf-addon-action-button'}))()");
+ check('TextField Enter activates the named addon action without enabling the disabled input',tfAddonActivated&&tfAddonState.fieldDisabled===true&&tfAddonState.buttonDisabled===false&&tfAddonState.focused,tfAddonState);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Seventh pilot uses actual current Bluent Checkbox<TValue> component.
  // #434 is Backlog, so none of these checks imply future Fluent v3
