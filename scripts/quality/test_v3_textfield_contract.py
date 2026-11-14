@@ -284,6 +284,20 @@ class TextFieldContractTests(unittest.TestCase):
             "npm --prefix src/Bluent.UI.Scripts run bundle",
         )
 
+    def test_browser_ci_preserves_server_host_stdout(self):
+        self._check_mutation(
+            "browser_workflow",
+            "-RedirectStandardOutput $hostStdOut",
+            "-RedirectStandardOutput $null",
+        )
+
+    def test_browser_ci_preserves_server_host_stderr(self):
+        self._check_mutation(
+            "browser_workflow",
+            "Get-Content $logPath -Tail 160",
+            "Write-Output 'no server logs'",
+        )
+
     def test_browser_ci_invokes_the_real_textfield_probe(self):
         self._check_mutation(
             "browser_workflow",

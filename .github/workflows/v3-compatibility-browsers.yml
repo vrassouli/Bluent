@@ -192,7 +192,11 @@ jobs:
             $route = '/components/text-fields'
           }
           $arguments = "run --project $project --no-build --configuration Debug --urls http://127.0.0.1:$port"
-          $hostProcess = Start-Process -FilePath dotnet -ArgumentList $arguments -WorkingDirectory $env:GITHUB_WORKSPACE -WindowStyle Hidden -PassThru
+          $hostStdOut = Join-Path $env:RUNNER_TEMP "bluent-textfield-$env:BLUENT_MODE-host.log"
+          $hostStdErr = Join-Path $env:RUNNER_TEMP "bluent-textfield-$env:BLUENT_MODE-host.err.log"
+          $hostProcess = Start-Process -FilePath dotnet -ArgumentList $arguments -WorkingDirectory $env:GITHUB_WORKSPACE -WindowStyle Hidden -PassThru -RedirectStandardOutput $hostStdOut -RedirectStandardError $hostStdErr
+          "BLUENT_HOST_STDOUT=$hostStdOut" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "BLUENT_HOST_STDERR=$hostStdErr" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           "BLUENT_HOST_PID=$($hostProcess.Id)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           "BLUENT_HOST_PORT=$port" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           "BLUENT_TEXTFIELD_ROUTE=$route" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
@@ -215,6 +219,13 @@ jobs:
         run: |
           if ($env:BLUENT_HOST_PID) {
             & taskkill.exe /PID $env:BLUENT_HOST_PID /T /F 2>$null | Out-Null
+          }
+          Start-Sleep -Milliseconds 250
+          foreach ($logPath in @($env:BLUENT_HOST_STDOUT,$env:BLUENT_HOST_STDERR)) {
+            if ($logPath -and (Test-Path $logPath)) {
+              Write-Output "--- TextField host log: $logPath ---"
+              Get-Content $logPath -Tail 160
+            }
           }
           $owned = @(Get-CimInstance Win32_Process | Where-Object {
             $_.Name -in @('chrome.exe','msedge.exe') -and

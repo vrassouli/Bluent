@@ -266,6 +266,9 @@ def check_textfield_contract(root: Path) -> None:
         "BLUENT_TEXTFIELD_RENDER_MODE",
         "Build current WebAssembly and Server hosts",
         "src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
+        "-RedirectStandardOutput $hostStdOut",
+        "-RedirectStandardError $hostStdErr",
+        "Get-Content $logPath -Tail 160",
     ), "TextField four-mode browser CI matrix")
     _require(input_base, (
         'AdditionalAttributes["disabled"] is true',

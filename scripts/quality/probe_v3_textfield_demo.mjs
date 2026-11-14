@@ -19,6 +19,7 @@ const checks = [];
 const errors = [];
 const pending = new Map();
 const runtimeSignals = [];
+const requestUrls = new Map();
 let browser;
 let ws;
 let sequence = 0;
@@ -111,6 +112,9 @@ try {
       pending.delete(message.id);
       message.error ? waiter.reject(new Error(JSON.stringify(message.error))) : waiter.resolve(message.result || {});
     }
+    if (message.method === 'Network.requestWillBeSent') {
+      requestUrls.set(message.params.requestId, message.params.request?.url || '');
+    }
     if (message.method === 'Runtime.exceptionThrown') {
       runtimeSignals.push({ type: 'exception', text: String(message.params?.exceptionDetails?.text || '').slice(0, 300) });
     }
@@ -124,7 +128,32 @@ try {
       runtimeSignals.push({ type: 'http', status: message.params.response.status, url: message.params.response.url });
     }
     if (message.method === 'Network.loadingFailed') {
-      runtimeSignals.push({ type: 'network', text: message.params?.errorText || '' });
+      runtimeSignals.push({
+        type: 'network',
+        text: message.params?.errorText || '',
+        url: requestUrls.get(message.params?.requestId) || undefined
+      });
+    }
+    if (message.method === 'Network.webSocketCreated') {
+      runtimeSignals.push({ type: 'websocket-created', url: message.params?.url });
+    }
+    if (message.method === 'Network.webSocketHandshakeResponseReceived') {
+      runtimeSignals.push({
+        type: 'websocket-handshake',
+        status: message.params?.response?.status,
+        url: message.params?.response?.url
+      });
+    }
+    if (message.method === 'Network.webSocketFrameError') {
+      runtimeSignals.push({ type: 'websocket-frame-error', text: message.params?.errorMessage || '' });
+    }
+    if (message.method === 'Network.responseReceived' &&
+        /_blazor|_content\/Bluent\.UI\/bluent\.ui\.js/.test(message.params?.response?.url || '')) {
+      runtimeSignals.push({
+        type: 'interactive-resource',
+        status: message.params.response.status,
+        url: message.params.response.url
+      });
     }
   });
   await send('Page.enable');
@@ -187,7 +216,31 @@ try {
   check('all eight normalization specimens are present', structure.transformCount === 8, structure.transformCount);
 
   const basicSet = await setNativeValue('textfield-basic', 'Grace Hopper');
-  const basicBound = await poll(() => evaluate("document.body.innerText.includes('Bound value: Grace Hopper')"));
+  let basicBound = false;
+  try {
+    basicBound = await poll(() => evaluate("document.body.innerText.includes('Bound value: Grace Hopper')"));
+  } catch (error) {
+    const bindingDiagnosticFn = function () {
+      const input = document.querySelector('#textfield-basic');
+      const blazor = window.Blazor;
+      return {
+        url: location.href,
+        inputValue: input?.value,
+        inputMarkup: input?.outerHTML,
+        boundText: [...document.querySelectorAll('p[role="status"]')].map(item => item.innerText),
+        blazorPresent: !!blazor,
+        blazorKeys: blazor ? Object.keys(blazor) : [],
+        scripts: [...document.scripts].map(script => script.src).filter(Boolean),
+        bodyText: document.body?.innerText?.slice(0, 900)
+      };
+    };
+    console.error('QA BINDING DIAGNOSTICS ' + JSON.stringify({
+      set: basicSet,
+      browser: await evaluate('(' + bindingDiagnosticFn.toString() + ')()'),
+      runtimeSignals
+    }));
+    throw error;
+  }
   check('onchange binding updates the InputBase model', basicSet.ok && basicBound, basicSet);
 
   const liveSet = await setNativeValue('textfield-oninput', 'Live update verified', ['input']);
@@ -278,6 +331,7 @@ try {
     item.type === 'exception' || item.type === 'error' || item.type === 'http'
   );
   check('no browser JavaScript exceptions, console errors or HTTP failures', diagnostics.length === 0, diagnostics);
+  console.log('QA RUNTIME SIGNALS ' + JSON.stringify(runtimeSignals));
 
   const screenshot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true });
   const evidenceDir = join(resolve('.'), 'docs', 'v3', 'quality', 'evidence');

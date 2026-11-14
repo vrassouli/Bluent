@@ -1,9 +1,9 @@
 {
   "issue": 432,
-  "date": "2026-11-14T06:52:02.645Z",
+  "date": "2026-11-14T07:06:58.837Z",
   "browser": "Chrome headless local Dev01",
   "renderMode": "InteractiveServer",
-  "route": "http://127.0.0.1:5081/compatibility/text-fields-server",
+  "route": "http://127.0.0.1:5082/compatibility/text-fields-server",
   "checksPassed": 23,
   "checksTotal": 23,
   "checks": [
@@ -11,7 +11,7 @@
       "name": "focused TextField route loads in real Chrome InteractiveServer",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:5081/compatibility/text-fields-server"
+        "url": "http://127.0.0.1:5082/compatibility/text-fields-server"
       }
     },
     {
@@ -210,7 +210,21 @@
       "detail": []
     }
   ],
-  "runtimeSignals": [],
+  "runtimeSignals": [
+    {
+      "type": "interactive-resource",
+      "status": 200,
+      "url": "http://127.0.0.1:5082/_blazor/negotiate?negotiateVersion=1"
+    },
+    {
+      "type": "websocket-created",
+      "url": "ws://127.0.0.1:5082/_blazor?id=bpOGCXgMS93mbDdT2smNGA"
+    },
+    {
+      "type": "websocket-handshake",
+      "status": 101
+    }
+  ],
   "result": "PASS",
   "boundary": "Focused route runtime evidence only; not native Windows Contrast Themes, screen-reader speech, physical OS IME certification, full API acceptance or Penpot/token approval."
 }
