@@ -140,21 +140,21 @@ The shared Component Lab continues to contain the earlier current-API TextField 
 | JavaScript / Sass asset pipeline | Clean `npm ci` + webpack ESM/Global build and clean `npm ci` + Sass compilation passed | Generated CSS is consumed by the existing BundlerMinifier pipeline; Sass reports legacy Bootstrap/import deprecation notices, not compilation errors. |
 | NuGet package content | Local `Bluent.UI.1.0.0.nupkg` pack passed; verified minified component CSS, ESM JS and Global JS are present, and packaged CSS contains `.bui-text-field` | Local pack validation only; package was not published. |
 | InteractiveServer host | Debug SSR host built with warnings-as-errors; focused showcase reused in a real InteractiveServer circuit | Same source-owned showcase; not a second component implementation. |
-| Latest local real-browser evidence | **50/50 passed** on Chrome/Edge × WebAssembly (25/25 each), including the two new computed-style checks for normal and disabled placeholders. | The previous local InteractiveServer evidence was 24/24 per browser before these two new checks. Its refreshed local run is not claimed because the Development static-asset handler failed to locate generated host assets; the exact-head hosted CI matrix is the required Server verification. |
-| Native Windows Contrast Themes / screen reader | Not performed for this implementation | Browser emulation or source inspection is not native OS/AT certification. |
-| Penpot design approval | Pending; pages 17–20 remain DRAFT | No pixel-parity or maintainer approval claim. |
-| #418 token mapping | Review | No final semantic placeholder/component mapping is claimed. |
+| Exact-head hosted real-browser matrix | **102/102 passed** across Chrome/Edge × WebAssembly/InteractiveServer: Chrome 26/26 in both modes; Edge 25/25 in both modes. All four cells pass normal and disabled `::placeholder` computed-style checks; each records QA cleanup `remaining=0`. | Windows GitHub Actions run 43574692277 on head `b7e4182a`; JSON/PNG evidence is retained as four workflow artifacts. The local refreshed Server host had a Development static-web-assets limitation, so hosted Windows evidence is authoritative for the two Server cells. |
+| Native Windows Contrast Themes / screen reader / physical OS Persian IME | Not yet accepted | Hosted browser runs are not native OS/AT or physical IME certification. |
+| Penpot design approval | Pending; pages 17–20 remain DRAFT | No pixel-parity or maintainer approval claim. Penpot comment/write attempt timed out and was not confirmed. |
+| #418 token mapping | Selected TextField consumer mapping is implemented; #418 foundation remains Review | Normal placeholder uses `bluent.semantic.text.placeholder`; disabled reuses the shared `bluent.semantic.text.disabled`. The full #418 vocabulary/values still await maintainer acceptance. |
 
 ### Real-browser evidence files
 
-The focused showcase previously passed in all four browser/render-mode combinations. The latest refreshed local WebAssembly JSON/PNG evidence records 25/25 per browser and both placeholder style assertions passing. The checked-in InteractiveServer JSON/PNG files are the earlier 24/24 evidence and must not be mistaken for the new placeholder checks; the exact-head GitHub matrix must refresh that evidence.
+The latest exact-head hosted Windows matrix on `b7e4182af8be5d94e5a06aad66bc122dc71cbc6a` passed all four cells: Chrome/WebAssembly 26/26, Chrome/InteractiveServer 26/26, Edge/WebAssembly 25/25, and Edge/InteractiveServer 25/25 (102/102 aggregate). Every cell records both placeholder source-role checks, zero browser JS/console/HTTP failures, and `QA CLEANUP ... remaining=0`. The JSON/PNG pairs are uploaded to GitHub workflow run [43574692277](https://github.com/vrassouli/Bluent/actions/runs/43574692277) as artifacts `v3-textfield-Chrome-WebAssembly-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`, `v3-textfield-Chrome-InteractiveServer-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`, `v3-textfield-Edge-WebAssembly-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`, and `v3-textfield-Edge-InteractiveServer-3aa3d8e77f86831cdfbc94b09cb6cf798b4156e7`. The checked-in local evidence JSON/PNG is earlier; use the exact-head hosted artifacts for current four-mode proof.
 
 - BLUENT-TEXTFIELD-CHROME-WASM.json / .png
 - BLUENT-TEXTFIELD-EDGE-WASM.json / .png
 - BLUENT-TEXTFIELD-CHROME-INTERACTIVESERVER.json / .png
 - BLUENT-TEXTFIELD-EDGE-INTERACTIVESERVER.json / .png
 
-The permanent v3-compatibility-browsers.yml TextField job restores and builds the JavaScript and Sass asset pipelines from clean lockfiles, builds both hosts, runs the same probe in a Chrome/Edge × InteractiveServer/WebAssembly matrix on Windows, and uploads the JSON/PNG evidence as workflow artifacts. Exact-head GitHub CI for this updated workflow still needs to complete after push.
+The permanent v3-compatibility-browsers.yml TextField job restores and builds the JavaScript and Sass asset pipelines from clean lockfiles, builds both hosts, runs the same probe in a Chrome/Edge × InteractiveServer/WebAssembly matrix on Windows, and uploads the JSON/PNG evidence as workflow artifacts. Exact-head GitHub CI on `b7e4182a` completed all 8 workflows successfully, including Compatibility 12/12 jobs and Interaction Source 5/5.
 
 Reproducible checks:
 
