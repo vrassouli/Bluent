@@ -82,3 +82,9 @@ The one failed workflow is Real Compatibility Browsers: 11/12 matrix cells passe
 The Real Browser Lab Edge/Server job passed overall, but its transparent Focus host CSS audit and independent fresh-browser forced-colors step were skipped; those scopes are not certified for that cell. Firefox verifies Published InteractiveServer only and is not native AT speech, Windows Contrast Themes or Safari/WebKit certification.
 
 This CI result does not close the remaining #418 maintainer/design/API gates. PR #500 stays open; no independent APPROVED review or merge exists. The Penpot pages remain DRAFT / REVIEW REQUIRED; public token aliases/vocabulary, Dark semantic choices, public Focus host and D2/D5 API decisions, native accessibility and remaining lifecycle/third-party portal arbitration remain open.
+
+### Real Browser Lab cleanup follow-up — 2026-11-15
+
+On docs-only HEAD 993dbd84, the Chrome/WASM Real Browser Lab collected the full 80/80 real-Chrome computed CSS records (minimum source contrast 8.511; zero below 3) but the workflow failed its cleanup-verification tail. The helper invoked two WMI process queries under a 19-second PowerShell timeout and omitted stderr/exit detail from the JSON result. The timeout is now 45 seconds and the cleanup error record retains exitCode, signal and stderr.
+
+Local Dev01 verification with installed Chrome now passes 80/80, min contrast 8.511, zero below 3, cleanup remaining=0, errors empty. This remains a computed-CSS-only audit, not raster, OS theme, assistive-technology or WCAG evidence. No product runtime/API/CSS changed; GitHub Windows CI must confirm the helper fix on the new head.

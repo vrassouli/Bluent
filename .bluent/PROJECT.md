@@ -878,3 +878,9 @@ Firefox artifact: https://github.com/vrassouli/Bluent/actions/runs/43715759724/a
 Real Browser Lab's Edge/Server cell passed overall; its transparent Focus host CSS audit and independent fresh-browser forced-colors step were skipped, so those two scopes are not certified there. Firefox Published InteractiveServer success likewise does not certify native spoken AT, Windows Contrast Themes/forced-colors, or Safari/WebKit.
 
 PR #500 remains OPEN against bluent-v3 with no independent APPROVED review. #418 remains In progress; #433 remains Backlog. Public token vocabulary/alias policy, final Dark semantic mappings, public Focus host and D2/D5 API decisions, Penpot review states, native accessibility and remaining lifecycle/third-party portal arbitration gates remain open. No runtime component, public API, shipped CSS, NuGet, production build/publish or stable branch was changed by this verification work.
+
+#### Real Browser Lab cleanup hardening — 2026-11-15
+
+The docs-only HEAD 993dbd84 CI rerun reported a Chrome/WASM Real Browser Lab failure during the temporary browser-profile cleanup, after the transparent Focus2 computed-CSS audit had already collected all 80/80 samples successfully (minimum source contrast 8.511; zero samples below 3). The cleanup helper's WMI verification command had only a 19-second timeout and discarded stderr/exit details in its JSON error record. It now allows 45 seconds and preserves exitCode, signal and stderr so a future runner failure is diagnosable.
+
+Local Dev01 rerun with installed Chrome: 80/80, min contrast 8.511, zero below 3, cleanup verified as remaining=0, errors empty. This is computed CSS research evidence only, not raster-pixel, native OS, AT or WCAG certification. No runtime CSS/component/API changed; the exact-head GitHub Windows runner rerun is still required.

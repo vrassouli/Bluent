@@ -32,7 +32,7 @@ function clean(){
  "Write-Output ('remaining='+$remain.Count)",
  "if($remain.Count){exit 17}"
  ].join("\n");
- return execFileSync("powershell.exe",["-NoProfile","-NonInteractive","-Command",ps],{env:{...process.env,BLUENT_ALPHA_OWNED:work},encoding:"utf8",windowsHide:true,timeout:19000}).trim();
+ return execFileSync("powershell.exe",["-NoProfile","-NonInteractive","-Command",ps],{env:{...process.env,BLUENT_ALPHA_OWNED:work},encoding:"utf8",windowsHide:true,timeout:45000,maxBuffer:500000}).trim();
 }
 try{
  child=spawn(browser,["--headless=new","--no-sandbox","--disable-gpu","--disable-extensions","--no-first-run","--remote-debugging-port=0","--remote-allow-origins=*","--user-data-dir="+profile,"about:blank"],{windowsHide:true,stdio:"ignore"});
@@ -65,7 +65,7 @@ try{
  }
 }catch(e){errors.push({fatal:String(e.stack||e)})}
 finally{
- try{ws?.close();cleanup=clean()}catch(e){errors.push({cleanup:String(e)})}
+ try{ws?.close();cleanup=clean()}catch(e){errors.push({cleanup:String(e.stack||e),exitCode:e.status??null,signal:e.signal??null,stderr:String(e.stderr??"").slice(-4000)})}
  try{rmSync(work,{recursive:true,force:true,maxRetries:4,retryDelay:250})}catch(e){errors.push({profileDeletion:String(e)})}
 }
 const actualBrowser=browser.toLowerCase().includes("msedge")?"Edge":"Chrome";
