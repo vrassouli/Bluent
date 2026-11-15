@@ -839,3 +839,8 @@ These updates are traceability corrections only; they do not promote the D2/D5 b
 ## #418 semantic decision board aligned — 2026-11-15
 
 Penpot page 45 / semantic contrast decision board (`d0bcea67-3af4-8071-8008-d8e442b90ed1` / `d0bcea67-3af4-8071-8008-d8e4c3d426d0`) was exported and visually rechecked at observed revision **810**. Its Danger caveat now matches the page-30 comparison: `text.dangerAccessible` is Label's decorative required-marker-only role; `status.danger` is non-text-only on the tested neutral surface; Badge / Alert / Toast / Button Danger text remain unapproved. The board remains **DRAFT / REVIEW REQUIRED**; dark per-brand candidates and public production alias policy remain open.
+
+
+## #418 public token vocabulary proposal prepared — 2026-11-15
+
+Created `docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md` from the current 16 source / 17 semantic / 13 component preview schema. Recommendation: public `bluent.color.*` reusable globals plus individually approved `bluent.semantic.*`; keep context-specific `bluent.source.*` and component-private `bluent.component.*` internal. It includes two alternatives, CSS alias scope/publication rules and compatibility/versioning proposals. The schema and fail-closed test mark this as **proposal pending maintainer decision**, not approval. No token naming, production alias, package or runtime behavior was changed.

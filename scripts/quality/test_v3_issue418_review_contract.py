@@ -88,6 +88,18 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(by_page[45]["status"], "DRAFT / REVIEW REQUIRED")
         self.assertIn("production aliases", by_page[45]["scope"])
 
+    def test_public_vocabulary_and_alias_policy_remain_proposals(self):
+        proposal = self.policy["publicVocabularyProposal"]
+        self.assertEqual(proposal["status"], "proposal pending maintainer decision; not public API approval")
+        self.assertEqual(proposal["recommendedOption"], "B")
+        self.assertIn("bluent.source.*", proposal["options"]["B"])
+        alias = proposal["productionAliasPolicy"]
+        self.assertEqual(alias["status"], "proposal pending maintainer decision; no aliases approved for production by this record")
+        self.assertEqual(alias["prefix"], "--bui-v3-*")
+        self.assertIn("Explicit v3 opt-in scope", alias["scope"])
+        self.assertIn("Never repurpose", alias["compatibility"])
+        self.assertIn("excluded from production package", alias["publishing"])
+
     def test_typography_and_media_limits_are_explicit(self):
         policy = self.policy["typographyAndMediaBoundary"]
         self.assertIn("Segoe UI", policy["productionFontSourceOfTruth"])

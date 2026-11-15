@@ -379,3 +379,8 @@ Current Project #5 status is **In progress** (the prior external Penpot connecti
 ### 2026-11-15 semantic review-board alignment
 
 The source-owned Penpot #418 Danger comparison (page 30, revision 808) and primary semantic contrast decision review (page 45, revision 810; DRAFT / REVIEW REQUIRED) now carry the same explicit Danger consumer contract. `semantic.text.dangerAccessible` is Label decorative required-marker-only; `semantic.status.danger` is non-text-only on the studied neutral surface; Badge, Alert, Toast and Button Danger text remain unapproved. Exact Dark candidates and public token/production alias policy remain under review, not accepted.
+
+
+## Public vocabulary decision proposal (2026-11-15)
+
+See [PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md) for the three public-layer options and recommended production alias policy. The recommendation is intentionally **pending maintainer decision**; current aliases remain opt-in preview-only and are not a released consumer contract.

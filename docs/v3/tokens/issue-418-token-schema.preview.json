@@ -620,6 +620,26 @@
         "status": "DRAFT / REVIEW REQUIRED",
         "scope": "Dark semantic role decisions remain preview candidates; page 45 Danger caveat aligns Label-only text.dangerAccessible and non-text-only status.danger; no full public vocabulary or production aliases approved."
       }
-    ]
+    ],
+    "publicVocabularyProposal": {
+      "status": "proposal pending maintainer decision; not public API approval",
+      "document": "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md",
+      "recommendedOption": "B",
+      "options": {
+        "A": "Expose color, source, semantic and component logical names; freezes all implementation layers as consumer contracts.",
+        "B": "Expose reusable bluent.color.* and individually approved bluent.semantic.*; keep bluent.source.* and bluent.component.* internal.",
+        "C": "Expose only individually approved bluent.semantic.*; keep color/source/component internal."
+      },
+      "productionAliasPolicy": {
+        "status": "proposal pending maintainer decision; no aliases approved for production by this record",
+        "prefix": "--bui-v3-*",
+        "publicMappings": "Only approved bluent.color.* and bluent.semantic.* roles",
+        "privateMappings": "bluent.source.* and bluent.component.* remain internal and are not consumer override contracts",
+        "scope": "Explicit v3 opt-in scope only",
+        "legacy": "Do not rename or remove existing --color* Fluent-compatible variables or alter 2.x bundles",
+        "compatibility": "Never repurpose a shipped name; semantic changes require a new alias and migration; removal requires separate breaking-release approval",
+        "publishing": "Preview assets remain excluded from production package until design, consumer, compatibility and runtime gates are accepted"
+      }
+    }
   }
 }
