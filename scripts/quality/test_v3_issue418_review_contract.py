@@ -62,6 +62,18 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertFalse(portal["shippingPublicApiApproved"])
         self.assertIn("immutable scope snapshot", portal["ownershipRule"])
         self.assertIn("native Windows Contrast Themes for Dialog/Popover", portal["remainingNativeEvidence"])
+        design = portal["penpotDesignRecord"]
+        self.assertEqual(design["pageId"], "acf5f619-7d81-80da-8008-c5fec09d9837")
+        self.assertEqual(design["boardId"], "acf5f619-7d81-80da-8008-c5fec0b7ec61")
+        self.assertEqual(design["observedRevision"], 809)
+        self.assertEqual(design["boardStatus"], "DRAFT")
+        verification = portal["currentVerification"]
+        self.assertEqual(verification["d2"]["chromeWebAssembly"], "126/126")
+        self.assertEqual(verification["d2"]["chromePublishedInteractiveServer"], "126/126")
+        self.assertEqual(verification["d5"]["runtimeCommit"], "cf008b6d140ac3c4aac5bb9d59880de570620b20")
+        self.assertEqual(verification["d5"]["chromeDebugWebAssembly"], "1179/1179")
+        self.assertEqual(verification["d5"]["chromePublishedInteractiveServer"], "1178/1178")
+        self.assertIn("spoken NVDA/Narrator/VoiceOver acceptance", verification["remaining"])
 
     def test_typography_and_media_limits_are_explicit(self):
         policy = self.policy["typographyAndMediaBoundary"]

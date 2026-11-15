@@ -365,3 +365,12 @@ The authoritative Penpot file's D5 lifecycle page 41, Persian VoiceOver page 43 
 ## 2026-11-15 review follow-up
 
 The explicit source-namespace taxonomy, Danger consumer boundary, focus-host preview limits, and D2/D5 portal ownership rules are now recorded in FOUNDATION-REVIEW-DECISIONS.md and guarded by test_v3_issue418_review_contract.py. This makes the current preview internally consistent; it does not approve the public token vocabulary, Penpot review boards, or public Portal/Dialog/Popover APIs.
+
+
+## 2026-11-15 — D2/D5 Penpot evidence refreshed
+
+The source-owned Penpot D2 ownership decision board on page 33 (`acf5f619-7d81-80da-8008-c5fec09d9837`, board `acf5f619-7d81-80da-8008-c5fec0b7ec61`) was re-exported and visually reviewed at revision **809**. It remains **DRAFT**. Popover continues to follow the owner's cascade, Dialog captures an explicit owner snapshot at `ShowAsync`, and unscoped calls retain the legacy fallback; this does not approve a public Portal/Dialog/Popover API.
+
+D2 evidence remains Chrome WASM **126/126**, Chrome published InteractiveServer **126/126**, NUnit **40/40**. D5's latest runtime evidence remains tied to commit `cf008b6d140ac3c4aac5bb9d59880de570620b20`: Chrome Debug WASM **1179/1179**, published InteractiveServer **1178/1178**, focused NUnit **45/45**. The older 176/176 and 190/190 Chromium proof packs are historical. Spoken native AT, current Firefox/Safari, third-party popup arbitration, route/unmount/iframe edges and public API/design approval remain open.
+
+Current Project #5 status is **In progress** (the prior external Penpot connection blocker has been resolved). PR #500 remains open against `bluent-v3`; #418 is not Done and #433 NumericField stays Backlog. No stable or `Dev` changes.

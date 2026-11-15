@@ -539,7 +539,47 @@
         "spoken NVDA/Narrator/VoiceOver acceptance",
         "independent Firefox/Safari engine coverage",
         "third-party popup arbitration and route/unmount/iframe lifecycle"
-      ]
+      ],
+      "penpotDesignRecord": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageId": "acf5f619-7d81-80da-8008-c5fec09d9837",
+        "boardId": "acf5f619-7d81-80da-8008-c5fec0b7ec61",
+        "observedRevision": 809,
+        "boardStatus": "DRAFT",
+        "updatedDate": "2026-11-15",
+        "decisionBoundary": "Popover owner cascade; Dialog explicit owner scope captured at ShowAsync; unscoped calls retain legacy fallback; no public PortalThemeScope/Dialog/Popover API approved."
+      },
+      "currentVerification": {
+        "d2": {
+          "scope": "owner-scoped Dialog/Popover detached surfaces; concurrent Excel/Light and Word/Dark owners; owner updates; no-scope fallback; forced-colors role propagation; reduced motion; bounded 320px/200% reflow",
+          "chromeWebAssembly": "126/126",
+          "chromePublishedInteractiveServer": "126/126",
+          "nunit": "40/40",
+          "brandModeStylesheets": 20,
+          "brandSensitiveVariables": 49,
+          "totalDeclaredSourceVariables": 450,
+          "status": "opt-in research; not public API acceptance"
+        },
+        "d5": {
+          "runtimeCommit": "cf008b6d140ac3c4aac5bb9d59880de570620b20",
+          "chromeDebugWebAssembly": "1179/1179",
+          "chromePublishedInteractiveServer": "1178/1178",
+          "focusedNunit": "45/45",
+          "historicalChromiumProofPacks": [
+            "176/176 each on Chrome/Edge × WASM/InteractiveServer",
+            "190/190 each on Chrome/Edge × WASM/InteractiveServer"
+          ],
+          "status": "opt-in research; not public API or native AT acceptance"
+        },
+        "remaining": [
+          "native Windows Contrast Themes for Dialog/Popover",
+          "spoken NVDA/Narrator/VoiceOver acceptance",
+          "current independent Firefox/Safari engine coverage",
+          "third-party popup arbitration",
+          "route/unmount/iframe lifecycle edge coverage",
+          "final public API/design approval"
+        ]
+      }
     },
     "typographyAndMediaBoundary": {
       "productionFontSourceOfTruth": "The complete Segoe UI / Segoe UI Web / native system CSS fallback chain in the shipped theme CSS.",

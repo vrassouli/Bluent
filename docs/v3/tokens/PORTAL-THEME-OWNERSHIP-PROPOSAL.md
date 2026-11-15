@@ -37,3 +37,14 @@ See [the executable opt-in prototype and exact API limitations](PORTAL-THEME-SCO
 
 ## Later concurrent-brand proof
 The optional Brand field and source-backed CSS described at BRAND-SCOPES-PREVIEW.md now demonstrate 126/126 actual browser checks with concurrent Excel and Word palettes and independently branded Dialog/Popover portals. Unscoped legacy controls still use the document-wide stylesheet. No general public API or accessibility approval is implied.
+
+
+## 2026-11-15 Penpot and current prototype evidence refresh
+
+The source-owned Penpot `Bluent v3 Design System` file is connected and the D2 ownership board was re-exported and visually checked at revision **809**: page `33 · Portal theme ownership decision · #418` (`acf5f619-7d81-80da-8008-c5fec09d9837`), board `acf5f619-7d81-80da-8008-c5fec0b7ec61`. It still explicitly says **DRAFT** / draft API. The illustrated rule remains: a detached Popover follows its owner cascade; a service Dialog receives an explicit immutable owner snapshot at `ShowAsync`; an unscoped call keeps the legacy fallback. This is not approval of the names or shape of a public API.
+
+D2 opt-in evidence remains **126/126 Chrome WebAssembly**, **126/126 Chrome published InteractiveServer**, and **40/40 NUnit** for the scoped owner/portal matrix. The inspected source covers 20 brand/mode stylesheets and 49 brand-sensitive variables among 450 declared source variables.
+
+D5's latest recorded runtime checkpoint is commit `cf008b6d140ac3c4aac5bb9d59880de570620b20`: Chrome Debug WebAssembly **1179/1179**, published InteractiveServer **1178/1178**, focused NUnit **45/45**. Earlier 176/176 and 190/190 Chrome/Edge Chromium proof packs remain valid historical checkpoints but are not the latest runtime totals. The proof is still Chrome-only for the latest head; native spoken assistive technology, current independent Firefox/Safari coverage, third-party popup arbitration, route/unmount/iframe lifecycle edge cases and public API/design approval remain open.
+
+The board and implementation remain opt-in research. No Dialog/Popover public API, stable component CSS, 2.x asset, Dev branch or released NuGet is approved or modified by this evidence refresh.
