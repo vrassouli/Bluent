@@ -64,3 +64,7 @@ The workflow and probe pass local syntax/configuration checks, and the Published
 #### Workflow setup correction
 
 The first GitHub Actions attempt failed in the Playwright installation step before starting Firefox: PowerShell wrote bare paths to GITHUB_ENV, and the runner rejected them. The step now writes valid NAME=VALUE records with Add-Content. YAML parsing, a static check that rejects the old malformed form, Node syntax, and git diff --check pass locally. Firefox runtime evidence remains pending a new Actions run.
+
+#### Firefox probe correction after first real execution
+
+The first browser run passed owner initialization, Excel/Dark/RTL scope, detached Popover rendering, and live owner propagation. It then timed out because the probe incorrectly expected clicking the trigger again to toggle the KeepSurface Popover closed. Source and the existing Chrome/Edge probe confirm this component opens on Trigger click and dismisses on an outside click; it is not a trigger-toggle control. The Firefox probe now clicks the static .v3-lab h1 outside the Popover before asserting collapsed/ARIA state. This corrects the test interaction, not the product contract. The failure trace and screenshot were retained as CI artifact 14160839807.

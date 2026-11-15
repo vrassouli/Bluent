@@ -66,6 +66,22 @@ function startServer(command, args, environment) {
   return child;
 }
 
+async function stopServer(child, timeoutMs = 5000) {
+  if (!child || child.exitCode !== null) return;
+  await new Promise(resolve => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      resolve();
+    };
+    const timeout = setTimeout(finish, timeoutMs);
+    child.once("exit", finish);
+    child.kill();
+  });
+}
+
 async function waitForServer(url, timeoutMs = 90000) {
   const end = Date.now() + timeoutMs;
   let lastError = "";
@@ -191,9 +207,9 @@ try {
     () => document.querySelector("#v3-popover-trigger_surface")?.dataset.buiBrand === "excel",
     "Existing Popover follows the owner Excel-brand restore"
   );
-  await page.locator("#v3-popover-trigger").click();
+  await page.locator(".v3-lab h1").click();
   await expectDom(
-    "Owner Popover closes and reports collapsed state",
+    "Outside click closes the owner Popover and reports collapsed state",
     () => document.querySelector("#v3-popover-trigger_surface")?.classList.contains("hidden") &&
       document.querySelector("#v3-popover-trigger")?.getAttribute("aria-expanded") === "false"
   );
@@ -403,7 +419,7 @@ try {
   }
   try { await context?.close(); } catch {}
   try { await browser?.close(); } catch {}
-  try { app?.kill(); } catch {}
+  try { await stopServer(app); } catch (stopError) { console.error("Temporary published host stop warning:", String(stopError)); }
   try { rmSync(workDir, { recursive: true, force: true }); } catch (cleanupError) {
     console.error("Temporary published host cleanup warning:", String(cleanupError));
   }
