@@ -393,3 +393,9 @@ Two remaining consumer-contract decisions now have separate written proposals an
 - [Focus host public contract and unsupported-surface fallback](FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md): Penpot page 53, board 388782f1-b766-8073-8008-f32b0b39e88b. The accepted page-38 visual mapping is kept separate from the open host-declaration API decision. It compares explicit same-host attributes, a scoped wrapper component, and no custom-host declaration. It remains DRAFT / public API and fallback decision required.
 
 Neither board approves public tokens/attributes, a wrapper component, production CSS, or a released API. Unsupported Focus hosts retain the existing visible keyboard-focus behavior; the preview simply provides no new host-specific contrast guarantee where it cannot safely classify the painted host. Page 45 remains DRAFT / REVIEW REQUIRED, and D2/D5 page 33 and related boards remain DRAFT.
+
+## 2026-11-15 — D2/D5 Portal and Dialog API proposal
+
+See PORTAL-THEME-PUBLIC-API-PROPOSAL.md and the editable Penpot decision board on page 54 (board 388782f1-b766-8073-8008-f32c9154ed0d). It makes the distinct lifecycles explicit: Popover follows its current owner cascade; service Dialog requires an explicit caller context and captures an immutable snapshot at ShowAsync. The board compares reuse of the existing Dialog configuration builder, typed separate scope/accessibility objects, and a scoped launcher component.
+
+The proposal also makes a source/design gap visible: PortalThemeScope currently has no unique OwnerId, and a Brand property alone is not proof of simultaneous per-host CSS brand isolation. D5 modal semantics remain a separate opt-in contract with explicit name/modal validation, inert/aria-hidden background, owned Popover exception, nested modal stack and focus return. Page 54 remains DRAFT / PUBLIC API / ACCESSIBILITY CONTRACT REQUIRED. No preview names are approved for release, and no production runtime/API/CSS has changed.

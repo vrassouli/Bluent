@@ -934,3 +934,12 @@ Added docs/v3/tokens/FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md and a native editabl
 - Penpot file revision observed: 815
 
 The accepted visual ring and the accepted opaque 10-brand × Light/Dark × five-host mapping are preserved; the open question is the consumer contract only. The board/document compare explicit same-host attributes (recommended proposal), a new scoped wrapper component, and no custom-host declaration. Unsupported alpha/image/gradient/nested hosts remain out of scope. Unknown host fallback explicitly preserves existing visible keyboard focus behavior but makes no v3 host contrast guarantee. Both the doc and board are DRAFT; no public API, attribute or production CSS was approved.
+
+## D2/D5 public Portal and Dialog API decision board — 2026-11-15
+
+Created and visually inspected a native editable Penpot board in the source-owned Bluent v3 Design System file:
+- Page 54: 388782f1-b766-8073-8008-f32c913ab071
+- Board: 388782f1-b766-8073-8008-f32c9154ed0d
+- File revision observed: 815
+
+The board separates owner lifecycle (Popover live cascade vs service Dialog immutable ShowAsync snapshot) from D5 modal accessibility. It compares reuse of the existing Dialog configuration builder, typed scope/accessibility options, and a scoped launcher component. It explicitly exposes current prototype gaps: unique OwnerId is described in the design proposal but absent from PortalThemeScope; simultaneous scoped brand CSS needs its own crosswalk; no-scope calls retain legacy behavior; native AT/OS and WebKit/lifecycle arbitration remain open. The board is DRAFT / PUBLIC API / ACCESSIBILITY CONTRACT REQUIRED. No public API was approved or runtime changed.

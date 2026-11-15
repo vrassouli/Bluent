@@ -138,3 +138,11 @@ Added FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md and a native Penpot decision board 
 Unknown host kind / missing opt-in metadata: emit no new host-specific alias, do not infer contrast from pixels, and preserve existing visible keyboard focus behavior without claiming a v3 contrast guarantee. This avoids the dangerous interpretation that fail-closed means removing keyboard focus.
 
 The page-53 board remains DRAFT / PUBLIC API / FALLBACK DECISION REQUIRED. No public Razor parameter, wrapper, attribute, production CSS or token was created or approved.
+
+### D2/D5 public Portal and Dialog API proposal — 2026-11-15
+
+Added PORTAL-THEME-PUBLIC-API-PROPOSAL.md and native Penpot page 54 388782f1-b766-8073-8008-f32c913ab071, board 388782f1-b766-8073-8008-f32c9154ed0d (file revision 815). The exported board was visually inspected.
+
+It records the evidence-based lifecycle distinction: Popover follows its live owner cascade; service Dialog receives an explicit caller context and captures an immutable snapshot at ShowAsync. It compares existing DialogConfigurator builder reuse, typed separate PortalContext/AccessibilityOptions, and scoped launcher component. D5 modal accessibility remains a separate opt-in contract with name/modal validation, background inert/aria-hidden, portal-owned Popover exception, nested topmost stack, Escape ordering and focus restoration.
+
+A source/design gap is now explicit: the current PortalThemeScope record has no OwnerId, although the design proposal calls for one; a nullable Brand field does not itself prove scoped simultaneous brand CSS. SSR/prerender, no-scope legacy fallback, route/disposal, iframe/third-party popup, native spoken AT/OS contrast and Safari/WebKit are separate gates. Page 54 remains DRAFT; no public API or product runtime was approved/changed.
