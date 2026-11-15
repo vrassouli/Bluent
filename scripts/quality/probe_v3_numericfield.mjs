@@ -2,7 +2,7 @@
 // Real Chrome/Edge CDP probe for NumericField on the focused Bluent v3 showcase.
 // Usage: node scripts/quality/probe_v3_numericfield.mjs http://127.0.0.1:5080
 import { spawn } from 'node:child_process';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout as wait } from 'node:timers/promises';
@@ -164,10 +164,14 @@ try {
 
   const finalSignals = signals.filter(x => x.type === 'exception' || x.type === 'error' || (x.type === 'http' && x.status >= 500));
   check('no unhandled browser exceptions or console errors', finalSignals.length === 0, finalSignals);
-  console.log(JSON.stringify({ browser: browserLabel, renderMode, passed: checks.filter(x=>x.pass).length, total: checks.length, failures: checks.filter(x=>!x.pass), checks, runtimeSignals: signals }, null, 2));
+  const report = { browser: browserLabel, renderMode, passed: checks.filter(x=>x.pass).length, total: checks.length, failures: checks.filter(x=>!x.pass), checks, runtimeSignals: signals };
+  const reportText = JSON.stringify(report, null, 2);
+  console.log(reportText);
+  if (process.env.BLUENT_NUMERIC_EVIDENCE_PATH) await writeFile(process.env.BLUENT_NUMERIC_EVIDENCE_PATH, reportText, 'utf8');
   if (checks.some(x => !x.pass)) process.exitCode = 1;
 } catch (error) {
   console.error(error?.stack || error);
+  if (process.env.BLUENT_NUMERIC_EVIDENCE_PATH) await writeFile(process.env.BLUENT_NUMERIC_EVIDENCE_PATH, JSON.stringify({ browser: browserLabel, renderMode, error: error?.stack || String(error), checks, runtimeSignals: signals }, null, 2), 'utf8').catch(() => {});
   process.exitCode = 1;
 } finally {
   try { ws?.close(); } catch {}
