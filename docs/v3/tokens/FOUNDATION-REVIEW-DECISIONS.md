@@ -146,3 +146,19 @@ Added PORTAL-THEME-PUBLIC-API-PROPOSAL.md and native Penpot page 54 388782f1-b76
 It records the evidence-based lifecycle distinction: Popover follows its live owner cascade; service Dialog receives an explicit caller context and captures an immutable snapshot at ShowAsync. It compares existing DialogConfigurator builder reuse, typed separate PortalContext/AccessibilityOptions, and scoped launcher component. D5 modal accessibility remains a separate opt-in contract with name/modal validation, background inert/aria-hidden, portal-owned Popover exception, nested topmost stack, Escape ordering and focus restoration.
 
 A source/design gap is now explicit: the current PortalThemeScope record has no OwnerId, although the design proposal calls for one; a nullable Brand field does not itself prove scoped simultaneous brand CSS. SSR/prerender, no-scope legacy fallback, route/disposal, iframe/third-party popup, native spoken AT/OS contrast and Safari/WebKit are separate gates. Page 54 remains DRAFT; no public API or product runtime was approved/changed.
+
+### Dark semantic foreground exact-value matrix — 2026-11-15
+
+Added DARK-SEMANTIC-FOREGROUND-PROPOSAL.md and native Penpot page 55 (388782f1-b766-8073-8008-f32e8223fd29, board 388782f1-b766-8073-8008-f32e823c8580, file revision 817). The export was visually inspected after a board-height correction.
+
+The 10-brand × four-role table is copied from generated preview candidates: Action Rest, Link Rest, Link Hover, Link Pressed. All 40 numeric opaque pairs meet 4.6:1; minimum 4.6001:1 (Teams Action/Link Rest), maximum 4.6891:1 (Excel Link Hover). The 48-step binary search mixes each matching source state toward white; no Hover/Pressed value is borrowed for Rest. The source CSS and public semantic names remain proposals only.
+
+The already-approved direction of preserving each brand hue is not reopened. Exact candidate values remain DRAFT / REVIEW REQUIRED; page45 remains DRAFT / REVIEW REQUIRED and page55 DRAFT / exact values not approved. Numeric opaque pairs do not certify component rendering, alpha/gradient surfaces, native forced-colors/AT, or full WCAG conformance. No production CSS/API/package changed.
+
+### Dark semantic foreground exact-value matrix — 2026-11-15
+
+Added DARK-SEMANTIC-FOREGROUND-PROPOSAL.md and native Penpot page 55 (388782f1-b766-8073-8008-f32e8223fd29, board 388782f1-b766-8073-8008-f32e823c8580, file revision 817). The export was visually inspected after a board-height correction.
+
+The 10-brand × four-role table is copied from generated preview candidates: Action Rest, Link Rest, Link Hover, Link Pressed. All 40 numeric opaque pairs meet 4.6:1; minimum 4.6001:1 (Teams Action/Link Rest), maximum 4.6891:1 (Excel Link Hover). The 48-step binary search mixes each matching source state toward white; no Hover/Pressed value is borrowed for Rest. The source CSS and public semantic names remain proposals only.
+
+The already-approved direction of preserving each brand hue is not reopened. Exact candidate values remain DRAFT / REVIEW REQUIRED; page45 remains DRAFT / REVIEW REQUIRED and page55 DRAFT / exact values not approved. Numeric opaque pairs do not certify component rendering, alpha/gradient surfaces, native forced-colors/AT, or full WCAG conformance. No production CSS/API/package changed.

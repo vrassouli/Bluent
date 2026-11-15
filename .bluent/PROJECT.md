@@ -943,3 +943,25 @@ Created and visually inspected a native editable Penpot board in the source-owne
 - File revision observed: 815
 
 The board separates owner lifecycle (Popover live cascade vs service Dialog immutable ShowAsync snapshot) from D5 modal accessibility. It compares reuse of the existing Dialog configuration builder, typed scope/accessibility options, and a scoped launcher component. It explicitly exposes current prototype gaps: unique OwnerId is described in the design proposal but absent from PortalThemeScope; simultaneous scoped brand CSS needs its own crosswalk; no-scope calls retain legacy behavior; native AT/OS and WebKit/lifecycle arbitration remain open. The board is DRAFT / PUBLIC API / ACCESSIBILITY CONTRACT REQUIRED. No public API was approved or runtime changed.
+
+## Dark semantic foreground exact-value matrix added — 2026-11-15
+
+Created a native editable Penpot page 55 for the 40 Dark Action/Link candidates:
+- Page: 388782f1-b766-8073-8008-f32e8223fd29
+- Board: 388782f1-b766-8073-8008-f32e823c8580
+- Penpot revision after layout correction: 817
+
+The board contains all ten brands × four source-derived roles, candidate hex, individual contrast ratio and minimum; all cells are labelled PASS only for the numerical 4.6:1 preview target. The final footer is visible after a board-height correction. State remains DRAFT / exact values not approved.
+
+Added docs/v3/tokens/DARK-SEMANTIC-FOREGROUND-PROPOSAL.md, which records source mappings, exact 40-value table, 48-step white-mix algorithm, source contrast gaps and evidence limitations. It explicitly preserves the already approved brand-preserving direction while keeping exact values and token names in review. No schema, preview CSS, runtime or production token values changed.
+
+## Dark semantic foreground exact-value matrix added — 2026-11-15
+
+Created a native editable Penpot page 55 for the 40 Dark Action/Link candidates:
+- Page: 388782f1-b766-8073-8008-f32e8223fd29
+- Board: 388782f1-b766-8073-8008-f32e823c8580
+- Penpot revision after layout correction: 817
+
+The board contains all ten brands × four source-derived roles, candidate hex, individual contrast ratio and minimum; all cells are labelled PASS only for the numerical 4.6:1 preview target. The final footer is visible after a board-height correction. State remains DRAFT / exact values not approved.
+
+Added docs/v3/tokens/DARK-SEMANTIC-FOREGROUND-PROPOSAL.md, which records source mappings, exact 40-value table, 48-step white-mix algorithm, source contrast gaps and evidence limitations. It explicitly preserves the already approved brand-preserving direction while keeping exact values and token names in review. No schema, preview CSS, runtime or production token values changed.
