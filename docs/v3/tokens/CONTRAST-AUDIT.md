@@ -173,3 +173,7 @@ The maintainer's 2026-11-07 Label decision (issue comment `6711740619`) explicit
 The required marker is visual-only/decorative to assistive technology; the associated input owns required/validation semantics. This mapping does **not** approve a generic Danger status-text role, Alert/Toast/Button Danger foreground, or a new general-purpose public Danger API. The alias remains in the opt-in preview until the wider #418 foundation gate is accepted.
 
 Keep the distinct contrast finding visible: the current `--colorStatusDangerForeground1` source measures **4.164:1** on Dark neutral BG1 (`#292929`) in all ten Dark brands; the `--colorPaletteRedForeground1` candidate measures **5.204:1** on the studied Dark neutral pair (and **5.848:1** on the studied Light white pair). Those opaque-pair numbers support Label's narrow mapping only; they do not certify other component surfaces, forced colors, alpha/gradient composition, or native assistive technology. Do not silently substitute the Label candidate into generic Danger roles.
+
+## 2026-11-15 Danger consumer boundary
+
+The current decision is recorded in FOUNDATION-REVIEW-DECISIONS.md: semantic.status.danger is restricted to non-text status marks on the tested neutral surface; semantic.text.dangerAccessible is approved only for Label's decorative required marker. The Badge text alias remains an unapproved preview candidate. The recorded 4.164:1 Dark Danger source pair is below the 4.5:1 normal-text floor and must not be generalized.

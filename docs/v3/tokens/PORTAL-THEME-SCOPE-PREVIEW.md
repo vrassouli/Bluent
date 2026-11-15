@@ -66,3 +66,7 @@ See [D5 accessible Dialog prototype](D5-ACCESSIBLE-DIALOG-PROTOTYPE.md). Configu
 
 ## D5 ARIA and launcher return experiment
 See [the opt-in keyboard/ARIA continuation](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md). The existing Dialog first-render focus and icon accessible name are extended by explicit caller-ID focus restoration after the final dialog closes. Popover visibility remains owned by its existing JavaScript implementation, which emits aria-expanded/aria-controls only when opted in and has a bounded no-transition dismissal fallback. All four real Chrome/Edge and WASM/InteractiveServer suites pass 157/157; NUnit 47/47. Full nested modal/AT remains pending.
+
+## 2026-11-15 public API boundary
+
+The engineering ownership invariant is accepted for this prototype: detached surfaces receive a snapshot from their actual owner, not the last click or document focus. The current PortalThemeScope, Dialog snapshot and Popover cascade examples remain opt-in research and do not constitute an approved public v3 Portal/Dialog/Popover API. Native Contrast Themes and spoken AT/lifecycle gaps remain explicit; see FOUNDATION-REVIEW-DECISIONS.md.

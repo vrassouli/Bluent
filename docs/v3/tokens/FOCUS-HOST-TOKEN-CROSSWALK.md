@@ -230,3 +230,7 @@ host-loss root cause: a small release-to-bind race still exists in
 ephemeral port allocation, and failures are not retried or hidden.
 The contract CI checks absence of former shared ports and presence of
 the OS port lease, and real browsers remain the acceptance gate.
+
+## 2026-11-15 public API boundary
+
+The five-host mapping remains an explicit, opt-in preview contract only. The host kind and focus-only Light/Dark mode must be on the same element under data-bui-v3-tokens; never infer a host from computed pixels. No public host attribute, Button parameter, or stable CSS contract is approved. The exclusions and ownership split are recorded in FOUNDATION-REVIEW-DECISIONS.md.

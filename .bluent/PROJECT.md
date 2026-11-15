@@ -2,6 +2,14 @@
 
 This file is the current project-state entry point. Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
 
+## 2026-11-15 #418 engineering review follow-up
+
+#418 is active again in GitHub Project #5 (In progress) while the current opt-in preview contract is reconciled. The dedicated worktree/branch is C:/Projects/Bluent-issue418 / v3/issue-418-design-tokens; PR #500 still targets bluent-v3 only. The source-token namespace policy (9 bluent.color.* palette roles / 7 bluent.source.* context-constrained roles), Danger consumer boundary, explicit five-host focus preview boundary, D2/D5 portal ownership and typography/native-evidence limits are recorded in docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md and guarded by test_v3_issue418_review_contract.py.
+
+Local evidence for this checkpoint: review-contract tests 6/6; all Python v3 quality tests 387/387; token preview generation/check 20 brand×mode and 46 roles; foundation preview check 20 brand×mode / 1,920 source observations; contrast diagnostics 360/360; Release solution build 0 warnings / 0 errors; .NET tests 113/113; docs contract 0 findings; Skill contract passed. These are engineering/source/build/test results, not design-tool sign-off, native OS Contrast Themes, spoken screen-reader, or public API approval. The locally built package boundary still needs its read-only check recorded below.
+
+Still open: actual Penpot page-45/D2/D5 acceptance, final public token vocabulary/production alias policy, native Dialog/Popover/IME/AT/forced-colors evidence, formal non-author self-approval of PR #500, and exact-head CI after this follow-up is pushed. Do not mark #418 Done, merge to Dev, or publish stable NuGet. #433 NumericField stays Backlog until #418 is accepted and its own Ready/design/API gate is met.
+
 ## Parallel v3 foundation (isolated development)
 
 **Epic:** [#416](https://github.com/vrassouli/Bluent/issues/416), all work in the protected `bluent-v3` integration branch and issue-specific task branches. **Stable `Dev`, NuGet and deployments remain untouched.**

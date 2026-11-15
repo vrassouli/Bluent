@@ -1,8 +1,8 @@
 # #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
-**Status:** Review · **current checkpoint 2026-11-11** · **not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+**Status:** In progress · **current checkpoint 2026-11-15** · **engineering follow-up recorded; not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
 
-## Current checkpoint — 2026-11-10
+## Historical checkpoint — 2026-11-10
 
 **Workflow:** Issue #418 is now **Review** in GitHub Project #5. [PR #500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, is open, non-draft and mergeable. Exact-head CI on merge commit `fe991e92cfe50f995d67e54fd0a857e2bb0035b9` completed **11/11 workflows successfully, zero failures and zero pending**. The synchronized branch includes accepted #430 Label and #431 Link work. It has not been merged or accepted as Done.
 
@@ -361,3 +361,7 @@ Native VoiceOver evidence is **partial**, not a full screen-reader pass. On 2026
 The authoritative Penpot file's D5 lifecycle page 41, Persian VoiceOver page 43 and #418 decision page 45 were updated to distinguish prior WebKit results, the partial native heading observation, and the current Safari permission blocker. Pages 43 and 45 were freshly PNG-exported and visually inspected; page 41 was visually checked on the actual Penpot canvas, but its board PNG export remained incomplete (the export rendered only the top accent bar despite in-bounds visible children), so no PNG visual-export pass is claimed for page 41. These boards remain DRAFT / REVIEW REQUIRED.
 
 **Decision boundary unchanged:** #418 remains Project #5 Review / PR #500 open against `bluent-v3`; no token/public API/production CSS approval or merge is implied. #433 NumericField remains Backlog pending the #418 foundation gate and its own design/API contract.
+
+## 2026-11-15 review follow-up
+
+The explicit source-namespace taxonomy, Danger consumer boundary, focus-host preview limits, and D2/D5 portal ownership rules are now recorded in FOUNDATION-REVIEW-DECISIONS.md and guarded by test_v3_issue418_review_contract.py. This makes the current preview internally consistent; it does not approve the public token vocabulary, Penpot review boards, or public Portal/Dialog/Popover APIs.

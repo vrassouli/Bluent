@@ -418,5 +418,123 @@
       }
     },
     "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest."
+  },
+  "reviewPolicy": {
+    "status": "explicit engineering review contract for opt-in preview; not public API approval",
+    "sourceNamespacePolicy": {
+      "rule": "bluent.color.* names reusable neutral/brand palette primitives and state-specific link palette roles. bluent.source.* names source roles whose meaning is constrained by context (on-brand contrast, accessible stroke, danger, disabled, accessible palette text, or focus). Both namespaces are direct aliases to existing source CSS variables; the prefix distinguishes the role contract, not the provenance or token type.",
+      "color": [
+        "bluent.color.background1",
+        "bluent.color.foreground1",
+        "bluent.color.foreground4",
+        "bluent.color.brandBackground",
+        "bluent.color.stroke1",
+        "bluent.color.brandForeground1",
+        "bluent.color.brandForegroundLink",
+        "bluent.color.brandForegroundLinkHover",
+        "bluent.color.brandForegroundLinkPressed"
+      ],
+      "source": [
+        "bluent.source.onBrand",
+        "bluent.source.strokeAccessible",
+        "bluent.source.dangerForeground",
+        "bluent.source.foregroundDisabled",
+        "bluent.source.backgroundDisabled",
+        "bluent.source.paletteRedForeground1",
+        "bluent.source.focusStroke2"
+      ],
+      "compatibility": "Preserve the existing Penpot/schema aliases during this preview. Any rename requires a coordinated Penpot TokenSet migration, schema/generator update, migration note, and a separately reviewed public-vocabulary decision."
+    },
+    "dangerConsumerBoundary": {
+      "semantic.status.danger": {
+        "source": "bluent.source.dangerForeground",
+        "allowedRole": "non-text status indicators/icons/accents on the tested neutral surface",
+        "forbiddenRole": "ordinary or small text foreground",
+        "evidence": {
+          "minimumDarkNeutralBackground1Contrast": 4.164,
+          "minimumRequiredForNormalText": 4.5,
+          "minimumRequiredForNonTextContrast": 3.0,
+          "scope": "opaque source CSS pairs only; not complete WCAG component or AT conformance"
+        }
+      },
+      "semantic.text.dangerAccessible": {
+        "source": "bluent.source.paletteRedForeground1",
+        "approvedConsumer": "Label required marker only",
+        "notApprovedConsumers": [
+          "Badge",
+          "Alert",
+          "Toast",
+          "Button Danger",
+          "generic status/body text"
+        ],
+        "evidence": {
+          "lightNeutralBackground1Contrast": 5.848,
+          "darkNeutralBackground1Contrast": 5.204,
+          "scope": "the reviewed Label marker pairing only"
+        }
+      },
+      "component.badge.dangerTextAccessible": {
+        "status": "unapproved preview candidate",
+        "rule": "Do not treat the existence of this generated alias as approval for Badge or any other consumer."
+      }
+    },
+    "focusHostBoundary": {
+      "status": "opt-in preview only; public consumer contract not approved",
+      "approvedVisualDesign": {
+        "penpotBoardId": "f4136a9a-101d-8004-8008-ca2956fe05f9",
+        "ownerIssue": 501
+      },
+      "supportedOpaqueHostKinds": [
+        "neutral",
+        "brand",
+        "brandHover",
+        "danger",
+        "inverted"
+      ],
+      "requiresExplicitOptInRoot": "data-bui-v3-tokens",
+      "requiresSameElementAttributes": [
+        "data-bui-v3-focus-mode",
+        "data-bui-v3-focus-host"
+      ],
+      "automaticBackgroundInference": false,
+      "publicAttributeOrComponentApiApproved": false,
+      "unsupportedWithoutSeparateReview": [
+        "translucent",
+        "gradient",
+        "image-backed",
+        "nested composited",
+        "arbitrary custom host"
+      ],
+      "ownership": {
+        "visualDesign": 501,
+        "buttonRuntimeAndConsumerApi": 428,
+        "previewTokenBridge": 418
+      }
+    },
+    "portalBoundary": {
+      "status": "opt-in research prototype; no public v3 PortalThemeScope/Dialog/Popover API approved",
+      "ownershipRule": "A detached portal receives an immutable scope snapshot from its actual owner; never infer ownership from last click, focus, or the current document theme.",
+      "popoverPrototype": "Cascading owner scope follows the owning subtree and updates only that owner's detached surface.",
+      "dialogPrototype": "An explicit immutable owner snapshot is captured at ShowAsync; unscoped calls retain legacy fallback behavior.",
+      "modalPrototype": "aria-modal/inert behavior remains explicitly opt-in and requires a valid accessible name; the opt-in proof does not approve a public Dialog/Popover contract.",
+      "shippingPublicApiApproved": false,
+      "remainingNativeEvidence": [
+        "native Windows Contrast Themes for Dialog/Popover",
+        "spoken NVDA/Narrator/VoiceOver acceptance",
+        "independent Firefox/Safari engine coverage",
+        "third-party popup arbitration and route/unmount/iframe lifecycle"
+      ]
+    },
+    "typographyAndMediaBoundary": {
+      "productionFontSourceOfTruth": "The complete Segoe UI / Segoe UI Web / native system CSS fallback chain in the shipped theme CSS.",
+      "designCanvasFonts": "Penpot Inter and Noto Sans Arabic are specimen fallbacks only; they do not approve a production font substitution.",
+      "browserEvidenceDoesNotApprove": [
+        "native Persian OS IME composition/caret/selection",
+        "all-platform Persian font metrics",
+        "universal forced-colors behavior",
+        "native screen-reader speech"
+      ],
+      "reducedMotionAndForcedColors": "Keep source CSS/system Highlight behavior and the existing browser-emulation tests; do not equate those runs with native OS or AT acceptance."
+    }
   }
 }
