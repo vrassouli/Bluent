@@ -75,6 +75,19 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(verification["d5"]["chromePublishedInteractiveServer"], "1178/1178")
         self.assertIn("spoken NVDA/Narrator/VoiceOver acceptance", verification["remaining"])
 
+    def test_penpot_review_records_are_versioned_and_not_approved(self):
+        records = self.policy["penpotReviewRecords"]
+        by_page = {item["pageNumber"]: item for item in records}
+        self.assertEqual(set(by_page), {30, 33, 45})
+        self.assertTrue(all(item["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000" for item in records))
+        self.assertEqual(by_page[30]["observedRevision"], 808)
+        self.assertEqual(by_page[30]["status"], "DRAFT")
+        self.assertEqual(by_page[33]["observedRevision"], 809)
+        self.assertEqual(by_page[33]["status"], "DRAFT")
+        self.assertEqual(by_page[45]["observedRevision"], 810)
+        self.assertEqual(by_page[45]["status"], "DRAFT / REVIEW REQUIRED")
+        self.assertIn("production aliases", by_page[45]["scope"])
+
     def test_typography_and_media_limits_are_explicit(self):
         policy = self.policy["typographyAndMediaBoundary"]
         self.assertIn("Segoe UI", policy["productionFontSourceOfTruth"])

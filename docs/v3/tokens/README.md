@@ -374,3 +374,8 @@ The source-owned Penpot D2 ownership decision board on page 33 (`acf5f619-7d81-8
 D2 evidence remains Chrome WASM **126/126**, Chrome published InteractiveServer **126/126**, NUnit **40/40**. D5's latest runtime evidence remains tied to commit `cf008b6d140ac3c4aac5bb9d59880de570620b20`: Chrome Debug WASM **1179/1179**, published InteractiveServer **1178/1178**, focused NUnit **45/45**. The older 176/176 and 190/190 Chromium proof packs are historical. Spoken native AT, current Firefox/Safari, third-party popup arbitration, route/unmount/iframe edges and public API/design approval remain open.
 
 Current Project #5 status is **In progress** (the prior external Penpot connection blocker has been resolved). PR #500 remains open against `bluent-v3`; #418 is not Done and #433 NumericField stays Backlog. No stable or `Dev` changes.
+
+
+### 2026-11-15 semantic review-board alignment
+
+The source-owned Penpot #418 Danger comparison (page 30, revision 808) and primary semantic contrast decision review (page 45, revision 810; DRAFT / REVIEW REQUIRED) now carry the same explicit Danger consumer contract. `semantic.text.dangerAccessible` is Label decorative required-marker-only; `semantic.status.danger` is non-text-only on the studied neutral surface; Badge, Alert, Toast and Button Danger text remain unapproved. Exact Dark candidates and public token/production alias policy remain under review, not accepted.

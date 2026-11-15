@@ -177,3 +177,8 @@ Keep the distinct contrast finding visible: the current `--colorStatusDangerFore
 ## 2026-11-15 Danger consumer boundary
 
 The current decision is recorded in FOUNDATION-REVIEW-DECISIONS.md: semantic.status.danger is restricted to non-text status marks on the tested neutral surface; semantic.text.dangerAccessible is approved only for Label's decorative required marker. Both Badge candidates remain unapproved: `component.badge.dangerForeground` is non-text-only and `component.badge.dangerTextAccessible` cannot inherit Label's approval. The Penpot DRAFT board (page 30, board `acf5f619-7d81-80da-8008-c5ddf5c26686`, observed revision 808) now shows the required-marker `*` specimen and states this consumer boundary. The recorded 4.164:1 Dark Danger source pair is below the 4.5:1 normal-text floor and must not be generalized.
+
+
+## 2026-11-15 Penpot decision-board alignment
+
+The owned Penpot Danger comparison on page 30 (board `acf5f619-7d81-80da-8008-c5ddf5c26686`, observed revision 808) and the primary semantic decision review on page 45 (board `d0bcea67-3af4-8071-8008-d8e4c3d426d0`, observed revision 810) now state the same consumer boundary: `semantic.text.dangerAccessible` is approved only for Label's decorative required marker; `semantic.status.danger` is non-text-only on the tested neutral surface (the Dark source pair is 4.164:1); Badge / Alert / Toast / Button Danger text remain unapproved. Both boards remain DRAFT / review-required where indicated. Numeric opaque-pair ratios do not approve component, public token or assistive-technology behavior.

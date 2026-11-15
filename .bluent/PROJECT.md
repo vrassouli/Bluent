@@ -834,3 +834,8 @@ The schema and fail-closed review tests now record both Badge preview aliases as
 The source-owned Penpot page 33 / D2 ownership board (`acf5f619-7d81-80da-8008-c5fec09d9837` / `acf5f619-7d81-80da-8008-c5fec0b7ec61`) was updated and exported at observed revision **809**. It remains **DRAFT**. The board now records D2 Chrome WASM 126/126 and published InteractiveServer 126/126; D5's latest runtime commit `cf008b6d` evidence is Chrome Debug WASM 1179/1179, published InteractiveServer 1178/1178 and focused NUnit 45/45. Earlier D5 176/176 and 190/190 proof packs are labeled historical. Native spoken AT, current Safari/Firefox, third-party popup arbitration, route/unmount/iframe edge coverage and final public API/design approval remain open.
 
 These updates are traceability corrections only; they do not promote the D2/D5 board from DRAFT or approve public APIs. #418 remains In progress; PR #500 is open against `bluent-v3`; #433 remains Backlog.
+
+
+## #418 semantic decision board aligned — 2026-11-15
+
+Penpot page 45 / semantic contrast decision board (`d0bcea67-3af4-8071-8008-d8e442b90ed1` / `d0bcea67-3af4-8071-8008-d8e4c3d426d0`) was exported and visually rechecked at observed revision **810**. Its Danger caveat now matches the page-30 comparison: `text.dangerAccessible` is Label's decorative required-marker-only role; `status.danger` is non-text-only on the tested neutral surface; Badge / Alert / Toast / Button Danger text remain unapproved. The board remains **DRAFT / REVIEW REQUIRED**; dark per-brand candidates and public production alias policy remain open.
