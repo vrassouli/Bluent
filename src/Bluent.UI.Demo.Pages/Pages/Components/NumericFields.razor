@@ -1,0 +1,101 @@
+@page "/components/numeric-fields"
+@namespace Bluent.UI.Demo.Pages.Components
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-md-75 m-auto">
+        <ShowcaseHeader Title="NumericField"
+                        Purpose="Enter signed, decimal and localized numeric values with real stepping, inclusive bounds and EditForm validation."
+                        Package="Bluent.UI"
+                        Namespace="Bluent.UI.Components"
+                        ApiSummary="InputBase<TValue> binding, Min, Max, Step, Format, GainFocus, OnFocus, OnBlur, Size and StartAddon/EndAddon."
+                        SourcePath="NumericFieldComponent/NumericField.razor"
+                        Notes="The numeric input is always left-aligned LTR inside an outer Field that follows the host direction. Editing text remains intact until a valid value is committed; Step and validation use the current culture." />
+
+        <h3>Integer entry and inclusive bounds</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="_sample">
+                <Label Text="Quantity (0–100, step 5)" for="numeric-quantity" Class="d-block mb-1" />
+                <NumericField TValue="int?" @bind-Value="_sample.Quantity" id="numeric-quantity"
+                              Min="0" Max="100" Step="5" Format="N0" BindValueEvent="oninput" />
+                <ValidationMessage For="() => _sample.Quantity" />
+                <p class="mt-3 mb-0" role="status">Bound value: @(_sample.Quantity?.ToString() ?? "(empty)")</p>
+            </EditForm>
+        </section>
+
+        <h3 class="mt-6">Decimal entry</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <EditForm Model="_sample">
+                <Label Text="Unit price (step 0.25)" for="numeric-price" Class="d-block mb-1" />
+                <NumericField TValue="decimal" @bind-Value="_sample.UnitPrice" id="numeric-price"
+                              Min="0m" Max="1000m" Step="0.25m" Format="N2" BindValueEvent="oninput" />
+                <ValidationMessage For="() => _sample.UnitPrice" />
+                <p class="mt-3 mb-0" role="status">Committed value: @_sample.UnitPrice.ToString("N2")</p>
+            </EditForm>
+        </section>
+
+        <h3 class="mt-6">Signed and decimal editing</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Signed amount (no bounds)" for="numeric-signed" Class="d-block mb-1" />
+            <NumericField TValue="decimal" @bind-Value="_sample.SignedValue" id="numeric-signed"
+                          Step="0.25m" Format="N2" BindValueEvent="oninput" />
+            <p class="mt-3 mb-0" role="status">Signed value: @_sample.SignedValue.ToString("N2")</p>
+        </section>
+        <h3 class="mt-6">Sizes and native states</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Small" for="numeric-small" Class="d-block mb-1" />
+            <NumericField TValue="int" @bind-Value="_sample.SmallValue" id="numeric-small" Size="FieldSize.Small" Step="1" />
+            <Label Text="Medium" for="numeric-medium" Class="d-block mb-1 mt-4" />
+            <NumericField TValue="int" @bind-Value="_sample.MediumValue" id="numeric-medium" Size="FieldSize.Medium" Step="1" />
+            <Label Text="Large" for="numeric-large" Class="d-block mb-1 mt-4" />
+            <NumericField TValue="int" @bind-Value="_sample.LargeValue" id="numeric-large" Size="FieldSize.Large" Step="1" />
+            <Label Text="Read-only" for="numeric-readonly" Class="d-block mb-1 mt-4" />
+            <NumericField TValue="decimal" Value="_sample.ReadOnlyValue" id="numeric-readonly" readonly Format="N2" />
+            <Label Text="Disabled" for="numeric-disabled" Class="d-block mb-1 mt-4" />
+            <NumericField TValue="int" Value="42" id="numeric-disabled" disabled />
+        </section>
+
+        <h3 class="mt-6">RTL form context</h3>
+        <section class="p-7 rounded-5 shadow-3" dir="rtl">
+            <Label Text="مقدار عددی" for="numeric-rtl" Class="d-block mb-1" />
+            <NumericField TValue="decimal" @bind-Value="_sample.RtlValue" id="numeric-rtl"
+                          Min="0m" Max="100m" Step="0.5m" Format="N2" />
+            <p class="mt-3 mb-0">جهت پوسته و برچسب RTL است؛ ورودی عددی LTR و چپ‌چین باقی می‌ماند.</p>
+        </section>
+
+        <h3 class="mt-6">Keyboard and behavior</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <ul class="mb-0">
+                <li>ArrowUp / ArrowDown increase and decrease by Step.</li>
+                <li>Home / End move to an explicitly configured Min / Max.</li>
+                <li>Sign and separator characters remain in the editing buffer while typing.</li>
+                <li>Out-of-range typed values remain visible and report inclusive-bound validation errors; they are not silently clamped.</li>
+                <li>Stepper buttons are pointer-operable and do not add Tab stops.</li>
+            </ul>
+        </section>
+
+        <h3 class="mt-6">Consumer usage</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <pre class="mb-0"><code>&lt;NumericField TValue="decimal"
+              @@bind-Value="Model.Amount"
+              Min="0m" Max="100m" Step="0.25m"
+              Format="N2" BindValueEvent="oninput" /&gt;</code></pre>
+        </section>
+    </div>
+</div>
+
+@code {
+    private readonly NumericFieldSample _sample = new();
+
+    private sealed class NumericFieldSample
+    {
+        public int? Quantity { get; set; } = 25;
+        public decimal UnitPrice { get; set; } = 12.50m;
+        public decimal SignedValue { get; set; } = -1.25m;
+        public int SmallValue { get; set; } = 2;
+        public int MediumValue { get; set; } = 5;
+        public int LargeValue { get; set; } = 10;
+        public decimal ReadOnlyValue { get; set; } = 123.45m;
+        public decimal RtlValue { get; set; } = 24.5m;
+    }
+}

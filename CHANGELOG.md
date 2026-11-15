@@ -12,6 +12,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+- [Bluent.UI, v3 development] Reworked NumericField on the existing `InputBase<TValue>` and shared Field contract: preserve signed/decimal/localized editing text, parse/format under one current culture, validate inclusive Min/Max and finite positive Step, implement Arrow/Home/End and pointer stepping, expose spinbutton range/value semantics, and add localized labels/resources plus a focused demo. This is isolated unreleased v3 task-branch work; its local Chrome/Edge × WebAssembly/InteractiveServer browser probes pass 64/64 and .NET tests pass 93/93; six Penpot boards remain DRAFT, with visual parity and native AT acceptance pending. See [M22](docs/v3/design/MIGRATION-IMPACT-LEDGER.md) and the [NumericField v3 record](docs/v3/components/numeric-field.md).
+
 - [Bluent.UI, v3 development] Added the native Blazor TextField implementation with the existing InputBase<string?> binding and validation contract, native input/textarea rendering, inherited field addons and size/binding options, caret/selection-preserving digit and character normalization, and distinct readonly/disabled/invalid/multiline styling with forced-colors and reduced-motion support. The six source-backed direct parameters remain unchanged; no public Appearance, HelperText, ErrorMessage or ReadOnly parameter was invented. The focused showcase and final exact-head Chrome/Edge × WebAssembly/InteractiveServer matrix passed in all four cells; the final head passed 8/8 workflows and 28/28 checks. Native Windows High Contrast and direct Persian keyboard-layout/caret tests passed. This remains unreleased v3 work; the task-specific Penpot design was accepted under delegated review, while composition-based OS IME lifecycle, spoken Narrator output and the full #418 token foundation remain outstanding. See [M06](docs/v3/design/MIGRATION-IMPACT-LEDGER.md), the [TextField v3 reference](docs/v3/components/text-field.md), and [PR #562](https://github.com/vrassouli/Bluent/pull/562).
 
 - [Bluent.UI, v3 development] Icon roots now receive a low-specificity 1em viewport for CSS-font, trusted inline SVG and image sources. Inherited font size controls the default dimensions; caller CSS and Style remain authoritative. The Icon showcase now demonstrates source kinds, Regular/Filled fallback, caller sizing, parent-owned action naming and decorative/informative usage. No public Size or Color API was added; released 2.x assets are unchanged.
@@ -50,6 +52,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+
+
 - None.
 
 ### Changed
@@ -76,6 +80,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 ## [2.1.1] - 2026-09-22
 
 ### Added
+
+
 
 - None.
 
@@ -104,6 +110,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+
+
 - `[Bluent.UI]` Added 174 new strongly typed `FluentIcons` entries from Microsoft Fluent System Icons 1.1.341.
 
 ### Changed
@@ -131,6 +139,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 
 ### Added
 
+
+
 - None.
 
 ### Changed
@@ -157,6 +167,8 @@ for example `[Bluent.UI.Charts]`. Breaking changes must start with
 ## [2.0.1] - 2026-09-07
 
 ### Added
+
+
 
 - None.
 
@@ -189,6 +201,8 @@ components must migrate from Fluent CSS-class strings to the typed icon model.
 See the [1.0.368 → 2.0.0 migration guidance](docs/compatibility/migration-and-upgrades.md#migrating-from-10368-to-200).
 
 ### Added
+
+
 
 - `[Bluent.UI]` Added the strongly typed `IconDefinition`, `IconSource`,
   `IconSourceKind`, and `IconVariant` model for CSS, SVG, and image-backed icons.
@@ -247,6 +261,8 @@ public API migration.
 
 ### Added
 
+
+
 - A standalone OrderDesk production-pattern reference application with
   customer and order workflows, validation, confirmation, feedback, filtering,
   charting, a lifecycle diagram, light/dark themes, and RTL.
@@ -291,6 +307,8 @@ versions aligned.
 
 ### Added
 
+
+
 - Deterministic, artifact-first release validation with protected NuGet
   publication and changelog-derived release notes.
 - Reproducible Interactive Server, Interactive WebAssembly, Interactive Auto,
@@ -332,6 +350,8 @@ protected release workflow was merged. It has no corresponding repository tag
 or GitHub Release.
 
 ### Added
+
+
 
 - Enterprise demo scenarios for customer profiles, operations dashboards, and confirmation workflows.
 - Demo showcase context and a verified screenshot gallery for high-value component pages.
