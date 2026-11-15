@@ -384,3 +384,12 @@ The source-owned Penpot #418 Danger comparison (page 30, revision 808) and prima
 ## Public vocabulary decision proposal (2026-11-15)
 
 See [PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md) for the three public-layer options and recommended production alias policy. The recommendation is intentionally **pending maintainer decision**; current aliases remain opt-in preview-only and are not a released consumer contract.
+
+## 2026-11-15 — Public API decision proposals and editable Penpot boards
+
+Two remaining consumer-contract decisions now have separate written proposals and editable design boards:
+
+- [Public token vocabulary and production CSS alias policy](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md): Penpot page 52, board 388782f1-b766-8073-8008-f3299e849141. It compares A (all layers public), B (global + individually accepted semantic; recommended proposal), and C (semantic only). It remains DRAFT / maintainer decision required.
+- [Focus host public contract and unsupported-surface fallback](FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md): Penpot page 53, board 388782f1-b766-8073-8008-f32b0b39e88b. The accepted page-38 visual mapping is kept separate from the open host-declaration API decision. It compares explicit same-host attributes, a scoped wrapper component, and no custom-host declaration. It remains DRAFT / public API and fallback decision required.
+
+Neither board approves public tokens/attributes, a wrapper component, production CSS, or a released API. Unsupported Focus hosts retain the existing visible keyboard-focus behavior; the preview simply provides no new host-specific contrast guarantee where it cannot safely classify the painted host. Page 45 remains DRAFT / REVIEW REQUIRED, and D2/D5 page 33 and related boards remain DRAFT.

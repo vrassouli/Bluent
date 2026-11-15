@@ -925,3 +925,12 @@ Added an editable three-option Public Token Vocabulary / CSS Alias decision boar
 - File revision after save: 812
 
 The page compares A (all layers public), B (global palette + approved semantic only, recommended), and C (semantic only), and visualizes the proposed stable --bui-v3-* serialization rule. It explicitly shows DRAFT / MAINTAINER DECISION REQUIRED and separate acceptance gates. The PNG export was inspected after fixing the board coordinate offset. This adds design traceability; it does not approve Option B, any public aliases, or production CSS. Existing page 45 remains DRAFT / REVIEW REQUIRED; page 33 and D5 boards remain DRAFT.
+
+## Focus host public-contract proposal and Penpot board — 2026-11-15
+
+Added docs/v3/tokens/FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md and a native editable Penpot comparison:
+- Page 53: 388782f1-b766-8073-8008-f32b0b243fc9
+- Board: 388782f1-b766-8073-8008-f32b0b39e88b
+- Penpot file revision observed: 815
+
+The accepted visual ring and the accepted opaque 10-brand × Light/Dark × five-host mapping are preserved; the open question is the consumer contract only. The board/document compare explicit same-host attributes (recommended proposal), a new scoped wrapper component, and no custom-host declaration. Unsupported alpha/image/gradient/nested hosts remain out of scope. Unknown host fallback explicitly preserves existing visible keyboard focus behavior but makes no v3 host contrast guarantee. Both the doc and board are DRAFT; no public API, attribute or production CSS was approved.

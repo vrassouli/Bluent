@@ -130,3 +130,11 @@ Created and visually inspected a native editable Penpot decision board in the so
 - Board state: DRAFT / MAINTAINER DECISION REQUIRED
 
 It presents Option A (all layers public), Option B (global palette plus individually accepted semantic roles; recommended proposal), and Option C (semantic-only), then states the CSS serialization and compatibility rules plus the separate Dark/Danger/Focus/D2/D5 acceptance gates. Exported PNG was visually checked after correcting the page-coordinate offset. This is design traceability only, not sign-off. The page-45 contrast board remains DRAFT / REVIEW REQUIRED, and page33/D5 boards remain DRAFT.
+
+### Focus host consumer API and fallback proposal — 2026-11-15
+
+Added FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md and a native Penpot decision board (page 53 388782f1-b766-8073-8008-f32b0b243fc9, board 388782f1-b766-8073-8008-f32b0b39e88b, file revision 815). The accepted page-38 visual mapping is not reopened. The new board/document compare explicit same-host attributes (lowest API weight, recommended proposal), a public wrapper, and no custom-host declaration. The alpha audit's 10/80 dual failures and unsupported gradient/image/nested/portal cases remain visible.
+
+Unknown host kind / missing opt-in metadata: emit no new host-specific alias, do not infer contrast from pixels, and preserve existing visible keyboard focus behavior without claiming a v3 contrast guarantee. This avoids the dangerous interpretation that fail-closed means removing keyboard focus.
+
+The page-53 board remains DRAFT / PUBLIC API / FALLBACK DECISION REQUIRED. No public Razor parameter, wrapper, attribute, production CSS or token was created or approved.
