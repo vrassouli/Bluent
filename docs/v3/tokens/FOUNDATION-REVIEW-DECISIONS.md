@@ -88,3 +88,19 @@ This CI result does not close the remaining #418 maintainer/design/API gates. PR
 On docs-only HEAD 993dbd84, the Chrome/WASM Real Browser Lab collected the full 80/80 real-Chrome computed CSS records (minimum source contrast 8.511; zero below 3) but the workflow failed its cleanup-verification tail. The helper invoked two WMI process queries under a 19-second PowerShell timeout and omitted stderr/exit detail from the JSON result. The timeout is now 45 seconds and the cleanup error record retains exitCode, signal and stderr.
 
 Local Dev01 verification with installed Chrome now passes 80/80, min contrast 8.511, zero below 3, cleanup remaining=0, errors empty. This remains a computed-CSS-only audit, not raster, OS theme, assistive-technology or WCAG evidence. No product runtime/API/CSS changed; GitHub Windows CI must confirm the helper fix on the new head.
+
+### Final exact-head result — 2026-11-15 (88d37a25)
+
+All 12/12 GitHub Actions workflows passed on 88d37a252fde704c7401b83e1814056dff3446c0.
+
+- Firefox / Published InteractiveServer D2-D5: 32/32 assertions (run 43717665687), including detached/nested ownership, immutable Dialog snapshots, modal-owned Popover, inert/aria-hidden background, Escape ordering, nested focus restoration and route teardown.
+- Real Component Lab: 4/4 Chrome/Edge × Server/WebAssembly.
+- Interaction Source: compile plus 4/4 real Popover Chrome/Edge × Server/WebAssembly.
+- Real Compatibility Browsers: 12/12 cells/jobs successful. Chrome/WASM native site zoom passed 10/10 at 200% and 400%, with zero overflow on this run. The earlier 4px Chart.js canvas overflow from SHA 54285d38 did not reproduce on later runs; #486 retains both observations as intermittent, not resolved.
+- Real Browser Lab: 4/4 Chrome/Edge × Server/WebAssembly. Chrome/WASM and Edge/WASM each passed 80/80 Focus2 computed-CSS samples (min source contrast 8.511, none below 3), browser cleanup remaining=0, diagnostics and CDP interactions, independent fresh-browser forced-colors, and 1179/1179 deep browser assertions.
+- Real Browser Lab Chrome/Server and Edge/Server passed their real CDP interactions/diagnostics, but their transparent Focus host CSS audit and independent fresh-browser forced-colors step were intentionally skipped. Server is not certified by those two skipped scopes.
+- Baseline Quality Gate, Release build/warnings-as-errors, full solution tests, five-package inspect without publishing, Local Package Boundary, Compiled CLR Export Baseline, Button Runtime, Button Focus, Token, Documentation and Public Component Census all passed. Button runtime: 113/113 unit tests and published-host matrix 208/208.
+
+The Windows CI result confirms the cleanup fix introduced in 88d37a25: both Chrome and Edge WASM report 80/80 samples with cleanup remaining=0 and errors empty. This is computed-CSS/browser evidence only; it does not certify native OS Contrast Themes, spoken assistive technology, raster equivalence or WCAG conformance for arbitrary surfaces.
+
+This final result supersedes the earlier provisional text saying GitHub confirmation was still pending. No Bluent product runtime/API/shipped CSS changed, no NuGet was published, and no stable/2.x branch was touched. PR #500 remains open; #418 remains In progress. Public token/alias policy, Dark semantic values, Focus host and D2/D5 public API, Penpot acceptance, native AT, Safari/WebKit and remaining popup/lifecycle arbitration gates remain open.
