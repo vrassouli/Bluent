@@ -243,9 +243,9 @@ try {
       nestedPopover.parentMode === "dark" && !!nestedPopover.sourceBrand,
     JSON.stringify(nestedPopover)
   );
-  await page.locator("#v3-independent-popover-trigger").click();
+  await page.locator(".v3-lab h1").click();
   await expectDom(
-    "Independent nested Popover closes",
+    "Outside click closes the independent nested Popover",
     () => document.querySelector("#v3-independent-popover-trigger_surface")?.classList.contains("hidden")
   );
 
