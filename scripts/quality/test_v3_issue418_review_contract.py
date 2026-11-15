@@ -40,6 +40,15 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(danger["semantic.text.dangerAccessible"]["approvedConsumer"], "Label required marker only")
         self.assertIn("Badge", danger["semantic.text.dangerAccessible"]["notApprovedConsumers"])
         self.assertEqual(danger["component.badge.dangerTextAccessible"]["status"], "unapproved preview candidate")
+        components = {item["name"]: item for item in self.layers["component"]}
+        self.assertEqual(components["bluent.component.badge.dangerForeground"]["alias"], "bluent.semantic.status.danger")
+        badge_status = danger["component.badge.dangerForeground"]
+        self.assertEqual(badge_status["status"], "unapproved preview candidate")
+        self.assertEqual(badge_status["allowedRole"], "non-text Badge status indicator/icon/accent only, on the tested neutral surface")
+        self.assertIn("Badge text foreground", badge_status["forbiddenRole"])
+        design = danger["penpotDesignRecord"]
+        self.assertEqual(design["pageId"], "acf5f619-7d81-80da-8008-c5ddd53bc436")
+        self.assertEqual(design["boardStatus"], "DRAFT")
 
     def test_focus_host_bridge_is_explicit_and_not_public(self):
         focus = self.policy["focusHostBoundary"]

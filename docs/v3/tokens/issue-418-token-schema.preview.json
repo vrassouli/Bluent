@@ -476,6 +476,22 @@
       "component.badge.dangerTextAccessible": {
         "status": "unapproved preview candidate",
         "rule": "Do not treat the existence of this generated alias as approval for Badge or any other consumer."
+      },
+      "component.badge.dangerForeground": {
+        "source": "bluent.semantic.status.danger",
+        "status": "unapproved preview candidate",
+        "allowedRole": "non-text Badge status indicator/icon/accent only, on the tested neutral surface",
+        "forbiddenRole": "Badge text foreground or any ordinary/small text",
+        "rule": "The token name foreground does not approve a text consumer. Do not consume this candidate in Badge runtime until a dedicated per-state design and contrast review approves its exact surface/text pairing."
+      },
+      "penpotDesignRecord": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
+        "boardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
+        "observedRevision": 808,
+        "boardStatus": "DRAFT",
+        "updatedDate": "2026-11-15",
+        "decisionClarification": "semantic.text.dangerAccessible is approved only for Label decorative required marker; Badge, Alert, Toast and Button Danger text remain unapproved. semantic.status.danger is limited to non-text status marks on the tested neutral surface."
       }
     },
     "focusHostBoundary": {

@@ -820,3 +820,10 @@ The exact-head Token Contract identified one remaining hard-coded inventory asse
 ## #418 Release Gate security mutation tests aligned to patched dependency — 2026-11-14
 
 The exact-head Evidence Policy job reported two stale negative-control assertions that expected the pre-remediation 10.0.14 reference in SSR and WASM DevServer projects. The product project references are now correctly pinned to patched 10.0.15, so updated the mutation tests to verify 10.0.15 is present and that deliberately downgrading to vulnerable 10.0.7 is rejected by the fail-closed contract. The release/security guard remains enabled; no NU1903 warning suppression was introduced. Local quality-gate suite passes **50/50**, including both downgrade mutation controls; docs contract is 0 findings and Markdown links checked in 217 files.
+
+
+## #418 Penpot restored and Danger consumer boundary clarified — 2026-11-15
+
+The source-owned `Bluent v3 Design System` Penpot file is connected again. The #418 Danger contrast comparison on page 30 was updated at observed revision 808: the approved text consumer is only Label's decorative required marker; Badge / Alert / Toast / Button Danger text remain unapproved; `semantic.status.danger` is limited to non-text indicators on the tested neutral surface. The board remains **DRAFT** and no design/API acceptance is claimed.
+
+The schema and fail-closed review tests now record both Badge preview aliases as unapproved: `component.badge.dangerForeground` may only represent a non-text accent on its studied neutral surface, while `component.badge.dangerTextAccessible` cannot inherit Label's approval. No runtime consumer or production CSS is enabled by this change. #418 remains In progress; PR #500 remains open against `bluent-v3`; #433 remains Backlog.
