@@ -20,6 +20,7 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
         return path.read_text(encoding="utf-8-sig")
 
     code = read("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs")
+    bridge = read("src/Bluent.UI/Components/NumericFieldComponent/Internal/NumericFieldKeyboardCallback.cs")
     razor = read("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor")
     pipeline = read("src/Bluent.UI/Components/NumericFieldComponent/NumericFieldValuePipeline.cs")
     interop = read("src/Bluent.UI/wwwroot/bluent.ui.numeric-field.js")
@@ -32,6 +33,16 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
         need(token in code, f"NumericField source/API contract is missing: {token}")
     need("NumericFieldValuePipeline.IsPositiveFinite(_effectiveStep)" in code,
          "Step must reject zero, negative and non-finite values")
+    need("private Task HandleNumericFieldKeyAsync" in code and "[JSInvokable]" not in code,
+         "JS callback handler must not be public on NumericField")
+    need("internal sealed class NumericFieldKeyboardCallback" in bridge and "[JSInvokable]" in bridge
+         and "public Task HandleNumericFieldKeyAsync" in bridge,
+         "JS interop must use the internal callback bridge")
+    need("DotNetObjectReference<NumericFieldKeyboardCallback>" in code,
+         "NumericField must bind JS interop to the internal callback bridge")
+    need("async ValueTask IAsyncDisposable.DisposeAsync()" in code
+         and "public async ValueTask DisposeAsync()" not in code,
+         "DisposeAsync must remain an explicit interface implementation")
     for token in ('role="spinbutton"', 'aria-valuenow', 'aria-valuemin', 'aria-valuemax'):
         need(token in razor, f"spinbutton semantics are missing: {token}")
     for token in ('dir="ltr"', 'disabled="@IsDisabled"', 'readonly="@IsReadOnly"'):

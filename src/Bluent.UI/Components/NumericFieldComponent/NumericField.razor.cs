@@ -31,7 +31,7 @@ public partial class NumericField<TValue> : IAsyncDisposable
     private IJSObjectReference? _module;
     private IJSObjectReference? _listener;
     private Task<IJSObjectReference>? _moduleTask;
-    private DotNetObjectReference<NumericField<TValue>>? _selfReference;
+    private DotNetObjectReference<NumericFieldKeyboardCallback>? _selfReference;
     private TValue? _lastObservedValue;
 
     [Parameter] public string? ParsingErrorMessage { get; set; }
@@ -269,8 +269,7 @@ public partial class NumericField<TValue> : IAsyncDisposable
         await InvokeAsync(StateHasChanged);
     }
 
-    [JSInvokable]
-    public Task HandleNumericFieldKeyAsync(string command) => InvokeAsync(async () =>
+    private Task HandleNumericFieldKeyAsync(string command) => InvokeAsync(async () =>
     {
         switch (command)
         {
@@ -307,7 +306,7 @@ public partial class NumericField<TValue> : IAsyncDisposable
             var module = await GetModuleAsync();
             if (module is not null && !_disposed)
             {
-                _selfReference ??= DotNetObjectReference.Create(this);
+                _selfReference ??= DotNetObjectReference.Create(new NumericFieldKeyboardCallback(HandleNumericFieldKeyAsync));
                 _listener = await module.InvokeAsync<IJSObjectReference>("attachNumericField", Element.Value, _selfReference);
             }
         }
@@ -327,7 +326,7 @@ public partial class NumericField<TValue> : IAsyncDisposable
         return _module ??= module;
     }
 
-    public async ValueTask DisposeAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
         _disposed = true;
         _selfReference?.Dispose();

@@ -9,6 +9,7 @@ from check_v3_numericfield_contract import NumericFieldContractError, check_nume
 ROOT = Path(__file__).resolve().parents[2]
 FILES = (
     "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+    "src/Bluent.UI/Components/NumericFieldComponent/Internal/NumericFieldKeyboardCallback.cs",
     "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
     "src/Bluent.UI/Components/NumericFieldComponent/NumericFieldValuePipeline.cs",
     "src/Bluent.UI/wwwroot/bluent.ui.numeric-field.js",
@@ -45,6 +46,18 @@ class NumericFieldContractTests(unittest.TestCase):
     def test_missing_step_default_is_rejected(self):
         self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
                     "_effectiveStep = _stepWasProvided", "_effectiveStep = false && _stepWasProvided")
+
+    def test_js_callback_does_not_become_public_component_api(self):
+        self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+                    "private Task HandleNumericFieldKeyAsync", "public Task HandleNumericFieldKeyAsync")
+
+    def test_js_bridge_remains_internal(self):
+        self.mutate("src/Bluent.UI/Components/NumericFieldComponent/Internal/NumericFieldKeyboardCallback.cs",
+                    "internal sealed class NumericFieldKeyboardCallback", "public sealed class NumericFieldKeyboardCallback")
+
+    def test_disposal_remains_explicit_interface_implementation(self):
+        self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
+                    "async ValueTask IAsyncDisposable.DisposeAsync()", "public async ValueTask DisposeAsync()")
 
     def test_removing_spinbutton_semantics_is_rejected(self):
         self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
