@@ -45,10 +45,10 @@ jobs:
           '{"private":true}' | Set-Content -Path (Join-Path $packageRoot "package.json") -Encoding utf8
           npm install --prefix $packageRoot --no-save --no-package-lock "playwright@1.65.1"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $env:BLUENT_V3_PLAYWRIGHT_PACKAGE = Join-Path $packageRoot "node_modules\playwright"
-          $env:BLUENT_V3_FIREFOX_ARTIFACTS = ".artifacts\bluent-v3-firefox"
-          $env:BLUENT_V3_PLAYWRIGHT_PACKAGE | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          $env:BLUENT_V3_FIREFOX_ARTIFACTS | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          $playwrightPackage = Join-Path $packageRoot "node_modules\playwright"
+          $firefoxArtifacts = ".artifacts\bluent-v3-firefox"
+          Add-Content -Path $env:GITHUB_ENV -Value "BLUENT_V3_PLAYWRIGHT_PACKAGE=$playwrightPackage" -Encoding utf8
+          Add-Content -Path $env:GITHUB_ENV -Value "BLUENT_V3_FIREFOX_ARTIFACTS=$firefoxArtifacts" -Encoding utf8
           & (Join-Path $packageRoot "node_modules\.bin\playwright.cmd") install firefox
           exit $LASTEXITCODE
       - name: Run real Firefox D2-D5 probe against Published SSR

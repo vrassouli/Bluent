@@ -60,3 +60,7 @@ Keep dir/logical layout ownership with the component shell, preserve language-sp
 A dedicated .github/workflows/v3-firefox-portal-lab.yml job now runs a Playwright Firefox probe against the real Published InteractiveServer /v3/interactive-portal-lab host. It independently covers the D2 Popover owner cascade, nested Word-vs-Excel portal isolation, Dialog snapshot immutability under owner changes, and D5 modal-owned Popover/Escape/nested-dialog/route-teardown behavior. It does not reuse the Chromium-only CDP harness.
 
 The workflow and probe pass local syntax/configuration checks, and the Published SSR application builds successfully. Dev01 has no Firefox installation, so no local Firefox execution is claimed. Until the new CI job succeeds, Firefox evidence remains pending; Safari/WebKit, native OS Contrast Themes and spoken assistive-technology testing remain separate open gates. The lane does not approve the experimental portal API or move the board from DRAFT.
+
+#### Workflow setup correction
+
+The first GitHub Actions attempt failed in the Playwright installation step before starting Firefox: PowerShell wrote bare paths to GITHUB_ENV, and the runner rejected them. The step now writes valid NAME=VALUE records with Add-Content. YAML parsing, a static check that rejects the old malformed form, Node syntax, and git diff --check pass locally. Firefox runtime evidence remains pending a new Actions run.
