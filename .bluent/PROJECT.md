@@ -856,3 +856,25 @@ Firefox lane follow-up: the first CI attempt stopped before browser execution be
 The first real Firefox attempt passed the D2 owner setup and live propagation checks, then failed on a probe-only assumption: it expected a second trigger click to dismiss a KeepSurface Popover. Existing source and Chromium regression evidence establish outside-click dismissal as the intended behavior. The probe now clicks the static page heading outside the Popover; no component behavior was changed.
 
 The second Firefox attempt passed the corrected outside-click dismissal for the outer Popover and the nested Word Light/LTR ownership assertions, then found the same test-only trigger-toggle assumption on the nested KeepSurface Popover. The nested case now uses the same outside-click dismissal contract; no product code changed.
+
+## Exact-head verification summary — 2026-11-15 (commit 54285d38)
+
+GitHub Actions finished all 12 workflows for exact head 54285d38ba1a8479e3041b40b107ebe8e03ed1a8: 11 workflows succeeded; 1 workflow failed on an out-of-scope #486 native-zoom condition.
+
+Successful workflows:
+- Token Contract and Documentation Contract
+- Local Package Boundary and Public Component Census
+- Baseline Quality Gate (Release build, full Solution tests, consumer examples and published-host Chrome/Edge verification)
+- Button Focus Design Contract and Button Runtime Contract
+- Firefox Portal Lab: 32/32 assertions on real Published InteractiveServer / Firefox 159
+- Real Component Lab: 4/4 Chrome/Edge × Server/WebAssembly cells
+- Interaction Source Contract: compile plus 4/4 real Popover Chrome/Edge × Server/WebAssembly cells
+- Real Browser Lab: 4/4 Chrome/Edge × Server/WebAssembly cells
+
+The single failed workflow is Real Compatibility Browsers. 11/12 cells succeeded; the only failure is Chrome/WebAssembly's separate native Chromium per-site zoom test at 400%. Its artifact records viewport 316 CSS px, document scrollWidth 320px (4px overflow), and a 300px intrinsic Chart.js CANVAS at x=20.637px / right=320.637px. The same run passes at 200% with zero overflow; all other 400% zoom interactions pass (label pointer/focus, Tab/focus-visible, Enter callback, root font 16px and PNG capture). The native zoom helper waits for Blazor hydration and then 1.8s + 0.6s stable measurement (plus another 1.2s if scrollWidth changes); in this WebAssembly run the 4px overflow persisted. This is recorded on Issue #486 as a new Chart.js / native zoom finding; no Chart/CSS workaround or product change was made in #418. Artifact: https://github.com/vrassouli/Bluent/actions/runs/43715759701/artifacts/14162437698
+
+Firefox artifact: https://github.com/vrassouli/Bluent/actions/runs/43715759724/artifacts/14162737020
+
+Real Browser Lab's Edge/Server cell passed overall; its transparent Focus host CSS audit and independent fresh-browser forced-colors step were skipped, so those two scopes are not certified there. Firefox Published InteractiveServer success likewise does not certify native spoken AT, Windows Contrast Themes/forced-colors, or Safari/WebKit.
+
+PR #500 remains OPEN against bluent-v3 with no independent APPROVED review. #418 remains In progress; #433 remains Backlog. Public token vocabulary/alias policy, final Dark semantic mappings, public Focus host and D2/D5 API decisions, Penpot review states, native accessibility and remaining lifecycle/third-party portal arbitration gates remain open. No runtime component, public API, shipped CSS, NuGet, production build/publish or stable branch was changed by this verification work.
