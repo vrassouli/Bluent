@@ -46,3 +46,16 @@ This boundary fits the current source → semantic → component layering and th
 ## Deliberately not decided by this proposal
 
 This proposal does not approve exact Dark brand foreground values, the final public role list, generic Danger semantics, the provisional focus host attributes/property, a public Portal/Dialog/Popover API, native Contrast Themes or spoken assistive-technology behavior. Those remain separate acceptance gates in #418. The source-owned Penpot boards remain DRAFT / REVIEW REQUIRED as recorded in `issue-418-token-schema.preview.json`.
+
+## Editable design-tool decision board
+
+The three-way decision is now represented in the source-owned Penpot file, in addition to this written proposal:
+
+- File: Bluent v3 Design System (b64f6665-c9ab-80b5-8008-c4ac99d9d000)
+- Page: 52 · Public token vocabulary & CSS aliases · DRAFT (388782f1-b766-8073-8008-f3299e62827a)
+- Board: #418 · Public token vocabulary & production alias policy · DRAFT (388782f1-b766-8073-8008-f3299e849141)
+- Last inspected Penpot file revision: 812
+
+The board compares A (all layers public), B (global palette + individually accepted semantic), and C (semantic-only); it visualizes the proposed CSS serialization and preserves the separate Dark, Danger, Focus host and D2/D5 gates. It is marked DRAFT / MAINTAINER DECISION REQUIRED and ends with PROPOSAL ONLY / NO PUBLIC TOKEN PROMOTION / NO PRODUCTION CSS OR PACKAGE CHANGE.
+
+The PNG export was visually inspected after correcting the board's page-coordinate offset. This confirms design artifact existence and legibility only; it is not design approval and does not change this document's Pending approval state.

@@ -120,3 +120,13 @@ All 12/12 GitHub Actions workflows passed on exact head 88d37a252fde704c7401b83e
 The Windows CI result confirms the cleanup fix introduced in 88d37a25: both Chrome and Edge WASM report 80/80 samples with cleanup remaining=0 and errors empty. This is computed-CSS/browser evidence only; it does not certify native OS Contrast Themes, spoken assistive technology, raster equivalence or WCAG conformance for arbitrary surfaces.
 
 This final result supersedes the earlier provisional text saying GitHub confirmation was still pending. No Bluent product runtime/API/shipped CSS changed, no NuGet was published, and no stable/2.x branch was touched. PR #500 remains open; #418 remains In progress. Public token/alias policy, Dark semantic values, Focus host and D2/D5 public API, Penpot acceptance, native AT, Safari/WebKit and remaining popup/lifecycle arbitration gates remain open.
+
+### Editable public vocabulary decision board — 2026-11-15
+
+Created and visually inspected a native editable Penpot decision board in the source-owned Bluent v3 Design System file:
+- Page 52: 388782f1-b766-8073-8008-f3299e62827a
+- Board: 388782f1-b766-8073-8008-f3299e849141
+- File revision: 812
+- Board state: DRAFT / MAINTAINER DECISION REQUIRED
+
+It presents Option A (all layers public), Option B (global palette plus individually accepted semantic roles; recommended proposal), and Option C (semantic-only), then states the CSS serialization and compatibility rules plus the separate Dark/Danger/Focus/D2/D5 acceptance gates. Exported PNG was visually checked after correcting the page-coordinate offset. This is design traceability only, not sign-off. The page-45 contrast board remains DRAFT / REVIEW REQUIRED, and page33/D5 boards remain DRAFT.

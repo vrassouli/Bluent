@@ -916,3 +916,12 @@ GitHub Actions completed 12/12 workflows successfully on commit 88d37a252fde704c
 The cleanup hardening from this task is confirmed by Windows CI, not just local Dev01: Chrome and Edge WASM both report ALPHA_CHROMIUM_CDP 80/80, cleanup remaining=0 and errors empty. This is real computed-CSS/browser evidence, not native OS Contrast Themes, raster equivalence, spoken assistive technology or general WCAG certification.
 
 This final result supersedes the earlier provisional note that GitHub confirmation was pending. Product runtime/API/shipped CSS were not changed; no NuGet package was published and no stable/2.x branch was touched. #418 remains In progress, #433 remains Backlog, PR #500 remains OPEN against bluent-v3 with no independent APPROVED review or merge. Public token vocabulary/production alias policy, Dark semantic values, public Focus host/D2/D5 API choices, Penpot DRAFT/REVIEW REQUIRED states, native AT, Safari/WebKit, and third-party/lifecycle arbitration gates remain open.
+
+## Penpot vocabulary decision board added — 2026-11-15
+
+Added an editable three-option Public Token Vocabulary / CSS Alias decision board to the source-owned Penpot file Bluent v3 Design System:
+- Page 52: 388782f1-b766-8073-8008-f3299e62827a
+- Board: 388782f1-b766-8073-8008-f3299e849141
+- File revision after save: 812
+
+The page compares A (all layers public), B (global palette + approved semantic only, recommended), and C (semantic only), and visualizes the proposed stable --bui-v3-* serialization rule. It explicitly shows DRAFT / MAINTAINER DECISION REQUIRED and separate acceptance gates. The PNG export was inspected after fixing the board coordinate offset. This adds design traceability; it does not approve Option B, any public aliases, or production CSS. Existing page 45 remains DRAFT / REVIEW REQUIRED; page 33 and D5 boards remain DRAFT.
