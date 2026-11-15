@@ -21,7 +21,9 @@ internal class DialogService : IDialogService
 
     public Task<dynamic?> ShowAsync(RenderFragment content, DialogConfiguration? config = null)
     {
-        var context = new DialogContext(content, config ?? new());
+        var effectiveConfig = config ?? new DialogConfiguration();
+        effectiveConfig.ValidateAccessibleBehavior();
+        var context = new DialogContext(content, effectiveConfig);
 
         ShowDialog?.Invoke(this, new ShowDialogEventArgs(context));
 

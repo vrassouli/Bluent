@@ -33,6 +33,88 @@ function topModal() {
         root.isConnected && root.getClientRects().length > 0);
 }
 
+// A modal is not complete until everything outside its active owner is inert.
+// Portalled Popovers explicitly cascading from the top Dialog are the only
+// detached surfaces kept interactive alongside that Dialog's own wrapper.
+const inertBackground = new Map();
+let backgroundObserver = null;
+let syncingBackground = false;
+
+function restoreBackground() {
+    for (const [element, state] of inertBackground) {
+        if (!(element instanceof HTMLElement)) continue;
+        element.inert = state.inert;
+        if (state.ariaHidden === null)
+            element.removeAttribute("aria-hidden");
+        else
+            element.setAttribute("aria-hidden", state.ariaHidden);
+    }
+    inertBackground.clear();
+}
+
+function syncModalBackground() {
+    if (syncingBackground) return;
+    syncingBackground = true;
+    try {
+        restoreBackground();
+        const active = topModal();
+        if (!active || !document.body) {
+            backgroundObserver?.disconnect();
+            backgroundObserver = null;
+            return;
+        }
+
+        const wrapper = active.closest(".dialog-wrapper");
+        if (!(wrapper instanceof HTMLElement)) return;
+        const allowedRoots = new Set([wrapper, ...[...document.querySelectorAll("[data-bui-v3-modal-trigger]")]
+            .filter(element => {
+                if (!(element instanceof HTMLElement)) return false;
+                const trigger = document.getElementById(element.dataset.buiV3ModalTrigger || "");
+                return trigger?.closest(".bui-dialog")?.id === active.id;
+            })]);
+        const allowedChildren = new Map();
+        for (const root of allowedRoots) {
+            if (!root.isConnected) continue;
+            let child = root;
+            let parent = child.parentElement;
+            while (parent) {
+                let set = allowedChildren.get(parent);
+                if (!set) allowedChildren.set(parent, set = new Set());
+                set.add(child);
+                if (parent === document.body) break;
+                child = parent;
+                parent = parent.parentElement;
+            }
+        }
+
+        const markInert = element => {
+            if (!(element instanceof HTMLElement) || inertBackground.has(element)) return;
+            inertBackground.set(element, {
+                inert: element.inert,
+                ariaHidden: element.hasAttribute("aria-hidden") ? element.getAttribute("aria-hidden") : null
+            });
+            element.inert = true;
+            element.setAttribute("aria-hidden", "true");
+        };
+        const apply = parent => {
+            const allowed = allowedChildren.get(parent) || new Set();
+            for (const child of parent.children) {
+                if (allowedRoots.has(child)) continue; // The entire modal/owned portal subtree stays interactive.
+                if (allowed.has(child)) apply(child);
+                else markInert(child);
+            }
+        };
+        apply(document.body);
+
+        if (!backgroundObserver) {
+            backgroundObserver = new MutationObserver(() => syncModalBackground());
+            backgroundObserver.observe(document.body, { childList: true, subtree: true });
+        }
+    } finally {
+        syncingBackground = false;
+    }
+}
+
 function focusables(root) {
     return [...root.querySelectorAll(candidateSelector)].filter(el => {
         if (!(el instanceof HTMLElement) || !el.isConnected ||
@@ -101,6 +183,11 @@ export function registerModal(root, dotnetReference) {
     if (!(root instanceof HTMLElement) || !dotnetReference) return;
     modalOwners.set(root, dotnetReference);
     root.setAttribute("data-bui-v3-keyboard-bound", "");
+    syncModalBackground();
+    // The server-rendered nested wrapper can briefly be inert while the parent
+    // still owns the stack. Once this root is registered and background state
+    // has been recomputed, establish focus again on the newly active Dialog.
+    root.focus({ preventScroll: true });
     if (!keyboardListenerInstalled) {
         window.addEventListener("keydown", onModalKeyDown);
         keyboardListenerInstalled = true;
@@ -116,6 +203,7 @@ export function unregisterModal(rootOrId) {
         : rootOrId;
     if (!root || !modalOwners.delete(root)) return;
     root.removeAttribute("data-bui-v3-keyboard-bound");
+    syncModalBackground();
     if (!modalOwners.size && keyboardListenerInstalled) {
         window.removeEventListener("keydown", onModalKeyDown);
         keyboardListenerInstalled = false;

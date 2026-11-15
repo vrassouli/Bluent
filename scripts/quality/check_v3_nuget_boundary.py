@@ -98,8 +98,8 @@ def main() -> int:
     root = Path(__file__).resolve().parents[2]
     dialog = (root / "src/Bluent.UI/Components/DialogComponent/Dialog.razor.cs").read_text(encoding="utf-8")
     container = (root / "src/Bluent.UI/Components/DialogComponent/DialogContainer.razor.cs").read_text(encoding="utf-8")
-    if "((EnableModalKeyboard && IsModal) || !string.IsNullOrWhiteSpace(InitialFocusTargetId))" not in dialog:
-        errors.append("Dialog has lost its explicit JS-import opt-in gate")
+    if "if (!string.IsNullOrWhiteSpace(AccessibleName) || !string.IsNullOrWhiteSpace(InitialFocusTargetId))" not in dialog:
+        errors.append("Dialog JS helper is not gated to named/explicit-focus opt-in instances")
     if "if (_pendingFocusTargetId is not { } targetId)" not in container:
         errors.append("DialogContainer has lost its opt-in focus-return guard")
     result = {

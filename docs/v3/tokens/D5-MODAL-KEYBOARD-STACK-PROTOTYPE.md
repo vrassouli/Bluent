@@ -1,3 +1,15 @@
+# 2026-11-15 follow-up — modal background ownership
+
+A second layer has been added to the existing nested-modal prototype so its `aria-modal` claim is backed by actual background modality. The topmost opted-in Dialog is the only active modal owner; all other page/dialog surfaces become `inert` and `aria-hidden`, while a portalled Popover remains active only when its trigger is contained by that topmost Dialog. This uses the rendered trigger/DOM relationship and introduces no public Popover property or API.
+
+When a child Dialog is registered, background ownership is recomputed before focus is established on the child. When a child is removed, the parent Dialog becomes active again; when the last Dialog is removed, previously existing `inert` and `aria-hidden` values are restored. Legacy and non-opted-in Dialogs do not claim `aria-modal=true` or participate in this prototype's focus/inert manager.
+
+Current Chrome proof (2026-11-15): **1179/1179** WebAssembly and **1178/1178** locally published InteractiveServer assertions passed on the same isolated worktree. This does not certify other browser engines or native assistive technology.
+
+The page 36 keyboard-stack board (`535db143-a732-807e-8008-c6403ec3fa0c`, board `535db143-a732-807e-8008-c6403f3c74af`) and D2/D5 portal board (Penpot page `acf5f619-7d81-80da-8008-c5fec09d9837`, board `acf5f619-7d81-80da-8008-c5fec0b7ec61`) remain research/design artifacts; this implementation evidence does not constitute their final approval. Public API naming, non-Chrome engine behavior, route/unmount/iframe cleanup, nested native popup arbitration and actual AT behavior are still separate acceptance gates.
+
+---
+
 > **Current 2026-10-11 D5 continuation:** Escape arbitration now gives descendant controls first opportunity to handle Escape (rather than capturing it at document entry), a real opt-in Popover nested in a real Modal closes before its parent, and explicit caller-chosen initial focus has safe inside-Dialog checks. This subsequent scope is documented in [Escape and initial-focus priority prototype](D5-ESCAPE-FOCUS-PRIORITY-PROTOTYPE.md), with four 176/176 Chromium browser matrices. Earlier open items below are historical; native AT remains unverified.
 
 # #418 — Opt-in nested Modal keyboard ownership: tested D5 prototype

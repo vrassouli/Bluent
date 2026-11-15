@@ -27,4 +27,12 @@ public class DialogConfiguration
     internal bool UseStandardTitleHeading { get; init; }
     /// <summary>Opt-in visible description announced through Dialog aria-describedby.</summary>
     public string? AccessibleDescription { get; init; }
+
+    internal void ValidateAccessibleBehavior()
+    {
+        if (EnableModalKeyboard && (!Modal || string.IsNullOrWhiteSpace(AccessibleName)))
+            throw new ArgumentException("Modal keyboard navigation requires Modal=true and an explicit AccessibleName.");
+        if (!string.IsNullOrWhiteSpace(InitialFocusTargetId) && string.IsNullOrWhiteSpace(AccessibleName))
+            throw new ArgumentException("InitialFocusTargetId requires an explicit AccessibleName.");
+    }
 }

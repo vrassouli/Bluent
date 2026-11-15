@@ -1,3 +1,19 @@
+# 2026-11-15 follow-up — truthful modal semantics and background inertness
+
+The isolated #418 Dialog prototype now applies the modal interaction contract only when the caller opts into `EnableModalKeyboard` on a modal Dialog with an explicit accessible name. The rendered root exposes `aria-modal="true"` only in that state. Invalid combinations (keyboard modality on a non-modal or unnamed Dialog; initial focus without an accessible name) are rejected at both the `DialogConfiguration` and rendered component boundaries.
+
+When a keyboard-modal Dialog registers, the research helper makes every DOM subtree outside the active Dialog wrapper inert and `aria-hidden`, preserving each element's prior values for restoration. A portalled Popover owned by the active Dialog remains interactive: ownership is derived from the real Popover trigger's nearest `.bui-dialog` ancestor. No new public `Popover` property or consumer-facing configuration member was added. Nested Dialog registration re-evaluates the inert boundary and focuses the new topmost Dialog; unregistering a nested Dialog restores its parent, and unregistering the final Dialog restores the original page state.
+
+Current-head browser evidence on 2026-11-15, local isolated worktree, actual Chrome/CDP:
+- Debug WebAssembly: **1179/1179** assertions passed.
+- Published InteractiveServer: **1178/1178** assertions passed.
+- The runs include outside-background inert/ARIA-hidden, active Dialog wrapper, owned portalled Popover, nested parent/child inertness, focus containment/return, and reduced-motion dismissal. These are two independent runs and must not be added together as one test total.
+- Focused NUnit Dialog/Popover tests: **45/45**; full .NET solution tests: **113/113**; Python v3 quality contracts: **381/381**; Release solution build: **0 warnings / 0 errors**; compiled public-API snapshot and 140-family inventory checks pass.
+
+This remains an **opt-in research implementation**, not approval of a public D5 API or release contract. Current proof is Chrome only. Safari/VoiceOver, Narrator spoken output, native OS high-contrast behavior for Dialog/Popover, independent Firefox/WebKit engine coverage, route/unmount/iframe and third-party popup arbitration, and final Penpot/API/maintainer acceptance remain open. The associated Penpot D5 page/board remains DRAFT; browser evidence does not promote its status.
+
+---
+
 > CURRENT 2026-10-11 CONTINUATION: The prior opt-in Dialog role, Close label and focus-entry prototype now includes tested nested Modal Tab, Shift+Tab, Escape and per-launcher focus return. See [D5 Modal keyboard stack evidence](D5-MODAL-KEYBOARD-STACK-PROTOTYPE.md). Earlier gaps below are historical, not current assertions. Final AT approval remains open.
 
 > **Current 2026-10-11 follow-up:** Explicit last-Dialog focus return and opt-in Popover expanded/controls are now implemented and verified in real Chrome/Edge WASM/InteractiveServer (157/157 each). The older focus-return/Popover gaps below are historical baselines. Nested modal focus traps, native AT and final contract approval remain OPEN. See [D5 focus-return and Popover ARIA prototype](D5-FOCUS-RESTORE-POPOVER-ARIA-PROTOTYPE.md).

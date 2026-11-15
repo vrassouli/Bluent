@@ -26,6 +26,15 @@ public partial class Dialog
     [Parameter] public DialogSize Size { get; set; } = DialogSize.Medium;
     [Parameter] public EventCallback<dynamic?> OnClose { get; set; }
 
+    protected override void OnParametersSet()
+    {
+        if (EnableModalKeyboard && (!IsModal || string.IsNullOrWhiteSpace(AccessibleName)))
+            throw new InvalidOperationException("Modal keyboard navigation requires a modal Dialog with an explicit accessible name.");
+        if (!string.IsNullOrWhiteSpace(InitialFocusTargetId) && string.IsNullOrWhiteSpace(AccessibleName))
+            throw new InvalidOperationException("Initial focus requires an explicitly named Dialog.");
+        base.OnParametersSet();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -39,8 +48,7 @@ public partial class Dialog
         if (!firstRender) return;
         if (!string.IsNullOrWhiteSpace(AccessibleName))
             await _root.FocusAsync();
-        if (!string.IsNullOrWhiteSpace(AccessibleName) &&
-            ((EnableModalKeyboard && IsModal) || !string.IsNullOrWhiteSpace(InitialFocusTargetId)))
+        if (!string.IsNullOrWhiteSpace(AccessibleName) || !string.IsNullOrWhiteSpace(InitialFocusTargetId))
         {
             var js = Services.GetService(typeof(IJSRuntime)) as IJSRuntime
                 ?? throw new InvalidOperationException("Opt-in Dialog focus/keyboard features require IJSRuntime.");
@@ -67,7 +75,7 @@ public partial class Dialog
     {
         try
         {
-            if (_keyboardModule is not null)
+            if (_keyboardModule is not null && EnableModalKeyboard && IsModal)
                 await _keyboardModule.InvokeVoidAsync("unregisterModal", Id);
         }
         catch (JSDisconnectedException) { }

@@ -76,6 +76,39 @@ public class DialogContainerTests
     }
 
     [Test]
+    public async Task NamedDialogDoesNotClaimModalSemanticsWithoutKeyboardModality()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            var service = services.GetRequiredService<IDialogService>();
+            _ = service.ShowAsync(TextContent("Named non-modal semantics"), new DialogConfiguration(modal: true)
+            {
+                AccessibleName = "Review details"
+            });
+            await container.QuiescenceTask;
+            var markup = container.ToHtmlString();
+            Assert.That(markup, Does.Contain("role=\"dialog\""));
+            Assert.That(markup, Does.Contain("aria-label=\"Review details\""));
+            Assert.That(markup, Does.Not.Contain("aria-modal=\"true\""));
+            Assert.That(markup, Does.Not.Contain("data-bui-v3-keyboard-modal"));
+        });
+    }
+
+    [Test]
+    public async Task ModalKeyboardConfigurationRequiresModalAndAccessibleName()
+    {
+        await using var services = CreateServices();
+        var service = services.GetRequiredService<IDialogService>();
+        Assert.Throws<ArgumentException>(() => service.ShowAsync(TextContent("Invalid keyboard modal"),
+            new DialogConfiguration(modal: false) { AccessibleName = "Named but nonmodal", EnableModalKeyboard = true }));
+        Assert.Throws<ArgumentException>(() => service.ShowAsync(TextContent("Unnamed keyboard modal"),
+            new DialogConfiguration(modal: true) { EnableModalKeyboard = true }));
+    }
+
+    [Test]
     public async Task OptInTitleDialogsReferenceExactlyTheirOwnHeadings()
     {
         await using var services = CreateServices();
@@ -256,7 +289,7 @@ public class DialogContainerTests
                 var container = await renderer.RenderComponentAsync<DialogContainer>();
                 var dialogService = services.GetRequiredService<IDialogService>();
                 named = dialogService.ShowAsync(TextContent("Named"), new DialogConfiguration { AccessibleName = "Name" });
-                keyboardOnly = dialogService.ShowAsync(TextContent("Keyboard"), new DialogConfiguration { EnableModalKeyboard = true });
+                keyboardOnly = dialogService.ShowAsync(TextContent("Keyboard"), new DialogConfiguration(modal: true) { AccessibleName = "Keyboard", EnableModalKeyboard = true });
                 legacy = dialogService.ShowAsync(TextContent("Legacy"));
                 await container.QuiescenceTask;
                 Assert.That(named.IsCompleted || keyboardOnly.IsCompleted || legacy.IsCompleted, Is.False);
