@@ -54,3 +54,9 @@ Keep dir/logical layout ownership with the component shell, preserve language-sp
 - #418 is returned to In progress while this review follow-up is implemented on v3/issue-418-design-tokens.
 - PR #500 continues to target bluent-v3 only. No Dev/2.x merge, stable NuGet publication, production CSS activation, or issue Done transition is authorized by this engineering follow-up.
 - Final Review/Done still require a genuine design-tool acceptance of the owned foundation boards and maintainer acceptance of the public token vocabulary/production alias policy. A green CI result alone cannot supply those approvals.
+
+### Firefox regression lane — added, execution pending (2026-11-15)
+
+A dedicated .github/workflows/v3-firefox-portal-lab.yml job now runs a Playwright Firefox probe against the real Published InteractiveServer /v3/interactive-portal-lab host. It independently covers the D2 Popover owner cascade, nested Word-vs-Excel portal isolation, Dialog snapshot immutability under owner changes, and D5 modal-owned Popover/Escape/nested-dialog/route-teardown behavior. It does not reuse the Chromium-only CDP harness.
+
+The workflow and probe pass local syntax/configuration checks, and the Published SSR application builds successfully. Dev01 has no Firefox installation, so no local Firefox execution is claimed. Until the new CI job succeeds, Firefox evidence remains pending; Safari/WebKit, native OS Contrast Themes and spoken assistive-technology testing remain separate open gates. The lane does not approve the experimental portal API or move the board from DRAFT.
