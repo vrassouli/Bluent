@@ -162,6 +162,43 @@ try {
   check('readonly and disabled native states suppress stepper controls', states.readOnly.readOnly && states.readOnly.stepperHidden && states.disabled.disabled && states.disabled.stepperHidden, states);
   check('pointer stepper buttons are not sequential Tab stops', states.buttons.every(x=>x.tabindex === '-1'), states.buttons);
 
+  // Exercise a real clipboard paste rather than only assigning input.value.
+  await send('Browser.grantPermissions', { origin: base, permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'] });
+  await evaluate("navigator.clipboard.writeText('1,234.50').then(() => true)");
+  await evaluate("document.querySelector('#numeric-signed').focus(); document.querySelector('#numeric-signed').select(); true");
+  await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Control', code: 'ControlLeft', windowsVirtualKeyCode: 17, nativeVirtualKeyCode: 17, modifiers: 2 });
+  await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'v', code: 'KeyV', windowsVirtualKeyCode: 86, nativeVirtualKeyCode: 86, modifiers: 2 });
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'v', code: 'KeyV', windowsVirtualKeyCode: 86, nativeVirtualKeyCode: 86, modifiers: 2 });
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Control', code: 'ControlLeft', windowsVirtualKeyCode: 17, nativeVirtualKeyCode: 17 });
+  await poll(() => read("document.querySelector('#numeric-signed')?.value === '1,234.50'"));
+  await poll(() => read("[...document.querySelectorAll('p')].some(x => x.textContent.includes('Signed value: 1,234.50'))"));
+  const pasted = await read("({ value: document.querySelector('#numeric-signed').value, output: [...document.querySelectorAll('p')].find(x => x.textContent.includes('Signed value:'))?.textContent })");
+  check('native clipboard paste preserves grouping and commits the decimal value', pasted.value === '1,234.50' && pasted.output?.includes('1,234.50'), pasted);
+
+  // A mid-string insertion must not jump the caret to the end after Blazor rerenders.
+  await replaceText('numeric-signed', '12345.67');
+  await poll(() => read("document.querySelector('#numeric-signed')?.value === '12345.67'"));
+  await evaluate("document.querySelector('#numeric-signed').focus(); document.querySelector('#numeric-signed').setSelectionRange(2, 2); true");
+  await send('Input.insertText', { text: '9' });
+  await poll(() => read("document.querySelector('#numeric-signed')?.value === '129345.67'"));
+  const caret = await read("({ value: document.querySelector('#numeric-signed').value, start: document.querySelector('#numeric-signed').selectionStart, end: document.querySelector('#numeric-signed').selectionEnd })");
+  check('mid-string editing retains the caret after a bound-value rerender', caret.value === '129345.67' && caret.start === 3 && caret.end === 3, caret);
+
+  // Composition keystrokes must not be consumed as numeric spinner commands.
+  const composition = await evaluate("(() => { const e = document.querySelector('#numeric-signed'); e.focus(); const before = e.value; e.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true, data: '١' })); const keyEvent = new KeyboardEvent('keydown', { key: 'ArrowUp', code: 'ArrowUp', bubbles: true, cancelable: true, isComposing: true }); e.dispatchEvent(keyEvent); const after = e.value; e.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true, data: '١' })); return { before, after, prevented: keyEvent.defaultPrevented }; })()");
+  check('IME composition keystrokes do not trigger spinner stepping', composition.before === composition.after && composition.prevented === false, composition);
+
+  // The production stylesheet has an explicit forced-colors branch; emulate the media feature
+  // without changing the host operating-system accessibility settings.
+  await send('Emulation.setEmulatedMedia', { features: [{ name: 'forced-colors', value: 'active' }] });
+  await evaluate("document.querySelector('#numeric-signed').focus(); true");
+  const forcedColors = await read("(() => { const field = document.querySelector('#numeric-signed').closest('.bui-numeric-field'); const up = field.querySelector('.numeric-step-up'); const down = document.querySelector('#numeric-quantity').closest('.bui-numeric-field').querySelector('.numeric-step-down'); const marker = document.createElement('span'); document.body.append(marker); marker.style.color = 'CanvasText'; const canvasText = getComputedStyle(marker).color; marker.style.color = 'ButtonText'; const buttonText = getComputedStyle(marker).color; marker.style.color = 'Highlight'; const highlight = getComputedStyle(marker).color; marker.style.color = 'GrayText'; const grayText = getComputedStyle(marker).color; marker.remove(); return { active: matchMedia('(forced-colors: active)').matches, border: getComputedStyle(field).borderTopColor, canvasText, focusBorder: getComputedStyle(field, '::after').borderBottomColor, highlight, buttonColor: getComputedStyle(up).color, buttonText, disabledColor: getComputedStyle(down).color, grayText }; })()");
+  check('forced-colors mode uses system border, focus, button and disabled colors', forcedColors.active && forcedColors.border === forcedColors.canvasText && forcedColors.focusBorder === forcedColors.highlight && forcedColors.buttonColor === forcedColors.buttonText && forcedColors.disabledColor === forcedColors.grayText, forcedColors);
+  await send('Emulation.setEmulatedMedia', { features: [{ name: 'forced-colors', value: 'none' }] });
+
+  // Verify that the module's explicit disposal is idempotent and removes the keyboard listener.
+  const listenerDisposal = await evaluate("(async () => { const module = await import('/_content/Bluent.UI/bluent.ui.numeric-field.js?qa=' + Date.now()); const input = document.createElement('input'); let calls = 0; const reference = { invokeMethodAsync() { calls++; return Promise.resolve(); } }; const handle = module.attachNumericField(input, reference); handle.dispose(); handle.dispose(); const event = new KeyboardEvent('keydown', { key: 'ArrowUp', code: 'ArrowUp', bubbles: true, cancelable: true }); input.dispatchEvent(event); return { calls, prevented: event.defaultPrevented }; })()");
+  check('keyboard listener disposal is idempotent and prevents later callbacks', listenerDisposal.calls === 0 && listenerDisposal.prevented === false, listenerDisposal);
   const finalSignals = signals.filter(x => x.type === 'exception' || x.type === 'error' || (x.type === 'http' && x.status >= 500));
   check('no unhandled browser exceptions or console errors', finalSignals.length === 0, finalSignals);
   const report = { browser: browserLabel, renderMode, passed: checks.filter(x=>x.pass).length, total: checks.length, failures: checks.filter(x=>!x.pass), checks, runtimeSignals: signals };
