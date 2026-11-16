@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// #418 Firefox regression smoke for the actual Published InteractiveServer D2/D5 portal lab.
-// This is opt-in preview verification, not native AT, OS contrast, Safari, or public API certification.
+// #418 cross-engine regression smoke for the actual Published InteractiveServer D2/D5 portal lab.
+// Browser engine is selected with BLUENT_V3_PLAYWRIGHT_ENGINE=firefox|webkit.
+// This is opt-in preview verification, not native AT, OS contrast, Safari.app, or public API certification.
 import { spawn } from "node:child_process";
 import { promisify } from "node:util";
 import { execFile } from "node:child_process";
@@ -16,11 +17,16 @@ const cwd = resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const packagePath = process.env.BLUENT_V3_PLAYWRIGHT_PACKAGE;
 if (!packagePath) throw new Error("BLUENT_V3_PLAYWRIGHT_PACKAGE must point to the pinned Playwright package.");
 const require = createRequire(import.meta.url);
-const { firefox } = require(packagePath);
-const artifactDir = process.env.BLUENT_V3_FIREFOX_ARTIFACTS || join(cwd, ".artifacts", "bluent-v3-firefox");
+const engineName = process.env.BLUENT_V3_PLAYWRIGHT_ENGINE || "firefox";
+if (!["firefox", "webkit"].includes(engineName))
+  throw new Error("BLUENT_V3_PLAYWRIGHT_ENGINE must be firefox or webkit.");
+const engineLabel = engineName === "webkit" ? "WebKit" : "Firefox";
+const browserType = require(packagePath)[engineName];
+if (!browserType) throw new Error("Pinned Playwright package does not expose engine: " + engineName);
+const artifactDir = process.env.BLUENT_V3_PORTAL_ARTIFACTS || join(cwd, ".artifacts", "bluent-v3-" + engineName);
 mkdirSync(artifactDir, { recursive: true });
 
-const workDir = mkdtempSync(join(tmpdir(), "bluent-v3-418-firefox-"));
+const workDir = mkdtempSync(join(tmpdir(), "bluent-v3-418-" + engineName + "-"));
 const publishDir = join(workDir, "published-ssr");
 const origin = await allocateOrigin();
 const route = "/v3/interactive-portal-lab";
@@ -109,7 +115,7 @@ async function clickAndWait(selector, predicate, name, timeout = 15000) {
 }
 
 try {
-  console.log("Firefox D2/D5 probe origin: " + origin);
+  console.log(engineLabel + " D2/D5 probe origin: " + origin);
   await execFileAsync("dotnet", [
     "publish", "src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj",
     "--configuration", "Release", "--no-restore", "--nologo", "--verbosity", "quiet",
@@ -123,7 +129,7 @@ try {
   });
   await waitForServer(origin + route);
 
-  browser = await firefox.launch({ headless: true });
+  browser = await browserType.launch({ headless: true });
   context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
   traceStarted = true;
@@ -384,35 +390,35 @@ try {
       document.querySelectorAll(".dialog-wrapper").length === 0 &&
       !document.querySelector("#v3-show-route-exit-modal")
   );
-  record("Firefox probe reached the route-after-dialog destination", true, page.url());
+  record(engineLabel + " probe reached the route-after-dialog destination", true, page.url());
 
   record("No uncaught browser page errors", pageErrors.length === 0, pageErrors.join("\n").slice(0, 3000));
   console.log(JSON.stringify({
-    classification: "Firefox / Published InteractiveServer / D2-D5 opt-in preview smoke",
+    classification: engineLabel + " / Published InteractiveServer / D2-D5 opt-in preview smoke",
     passed: checks.length,
     total: checks.length,
     errors: [],
     limitations: [
       "not native assistive-technology certification",
       "not Windows Contrast Themes or forced-colors certification",
-      "not Safari or WebKit certification",
+      engineName === "webkit" ? "not native Safari.app or VoiceOver certification" : "not WebKit or Safari.app certification",
       "not public v3 API acceptance"
     ]
   }, null, 2));
 } catch (error) {
-  console.error("Firefox D2/D5 probe failed:", error.stack || error);
+  console.error(engineLabel + " D2/D5 probe failed:", error.stack || error);
   try {
-    if (page) await page.screenshot({ path: join(artifactDir, "firefox-portal-failure.png"), fullPage: true });
+    if (page) await page.screenshot({ path: join(artifactDir, engineName + "-portal-failure.png"), fullPage: true });
   } catch (screenshotError) {
     console.error("Failure screenshot could not be saved:", String(screenshotError));
   }
-  try { writeFileSync(join(artifactDir, "firefox-portal-server.log"), appLogs.join("")); } catch {}
+  try { writeFileSync(join(artifactDir, engineName + "-portal-server.log"), appLogs.join("")); } catch {}
   console.error("Server log tail:\n" + appLogs.join("").slice(-8000));
   process.exitCode = 1;
 } finally {
   if (traceStarted && context) {
     try {
-      await context.tracing.stop({ path: join(artifactDir, "firefox-portal-trace.zip") });
+      await context.tracing.stop({ path: join(artifactDir, engineName + "-portal-trace.zip") });
     } catch (traceError) {
       console.error("Trace could not be saved:", String(traceError));
     }
