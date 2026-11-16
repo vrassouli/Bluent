@@ -151,7 +151,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           npm --prefix src/Bluent.UI.Scripts run build
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          npm --prefix src/Bluent.UI ci --ignore-scripts --no-audit --no-fund
+          npm --prefix src/Bluent.UI ci --no-audit --no-fund
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           npm --prefix src/Bluent.UI run build:scss
           exit $LASTEXITCODE
@@ -250,5 +250,52 @@ jobs:
           path: |
             docs/v3/quality/evidence/BLUENT-TEXTFIELD-*.json
             docs/v3/quality/evidence/BLUENT-TEXTFIELD-*.png
-          if-no-files-found: warn
+          if-no-files-found: error
+          retention-days: 7
+
+  numericfield-runtime:
+    name: NumericField / ${{ matrix.browser }} / ${{ matrix.render_mode }}
+    runs-on: windows-latest
+    timeout-minutes: 24
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        browser: [Chrome, Edge]
+        render_mode: [WebAssembly, Server]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build NumericField stylesheet from SCSS source
+        shell: pwsh
+        run: |
+          npm --prefix src/Bluent.UI ci --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix src/Bluent.UI run build:scss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check scripts/quality/probe_v3_numericfield.mjs
+          exit $LASTEXITCODE
+      - name: Restore solution
+        run: dotnet restore Bluent.sln --nologo
+      - name: Exercise NumericField in the real browser matrix
+        shell: pwsh
+        env:
+          BLUENT_NUMERIC_EVIDENCE_PATH: ${{ runner.temp }}\numericfield-evidence\${{ matrix.browser }}-${{ matrix.render_mode }}.json
+        run: |
+          $evidenceDir = Join-Path $env:RUNNER_TEMP "numericfield-evidence"
+          New-Item -ItemType Directory -Force -Path $evidenceDir | Out-Null
+          & pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_numericfield.ps1 -Mode "${{ matrix.render_mode }}" -Browser "${{ matrix.browser }}"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Preserve NumericField browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-numericfield-${{ matrix.browser }}-${{ matrix.render_mode }}-${{ github.sha }}
+          path: ${{ runner.temp }}/numericfield-evidence/*.json
+          if-no-files-found: error
           retention-days: 7

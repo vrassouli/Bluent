@@ -1,0 +1,39 @@
+.bui-numeric-field {
+  border-color: var(--colorNeutralStrokeAccessible);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+  > input { direction: ltr; text-align: left; unicode-bidi: plaintext; }
+  > .numeric-stepper {
+    display: inline-flex; flex: 0 0 auto; flex-direction: column; align-self: stretch;
+    justify-content: center; min-width: 20px; margin-inline-end: var(--spacingHorizontalXXS);
+    opacity: .72; transition: opacity var(--durationFast) var(--curveDecelerateMid);
+    > button {
+      display: inline-flex; min-width: 20px; min-height: 14px; flex: 1 1 50%;
+      align-items: center; justify-content: center; padding: 0; border: 0;
+      border-radius: var(--borderRadiusSmall); color: var(--colorNeutralForeground2);
+      background: transparent; cursor: pointer;
+      &:hover:not(:disabled) { color: var(--colorNeutralForeground1); background: var(--colorSubtleBackgroundHover); }
+      &:active:not(:disabled) { background: var(--colorSubtleBackgroundPressed); }
+      &:disabled { color: var(--colorNeutralForegroundDisabled); cursor: not-allowed; }
+      > span { display: block; width: 6px; height: 6px; border-top: 1.5px solid currentColor; border-left: 1.5px solid currentColor; }
+    }
+    > .numeric-step-up > span { transform: translateY(1px) rotate(45deg); }
+    > .numeric-step-down > span { transform: translateY(-1px) rotate(225deg); }
+  }
+  &:hover > .numeric-stepper, &:focus-within > .numeric-stepper { opacity: 1; }
+  &.readonly > .numeric-stepper, &.disabled > .numeric-stepper { display: none; }
+  &.invalid:not(:focus-within) { border-color: var(--colorPaletteRedBorder2); border-bottom-color: var(--colorPaletteRedBorder2); }
+  &.invalid:focus-within {
+    border-color: var(--colorNeutralStrokeAccessible); border-bottom-color: var(--colorNeutralStrokeAccessible);
+    &::after { border-bottom-color: var(--colorCompoundBrandStroke); }
+  }
+}
+@media (hover: none) { .bui-numeric-field > .numeric-stepper { opacity: 1; } }
+@media (forced-colors: active) {
+  .bui-numeric-field {
+    border-color: CanvasText; border-bottom-color: CanvasText;
+    &.invalid:not(:focus-within) { border-color: CanvasText; border-bottom-color: CanvasText; }
+    > .numeric-stepper > button { color: ButtonText; border: 1px solid ButtonText; &:disabled { color: GrayText; } }
+    &:focus-within::after { border-bottom-color: Highlight; }
+  }
+}
+@media (prefers-reduced-motion: reduce) { .bui-numeric-field > .numeric-stepper { transition: none; } }

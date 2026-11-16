@@ -24,6 +24,15 @@ class V3SkillTests(unittest.TestCase):
         source = c.REQUIRED[0].read_text(encoding="utf-8").replace("2.x", "older")
         self.assertTrue(any("2.x NuGet consumers" in e for e in c.validate_skill_text(source)))
 
+    def test_numericfield_task_handoff_is_linked_and_not_misrepresented_as_released(self):
+        self.assertIn("bluent-v3-numericfield/SKILL.md",
+                      c.REQUIRED[1].read_text(encoding="utf-8"))
+        self.assertIn("PR #563", c.REQUIRED[4].read_text(encoding="utf-8"))
+        self.assertEqual(c.validate_numericfield_skill(c.REQUIRED[4].read_text(encoding="utf-8")), [])
+        altered = c.REQUIRED[4].read_text(encoding="utf-8").replace("not a released v3 API", "released consumer API")
+        self.assertTrue(any("not a released v3 API" in error
+                            for error in c.validate_numericfield_skill(altered)))
+
     def test_avoid_unfounded_api_claims_required(self):
         source = c.REQUIRED[0].read_text(encoding="utf-8")
         altered = source.replace("never invent", "feel free to invent").replace("Never recommend installing", "Recommend installing")
