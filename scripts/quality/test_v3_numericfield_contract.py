@@ -13,6 +13,8 @@ FILES = (
     "src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
     "src/Bluent.UI/Components/NumericFieldComponent/NumericFieldValuePipeline.cs",
     "src/Bluent.UI/wwwroot/bluent.ui.numeric-field.js",
+    "src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor",
+    "src/Bluent.UI.Demo.SSR/Program.cs",
     "scripts/quality/run_v3_numericfield.ps1",
     "scripts/quality/probe_v3_numericfield.mjs",
     ".github/workflows/v3-compatibility-browsers.yml",
@@ -74,6 +76,32 @@ class NumericFieldContractTests(unittest.TestCase):
         self.assertIn("if: always()", numeric_job)
         changed = before + "  numericfield-runtime:" + numeric_job.replace("if: always()", "if: success()", 1)
         self.paths[relative].write_text(changed, encoding="utf-8")
+        with self.assertRaises(NumericFieldContractError):
+            check_numericfield_contract(self.root)
+
+    def test_missing_live_culture_matrix_is_rejected(self):
+        relative = "scripts/quality/probe_v3_numericfield.mjs"
+        body = self.paths[relative].read_text(encoding="utf-8-sig")
+        self.assertIn("ar-EG", body)
+        self.paths[relative].write_text(body.replace("ar-EG", "ar-XX", 1), encoding="utf-8")
+        with self.assertRaises(NumericFieldContractError):
+            check_numericfield_contract(self.root)
+
+    def test_missing_component_unmount_probe_is_rejected(self):
+        relative = "scripts/quality/probe_v3_numericfield.mjs"
+        body = self.paths[relative].read_text(encoding="utf-8-sig")
+        self.assertIn("component unmount disposes its actual keyboard listener", body)
+        self.paths[relative].write_text(body.replace(
+            "component unmount disposes its actual keyboard listener",
+            "component disposal assertion removed", 1), encoding="utf-8")
+        with self.assertRaises(NumericFieldContractError):
+            check_numericfield_contract(self.root)
+
+    def test_missing_server_culture_middleware_is_rejected(self):
+        relative = "src/Bluent.UI.Demo.SSR/Program.cs"
+        body = self.paths[relative].read_text(encoding="utf-8-sig")
+        self.assertIn("UseRequestLocalization", body)
+        self.paths[relative].write_text(body.replace("UseRequestLocalization", "UseDefaultFiles", 1), encoding="utf-8")
         with self.assertRaises(NumericFieldContractError):
             check_numericfield_contract(self.root)
 

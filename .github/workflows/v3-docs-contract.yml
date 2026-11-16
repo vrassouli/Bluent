@@ -53,6 +53,7 @@ on:
       - "src/Bluent.UI/Styles/Components/_numeric-field.scss"
       - "src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor"
       - "src/Bluent.UI.Demo.SSR/Components/Pages/NumericFieldInteractiveServerProbe.razor"
+      - "src/Bluent.UI.Demo.SSR/Program.cs"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       - "src/Bluent.UI/Components/MenuListComponent/MenuList.razor"

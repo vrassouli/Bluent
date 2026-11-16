@@ -199,6 +199,60 @@ try {
   // Verify that the module's explicit disposal is idempotent and removes the keyboard listener.
   const listenerDisposal = await evaluate("(async () => { const module = await import('/_content/Bluent.UI/bluent.ui.numeric-field.js?qa=' + Date.now()); const input = document.createElement('input'); let calls = 0; const reference = { invokeMethodAsync() { calls++; return Promise.resolve(); } }; const handle = module.attachNumericField(input, reference); handle.dispose(); handle.dispose(); const event = new KeyboardEvent('keydown', { key: 'ArrowUp', code: 'ArrowUp', bubbles: true, cancelable: true }); input.dispatchEvent(event); return { calls, prevented: event.defaultPrevented }; })()");
   check('keyboard listener disposal is idempotent and prevents later callbacks', listenerDisposal.calls === 0 && listenerDisposal.prevented === false, listenerDisposal);
+  // Exercise the actual component on each supported locale in a real browser and render mode.
+  const cultureCases = [
+    { locale: 'en-US', input: '1,234.50' },
+    { locale: 'de-DE', input: '1.234,50' },
+    { locale: 'fa-IR', input: '1٬۲٣٤٫۵۰' },
+    { locale: 'ar-EG', input: '١٬2٣٤٫٥٠' }
+  ];
+  const originalUserAgent = await read('navigator.userAgent');
+  for (const cultureCase of cultureCases) {
+    await send('Emulation.setLocaleOverride', { locale: cultureCase.locale });
+    const language = cultureCase.locale.split('-')[0];
+    await send('Network.setUserAgentOverride', {
+      userAgent: originalUserAgent,
+      acceptLanguage: cultureCase.locale + ',' + language + ';q=0.9'
+    });
+    await send('Page.navigate', { url: base + route });
+    await poll(() => read("document.readyState !== 'loading' && !!document.querySelector('#numeric-signed')"));
+    if (renderMode === 'InteractiveServer') {
+      await poll(() => read("document.querySelector('#numericfield-interactive-ready')?.dataset.ready === 'true'"), 30000);
+    }
+
+    await replaceText('numeric-signed', cultureCase.input);
+    await wait(400);
+    const enteredCulture = await read("({input:document.querySelector('#numeric-signed')?.value,output:[...document.querySelectorAll('p')].find(x=>x.textContent.includes('Signed value:'))?.textContent,aria:document.querySelector('#numeric-signed')?.getAttribute('aria-valuenow'),culture:document.querySelector('#numeric-signed')?.dataset.buiQaCulture,nativeDigits:document.querySelector('#numeric-signed')?.dataset.buiQaNativeDigits,language:navigator.language,languages:navigator.languages})");
+    const actualCulture = (enteredCulture.culture || '').toLowerCase();
+    const parsedCulture = enteredCulture.aria === '1234.5' && actualCulture === cultureCase.locale.toLowerCase();
+    check(cultureCase.locale + ' browser Accept-Language selects the expected .NET culture and parses grouped/mixed-script input',
+      parsedCulture,
+      { ...enteredCulture, typed: cultureCase.input, requestedCulture: cultureCase.locale });
+    if (!parsedCulture) continue;
+
+    const expectedCultureFormat = await read("new Intl.NumberFormat('" + cultureCase.locale + "', {minimumFractionDigits:2,maximumFractionDigits:2}).format(1234.5)");
+    await evaluate("document.querySelector('#numeric-signed').blur(); true");
+    const formattedCulture = await poll(async () => {
+      const value = await read("({input:document.querySelector('#numeric-signed')?.value, aria:document.querySelector('#numeric-signed')?.getAttribute('aria-valuenow'),culture:document.querySelector('#numeric-signed')?.dataset.buiQaCulture,nativeDigits:document.querySelector('#numeric-signed')?.dataset.buiQaNativeDigits})");
+      return value?.input === expectedCultureFormat && value?.aria === '1234.5' ? value : null;
+    });
+    check(cultureCase.locale + ' committed value uses the culture-specific formatted digits and separators',
+      formattedCulture.aria === '1234.5' &&
+      formattedCulture.input === expectedCultureFormat,
+      { ...formattedCulture, typed: cultureCase.input, expected: expectedCultureFormat, requestedCulture: cultureCase.locale });
+  }
+  await send('Network.setUserAgentOverride', { userAgent: originalUserAgent, acceptLanguage: 'en-US,en;q=0.9' });
+  await send('Emulation.setLocaleOverride', { locale: 'en-US' });
+
+  // Keep a reference to the actual component input, remove it through Blazor,
+  // then dispatch a keyboard event at the detached node. A live listener would prevent default.
+  const lifecycleMounted = await evaluate("(() => { const input=document.querySelector('#numeric-lifecycle-probe'); window.__numericLifecycleDetached=input; return !!input && input.isConnected; })()");
+  check('lifecycle probe NumericField is mounted before removal', lifecycleMounted === true);
+  await evaluate("document.querySelector('#numeric-lifecycle-unmount').click(); true");
+  await poll(() => read("!document.querySelector('#numeric-lifecycle-probe')"));
+  const unmountedListener = await evaluate("(() => { const input=window.__numericLifecycleDetached; const event=new KeyboardEvent('keydown',{key:'ArrowUp',code:'ArrowUp',bubbles:true,cancelable:true}); const dispatchResult=input.dispatchEvent(event); return {connected:input.isConnected,defaultPrevented:event.defaultPrevented,dispatchResult}; })()");
+  check('component unmount disposes its actual keyboard listener', unmountedListener.connected === false && unmountedListener.defaultPrevented === false && unmountedListener.dispatchResult === true, unmountedListener);
+
   const finalSignals = signals.filter(x => x.type === 'exception' || x.type === 'error' || (x.type === 'http' && x.status >= 500));
   check('no unhandled browser exceptions or console errors', finalSignals.length === 0, finalSignals);
   const report = { browser: browserLabel, renderMode, passed: checks.filter(x=>x.pass).length, total: checks.length, failures: checks.filter(x=>!x.pass), checks, runtimeSignals: signals };

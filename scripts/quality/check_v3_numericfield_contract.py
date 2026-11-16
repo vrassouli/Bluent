@@ -27,6 +27,8 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
     runner = read("scripts/quality/run_v3_numericfield.ps1")
     probe = read("scripts/quality/probe_v3_numericfield.mjs")
     workflow = read(".github/workflows/v3-compatibility-browsers.yml")
+    demo = read("src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor")
+    server_program = read("src/Bluent.UI.Demo.SSR/Program.cs")
     reference = read("docs/v3/components/numeric-field.md")
 
     for token in ("public TValue? Min", "public TValue? Max", "public TValue? Step", "_stepWasProvided", "_effectiveStep = _stepWasProvided"):
@@ -62,8 +64,20 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
                   "windows-latest", "run_v3_numericfield.ps1", "BLUENT_NUMERIC_EVIDENCE_PATH",
                   "if: always()", "actions/upload-artifact@v4", "retention-days: 7"):
         need(token in numeric_job, f"permanent NumericField browser CI matrix is missing: {token}")
-    for token in ("16 checks per run", "64/64", "paste/caret", "native", "DRAFT", "not yet"):
+    for token in ("16 checks per run", "64/64", "84/84", "31 checks per cell", "124/124",
+                  "culture matrix", "component-level unmount", "paste/caret", "native", "DRAFT", "not yet"):
         need(token.lower() in reference.lower(), f"NumericField evidence boundary is missing or overstated: {token}")
+    for locale in ("en-US", "de-DE", "fa-IR", "ar-EG"):
+        need(locale in probe, f"live browser culture matrix is missing locale: {locale}")
+    for token in ("Emulation.setLocaleOverride", "Network.setUserAgentOverride", "acceptLanguage",
+                  "Intl.NumberFormat", "numeric-lifecycle-probe", "numeric-lifecycle-unmount",
+                  "component unmount disposes its actual keyboard listener"):
+        need(token in probe, f"live browser culture/lifecycle probe is missing: {token}")
+    for token in ("data-bui-qa-culture", "data-bui-qa-native-digits", "_showLifecycleProbe",
+                  "numeric-lifecycle-probe", "UnmountNumericLifecycleProbe"):
+        need(token in demo, f"NumericField demo culture/lifecycle fixture is missing: {token}")
+    for token in ("UseRequestLocalization", "en-US", "de-DE", "fa-IR", "ar-EG"):
+        need(token in server_program, f"InteractiveServer locale host configuration is missing: {token}")
     need("BLUENT_NUMERIC_EVIDENCE_PATH" in probe and "writeFile" in probe,
          "each browser/render-mode run must preserve machine-readable evidence")
 

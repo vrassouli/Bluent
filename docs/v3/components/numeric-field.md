@@ -72,7 +72,7 @@ An empty input starts from zero unless an explicit bound defines the correspondi
 
 ## Verified example
 
-The focused component showcase is at `src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor`, route `/components/numeric-fields`. It covers integer and decimal binding, Min/Max/Step, `oninput`, Small/Medium/Large, readonly/disabled and RTL host composition.
+The focused component showcase is at `src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor`, route `/components/numeric-fields`. It covers integer and decimal binding, Min/Max/Step, `oninput`, Small/Medium/Large, readonly/disabled and RTL host composition. Two `data-bui-qa-*` attributes on the signed-value demo instance expose the effective culture/native-digit metadata to the browser test; these are ordinary unmatched HTML attributes on that demo instance, not new public NumericField parameters.
 
 ```razor
 @using Bluent.UI.Components
@@ -109,12 +109,13 @@ No manual global script tag is required; the ES module is dynamically imported f
 | NumericField pipeline unit tests | `NumericFieldValuePipelineTests` in the existing test project | **23/23 pass** |
 | Full Solution Release build | `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` | **0 warnings / 0 errors** |
 | Full Solution tests | `dotnet test Bluent.sln --configuration Release --no-build` | **93/93 pass** |
-| Real browser / render-mode | Chrome/Edge × WebAssembly/InteractiveServer; base behavior probe, 16 checks per run | **64/64 pass** (four browser/render-mode runs) |
-| Extended real-browser interaction probe | Clipboard paste + model commit, mid-string caret restoration, composition-key guard, forced-colors media emulation and idempotent JS listener disposal; 21 checks per run | **84/84 pass** (four browser/render-mode runs) |
+| Real browser / render-mode | Chrome/Edge × WebAssembly/InteractiveServer; base behavior probe (16 checks per run), clipboard paste/caret, composition guard, forced-colors emulation and listener tests | **148/148 pass** (original 16 + 21 checks across four browser/render-mode runs) |
+| Live browser culture matrix | Actual request Accept-Language / browser locale switching: en-US, de-DE, fa-IR and ar-EG; grouped and mixed-script input plus committed formatted output; 31 checks per cell | **124/124 pass** (Chrome/Edge × WebAssembly/InteractiveServer) |
+| Component lifecycle | Actual NumericField removed by Blazor conditional render; detached input proves keyboard listener no longer handles events; plus idempotent JS handle test | **8/8 lifecycle assertions pass** (two checks per browser/render-mode cell) |
 | Native OS contrast / screen reader | Browser forced-colors media emulation is verified; Windows Contrast Themes and spoken Narrator/NVDA acceptance | Not yet run for NumericField |
-| Penpot design parity | Owned file revision 819, page 51; one bidi board and page marked IMPLEMENTATION BASELINE, six design boards remain DRAFT | API/RTL decisions reconciled; visual sign-off outstanding |
+| Penpot design parity | Owned file revision 819, page 51; seven NumericField boards last observed as DRAFT | Implementation/API behavior is documented; visual sign-off outstanding |
 
-The original 64/64 browser checks cover input binding, negative/decimal entry, Step, ArrowUp/ArrowDown, Home/End, inclusive bounds and recovery, RTL direction/alignment, static-web-assets delivery, readonly/disabled and focus retention. The additional 84/84 checks exercise paste/caret preservation: actual clipboard paste through model commit, mid-string caret retention after a Blazor rerender, the synthetic composition-key guard, forced-colors CSS under browser media emulation, and idempotent disposal of the input-scoped JS listener. The .NET pipeline tests cover en-US, de-DE, fa-IR, ar-EG, mixed Latin/Persian/Arabic digits and formatting. Still outstanding: a live browser culture-switch matrix, physical OS IME/keyboard composition, native Windows Contrast Themes, spoken assistive-technology acceptance, and a component-level unmount/re-render listener lifecycle test. Do not generalize synthetic/browser emulation into native OS or screen-reader acceptance. The `#418` token foundation remains separately in Review and is not marked complete by this component work.
+The original 64/64 browser checks cover input binding, negative/decimal entry, Step, ArrowUp/ArrowDown, Home/End, inclusive bounds and recovery, RTL direction/alignment, static-web-assets delivery, readonly/disabled and focus retention. The additional 84/84 checks exercise actual clipboard paste through model commit, mid-string caret retention after a Blazor rerender, the synthetic composition-key guard, forced-colors CSS under browser media emulation, and idempotent disposal of the input-scoped JS listener. The new 124/124 live-browser checks switch the browser locale and request Accept-Language across en-US, de-DE, fa-IR and ar-EG in Chrome/Edge and both render modes; each locale is tested for mixed-script/grouped input parsing and committed culture-specific formatting. The component lifecycle probe additionally removes the actual NumericField through Blazor conditional rendering and verifies that its detached input no longer handles keyboard commands. Still outstanding: physical Windows Persian keyboard/OS IME composition, native Windows Contrast Themes, spoken assistive-technology acceptance, seven Penpot board design sign-off, and independent PR review. Do not generalize synthetic/browser emulation into native OS or screen-reader acceptance. The `#418` token foundation remains separately in Review and is not marked complete by this component work.
 
 ## 2.x migration impact
 
@@ -127,11 +128,11 @@ The existing public parameter and inherited binding names are retained. The v3 t
 - [x] Extend real-browser coverage for clipboard paste through model commit and caret preservation after mid-string editing; pass: 84/84 across Chrome/Edge × WebAssembly/InteractiveServer.
 - [x] Verify the production static-web-assets module is served (HTTP 200) and the interactive listener initializes in WebAssembly and InteractiveServer.
 - [x] Verify the JS listener disposal handle is idempotent and stops later callbacks (all four browser/render-mode cells).
-- [ ] Add a component-level re-render/unmount test proving the component actually calls disposal during teardown.
-- [ ] Run the full live browser locale matrix (en-US, de-DE, fa-IR, ar-EG and mixed digit/separator inputs) in Chrome and Edge.
-- [ ] Verify physical Windows Persian keyboard/OS IME composition and caret behavior.
-- [ ] Perform native Windows Contrast Themes and spoken named assistive-technology review; record the exact AT actually used. Browser forced-colors emulation is not this native test.
+- [x] Add a component-level unmount test proving the actual Blazor component teardown removes its keyboard listener (Chrome/Edge × WebAssembly/InteractiveServer).
+- [x] Run the live browser culture matrix (en-US, de-DE, fa-IR, ar-EG; mixed digit/separator input and committed formatting) in Chrome and Edge across WebAssembly/InteractiveServer: 124/124 assertions.
 - [x] Run full Release solution build/tests: 0 warnings / 0 errors; 93/93 tests.
 - [x] Run docs/skills contracts and repository Markdown link validation: docs 0 findings, Skills 0 errors, 176 Markdown files checked.
+- [ ] Obtain native Windows Persian IME/keyboard and caret evidence.
+- [ ] Perform native Windows Contrast Themes and spoken assistive-technology review; record the exact AT actually used. Browser forced-colors emulation is not this native test.
 - [ ] Confirm all exact-head GitHub Actions complete successfully for the final pushed commit.
 - [ ] Obtain independent review and merge the PR to `bluent-v3`; only then can #433 move Review → Done.
