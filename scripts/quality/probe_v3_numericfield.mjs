@@ -111,6 +111,42 @@ try {
   const moduleFetch = await read("fetch('/_content/Bluent.UI/bluent.ui.numeric-field.js').then(r => ({ status: r.status, url: r.url, contentType: r.headers.get('content-type') }))");
   check('component ES module static web asset is served successfully', moduleFetch.status === 200, moduleFetch);
 
+  const addonMarkup = await read("(() => { const input=document.querySelector('#numeric-addons'); const root=input?.closest('.bui-numeric-field'); const key=Object.keys(input||{}).find(k=>k.startsWith('_blazorEvents')); return {start:root?.querySelector('.start-addon')?.textContent.trim(),end:root?.querySelector('.end-addon')?.textContent.trim(),classApplied:root?.classList.contains('w-100'),maxWidth:getComputedStyle(root).maxWidth,inputId:input?.id,blazorHandlerKeys:key?Object.keys(input[key]?.handlers||{}):[]}; })()");
+  check('StartAddon and EndAddon render in logical slots and inherited Class/Style are forwarded',
+    addonMarkup.start === '$' && addonMarkup.end === 'per item' &&
+    addonMarkup.classApplied === true && addonMarkup.maxWidth === '448px', addonMarkup);
+
+  check('Blazor registers bubbling focusin/focusout handlers on NumericField',
+    addonMarkup.blazorHandlerKeys.includes('focusin') && addonMarkup.blazorHandlerKeys.includes('focusout'),
+    addonMarkup.blazorHandlerKeys);
+  await evaluate("document.querySelector('#numeric-mount-gain-focus').click(); true");
+  await poll(() => read("document.activeElement?.id === 'numeric-gain-focus'"), 30000);
+  const gainFocus = await read("({active:document.activeElement?.id,value:document.querySelector('#numeric-gain-focus')?.value})");
+  check('GainFocus focuses the input on its first interactive render',
+    gainFocus.active === 'numeric-gain-focus', gainFocus);
+
+  const customErrorCases = [
+    { value: 'abc', expected: 'Enter a valid whole number.', name: 'ParsingErrorMessage' },
+    { value: '9', expected: 'The custom amount must be at least 10.', name: 'MinimumErrorMessage' },
+    { value: '21', expected: 'The custom amount must be at most 20.', name: 'MaximumErrorMessage' },
+    { value: '2147483648', expected: 'The custom amount is outside the supported integer range.', name: 'OverflowErrorMessage' }
+  ];
+  for (const item of customErrorCases) {
+    await replaceText('numeric-custom-errors', item.value);
+    await evaluate("document.querySelector('#numeric-custom-errors').blur(); true");
+    await poll(() => read("document.querySelector('#numeric-custom-error-message')?.textContent.includes(" + JSON.stringify(item.expected) + ")"));
+    const customError = await read("({value:document.querySelector('#numeric-custom-errors')?.value,invalid:document.querySelector('#numeric-custom-errors')?.getAttribute('aria-invalid'),now:document.querySelector('#numeric-custom-errors')?.getAttribute('aria-valuenow'),message:document.querySelector('#numeric-custom-error-message')?.textContent.trim()})");
+    check(item.name + ' override is shown by the real EditForm validation path',
+      customError.value === item.value && customError.invalid === 'true' &&
+      customError.now === null && customError.message.includes(item.expected), customError);
+  }
+  await replaceText('numeric-custom-errors', '15');
+  await evaluate("document.querySelector('#numeric-custom-errors').blur(); true");
+  await poll(() => read("document.querySelector('#numeric-custom-errors')?.getAttribute('aria-invalid') !== 'true'"));
+  const customRecovery = await read("({value:document.querySelector('#numeric-custom-errors')?.value,invalid:document.querySelector('#numeric-custom-errors')?.getAttribute('aria-invalid'),message:document.querySelector('#numeric-custom-error-message')?.textContent.trim()})");
+  check('custom validation override fixture recovers after valid input',
+    customRecovery.value === '15' && customRecovery.message === '', customRecovery);
+
   await replaceText('numeric-signed', '-12.50');
   await poll(() => read("document.querySelector('#numeric-signed')?.value === '-12.50'"));
   await poll(() => read("[...document.querySelectorAll('p')].some(x => x.textContent.includes('Signed value: -12.50'))"), 15000);

@@ -66,6 +66,70 @@
             <p class="mt-3 mb-0">جهت پوسته و برچسب RTL است؛ ورودی عددی LTR و چپ‌چین باقی می‌ماند.</p>
         </section>
 
+        <h3 class="mt-6">Validation message overrides</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Custom amount (10–20)" for="numeric-custom-errors" Class="d-block mb-1" />
+            <EditForm Model="_sample">
+                <NumericField TValue="int?"
+                              @bind-Value="_sample.CustomErrorValue"
+                              id="numeric-custom-errors"
+                              Min="10"
+                              Max="20"
+                              Step="1"
+                              BindValueEvent="oninput"
+                              ParsingErrorMessage="Enter a valid whole number."
+                              MinimumErrorMessage="The custom amount must be at least 10."
+                              MaximumErrorMessage="The custom amount must be at most 20."
+                              OverflowErrorMessage="The custom amount is outside the supported integer range." />
+                <div id="numeric-custom-error-message" class="mt-2">
+                    <ValidationMessage For="() => _sample.CustomErrorValue" />
+                </div>
+                <p id="numeric-custom-error-value" class="mt-3 mb-0" role="status">
+                    Custom amount: @(_sample.CustomErrorValue?.ToString() ?? "(empty)")
+                </p>
+            </EditForm>
+        </section>
+
+        <h3 class="mt-6">Focus, callbacks and logical addons</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Label Text="Amount with currency and unit addons" for="numeric-addons" Class="d-block mb-1" />
+            <NumericField TValue="decimal"
+                          @bind-Value="_sample.AddonValue"
+                          id="numeric-addons"
+                          Min="0m"
+                          Max="1000m"
+                          Step="0.25m"
+                          Format="N2"
+                          StartAddon="@CurrencyAddon"
+                          EndAddon="@UnitAddon"
+                          Class="w-100"
+                          Style="max-width: 28rem"
+                          OnFocus="HandleDemoNumericFocus"
+                          OnBlur="HandleDemoNumericBlur" />
+            <p id="numeric-focus-callback-counts" class="mt-3 mb-0" role="status">
+                Focus callbacks: @_demoFocusCount; Blur callbacks: @_demoBlurCount
+            </p>
+
+            <button id="numeric-mount-gain-focus"
+                    type="button"
+                    class="mt-4"
+                    @onclick="MountGainFocusProbe">
+                Mount GainFocus example
+            </button>
+            @if (_showGainFocusProbe)
+            {
+                <div class="mt-3">
+                    <Label Text="Focused on first interactive render" for="numeric-gain-focus" Class="d-block mb-1" />
+                    <NumericField TValue="decimal"
+                                  @bind-Value="_sample.GainFocusValue"
+                                  id="numeric-gain-focus"
+                                  GainFocus="true"
+                                  Step="0.25m"
+                                  Format="N2" />
+                </div>
+            }
+        </section>
+
         <h3 class="mt-6">Keyboard and behavior</h3>
         <section class="p-7 rounded-5 shadow-3">
             <ul class="mb-0">
@@ -108,8 +172,41 @@
 
 @code {
     private bool _showLifecycleProbe = true;
+    private bool _showGainFocusProbe;
+    private int _demoFocusCount;
+    private int _demoBlurCount;
 
     private void UnmountNumericLifecycleProbe() => _showLifecycleProbe = false;
+
+    private void MountGainFocusProbe() => _showGainFocusProbe = true;
+
+    private Task HandleDemoNumericFocus()
+    {
+        _demoFocusCount++;
+        return Task.CompletedTask;
+    }
+
+    private Task HandleDemoNumericBlur()
+    {
+        _demoBlurCount++;
+        return Task.CompletedTask;
+    }
+
+    private RenderFragment CurrencyAddon => builder =>
+    {
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "aria-hidden", "true");
+        builder.AddContent(2, "$");
+        builder.CloseElement();
+    };
+
+    private RenderFragment UnitAddon => builder =>
+    {
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "aria-hidden", "true");
+        builder.AddContent(2, "per item");
+        builder.CloseElement();
+    };
 
     private readonly NumericFieldSample _sample = new();
 
@@ -124,5 +221,8 @@
         public decimal ReadOnlyValue { get; set; } = 123.45m;
         public decimal RtlValue { get; set; } = 24.5m;
         public decimal LifecycleValue { get; set; } = 7m;
+        public int? CustomErrorValue { get; set; } = 15;
+        public decimal AddonValue { get; set; } = 24.5m;
+        public decimal GainFocusValue { get; set; } = 12.5m;
     }
 }

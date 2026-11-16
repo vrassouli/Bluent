@@ -45,6 +45,10 @@ class NumericFieldContractTests(unittest.TestCase):
     def test_current_source_and_ci_contract(self):
         check_numericfield_contract(self.root)
 
+    def test_missing_focus_and_validation_parameter_demo_coverage_is_rejected(self):
+        self.mutate("src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor",
+                    'OnFocus="HandleDemoNumericFocus"', 'OnFocus="default"')
+
     def test_missing_step_default_is_rejected(self):
         self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
                     "_effectiveStep = _stepWasProvided", "_effectiveStep = false && _stepWasProvided")

@@ -1,0 +1,31 @@
+{
+  "issue": 433,
+  "date": "2026-11-16",
+  "host": {
+    "os": "Windows 11 Pro",
+    "browser": "Microsoft Edge 157",
+    "renderMode": "InteractiveServer",
+    "route": "/components/numeric-fields-server"
+  },
+  "method": "Native Windows UI Automation SetFocus on the live NumericField input; then SetFocus on a different live input. The parent demo callback counters were read from the native UIA tree after each transition.",
+  "before": {
+    "target": "numeric-addons",
+    "focusCallbacks": 0,
+    "blurCallbacks": 0
+  },
+  "afterFocus": {
+    "target": "numeric-addons",
+    "focused": true,
+    "focusCallbacks": 1,
+    "blurCallbacks": 0
+  },
+  "afterBlur": {
+    "nextTarget": "numeric-price",
+    "previousTarget": "numeric-addons",
+    "focusedTarget": "numeric-price",
+    "focusCallbacks": 1,
+    "blurCallbacks": 1
+  },
+  "result": "Pass",
+  "scope": "Confirms both public EventCallback parameters OnFocus and OnBlur are invoked in the real Windows browser through native focus transitions. The headless CDP probe does not synthesize native focus/focusin transitions reliably, so it asserts browser registration of Blazor focusin/focusout handlers; this native UIA interaction is the behavioral evidence."
+}

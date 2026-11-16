@@ -52,6 +52,10 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
     for token in ('data-bui-numeric-has-min="@(HasExplicitMin ? "true" : "false")"',
                   'data-bui-numeric-has-max="@(HasExplicitMax ? "true" : "false")"'):
         need(token in razor, f"JS bounds flag must serialize explicitly: {token}")
+    need('@onfocusin="HandleFocus"' in razor and '@onfocusout="HandleBlur"' in razor,
+         "Focus and blur callbacks must use bubbling focusin/focusout events")
+    need("await OnFocus.InvokeAsync()" in code and "await OnBlur.InvokeAsync()" in code,
+         "Focus and blur callbacks must be invoked by their native component handlers")
     for token in ("TryParse", "Format", "NormalizeForParsing", "CharUnicodeInfo.GetDecimalDigitValue", "\\u066B", "\\u066C", "NonFinite", "Overflow"):
         need(token.lower() in pipeline.lower(), f"culture/value pipeline coverage is missing: {token}")
     for token in ("addEventListener", "removeEventListener", "keydown", "ArrowUp", "ArrowDown", "Home", "End"):
@@ -64,8 +68,10 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
                   "windows-latest", "run_v3_numericfield.ps1", "BLUENT_NUMERIC_EVIDENCE_PATH",
                   "if: always()", "actions/upload-artifact@v4", "retention-days: 7"):
         need(token in numeric_job, f"permanent NumericField browser CI matrix is missing: {token}")
-    for token in ("16 checks per run", "64/64", "84/84", "31 checks per cell", "124/124",
-                  "culture matrix", "component-level unmount", "paste/caret", "native", "DRAFT", "not yet"):
+    for token in ("39 assertions per browser/render-mode cell", "156/156",
+                  "culture matrix", "component-level unmount", "native clipboard paste", "mid-string caret",
+                  "GainFocus", "OnFocus", "OnBlur", "StartAddon", "EndAddon",
+                  "native", "DRAFT", "not yet"):
         need(token.lower() in reference.lower(), f"NumericField evidence boundary is missing or overstated: {token}")
     for locale in ("en-US", "de-DE", "fa-IR", "ar-EG"):
         need(locale in probe, f"live browser culture matrix is missing locale: {locale}")
@@ -76,6 +82,17 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
     for token in ("data-bui-qa-culture", "data-bui-qa-native-digits", "_showLifecycleProbe",
                   "numeric-lifecycle-probe", "UnmountNumericLifecycleProbe"):
         need(token in demo, f"NumericField demo culture/lifecycle fixture is missing: {token}")
+    for token in ("GainFocus=\"true\"", "OnFocus=\"HandleDemoNumericFocus\"",
+                  "OnBlur=\"HandleDemoNumericBlur\"", "StartAddon=\"@CurrencyAddon\"",
+                  "EndAddon=\"@UnitAddon\"", "ParsingErrorMessage=", "MinimumErrorMessage=",
+                  "MaximumErrorMessage=", "OverflowErrorMessage="):
+        need(token in demo, f"NumericField demo does not exercise the public parameter: {token}")
+    for token in ("StartAddon and EndAddon render in logical slots",
+                  "Blazor registers bubbling focusin/focusout handlers on NumericField",
+                  "GainFocus focuses the input on its first interactive render",
+                  "ParsingErrorMessage", "MinimumErrorMessage", "MaximumErrorMessage",
+                  "OverflowErrorMessage", "custom validation override fixture recovers"):
+        need(token in probe, f"NumericField browser evidence is missing public-parameter coverage: {token}")
     for token in ("UseRequestLocalization", "en-US", "de-DE", "fa-IR", "ar-EG"):
         need(token in server_program, f"InteractiveServer locale host configuration is missing: {token}")
     need("BLUENT_NUMERIC_EVIDENCE_PATH" in probe and "writeFile" in probe,

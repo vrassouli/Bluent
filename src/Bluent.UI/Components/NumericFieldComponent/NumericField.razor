@@ -27,8 +27,8 @@
            data-bui-numeric-has-max="@(HasExplicitMax ? "true" : "false")"
            @bind-value="@UserValue"
            @bind-value:event="@BindValueEvent"
-           @onfocus="HandleFocus"
-           @onblur="HandleBlur" />
+           @onfocusin="HandleFocus"
+           @onfocusout="HandleBlur" />
 
     <div class="numeric-stepper">
         <button type="button" class="numeric-step-up" tabindex="-1"

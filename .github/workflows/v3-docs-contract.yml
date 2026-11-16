@@ -14,6 +14,8 @@ on:
       - "docs/v3/inventory/public-component-contracts.json"
       - ".agents/skills/bluent-v3-label/**"
       - ".agents/skills/bluent-v3-textfield/**"
+      - ".agents/skills/bluent-v3-numericfield/**"
+      - ".agents/skills/bluent-v3/COMPONENT-ROUTER.md"
       - "docs/v3/skills/README.md"
       - "src/Bluent.UI/Components/LabelComponent/**"
       - "src/Bluent.UI/Styles/Components/_label.scss"
