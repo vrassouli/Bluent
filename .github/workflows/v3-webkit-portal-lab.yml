@@ -1,0 +1,60 @@
+name: Bluent v3 WebKit Portal Lab
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-webkit-portal-lab.yml"
+      - "scripts/quality/probe_v3_firefox_portal.mjs"
+      - "docs/v3/tokens/issue-418-token-schema.preview.json"
+      - "src/Bluent.UI/**"
+      - "src/Bluent.UI.Demo.Pages/**"
+      - "src/Bluent.UI.Demo.SSR/**"
+
+concurrency:
+  group: bluent-v3-webkit-portal
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  webkit-interactive-server:
+    name: WebKit / macOS / InteractiveServer / D2-D5
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout isolated v3 revision
+        uses: actions/checkout@v4
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Install Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Restore solution (no publishing)
+        run: dotnet restore Bluent.sln --nologo
+      - name: Install pinned Playwright and WebKit
+        shell: bash
+        run: |
+          package_root="$RUNNER_TEMP/bluent-v3-webkit-playwright"
+          mkdir -p "$package_root"
+          printf '{"private":true}\n' > "$package_root/package.json"
+          npm install --prefix "$package_root" --no-save --no-package-lock "playwright@1.65.1"
+          echo "BLUENT_V3_PLAYWRIGHT_PACKAGE=$package_root/node_modules/playwright" >> "$GITHUB_ENV"
+          echo "BLUENT_V3_PLAYWRIGHT_ENGINE=webkit" >> "$GITHUB_ENV"
+          echo "BLUENT_V3_PORTAL_ARTIFACTS=.artifacts/bluent-v3-webkit" >> "$GITHUB_ENV"
+          "$package_root/node_modules/.bin/playwright" install webkit
+      - name: Run real WebKit D2-D5 probe against Published SSR
+        run: node scripts/quality/probe_v3_firefox_portal.mjs
+      - name: Preserve WebKit trace, screenshot and server diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bluent-v3-webkit-d2-d5
+          path: .artifacts/bluent-v3-webkit/
+          if-no-files-found: ignore
+          retention-days: 14
