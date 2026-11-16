@@ -93,3 +93,9 @@ Existing source/browser research:
 - scripts/quality/probe_v3_focus_alpha_hosts_browser.mjs
 
 These are computed source/DOM/browser observations, not blanket WCAG, native OS Contrast Themes, raster equivalence or spoken AT certification.
+
+## 2026-11-16 decision — Option A selected
+
+The maintainer delegated this choice to the engineering/design review. **Option A is selected as the future v3 contract direction**: use `data-bui-v3-focus-mode` and `data-bui-v3-focus-host` together on the actual painted host. Do not add a wrapper component or a Button Razor parameter. Do not infer host type from pixels.
+
+For missing metadata or unsupported/translucent/gradient/image/composited hosts, do not emit a host-specific alias and preserve the existing visible keyboard-focus indicator without claiming a host-specific contrast guarantee. This is not production API/CSS approval: the current preview remains opt-in and the page-53 design board and native acceptance gates remain open.

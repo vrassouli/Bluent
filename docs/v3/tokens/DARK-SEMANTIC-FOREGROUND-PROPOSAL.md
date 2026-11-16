@@ -105,3 +105,9 @@ These numeric results do not certify:
 - General WCAG conformance for arbitrary surfaces or components.
 
 No production CSS, stable bundle, NuGet package or public token name is approved by this proposal. Keep the values and aliases in DRAFT until the page-45 decision and rendered/native evidence gates are accepted.
+
+## 2026-11-16 decision — selected opt-in preview target
+
+The maintainer delegated this choice to the engineering/design review. The 40 generated values are selected as the opt-in preview target for Action Rest, Link Rest, Link Hover and Link Pressed across ten brands on the opaque Dark `--colorNeutralBackground1` surface only. The current generated matrix minimum is 4.6001:1 against a 4.6:1 preview target.
+
+This does not approve public semantic names or production CSS, and it is not a blanket WCAG/accessibility claim. Alpha/composited, gradient, image, other component/state surfaces, native forced-colors and spoken AT remain outside this selection. Page 45 and page 55 retain their DRAFT / REVIEW REQUIRED state until reviewed.

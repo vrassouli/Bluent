@@ -99,3 +99,11 @@ Editable source: Penpot file Bluent v3 Design System, ID b64f6665-c9ab-80b5-8008
 - New API comparison: page 54 388782f1-b766-8073-8008-f32c913ab071, board 388782f1-b766-8073-8008-f32c9154ed0d, explicitly DRAFT / PUBLIC API / ACCESSIBILITY CONTRACT REQUIRED. Export was visually inspected.
 
 The page-54 board is a proposal and proof map, not maintainer approval or runtime/API acceptance.
+
+## 2026-11-16 decision — Option A selected
+
+The maintainer delegated this choice to the engineering/design review. **Option A is selected as the future API direction**: retain the existing Dialog configuration-builder route and require explicit caller owner context. Popover follows the nearest live owner; a Dialog captures an immutable owner snapshot at `ShowAsync`; unscoped calls keep the legacy fallback. Keep OwnerId as private implementation identity, not consumer API.
+
+Keep D5 accessibility configuration separate from D2 owner context and retain the existing explicit, validated builder methods for accessible name, modal keyboard behavior and focus targets. Do not add a new public launcher, `PortalThemeScope` API name or grouped accessibility-options type in this iteration.
+
+This selects an API direction only. Public type/member names and shipping API remain unapproved until exact API review, Penpot page-33/page-54 review, native Contrast Themes and spoken AT, independent engine, lifecycle and third-party popup arbitration gates pass.

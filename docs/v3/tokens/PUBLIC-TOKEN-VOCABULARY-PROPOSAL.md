@@ -59,3 +59,9 @@ The three-way decision is now represented in the source-owned Penpot file, in ad
 The board compares A (all layers public), B (global palette + individually accepted semantic), and C (semantic-only); it visualizes the proposed CSS serialization and preserves the separate Dark, Danger, Focus host and D2/D5 gates. It is marked DRAFT / MAINTAINER DECISION REQUIRED and ends with PROPOSAL ONLY / NO PUBLIC TOKEN PROMOTION / NO PRODUCTION CSS OR PACKAGE CHANGE.
 
 The PNG export was visually inspected after correcting the board's page-coordinate offset. This confirms design artifact existence and legibility only; it is not design approval and does not change this document's Pending approval state.
+
+## 2026-11-16 decision — Option B selected
+
+The maintainer delegated this choice to the engineering/design review. **Option B is selected**: public global palette names `bluent.color.*` and individually accepted `bluent.semantic.*`; `bluent.source.*` remains internal and `bluent.component.*` remains private. `--bui-v3-*` serializes approved logical tokens only under the explicit v3 opt-in scope. Existing `--color*` variables and 2.x assets are preserved, and shipped aliases must never be repurposed.
+
+This selects the vocabulary architecture, not the final semantic allow-list or production publication. The current design board remains in its recorded DRAFT state; preview CSS and aliases are not shipping assets.

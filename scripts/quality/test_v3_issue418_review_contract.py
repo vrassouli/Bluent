@@ -56,10 +56,12 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(len(focus["requiresSameElementAttributes"]), 2)
         self.assertFalse(focus["automaticBackgroundInference"])
         self.assertFalse(focus["publicAttributeOrComponentApiApproved"])
+        self.assertEqual(focus["selectedOption"], "A")
 
     def test_portal_prototype_does_not_claim_a_public_api(self):
         portal = self.policy["portalBoundary"]
         self.assertFalse(portal["shippingPublicApiApproved"])
+        self.assertEqual(portal["selectedOption"], "A")
         self.assertIn("immutable scope snapshot", portal["ownershipRule"])
         self.assertIn("native Windows Contrast Themes for Dialog/Popover", portal["remainingNativeEvidence"])
         design = portal["penpotDesignRecord"]
@@ -88,13 +90,13 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(by_page[45]["status"], "DRAFT / REVIEW REQUIRED")
         self.assertIn("production aliases", by_page[45]["scope"])
 
-    def test_public_vocabulary_and_alias_policy_remain_proposals(self):
+    def test_public_vocabulary_selected_but_aliases_not_shipped(self):
         proposal = self.policy["publicVocabularyProposal"]
-        self.assertEqual(proposal["status"], "proposal pending maintainer decision; not public API approval")
+        self.assertEqual(proposal["status"], "Option B selected 2026-11-16; production/public API promotion remains gated by design and acceptance review")
         self.assertEqual(proposal["recommendedOption"], "B")
         self.assertIn("bluent.source.*", proposal["options"]["B"])
         alias = proposal["productionAliasPolicy"]
-        self.assertEqual(alias["status"], "proposal pending maintainer decision; no aliases approved for production by this record")
+        self.assertEqual(alias["status"], "Option B alias direction selected 2026-11-16; no aliases approved for production by this record")
         self.assertEqual(alias["prefix"], "--bui-v3-*")
         self.assertIn("Explicit v3 opt-in scope", alias["scope"])
         self.assertIn("Never repurpose", alias["compatibility"])
@@ -105,6 +107,25 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn("Segoe UI", policy["productionFontSourceOfTruth"])
         self.assertIn("native Persian OS IME composition/caret/selection", policy["browserEvidenceDoesNotApprove"])
         self.assertIn("native screen-reader speech", policy["browserEvidenceDoesNotApprove"])
+
+    def test_delegated_foundation_decisions_are_explicit_but_not_shipped(self):
+        decisions = self.policy["selectedDecisions"]
+        self.assertEqual(decisions["date"], "2026-11-16")
+        self.assertEqual(decisions["publicTokenVocabulary"]["option"], "B")
+        self.assertFalse(decisions["publicTokenVocabulary"]["productionApproval"])
+        self.assertEqual(decisions["focusHost"]["option"], "A")
+        self.assertFalse(decisions["focusHost"]["productionApiApproval"])
+        self.assertIn("same actual painted host", decisions["focusHost"]["contractDirection"])
+        self.assertEqual(decisions["portalOwnership"]["option"], "A")
+        self.assertIn("immutable snapshot at ShowAsync", decisions["portalOwnership"]["dialog"])
+        self.assertIn("Private implementation identity", decisions["portalOwnership"]["ownerIdentity"])
+        self.assertFalse(decisions["portalOwnership"]["productionApiApproval"])
+        self.assertEqual(decisions["darkBrandForeground"]["brands"], 10)
+        self.assertEqual(decisions["darkBrandForeground"]["minimumCandidateContrast"], 4.6001)
+        self.assertFalse(decisions["darkBrandForeground"]["productionCssApproved"])
+        self.assertIn("Label decorative required marker only", decisions["danger"]["semanticTextDangerAccessible"])
+        self.assertIn("DRAFT/REVIEW REQUIRED", decisions["publicationBoundary"])
+        self.assertEqual(self.data["darkBrandForegroundPreview"]["selection"]["status"], "Selected opt-in preview target; exact public token names and production CSS remain unapproved.")
 
 
 if __name__ == "__main__":

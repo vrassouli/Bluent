@@ -2,6 +2,14 @@
 
 This file is the operational entry point for continuing the current Bluent work with Codex or another coding agent.
 
+## Active v3 continuation — #418 Design Tokens (2026-11-16)
+
+- Worktree: `C:/Projects/Bluent-issue418`; branch: `v3/issue-418-design-tokens`; PR: [#500](https://github.com/vrassouli/Bluent/pull/500), base `bluent-v3`.
+- The maintainer delegated the outstanding choices. Selected directions: Option B token vocabulary; Option A explicit same-host Focus metadata; Option A explicit Dialog owner context through the existing builder; selected 40 Dark foreground candidates as preview-only targets for four roles on opaque NeutralBackground1; retain the narrow Danger usage boundary. Full decision record: `docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md`.
+- Selected directions do not approve public API names/signatures, production CSS, stable packages or Penpot review boards. Page 45 and pages 52–55 remain in their recorded DRAFT / REVIEW REQUIRED states pending visual/design and native acceptance.
+- Exact-head CI on `3389a392c8c187d9835cb93d72b817fea06938f2` was 11/11 success. New decision-record changes require fresh focused/docs checks and CI. Do not merge PR #500 or move #418 to Done until the actual design/acceptance gates pass.
+- #434 Checkbox remains Analysis; design and acceptance remain separate. No implementation until its own Penpot design and Ready gate are satisfied.
+
 ## Current Objective
 
 Complete [Issue #406](https://github.com/vrassouli/Bluent/issues/406): build and validate the canonical portable Bluent consumer skill from verified source, canonical documentation, examples, and runtime evidence.

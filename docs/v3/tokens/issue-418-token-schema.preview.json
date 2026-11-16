@@ -417,7 +417,15 @@
         "outputCss": "--bui-v3-semantic-link-foreground-pressed"
       }
     },
-    "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest."
+    "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest.",
+    "selection": {
+      "date": "2026-11-16",
+      "status": "Selected opt-in preview target; exact public token names and production CSS remain unapproved.",
+      "scope": "40 generated values across ten brands for Action Rest, Link Rest, Link Hover and Link Pressed on opaque Dark NeutralBackground1 only.",
+      "minimumObservedContrast": 4.6001,
+      "targetContrast": 4.6,
+      "designBoardStatus": "DRAFT / REVIEW REQUIRED"
+    }
   },
   "reviewPolicy": {
     "status": "explicit engineering review contract for opt-in preview; not public API approval",
@@ -495,7 +503,7 @@
       }
     },
     "focusHostBoundary": {
-      "status": "opt-in preview only; public consumer contract not approved",
+      "status": "Option A selected 2026-11-16 as future v3 contract direction; opt-in preview only; no shipping API approved",
       "approvedVisualDesign": {
         "penpotBoardId": "f4136a9a-101d-8004-8008-ca2956fe05f9",
         "ownerIssue": 501
@@ -525,10 +533,11 @@
         "visualDesign": 501,
         "buttonRuntimeAndConsumerApi": 428,
         "previewTokenBridge": 418
-      }
+      },
+      "selectedOption": "A"
     },
     "portalBoundary": {
-      "status": "opt-in research prototype; no public v3 PortalThemeScope/Dialog/Popover API approved",
+      "status": "Option A selected 2026-11-16 as future API direction; opt-in research prototype; no shipping public API approved",
       "ownershipRule": "A detached portal receives an immutable scope snapshot from its actual owner; never infer ownership from last click, focus, or the current document theme.",
       "popoverPrototype": "Cascading owner scope follows the owning subtree and updates only that owner's detached surface.",
       "dialogPrototype": "An explicit immutable owner snapshot is captured at ShowAsync; unscoped calls retain legacy fallback behavior.",
@@ -579,7 +588,8 @@
           "route/unmount/iframe lifecycle edge coverage",
           "final public API/design approval"
         ]
-      }
+      },
+      "selectedOption": "A"
     },
     "typographyAndMediaBoundary": {
       "productionFontSourceOfTruth": "The complete Segoe UI / Segoe UI Web / native system CSS fallback chain in the shipped theme CSS.",
@@ -622,7 +632,7 @@
       }
     ],
     "publicVocabularyProposal": {
-      "status": "proposal pending maintainer decision; not public API approval",
+      "status": "Option B selected 2026-11-16; production/public API promotion remains gated by design and acceptance review",
       "document": "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md",
       "recommendedOption": "B",
       "options": {
@@ -631,7 +641,7 @@
         "C": "Expose only individually approved bluent.semantic.*; keep color/source/component internal."
       },
       "productionAliasPolicy": {
-        "status": "proposal pending maintainer decision; no aliases approved for production by this record",
+        "status": "Option B alias direction selected 2026-11-16; no aliases approved for production by this record",
         "prefix": "--bui-v3-*",
         "publicMappings": "Only approved bluent.color.* and bluent.semantic.* roles",
         "privateMappings": "bluent.source.* and bluent.component.* remain internal and are not consumer override contracts",
@@ -640,6 +650,75 @@
         "compatibility": "Never repurpose a shipped name; semantic changes require a new alias and migration; removal requires separate breaking-release approval",
         "publishing": "Preview assets remain excluded from production package until design, consumer, compatibility and runtime gates are accepted"
       }
+    },
+    "selectedDecisions": {
+      "date": "2026-11-16",
+      "authority": "Selected by the maintainer-delegated design decision; engineering direction only.",
+      "publicTokenVocabulary": {
+        "option": "B",
+        "publicLayers": [
+          "bluent.color.*",
+          "individually approved bluent.semantic.*"
+        ],
+        "internalLayers": [
+          "bluent.source.*",
+          "bluent.component.*"
+        ],
+        "cssAliases": "Stable --bui-v3-* serialization only for approved public logical roles inside the explicit v3 opt-in scope.",
+        "compatibility": "Never repurpose a shipped token or alias; semantic changes use a new name and migration; legacy --color* variables and 2.x assets remain untouched.",
+        "productionApproval": false
+      },
+      "focusHost": {
+        "option": "A",
+        "contractDirection": "Explicit data-bui-v3-focus-mode and data-bui-v3-focus-host metadata on the same actual painted host.",
+        "supportedOpaqueKinds": [
+          "neutral",
+          "brand",
+          "brandHover",
+          "danger",
+          "inverted"
+        ],
+        "unknownOrUnsupportedFallback": "Do not infer a host from pixels and do not emit a host-specific alias; preserve the existing visible keyboard focus indicator without promising a host-specific contrast result.",
+        "newWrapperOrRazorParameter": false,
+        "productionApiApproval": false
+      },
+      "portalOwnership": {
+        "option": "A",
+        "popover": "Follow the nearest live owner cascade while the trigger/owner is alive.",
+        "dialog": "Pass owner context explicitly through the existing Dialog configuration builder and capture an immutable snapshot at ShowAsync; unscoped calls retain the legacy fallback.",
+        "ownerIdentity": "Private implementation identity/registry handle; do not expose a public OwnerId merely for internal bookkeeping.",
+        "dialogAccessibility": "Keep D5 modal/accessibility configuration explicit and validated, separate from D2 owner context; retain existing explicit builder methods rather than adding a new options type in this iteration.",
+        "newLauncherOrPublicScopeType": false,
+        "productionApiApproval": false
+      },
+      "darkBrandForeground": {
+        "selection": "Use the 40 generated candidates as the selected opt-in preview target for the four named roles only.",
+        "roles": [
+          "Action Rest",
+          "Link Rest",
+          "Link Hover",
+          "Link Pressed"
+        ],
+        "brands": 10,
+        "surface": "--colorNeutralBackground1 opaque Dark surface (#292929 in the current source matrix)",
+        "minimumCandidateContrast": 4.6001,
+        "targetContrast": 4.6,
+        "publicNamesApproved": false,
+        "productionCssApproved": false,
+        "limitations": "Does not certify alpha/composited/gradient/image surfaces, other components or states, native forced-colors, spoken assistive technology, or blanket WCAG conformance."
+      },
+      "danger": {
+        "semanticStatusDanger": "Non-text status indicators/icons/accents only on the tested neutral surface; not normal/small text.",
+        "semanticTextDangerAccessible": "Label decorative required marker only.",
+        "unapprovedTextConsumers": [
+          "Badge",
+          "Alert",
+          "Toast",
+          "Button Danger",
+          "generic status/body text"
+        ]
+      },
+      "publicationBoundary": "No production CSS, stable branch, stable package, NuGet publication or deployment is authorized by these decisions. Keep design boards in their actual DRAFT/REVIEW REQUIRED states until reviewed in Penpot."
     }
   }
 }

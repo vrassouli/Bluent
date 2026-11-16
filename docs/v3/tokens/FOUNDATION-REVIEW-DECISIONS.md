@@ -162,3 +162,38 @@ Added DARK-SEMANTIC-FOREGROUND-PROPOSAL.md and native Penpot page 55 (388782f1-b
 The 10-brand × four-role table is copied from generated preview candidates: Action Rest, Link Rest, Link Hover, Link Pressed. All 40 numeric opaque pairs meet 4.6:1; minimum 4.6001:1 (Teams Action/Link Rest), maximum 4.6891:1 (Excel Link Hover). The 48-step binary search mixes each matching source state toward white; no Hover/Pressed value is borrowed for Rest. The source CSS and public semantic names remain proposals only.
 
 The already-approved direction of preserving each brand hue is not reopened. Exact candidate values remain DRAFT / REVIEW REQUIRED; page45 remains DRAFT / REVIEW REQUIRED and page55 DRAFT / exact values not approved. Numeric opaque pairs do not certify component rendering, alpha/gradient surfaces, native forced-colors/AT, or full WCAG conformance. No production CSS/API/package changed.
+
+## 2026-11-16 — delegated Fluent 2 foundation decisions
+
+The maintainer delegated the unresolved #418 design choices to the engineering/design review. The following directions are selected and are now the basis for further v3 foundation work. This is a decision record, **not** a claim that the draft Penpot boards were accepted, that every candidate passed native accessibility review, or that production/public APIs have shipped. The machine-readable record is `issue-418-token-schema.preview.json` → `reviewPolicy.selectedDecisions`.
+
+### 1. Public token vocabulary — Option B
+
+Expose the reusable global palette namespace `bluent.color.*` and only individually approved meaning-based `bluent.semantic.*` roles. Keep `bluent.source.*` as internal source mappings and `bluent.component.*` as private component implementation aliases. CSS names are a stable serialization, not a second independent API: use `--bui-v3-*` only for approved public logical roles inside the explicit v3 opt-in scope. Never repurpose a shipped name; semantic changes require a new name and migration. Existing Fluent-compatible `--color*` source variables and all 2.x assets remain unchanged. No preview alias is promoted to production by this decision.
+
+### 2. Focus host — Option A
+
+Choose explicit same-host metadata: `data-bui-v3-focus-mode` and `data-bui-v3-focus-host` belong on the actual painted host. Keep the supported opaque host set to neutral, brand, brandHover, danger and inverted. Do not add a wrapper component or Button Razor parameter and do not infer surface identity from pixels. For missing/unknown metadata or translucent, gradient, image-backed or composited hosts, emit no host-specific alias and preserve the existing visible keyboard focus indicator; make no unsupported contrast promise. The target contract is selected, but the attributes/CSS are still opt-in preview pending page-53 design review and the specified host/OS acceptance.
+
+### 3. Portal owner API — Option A
+
+Reuse the existing Dialog configuration-builder path and pass owner context explicitly. Popover follows its nearest live owner cascade while the owner/trigger is alive. A service Dialog captures an immutable owner snapshot at `ShowAsync`; later owner changes do not mutate an already-open Dialog. An unscoped call keeps the legacy fallback. Keep owner identity private to implementation/registry bookkeeping; do not expose `OwnerId` simply to support internal lifecycle management. Keep D5 modal/accessibility behavior separate from D2 owner context; retain explicit validated builder methods for accessible naming, modal keyboard containment and focus targets rather than introducing another public options or launcher type in this iteration.
+
+This is the selected API direction, not a final public API spelling/signature approval. The page-54 and page-33 boards remain DRAFT, and native Windows Contrast Themes for Dialog/Popover, spoken NVDA/Narrator/VoiceOver acceptance, independent engine coverage and lifecycle/popup arbitration remain acceptance gates.
+
+### 4. Dark brand foreground candidates — selected for preview only
+
+Use the 40 generated source-derived candidates as the target preview values for exactly four roles (Action Rest, Link Rest, Link Hover, Link Pressed) across the ten brands on the opaque Dark `--colorNeutralBackground1` surface. All 40 currently meet the 4.6:1 preview target; the minimum emitted ratio is 4.6001:1. This choice preserves each brand hue and keeps Rest/Hover/Pressed mapped to their corresponding source roles. It does not certify alpha/composited, gradient, image, other component surfaces/states, native forced-colors or spoken AT, and does not create final public token names. The values stay preview-only pending the page-45/page-55 visual review and the remaining acceptance evidence.
+
+### 5. Danger boundary — keep the narrow scope
+
+`bluent.semantic.text.dangerAccessible` remains limited to the Label decorative required marker. `bluent.semantic.status.danger` remains limited to non-text status indicators/icons/accents on the tested neutral surface; it is not an ordinary/small-text foreground. Badge text, Alert, Toast and Button Danger text remain unapproved and require their own source, surface, contrast and design review.
+
+### Acceptance boundary and next work
+
+- Update source-owned Penpot boards to reflect these selected directions only after their design review; do not change DRAFT/REVIEW REQUIRED statuses by inference.
+- Keep all current prototype CSS and APIs opt-in. No public API, production stylesheet, stable branch, package, NuGet publication or deployment is authorized here.
+- Finish the design/acceptance work for #418, refresh its evidence and review the PR. Only after the actual design and acceptance gates are satisfied should #418 move to Review; do not merge merely because CI is green.
+- #434 Checkbox can use these selected directions as its foundation context, but its own Penpot design and its implementation Ready gate remain separate.
+
+Exact-head CI at the previous synchronized #418 checkpoint `3389a392c8c187d9835cb93d72b817fea06938f2` completed **11/11 workflows successfully**. This is evidence for that exact SHA only; subsequent decision-document commits require their own exact-head checks.
