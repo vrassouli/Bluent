@@ -1,6 +1,6 @@
 # #418 — Penpot decision alignment and remaining acceptance gates
 
-**Review date:** 2026-11-16  
+**Review date:** 2026-11-16
 **Disposition:** delegated design directions selected and aligned in the source-owned Penpot file; preview/API/native acceptance remains open. This record does **not** approve production tokens, public host attributes, a public Portal/Dialog/Popover API, stable CSS, packages or deployment.
 
 ## Authoritative design source and saved version
