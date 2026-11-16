@@ -101,7 +101,7 @@ The `NumericFields` showcase compiles in Release. This sample is a task-branch s
 
 No manual global script tag is required; the ES module is dynamically imported from the package static-web-assets path. Standard Bluent theme/component styles are still required by the host.
 
-## Validation ledger (2026-11-15)
+## Validation ledger (2026-11-16)
 
 | Scope | Evidence | Result |
 | --- | --- | --- |
@@ -109,11 +109,12 @@ No manual global script tag is required; the ES module is dynamically imported f
 | NumericField pipeline unit tests | `NumericFieldValuePipelineTests` in the existing test project | **23/23 pass** |
 | Full Solution Release build | `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` | **0 warnings / 0 errors** |
 | Full Solution tests | `dotnet test Bluent.sln --configuration Release --no-build` | **93/93 pass** |
-| Real browser / render-mode | Chrome/Edge × WebAssembly/InteractiveServer; focused probe, 16 checks per run | **64/64 pass** (four browser/render-mode runs) |
-| Native OS contrast / screen reader | Windows Contrast Themes, Narrator/NVDA | Not yet run for NumericField |
+| Real browser / render-mode | Chrome/Edge × WebAssembly/InteractiveServer; base behavior probe, 16 checks per run | **64/64 pass** (four browser/render-mode runs) |
+| Extended real-browser interaction probe | Clipboard paste + model commit, mid-string caret restoration, composition-key guard, forced-colors media emulation and idempotent JS listener disposal; 21 checks per run | **84/84 pass** (four browser/render-mode runs) |
+| Native OS contrast / screen reader | Browser forced-colors media emulation is verified; Windows Contrast Themes and spoken Narrator/NVDA acceptance | Not yet run for NumericField |
 | Penpot design parity | Owned file revision 819, page 51; one bidi board and page marked IMPLEMENTATION BASELINE, six design boards remain DRAFT | API/RTL decisions reconciled; visual sign-off outstanding |
 
-The 64/64 browser checks cover input binding, negative/decimal entry, Step, ArrowUp/ArrowDown, Home/End, inclusive bounds and recovery, RTL direction/alignment, static-web-assets delivery, readonly/disabled and focus retention. They do not yet cover the full paste/caret/IME and culture matrix or native assistive-technology acceptance. Do not generalize .NET tests/build into those independent acceptance domains. The `#418` token foundation remains separately in Review and is not marked complete by this component work.
+The original 64/64 browser checks cover input binding, negative/decimal entry, Step, ArrowUp/ArrowDown, Home/End, inclusive bounds and recovery, RTL direction/alignment, static-web-assets delivery, readonly/disabled and focus retention. The additional 84/84 checks exercise actual clipboard paste through model commit, mid-string caret retention after a Blazor rerender, the synthetic composition-key guard, forced-colors CSS under browser media emulation, and idempotent disposal of the input-scoped JS listener. The .NET pipeline tests cover en-US, de-DE, fa-IR, ar-EG, mixed Latin/Persian/Arabic digits and formatting. Still outstanding: a live browser culture-switch matrix, physical OS IME/keyboard composition, native Windows Contrast Themes, spoken assistive-technology acceptance, and a component-level unmount/re-render listener lifecycle test. Do not generalize synthetic/browser emulation into native OS or screen-reader acceptance. The `#418` token foundation remains separately in Review and is not marked complete by this component work.
 
 ## 2.x migration impact
 
@@ -123,10 +124,14 @@ The existing public parameter and inherited binding names are retained. The v3 t
 
 - [ ] Accept the seven owned Penpot boards and record reviewed variant/node IDs and parity.
 - [x] Run the focused Chrome and Edge × WebAssembly and published InteractiveServer interaction checks: 64/64 assertions across the four modes.
-- [ ] Extend live-browser coverage to paste/caret preservation and the full culture/digit/separator matrix; native keyboard-layout/IME behavior remains separate.
+- [x] Extend real-browser coverage for clipboard paste through model commit and caret preservation after mid-string editing; pass: 84/84 across Chrome/Edge × WebAssembly/InteractiveServer.
 - [x] Verify the production static-web-assets module is served (HTTP 200) and the interactive listener initializes in WebAssembly and InteractiveServer.
-- [ ] Add a repeat-render/disposal browser assertion for listener teardown.
-- [ ] Perform native Windows Contrast Themes and named assistive-technology review; record the exact AT actually used.
+- [x] Verify the JS listener disposal handle is idempotent and stops later callbacks (all four browser/render-mode cells).
+- [ ] Add a component-level re-render/unmount test proving the component actually calls disposal during teardown.
+- [ ] Run the full live browser locale matrix (en-US, de-DE, fa-IR, ar-EG and mixed digit/separator inputs) in Chrome and Edge.
+- [ ] Verify physical Windows Persian keyboard/OS IME composition and caret behavior.
+- [ ] Perform native Windows Contrast Themes and spoken named assistive-technology review; record the exact AT actually used. Browser forced-colors emulation is not this native test.
 - [x] Run full Release solution build/tests: 0 warnings / 0 errors; 93/93 tests.
-- [ ] Run docs/skills contracts and exact-head GitHub CI after pushing the task branch.
+- [x] Run docs/skills contracts and repository Markdown link validation: docs 0 findings, Skills 0 errors, 176 Markdown files checked.
+- [ ] Confirm all exact-head GitHub Actions complete successfully for the final pushed commit.
 - [ ] Obtain independent review and merge the PR to `bluent-v3`; only then can #433 move Review → Done.
