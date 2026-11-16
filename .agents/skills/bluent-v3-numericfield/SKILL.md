@@ -74,5 +74,6 @@ Native Windows evidence is recorded in docs/v3/quality/evidence/BLUENT-NUMERICFI
 - Six owned Penpot NumericField boards now carry the ENGINEERING BASELINE marker; owner/design sign-off remains pending. The Theme board remains DRAFT pending #418; do not consume draft #418 aliases or mark its gate accepted by inference.
 - OnFocus and OnBlur are behaviorally verified by a native Windows UIA focus transition; the headless CDP probe separately checks that Blazor registers focusin/focusout handlers.
 - Spoken Narrator/NVDA acceptance remains open. Native UIA inspection is not spoken-output acceptance.
+- Exact-head GitHub Actions for `da998d052a44f8fb1c748795531f1296343267d6`: 8/8 workflows and all jobs passed, including NumericField and Component Lab Chrome/Edge × WebAssembly/Server.
 - PR #563 is Ready for review; independent review/approval and merge into bluent-v3 are outstanding. Issue #433 stays In Progress until accepted merge and lifecycle update.
 - Never merge this task to Dev, main, stable/release branches or 2.x. Do not publish NuGet packages or deploy from this branch. The current 2.x Skill/reference remains the only released consumer authority.
