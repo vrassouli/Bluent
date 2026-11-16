@@ -1,6 +1,6 @@
 # NumericField — Bluent v3 implementation record
 
-> **In progress — Issue #433.** This is source-backed work on `v3/issue-433-numeric-field`, targeting `bluent-v3`. It is not an accepted/released v3 API or a stable NuGet contract. The seven owned Penpot boards on page 51 remain DRAFT; design parity and native assistive-technology acceptance are not claimed.
+> **Implementation and QA complete on the task branch; Issue #433 remains In progress pending owner design sign-off and independent PR review.** This work targets `bluent-v3` only. It is not an accepted/released v3 API or a stable NuGet contract. The seven Penpot boards remain DRAFT; visual approval and spoken assistive-technology acceptance are not claimed.
 
 ## Identity and maturity
 
@@ -14,7 +14,7 @@
 | Integration target | `bluent-v3` only; no `Dev`, `main`, 2.x or NuGet change |
 | Upstream design baseline | Fluent UI Web Components Number Field; WAI-ARIA APG Spinbutton |
 | Owned design | Bluent v3 Design System, Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 51 `e9b4dbe1-9dd3-8094-8008-f2a6fdb3c800` |
-| Design state | Seven anatomy/behavior boards exist; all remain DRAFT pending design review |
+| Design state | Seven anatomy/behavior boards exist; all remain DRAFT pending owner/design sign-off; the Theme board also depends on #418 token approval |
 
 ## Source/API inventory
 
@@ -112,27 +112,35 @@ No manual global script tag is required; the ES module is dynamically imported f
 | Real browser / render-mode | Chrome/Edge × WebAssembly/InteractiveServer; base behavior probe (16 checks per run), clipboard paste/caret, composition guard, forced-colors emulation and listener tests | **148/148 pass** (original 16 + 21 checks across four browser/render-mode runs) |
 | Live browser culture matrix | Actual request Accept-Language / browser locale switching: en-US, de-DE, fa-IR and ar-EG; grouped and mixed-script input plus committed formatted output; 31 checks per cell | **124/124 pass** (Chrome/Edge × WebAssembly/InteractiveServer) |
 | Component lifecycle | Actual NumericField removed by Blazor conditional render; detached input proves keyboard listener no longer handles events; plus idempotent JS handle test | **8/8 lifecycle assertions pass** (two checks per browser/render-mode cell) |
-| Native OS contrast / screen reader | Browser forced-colors media emulation is verified; Windows Contrast Themes and spoken Narrator/NVDA acceptance | Not yet run for NumericField |
-| Penpot design parity | Owned file revision 819, page 51; seven NumericField boards last observed as DRAFT | Implementation/API behavior is documented; visual sign-off outstanding |
+| Native Windows Contrast | Windows 11 Pro High Contrast White was actually enabled (HighContrast flags 127); Edge reported forced-colors active; focused, disabled, invalid and RTL states were inspected on the live InteractiveServer demo | **Pass; screenshot + JSON retained** |
+| Native Windows Persian layout | KLID 00000429 on the Edge UI thread; A → U+0634; caret at position 6; LTR/left alignment unchanged | **Pass for OS layout event; no physical keyboard or composition IME claim** |
+| Narrator / Windows UIA | Narrator running while native UIA exposed the labeled spinbutton, value/range, invalid state and validation message | **UIA checked; spoken output not recorded/listened to** |
+| Penpot design parity | Owned file, page 51; all seven NumericField boards exported and visually inspected against implementation | **Owner sign-off outstanding; #418 theme-token gate remains open** |
 
-The original 64/64 browser checks cover input binding, negative/decimal entry, Step, ArrowUp/ArrowDown, Home/End, inclusive bounds and recovery, RTL direction/alignment, static-web-assets delivery, readonly/disabled and focus retention. The additional 84/84 checks exercise actual clipboard paste through model commit, mid-string caret retention after a Blazor rerender, the synthetic composition-key guard, forced-colors CSS under browser media emulation, and idempotent disposal of the input-scoped JS listener. The new 124/124 live-browser checks switch the browser locale and request Accept-Language across en-US, de-DE, fa-IR and ar-EG in Chrome/Edge and both render modes; each locale is tested for mixed-script/grouped input parsing and committed culture-specific formatting. The component lifecycle probe additionally removes the actual NumericField through Blazor conditional rendering and verifies that its detached input no longer handles keyboard commands. Still outstanding: physical Windows Persian keyboard/OS IME composition, native Windows Contrast Themes, spoken assistive-technology acceptance, seven Penpot board design sign-off, and independent PR review. Do not generalize synthetic/browser emulation into native OS or screen-reader acceptance. The `#418` token foundation remains separately in Review and is not marked complete by this component work.
+The original 64/64 browser checks cover input binding, negative/decimal entry, Step, ArrowUp/ArrowDown, Home/End, inclusive bounds and recovery, RTL direction/alignment, static-web-assets delivery, readonly/disabled and focus retention. The additional 84/84 checks exercise actual clipboard paste through model commit, mid-string caret retention after a Blazor rerender, the synthetic composition-key guard, forced-colors CSS under browser media emulation, and idempotent disposal of the input-scoped JS listener. The new 124/124 live-browser checks switch the browser locale and request Accept-Language across en-US, de-DE, fa-IR and ar-EG in Chrome/Edge and both render modes; each locale is tested for mixed-script/grouped input parsing and committed culture-specific formatting. The component lifecycle probe additionally removes the actual NumericField through Blazor conditional rendering and verifies that its detached input no longer handles keyboard commands. Native Windows evidence is retained in `../quality/evidence/BLUENT-NUMERICFIELD-WINDOWS-HIGH-CONTRAST.json`, `BLUENT-NUMERICFIELD-WINDOWS-HIGH-CONTRAST.png`, `BLUENT-NUMERICFIELD-WINDOWS-PERSIAN-KEYBOARD.json` and `BLUENT-NUMERICFIELD-WINDOWS-NARRATOR-UIA.json`. The Persian check uses an OS keyboard-layout key event, not a physically pressed hardware key or a composition-based IME. Narrator was running and UIA-visible semantics were checked, but spoken output is not yet recorded or independently heard. Remaining: spoken Narrator/NVDA acceptance, owner approval of the seven Penpot boards (the Theme board waits for #418 token approval), and independent PR review. Do not generalize browser emulation or UIA inspection into spoken screen-reader acceptance. The `#418` token foundation remains separately in Review and is not marked complete by this component work.
 
 ## 2.x migration impact
 
 The existing public parameter and inherited binding names are retained. The v3 task branch adds observable native markup/interaction semantics (`role="spinbutton"`, ARIA range/value state, pointer stepper and Arrow/Home/End behavior), corrects destructive input normalization, makes culture parsing/formatting coherent, and makes the existing `Step` parameter operative. DOM consumers that assumed no stepper descendants or no spinbutton role must recheck selectors/AX behavior. No stable v2 assets/packages are changed. Full migration guidance remains proposed until #433 is accepted.
 
+## Native Windows acceptance evidence
+
+The Windows-specific evidence JSON and PNG files under `../quality/evidence/` are captured from the published InteractiveServer demo. High Contrast White was enabled through the Windows accessibility setting (HighContrast flags 127), and Edge confirmed `matchMedia('(forced-colors: active)') === true`. The invalid quantity 150 remained visible, `aria-invalid=true` was exposed, `aria-valuenow` was omitted, and the inclusive-bound message stayed visible. Focus colors used the system Highlight color; disabled text/border used GrayText; the RTL form still hosted an LTR/left-aligned spinbutton. The Persian layout test loaded Windows KLID 00000429 on the Edge UI thread and verified A → U+0634 with a caret at the end of the input. Narrator was running while the UIA tree was inspected; this is not evidence of the spoken announcement. These tests do not claim physical keyboard input, IME composition or accessibility certification.
+
 ## Acceptance and remaining gates
 
-- [ ] Accept the seven owned Penpot boards and record reviewed variant/node IDs and parity.
+- [ ] Accept the seven owned Penpot boards and record reviewed variant/node IDs and parity. The Theme board is expressly dependent on #418 token approval.
 - [x] Run the focused Chrome and Edge × WebAssembly and published InteractiveServer interaction checks: 64/64 assertions across the four modes.
-- [x] Extend real-browser coverage for clipboard paste through model commit and caret preservation after mid-string editing; pass: 84/84 across Chrome/Edge × WebAssembly/InteractiveServer.
+- [x] Extend real-browser coverage for clipboard paste through model commit and caret preservation after mid-string editing: 84/84 across Chrome/Edge × WebAssembly/InteractiveServer.
 - [x] Verify the production static-web-assets module is served (HTTP 200) and the interactive listener initializes in WebAssembly and InteractiveServer.
 - [x] Verify the JS listener disposal handle is idempotent and stops later callbacks (all four browser/render-mode cells).
-- [x] Add a component-level unmount test proving the actual Blazor component teardown removes its keyboard listener (Chrome/Edge × WebAssembly/InteractiveServer).
-- [x] Run the live browser culture matrix (en-US, de-DE, fa-IR, ar-EG; mixed digit/separator input and committed formatting) in Chrome and Edge across WebAssembly/InteractiveServer: 124/124 assertions.
+- [x] Add a component-level unmount test proving actual Blazor teardown removes its keyboard listener (Chrome/Edge × WebAssembly/InteractiveServer).
+- [x] Run the live browser culture matrix (en-US, de-DE, fa-IR, ar-EG; mixed digit/separator input and committed formatting) in Chrome and Edge across both render modes: 124/124 assertions.
 - [x] Run full Release solution build/tests: 0 warnings / 0 errors; 93/93 tests.
 - [x] Run docs/skills contracts and repository Markdown link validation: docs 0 findings, Skills 0 errors, 176 Markdown files checked.
-- [ ] Obtain native Windows Persian IME/keyboard and caret evidence.
-- [ ] Perform native Windows Contrast Themes and spoken assistive-technology review; record the exact AT actually used. Browser forced-colors emulation is not this native test.
+- [x] Verify Native Windows High Contrast White on Windows 11 Pro with native forced-colors active, including focus, disabled, invalid and RTL states; screenshot and JSON evidence retained.
+- [x] Verify Persian Windows keyboard-layout translation and caret placement on the live field (U+0634 at caret 6); this is not a physical keyboard/IME composition test.
+- [x] Inspect NumericField native Windows UIA semantics while Narrator is running: name, role, value/range, invalid state and validation message.
+- [ ] Obtain spoken Narrator/NVDA acceptance; no spoken output has been independently recorded or heard.
 - [ ] Confirm all exact-head GitHub Actions complete successfully for the final pushed commit.
 - [ ] Obtain independent review and merge the PR to `bluent-v3`; only then can #433 move Review → Done.
