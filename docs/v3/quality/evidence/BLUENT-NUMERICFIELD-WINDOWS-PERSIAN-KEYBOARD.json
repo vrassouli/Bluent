@@ -1,0 +1,38 @@
+{
+  "issue": 433,
+  "date": "2026-11-16",
+  "host": "Native Windows 11 Pro; Microsoft Edge InteractiveServer NumericField demo",
+  "browser": {
+    "name": "Microsoft Edge",
+    "version": "157.0.4341.60",
+    "renderMode": "InteractiveServer",
+    "route": "/components/numeric-fields-server"
+  },
+  "windowsKeyboardLayout": {
+    "languageTag": "fa",
+    "klid": "00000429",
+    "activeThreadHkl": "0x04290429",
+    "selectionMethod": "Windows LoadKeyboardLayout + WM_INPUTLANGCHANGEREQUEST on the Edge window thread"
+  },
+  "input": {
+    "field": "#numeric-signed",
+    "preconditionValue": "-1.25",
+    "key": "A",
+    "inputMethod": "Windows keyboard-layout translation; the host agent sent a key event after the Persian layout was confirmed active",
+    "resultingValue": "-1.25ش",
+    "resultingNewCharacter": "ش",
+    "resultingCodePoint": "U+0634",
+    "selectionStart": 6,
+    "selectionEnd": 6,
+    "direction": "ltr",
+    "textAlign": "left",
+    "ariaRole": "spinbutton",
+    "ariaValueNow": null,
+    "invalidRawTextRetained": true
+  },
+  "limitations": [
+    "This validates a Windows Persian keyboard-layout event, not a key pressed by a person on physical keyboard hardware.",
+    "The standard Persian layout did not exercise a composition-based IME lifecycle; compositionstart/update/end acceptance remains unverified.",
+    "No physical keyboard device, Narrator spoken output, or IME candidate UI was used for this check."
+  ]
+}

@@ -1,3 +1,5 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Blazored.LocalStorage;
 using Bluent.UI.Demo;
 using Bluent.UI.Demo.Interactive.Client.Pages;
@@ -29,6 +31,19 @@ else
 
 app.UseHttpsRedirection();
 
+var supportedCultures = new[]
+{
+    new CultureInfo("en-US"),
+    new CultureInfo("de-DE"),
+    new CultureInfo("fa-IR"),
+    new CultureInfo("ar-EG"),
+};
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+});
 
 app.UseAntiforgery();
 

@@ -1,29 +1,50 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<TValue>
 @typeparam TValue
 
 <div class="@GetComponentClass()" style="@Style">
-    @if (StartAddon != null)
+    @if (StartAddon is not null)
     {
-        <div class="start-addon">
-            @StartAddon
-        </div>
+        <div class="start-addon">@StartAddon</div>
     }
 
-    <input @attributes=GetInputAdditionalAttributes()
-           @ref=Element
+    <input @attributes="GetInputAdditionalAttributes()"
+           @ref="Element"
+           disabled="@IsDisabled"
+           readonly="@IsReadOnly"
            id="@GetInputId()"
            type="text"
            name="@NameAttributeValue"
-           @bind-value="@UserValue" 
-           @bind-value:event="@BindValueEvent" 
-           @onfocus="HandleFocus"
-           @onblur="HandleBlur"/>
+           role="spinbutton"
+           dir="ltr"
+           inputmode="text"
+           spellcheck="false"
+           aria-valuenow="@AriaValueNow"
+           aria-valuemin="@AriaValueMin"
+           aria-valuemax="@AriaValueMax"
+           aria-invalid="@AriaInvalid"
+           data-bui-numeric-has-min="@(HasExplicitMin ? "true" : "false")"
+           data-bui-numeric-has-max="@(HasExplicitMax ? "true" : "false")"
+           @bind-value="@UserValue"
+           @bind-value:event="@BindValueEvent"
+           @onfocusin="HandleFocus"
+           @onfocusout="HandleBlur" />
 
-    @if (EndAddon != null)
+    <div class="numeric-stepper">
+        <button type="button" class="numeric-step-up" tabindex="-1"
+                aria-label="@IncrementLabel" disabled="@(!CanStep(1))"
+                @onpointerdown:preventDefault="true" @onclick="() => StepAsync(1)">
+            <span aria-hidden="true"></span>
+        </button>
+        <button type="button" class="numeric-step-down" tabindex="-1"
+                aria-label="@DecrementLabel" disabled="@(!CanStep(-1))"
+                @onpointerdown:preventDefault="true" @onclick="() => StepAsync(-1)">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    @if (EndAddon is not null)
     {
-        <div class="end-addon">
-            @EndAddon
-        </div>
+        <div class="end-addon">@EndAddon</div>
     }
 </div>

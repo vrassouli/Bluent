@@ -14,6 +14,8 @@ on:
       - "docs/v3/inventory/public-component-contracts.json"
       - ".agents/skills/bluent-v3-label/**"
       - ".agents/skills/bluent-v3-textfield/**"
+      - ".agents/skills/bluent-v3-numericfield/**"
+      - ".agents/skills/bluent-v3/COMPONENT-ROUTER.md"
       - "docs/v3/skills/README.md"
       - "src/Bluent.UI/Components/LabelComponent/**"
       - "src/Bluent.UI/Styles/Components/_label.scss"
@@ -44,6 +46,16 @@ on:
       - "scripts/quality/probe_v3_textfield_demo.mjs"
       - "scripts/quality/check_v3_textfield_contract.py"
       - "scripts/quality/test_v3_textfield_contract.py"
+      - "scripts/quality/check_v3_numericfield_contract.py"
+      - "scripts/quality/test_v3_numericfield_contract.py"
+      - "scripts/quality/probe_v3_numericfield.mjs"
+      - "scripts/quality/run_v3_numericfield.ps1"
+      - "src/Bluent.UI/Components/NumericFieldComponent/**"
+      - "src/Bluent.UI/wwwroot/bluent.ui.numeric-field.js"
+      - "src/Bluent.UI/Styles/Components/_numeric-field.scss"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor"
+      - "src/Bluent.UI.Demo.SSR/Components/Pages/NumericFieldInteractiveServerProbe.razor"
+      - "src/Bluent.UI.Demo.SSR/Program.cs"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor"
       - "src/Bluent.UI/Components/ButtonComponent/Button.razor.cs"
       - "src/Bluent.UI/Components/MenuListComponent/MenuList.razor"
@@ -89,6 +101,10 @@ jobs:
         run: |
           python scripts/quality/check_v3_textfield_contract.py
           python -m unittest discover -s scripts/quality -p 'test_v3_textfield_contract.py' -v
+      - name: Validate NumericField source/API and four-cell browser CI contract
+        run: |
+          python scripts/quality/check_v3_numericfield_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_numericfield_contract.py' -v
       - name: Validate stale summary negative cases
         run: python -m unittest discover -s scripts/quality -p "test_v3_docs_contract.py" -v
       - name: Validate all repository-local Markdown links

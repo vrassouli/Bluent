@@ -1,0 +1,74 @@
+{
+  "issue": 433,
+  "date": "2026-11-16",
+  "host": "Native Windows 11 Pro; High Contrast White OS scheme; published InteractiveServer NumericField demo; Microsoft Edge",
+  "os": {
+    "name": "Microsoft Windows 11 Pro",
+    "version": "10.0.28000",
+    "build": 28000
+  },
+  "browser": {
+    "name": "Microsoft Edge",
+    "version": "157.0.4341.60",
+    "renderMode": "InteractiveServer",
+    "route": "/components/numeric-fields-server"
+  },
+  "nativeHighContrast": {
+    "scheme": "High Contrast White",
+    "originalFlags": 126,
+    "testFlags": 127,
+    "activeFlagBit": 1,
+    "browserMatchMediaForcedColors": true,
+    "nativeOsSettingChanged": true,
+    "restoredAfterCapture": true,
+    "restoredFlags": 126
+  },
+  "states": {
+    "invalidOutOfRange": {
+      "input": "#numeric-quantity",
+      "typedValue": "150",
+      "ariaRole": "spinbutton",
+      "ariaInvalid": "true",
+      "ariaValueNow": null,
+      "ariaValueMin": "0",
+      "ariaValueMax": "100",
+      "validationMessage": "The Quantity must be at most 100.",
+      "rawTextRetained": true,
+      "boundModelValue": "25",
+      "computedFieldColor": "rgb(61, 61, 61)",
+      "computedFieldBorder": "rgb(32, 32, 32)",
+      "computedShellBackground": "rgb(255, 250, 239)",
+      "computedShellBorder": "rgb(61, 61, 61)"
+    },
+    "focused": {
+      "input": "#numeric-quantity",
+      "focused": true,
+      "computedFocusOutline": "rgb(144, 57, 9) none 1px",
+      "computedFieldBorder": "rgb(144, 57, 9)",
+      "direction": "ltr",
+      "textAlign": "left",
+      "ariaRole": "spinbutton"
+    },
+    "disabled": {
+      "input": "#numeric-disabled",
+      "value": "42",
+      "computedColor": "rgb(103, 103, 103)",
+      "computedBorder": "rgb(103, 103, 103)"
+    },
+    "rtlNumeric": {
+      "input": "#numeric-rtl",
+      "value": "24.50",
+      "direction": "ltr",
+      "textAlign": "left",
+      "ariaRole": "spinbutton",
+      "ariaValueNow": "24.5",
+      "ariaValueMin": "0",
+      "ariaValueMax": "100"
+    }
+  },
+  "limitations": [
+    "This is a native Windows Contrast Theme with matchMedia(forced-colors: active) true, not browser-only emulation.",
+    "Native Narrator was launched and the Windows UI Automation tree exposed the spinbutton name, value, range, invalid state and associated validation text. Spoken Narrator output was not recorded or independently listened to.",
+    "This evidence is not an accessibility certification."
+  ]
+}

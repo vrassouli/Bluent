@@ -273,8 +273,8 @@ def check_textfield_contract(root: Path) -> None:
         "Page.captureScreenshot",
         "QA CLEANUP browser processes remaining=",
     ), "TextField real-browser probe")
-    _require(browser_workflow, (
-        "  textfield-runtime:",
+    textfield_job = browser_workflow.split("  textfield-runtime:", 1)[1].split("  numericfield-runtime:", 1)[0]
+    _require(textfield_job, (
         "browser: [Chrome, Edge]",
         "render_mode: [InteractiveServer, WebAssembly]",
         "${{ matrix.browser }}",

@@ -1,0 +1,154 @@
+# NumericField — Bluent v3 implementation record
+
+> **Accepted and merged into bluent-v3 on 2026-11-16 via PR #563.** This remains an unreleased v3 component, not a stable NuGet contract. Six engineering-baseline boards were accepted for this implementation; the Theme board remains DRAFT under #418. Spoken screen-reader output and physical OS IME acceptance are not claimed.
+
+## Identity and maturity
+
+| Field | Value |
+| --- | --- |
+| Family | NumericField (`NumericField<TValue>`) |
+| Package / namespace | `Bluent.UI` / `Bluent.UI.Components` |
+| Source | `src/Bluent.UI/Components/NumericFieldComponent/` |
+| Demo | `/components/numeric-fields` (`Bluent.UI.Demo.Pages`) |
+| Issue / branch | [#433](https://github.com/vrassouli/Bluent/issues/433) / `v3/issue-433-numeric-field` |
+| Integration target | `bluent-v3` only; no `Dev`, `main`, 2.x or NuGet change |
+| Upstream design baseline | Fluent UI Web Components Number Field; WAI-ARIA APG Spinbutton |
+| Owned design | Bluent v3 Design System, Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 51 `e9b4dbe1-9dd3-8094-8008-f2a6fdb3c800` |
+| Design state | Six boards carry the ENGINEERING BASELINE marker and were accepted for #433; the Theme board remains DRAFT pending the independent #418 token decision |
+
+## Source/API inventory
+
+The implementation remains a Blazor `InputBase<TValue>` field and keeps the existing direct parameter surface. It does not add a `HideStep`, `TextAlignment`, custom icon slot, or imperative step API.
+
+| Member | Type | Default | Behavior |
+| --- | --- | --- | --- |
+| `TValue` | Generic numeric value | Required generic type | Supports nullable/non-nullable `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `float`, `double`, and `decimal`; other types fail fast. |
+| `Value` / `ValueChanged` / `ValueExpression` | Inherited `InputBase<TValue>` | Standard Blazor binding | Form binding and EditContext validation. |
+| `Min` / `Max` | `TValue?` | CLR type range when omitted | Explicit limits are inclusive; invalid ranges (`Min > Max`) and non-finite floating bounds are rejected. |
+| `Step` | `TValue?` | Numeric one | Must be positive and finite. Controls ArrowUp/ArrowDown and the pointer stepper. |
+| `Format` | `string?` | General (`G`) format | Uses `CultureInfo.CurrentCulture` for display. |
+| `GainFocus` | `bool` | `false` | Focuses the native input after first interactive render. |
+| `OnFocus` / `OnBlur` | `EventCallback` | Empty callback | Raised on focus entry / blur. |
+| `ParsingErrorMessage` | `string?` | Localized default | Overrides invalid numeric text message (`{0}` = display name). |
+| `MinimumErrorMessage` / `MaximumErrorMessage` | `string?` | Localized inclusive-bound messages | `{0}` = display name, `{1}` = formatted bound. Wording is “at least” / “at most”. |
+| `OverflowErrorMessage` | `string?` | Localized default | Overrides target CLR range overflow / non-finite message. |
+| `StartAddon` / `EndAddon` | Inherited `RenderFragment?` | `null` | Logical start/end addon slots in the shared Field shell. |
+| `Size` | Inherited `FieldSize` | `Medium` | Reuses shared Field heights: Small 24px, Medium 32px, Large 40px. |
+| `BindValueEvent` | Inherited `string` | `onchange` | Set to `oninput` for per-keystroke parsing/validation. |
+| `Class` / `Style` / unmatched attributes | Inherited base/Blazor attributes | Standard defaults | Forwarded to the native input where applicable. `readonly`, `disabled`, `id`, autocomplete and caller ARIA/name attributes retain native HTML behavior. |
+
+No `ChildContent` is exposed. Use `StartAddon` and `EndAddon` for composition. Labeling remains the consumer's responsibility: associate a native Bluent `Label` using the input `id` or supply an equivalent accessible name.
+
+## Numeric editing and culture contract
+
+- Keep an editable `input type="text"`; do not switch to `type="number"` to obtain a browser spinner.
+- Preserve the live editing buffer—including sign, decimal/group separators, incomplete intermediate text, caret and selection—while the user edits. Parsing must not rewrite that buffer.
+- Normalize Unicode decimal digits from Latin, Persian and Arabic scripts to numeric values. Normalize culture-specific signs and bidi formatting marks deliberately. U+066B/U+066C and pasted non-breaking grouping spaces are interpreted using the active number culture.
+- The ASCII `.` is treated as a decimal point when it is not the current culture's group separator. If `.` is the locale group separator (for example, common German grouping), it retains grouping meaning.
+- Parsing and formatting use the same `CultureInfo.CurrentCulture` policy. After a valid commit the displayed value is formatted with `Format` and the culture's native digit mapping; while typing, the raw buffer is retained.
+- Empty text maps to `null` only for nullable `TValue`; it is a validation error for non-nullable numeric types. Invalid intermediate text, overflow and non-finite `float`/`double` values are reported distinctly.
+- Inclusive Min/Max violations stay visible and invalid; typed values are never silently clamped. The raw text remains visible after blur until corrected or cleared.
+
+## Step and keyboard contract
+
+| Input | Behavior |
+| --- | --- |
+| `ArrowUp` | Increase by `Step`. |
+| `ArrowDown` | Decrease by `Step`. |
+| `Home` | Move to explicitly configured `Min`; no action without explicit Min. |
+| `End` | Move to explicitly configured `Max`; no action without explicit Max. |
+| Normal text-editing keys | Retain browser behavior; the NumericField listener only intercepts the four documented commands. |
+| Pointer step-up / step-down | Native named buttons, omitted from the Tab sequence, prevent pointer focus theft and leave editing focus on the input. |
+
+An empty input starts from zero unless an explicit bound defines the corresponding start edge. Step candidates are clamped to effective numeric bounds; an out-of-range value can be stepped toward its allowed range but not further away. Incomplete/invalid text is not replaced by a step action. Decimal stepping uses decimal arithmetic to avoid accumulated binary-fraction drift.
+
+## DOM, accessibility and direction
+
+- The numeric input remains `dir="ltr"` and physically left aligned even inside an RTL form. The surrounding Field, label, messages and logical addons follow the host direction.
+- `inputmode="text"` is deliberate: restrictive numeric virtual keyboards may omit the minus key needed for signed values.
+- The input uses `role="spinbutton"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, and `aria-invalid` kept in sync with the parsed current value, explicitly configured Min/Max bounds and EditContext state. The component's internal CLR storage limits are never exposed as user-facing ARIA bounds. `aria-valuenow` is omitted for empty, invalid or out-of-range text rather than announcing a stale model value.
+- Pointer controls have localized accessible names in English, Persian (`fa-IR`) and Arabic (`ar-EG`); they are not sequential keyboard stops. The associated Label remains the accessible name for the input.
+- The component consumes shared Field sizing and underline focus styling. Its own CSS only handles the stepper, invalid presentation, forced-colors fallback and reduced-motion behavior; it introduces no `component.numericField.*` token family and does not consume draft aliases from #418.
+
+## Verified example
+
+The focused component showcase is at `src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor`, route `/components/numeric-fields`. It covers integer and decimal binding, Min/Max/Step, `oninput`, Small/Medium/Large, readonly/disabled and RTL host composition. Two `data-bui-qa-*` attributes on the signed-value demo instance expose the effective culture/native-digit metadata to the browser test; these are ordinary unmatched HTML attributes on that demo instance, not new public NumericField parameters.
+
+```razor
+@using Bluent.UI.Components
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="Model">
+    <Label Text="Amount" for="amount" />
+    <NumericField TValue="decimal"
+                  @bind-Value="Model.Amount"
+                  id="amount"
+                  Min="0m" Max="100m" Step="0.25m"
+                  Format="N2" BindValueEvent="oninput" />
+    <ValidationMessage For="() => Model.Amount" />
+</EditForm>
+```
+
+The `NumericFields` showcase compiles in Release. This sample is a task-branch source/build example only, not an install instruction for released packages.
+
+## Implementation and assets
+
+- `NumericField.razor` / `.razor.cs`: Blazor markup, `InputBase<TValue>` conversion, range validation, keyboard bridge and lifecycle disposal.
+- `NumericFieldValuePipeline.cs`: numeric parsing, formatting, Unicode digit handling, overflow classification and stepping.
+- `wwwroot/bluent.ui.numeric-field.js`: input-scoped keyboard listener; removed and disposed with the component.
+- `Styles/Components/_numeric-field.scss`: shared Field composition, stepper, forced-colors and reduced-motion styles; imported by the component stylesheet entry.
+- `Resources/NumericFieldResources*.resx`: English, Persian and Arabic strings.
+
+No manual global script tag is required; the ES module is dynamically imported from the package static-web-assets path. Standard Bluent theme/component styles are still required by the host.
+
+## Validation ledger (2026-11-16)
+
+| Scope | Evidence | Result |
+| --- | --- | --- |
+| Numeric value pipeline | 27 focused tests: culture parsing, Unicode digits/signs, empty/invalid/overflow, formatting and Step boundaries | **27/27 pass** |
+| NumericField pipeline unit tests | `NumericFieldValuePipelineTests` in the existing test project | **27/27 pass** |
+| Full Solution Release build | `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` | **0 warnings / 0 errors** |
+| Full Solution tests | `dotnet test Bluent.sln --configuration Release --no-build` | **97/97 pass** |
+| Consolidated real browser / render-mode | Post-fix Chrome/Edge × WebAssembly/InteractiveServer; signed/decimal edits, stepping, inclusive bounds/recovery, clipboard paste/model commit, mid-string caret after rerender, mixed-script culture matrix (en-US/de-DE/fa-IR/ar-EG), forced-colors behavior, validation overrides, Addon/Class/Style, GainFocus, focusin/focusout registration and actual component unmount/disposal | **160/160 pass** (40 assertions per browser/render-mode cell; zero runtime signals) |
+| Native Windows callback behavior | Live Edge InteractiveServer; Windows UIA focus moved from NumericField A to NumericField B and parent counters were read after each transition | **OnFocus and OnBlur each invoked exactly once**; screenshot + JSON retained |
+| Native Windows acceptance | High Contrast White, Persian keyboard-layout event/caret and Narrator UIA semantics | **Contrast and UIA pass; physical IME and spoken AT acceptance remain open** |
+| Native Windows Contrast | Windows 11 Pro High Contrast White was actually enabled (HighContrast flags 127); Edge reported forced-colors active; focused, disabled, invalid and RTL states were inspected on the live InteractiveServer demo | **Pass; screenshot + JSON retained** |
+| Native Windows Persian layout | KLID 00000429 on the Edge UI thread; A → U+0634; caret at position 6; LTR/left alignment unchanged | **Pass for OS layout event; no physical keyboard or composition IME claim** |
+| Native Windows focus callbacks | Live InteractiveServer page: Windows UIA moved focus from numeric-addons to numeric-price; demo counters moved 0/0 → 1/0 → 1/1 | **Pass; screenshot + JSON retained** |
+| Narrator / Windows UIA | Narrator running while native UIA exposed the labeled spinbutton, value/range, invalid state and validation message | **UIA checked; spoken output not recorded/listened to** |
+| Penpot design parity | Owned file, page 51; all seven NumericField boards exported and visually inspected against implementation | **Six ENGINEERING BASELINE boards accepted for #433; Theme board remains DRAFT under #418** |
+
+The final post-fix browser matrix passes 40 assertions in each of Chrome/WebAssembly, Edge/WebAssembly, Chrome/InteractiveServer and Edge/InteractiveServer (160/160 total, zero runtime signals). Four machine-readable reports are retained under docs/v3/quality/evidence/BLUENT-NUMERICFIELD-POSTFIX-*.json. Coverage includes binding, signed/decimal edits, Step and keyboard stepping, inclusive bounds and recovery from either side of the range, RTL direction/alignment, static assets, readonly/disabled, native clipboard paste/model commit, mid-string caret after rerender, mixed-script/grouped parsing and committed formatting for en-US/de-DE/fa-IR/ar-EG, forced-colors behavior, custom parsing/minimum/maximum/overflow messages and recovery, StartAddon/EndAddon, inherited Class/Style, GainFocus, focusin/focusout registration and actual component unmount/disposal.
+
+The full Release solution build passes with zero warnings and zero errors; the full .NET suite passes 97/97. The focused NumericField value-pipeline suite passes 27/27, including malformed double classification, non-finite overflow, decimal boundary saturation and stepping an out-of-range value toward (but not away from) its inclusive range. The NumericField source/API contract passes; its mutation tests pass 14/14. Documentation, Skills, TextField regression and inventory contracts pass; local Markdown links were checked in 176 files. Exact-head GitHub Actions for the final PR head are recorded on PR #563.
+
+Native Windows evidence remains separate: High Contrast White was actually enabled and restored; Persian KLID 00000429 was tested using an OS keyboard-layout event, not a physical keyboard; UIA focus transitions verified OnFocus/OnBlur exactly once; Narrator was running while its UIA tree was inspected. Spoken Narrator/NVDA output was not independently recorded or heard, and composition-based OS IME was not tested. Spoken output is not yet independently heard. These are explicit follow-up boundaries, not claims of completed screen-reader acceptance or accessibility certification. The six engineering-baseline boards were accepted for this component by the maintainer's direction on 2026-11-16. The Theme board remains DRAFT and #418 remains In progress; this merge neither approves nor consumes draft #418 token aliases.
+## 2.x migration impact
+
+The existing public parameter and inherited binding names are retained. The v3 task branch adds observable native markup/interaction semantics (`role="spinbutton"`, ARIA range/value state, pointer stepper and Arrow/Home/End behavior), corrects destructive input normalization, makes culture parsing/formatting coherent, and makes the existing `Step` parameter operative. DOM consumers that assumed no stepper descendants or no spinbutton role must recheck selectors/AX behavior. No stable v2 assets/packages are changed. Implementation #433 is accepted and merged into bluent-v3; consumer migration guidance is now part of the unreleased v3 integration and does not imply a stable package release.
+
+## Native Windows acceptance evidence
+
+The Windows-specific evidence JSON and PNG files under `../quality/evidence/` are captured from the published InteractiveServer demo. High Contrast White was enabled through the Windows accessibility setting (HighContrast flags 127), and Edge confirmed `matchMedia('(forced-colors: active)') === true`. The invalid quantity 150 remained visible, `aria-invalid=true` was exposed, `aria-valuenow` was omitted, and the inclusive-bound message stayed visible. Focus colors used the system Highlight color; disabled text/border used GrayText; the RTL form still hosted an LTR/left-aligned spinbutton. The Persian layout test loaded Windows KLID 00000429 on the Edge UI thread and verified A → U+0634 with a caret at the end of the input. The native UIA focus transition on numeric-addons invoked OnFocus once; moving focus to numeric-price invoked OnBlur once. This is separate from the headless probe, which checks that Blazor registers focusin/focusout handlers. Narrator was running while the UIA tree was inspected; this is not evidence of the spoken announcement. These tests do not claim physical keyboard input, IME composition or accessibility certification.
+
+## Acceptance and remaining gates
+
+- [x] Maintainer accepted the six ENGINEERING BASELINE boards for #433 on 2026-11-16; the Theme board remains DRAFT and is still owned by #418.
+- [x] Run the focused Chrome and Edge × WebAssembly and published InteractiveServer interaction checks: 64/64 assertions across the four modes.
+- [x] Extend real-browser coverage for clipboard paste through model commit and caret preservation after mid-string editing: 84/84 across Chrome/Edge × WebAssembly/InteractiveServer.
+- [x] Verify the production static-web-assets module is served (HTTP 200) and the interactive listener initializes in WebAssembly and InteractiveServer.
+- [x] Verify the JS listener disposal handle is idempotent and stops later callbacks (all four browser/render-mode cells).
+- [x] Add a component-level unmount test proving actual Blazor teardown removes its keyboard listener (Chrome/Edge × WebAssembly/InteractiveServer).
+- [x] Run the live browser culture matrix (en-US, de-DE, fa-IR, ar-EG; mixed digit/separator input and committed formatting) in Chrome and Edge across both render modes: 124/124 assertions.
+- [x] Run full Release solution build/tests: 0 warnings / 0 errors; 97/97 tests.
+- [x] Run docs/skills contracts and repository Markdown link validation: docs 0 findings, Skills 0 errors, 176 Markdown files checked.
+- [x] Verify Native Windows High Contrast White on Windows 11 Pro with native forced-colors active, including focus, disabled, invalid and RTL states; screenshot and JSON evidence retained.
+- [x] Verify Persian Windows keyboard-layout translation and caret placement on the live field (U+0634 at caret 6); this is not a physical keyboard/IME composition test.
+- [x] Inspect NumericField native Windows UIA semantics while Narrator is running: name, role, value/range, invalid state and validation message.
+- [x] Verify OnFocus and OnBlur callbacks in native Windows Edge InteractiveServer by moving UIA focus between two NumericField inputs; both counters increment exactly once.
+- [x] Run the consolidated four-cell browser matrix after adding public-parameter demo coverage and the explicit ARIA-bound regression: 160/160 assertions.
+- [ ] Follow-up boundary: spoken Narrator/NVDA output has not been independently recorded or heard. Do not claim spoken screen-reader acceptance.
+- [ ] Follow-up boundary: physical keyboard hardware and composition-based OS IME input were not tested; the Persian OS keyboard-layout event is not equivalent.
+- [x] Verify the unbounded spinbutton omits CLR storage limits from aria-valuemin/aria-valuemax; explicitly configured bounds remain exposed. Confirmed in all four real-browser cells (160/160 total).
+- [x] Confirm exact-head GitHub Actions for the final PR #563 commit: all 8 workflows and every job passed, including the four NumericField Chrome/Edge × WebAssembly/Server jobs and four Component Lab browser jobs.
+- [x] Maintainer-directed acceptance and squash merge of PR #563 into bluent-v3 completed on 2026-11-16. #433 is Done; this does not release a NuGet package or change stable branches.

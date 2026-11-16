@@ -1,0 +1,36 @@
+{
+  "issue": 433,
+  "date": "2026-11-16",
+  "host": "Native Windows 11 Pro; Microsoft Edge InteractiveServer NumericField demo",
+  "assistiveTechnology": {
+    "name": "Windows Narrator",
+    "process": "Narrator.exe",
+    "runningDuringTest": true
+  },
+  "control": {
+    "automationId": "numeric-quantity",
+    "accessibleName": "Quantity (0-100, step 5)",
+    "uiaRole": "control-50016 (native Windows UIA numeric control)",
+    "value": "150",
+    "invalid": true,
+    "validationMessage": "The Quantity must be at most 100.",
+    "htmlRole": "spinbutton",
+    "ariaValueNow": null,
+    "ariaValueMin": "0",
+    "ariaValueMax": "100",
+    "stepperButtons": [
+      {
+        "name": "Increase value",
+        "uiaRole": "button"
+      },
+      {
+        "name": "Decrease value",
+        "uiaRole": "button"
+      }
+    ]
+  },
+  "limitations": [
+    "Narrator was launched and the UI Automation/control accessibility semantics were inspected while it was running.",
+    "Spoken output was not audio-captured or independently listened to; do not claim spoken announcement acceptance."
+  ]
+}
