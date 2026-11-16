@@ -57,8 +57,9 @@ public partial class NumericField<TValue> : IAsyncDisposable
     private string DecrementLabel => GetResource("DecreaseValue", "Decrease value");
     private string? AriaInvalid => IsInvalid ? "true" : GetNativeAttribute("aria-invalid")?.ToString();
     private string? AriaValueNow => TryGetAccessibleValue(out var value) ? NumericFieldValuePipeline.FormatAriaValue(value) : null;
-    private string? AriaValueMin => NumericFieldValuePipeline.FormatAriaValue(_effectiveMin);
-    private string? AriaValueMax => NumericFieldValuePipeline.FormatAriaValue(_effectiveMax);
+    // ARIA ranges describe caller-configured bounds, not the CLR type's storage limits.
+    private string? AriaValueMin => HasExplicitMin ? NumericFieldValuePipeline.FormatAriaValue(Min) : null;
+    private string? AriaValueMax => HasExplicitMax ? NumericFieldValuePipeline.FormatAriaValue(Max) : null;
 
     private string? UserValue
     {

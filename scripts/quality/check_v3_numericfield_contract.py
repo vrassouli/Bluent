@@ -47,6 +47,9 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
          "DisposeAsync must remain an explicit interface implementation")
     for token in ('role="spinbutton"', 'aria-valuenow', 'aria-valuemin', 'aria-valuemax'):
         need(token in razor, f"spinbutton semantics are missing: {token}")
+    need('HasExplicitMin ? NumericFieldValuePipeline.FormatAriaValue(Min) : null' in code
+         and 'HasExplicitMax ? NumericFieldValuePipeline.FormatAriaValue(Max) : null' in code,
+         "ARIA value range must expose only caller-configured Min/Max, never CLR storage limits")
     for token in ('dir="ltr"', 'disabled="@IsDisabled"', 'readonly="@IsReadOnly"'):
         need(token in razor, f"native input semantics are missing: {token}")
     for token in ('data-bui-numeric-has-min="@(HasExplicitMin ? "true" : "false")"',
@@ -68,7 +71,7 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
                   "windows-latest", "run_v3_numericfield.ps1", "BLUENT_NUMERIC_EVIDENCE_PATH",
                   "if: always()", "actions/upload-artifact@v4", "retention-days: 7"):
         need(token in numeric_job, f"permanent NumericField browser CI matrix is missing: {token}")
-    for token in ("39 assertions per browser/render-mode cell", "156/156",
+    for token in ("40 assertions per browser/render-mode cell", "160/160",
                   "culture matrix", "component-level unmount", "native clipboard paste", "mid-string caret",
                   "GainFocus", "OnFocus", "OnBlur", "StartAddon", "EndAddon",
                   "native", "DRAFT", "not yet"):

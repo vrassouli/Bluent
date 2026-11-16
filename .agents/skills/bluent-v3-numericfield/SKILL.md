@@ -65,13 +65,13 @@ dotnet build Bluent.sln -c Release --no-restore -warnaserror
 dotnet test Bluent.sln -c Release --no-build
 ```
 
-The real-browser runner accepts -Mode WebAssembly|Server and -Browser Chrome|Edge. The latest consolidated local matrix on the PR #563 task branch passed 39 assertions per cell (Chrome/Edge × WebAssembly/InteractiveServer): 156/156 total. It includes en-US, de-DE, fa-IR and ar-EG parsing/committed formatting, the validation override examples, Addon/Class/Style, GainFocus, focusin/focusout handler registration and actual component unmount/disposal. Native Windows Edge InteractiveServer UIA separately verified OnFocus and OnBlur each invoke exactly once.
+The real-browser runner accepts -Mode WebAssembly|Server and -Browser Chrome|Edge. The latest consolidated local matrix on the PR #563 task branch passed 40 assertions per cell (Chrome/Edge × WebAssembly/InteractiveServer): 160/160 total. It also verifies that unbounded fields omit CLR storage limits from ARIA min/max while explicit consumer bounds remain exposed. It includes en-US, de-DE, fa-IR and ar-EG parsing/committed formatting, the validation override examples, Addon/Class/Style, GainFocus, focusin/focusout handler registration and actual component unmount/disposal. Native Windows Edge InteractiveServer UIA separately verified OnFocus and OnBlur each invoke exactly once.
 
 Native Windows evidence is recorded in docs/v3/quality/evidence/BLUENT-NUMERICFIELD-WINDOWS-*. High Contrast was enabled natively and then restored; Persian KLID keyboard-layout translation was tested, not physical key hardware or composition-based IME. OnFocus and OnBlur each fired exactly once during native Windows Edge InteractiveServer UIA focus transitions. Narrator UIA semantics were inspected while it ran, but spoken output was not independently recorded or heard. Do not convert those boundaries into stronger claims or WCAG certification.
 
 ## Design, review and release gates
 
-- All seven owned Penpot NumericField boards remain DRAFT pending owner/design sign-off. The Theme board depends on #418; do not consume draft #418 aliases or mark its gate accepted by inference.
+- Six owned Penpot NumericField boards now carry the ENGINEERING BASELINE marker; owner/design sign-off remains pending. The Theme board remains DRAFT pending #418; do not consume draft #418 aliases or mark its gate accepted by inference.
 - OnFocus and OnBlur are behaviorally verified by a native Windows UIA focus transition; the headless CDP probe separately checks that Blazor registers focusin/focusout handlers.
 - Spoken Narrator/NVDA acceptance remains open. Native UIA inspection is not spoken-output acceptance.
 - PR #563 is Ready for review; independent review/approval and merge into bluent-v3 are outstanding. Issue #433 stays In Progress until accepted merge and lifecycle update.

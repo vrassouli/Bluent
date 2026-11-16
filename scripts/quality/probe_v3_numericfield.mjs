@@ -150,9 +150,11 @@ try {
   await replaceText('numeric-signed', '-12.50');
   await poll(() => read("document.querySelector('#numeric-signed')?.value === '-12.50'"));
   await poll(() => read("[...document.querySelectorAll('p')].some(x => x.textContent.includes('Signed value: -12.50'))"), 15000);
-  const signed = await read("({value:document.querySelector('#numeric-signed').value,output:[...document.querySelectorAll('p')].find(x=>x.textContent.includes('Signed value:'))?.textContent,now:document.querySelector('#numeric-signed').getAttribute('aria-valuenow')})");
+  const signed = await read("({value:document.querySelector('#numeric-signed').value,output:[...document.querySelectorAll('p')].find(x=>x.textContent.includes('Signed value:'))?.textContent,now:document.querySelector('#numeric-signed').getAttribute('aria-valuenow'),min:document.querySelector('#numeric-signed').getAttribute('aria-valuemin'),max:document.querySelector('#numeric-signed').getAttribute('aria-valuemax'),hasMin:document.querySelector('#numeric-signed').dataset.buiNumericHasMin,hasMax:document.querySelector('#numeric-signed').dataset.buiNumericHasMax})");
   check('signed decimal input commits without stripping sign or decimal separator', signed.value === '-12.50' && signed.output?.includes('-12.50'), signed);
   check('signed decimal aria-valuenow remains the numeric value', signed.now === '-12.5', signed);
+  check('unbounded spinbutton does not advertise CLR storage limits as ARIA bounds',
+    signed.min === null && signed.max === null && signed.hasMin === 'false' && signed.hasMax === 'false', signed);
 
   await read("document.querySelector('#numeric-price').focus()");
   await evaluate("document.querySelector('#numeric-price').parentElement.querySelector('.numeric-step-up').click()");
