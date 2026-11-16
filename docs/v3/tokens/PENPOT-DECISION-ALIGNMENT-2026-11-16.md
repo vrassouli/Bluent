@@ -63,6 +63,16 @@ The original read-only Microsoft Fluent 2 reference was not modified. All review
 5. Remaining third-party popup arbitration, iframe and route/unmount lifecycle races beyond the bounded passing proof cases.
 6. Final public API spelling/ownership and individual semantic allow-list / production alias approvals. The options above are selected design directions, not a release decision.
 
+## Additional WebKit regression lane — added 2026-11-16
+
+A separate macOS GitHub Actions lane, `.github/workflows/v3-webkit-portal-lab.yml`, now runs the same bounded D2/D5 published-InteractiveServer scenario against Playwright's WebKit engine. It shares the parameterized regression probe with the Firefox lane and preserves its trace, screenshot and server diagnostics as a workflow artifact.
+
+- Probe: `scripts/quality/probe_v3_firefox_portal.mjs` (engine selected by `BLUENT_V3_PLAYWRIGHT_ENGINE=webkit`).
+- Exact current PR head when added: `1a7d25e71bf6300e1e51ee1b1286ee5653a4ef52`.
+- Workflow run: 43944623766 is the **Bluent v3 WebKit Portal Lab** run; results are pending at this checkpoint.
+
+This is cross-engine WebKit regression evidence only. It is **not** the Safari.app browser, SafariDriver, VoiceOver, native Apple OS accessibility, or native Windows Contrast Themes certification. The existing Safari Remote Automation blocker on the developer's Mac remains unchanged; no device setting was modified.
+
 ## Workflow boundary
 
 - #418 remains **In progress**; this review does not move it to Review or Done.
