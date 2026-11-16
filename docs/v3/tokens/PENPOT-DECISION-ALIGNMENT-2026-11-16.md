@@ -73,6 +73,14 @@ A separate macOS GitHub Actions lane, `.github/workflows/v3-webkit-portal-lab.ym
 
 This is cross-engine WebKit regression evidence only. It is **not** the Safari.app browser, SafariDriver, VoiceOver, native Apple OS accessibility, or native Windows Contrast Themes certification. The existing Safari Remote Automation blocker on the developer's Mac remains unchanged; no device setting was modified.
 
+#### WebKit attempt 2 — first-Escape probe correction (2026-11-16)
+
+Run: [43944732486](https://github.com/vrassouli/Bluent/actions/runs/43944732486), artifact: [WebKit trace and screenshot](https://github.com/vrassouli/Bluent/actions/runs/43944732486/artifacts/14267427234).
+
+The probe successfully published and launched the InteractiveServer host, passed the D2 live/nested brand-owner cases, passed concurrent Dialog snapshot isolation, and passed the D5 modal semantics plus owned-Popover/inert-background assertions. It failed at the first Escape assertion: the trace shows the modal entered its `hide` state before the expected Popover-only dismissal completed.
+
+The shared Popover source intentionally consumes Escape only when the keyboard event target is the owning trigger or active surface; unrelated Escape events are allowed to reach the owning Modal. The original probe clicked the trigger but did not establish or assert that it was the active keyboard target. That setup is not portable across browser/platform pointer-focus behavior. The probe now explicitly focuses the modal-owned Popover trigger and asserts `document.activeElement` before sending Escape. This adjusts the test precondition to match the implemented keyboard contract; it does not change runtime behavior or claim the WebKit retry has passed. A new exact-head WebKit run is required.
+
 ## Workflow boundary
 
 - #418 remains **In progress**; this review does not move it to Review or Done.

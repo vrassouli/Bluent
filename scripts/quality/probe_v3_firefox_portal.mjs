@@ -341,6 +341,17 @@ try {
       modalPopupOwnership.ariaControls === modalPopupOwnership.surfaceId,
     JSON.stringify(modalPopupOwnership)
   );
+
+  // A pointer click does not focus native buttons on every browser/platform.
+  // The Popover's Escape handler intentionally consumes Escape only when the
+  // event target is its owning trigger or active surface; otherwise the
+  // owning modal receives it. Establish and assert keyboard ownership before
+  // testing the first-Escape Popover dismissal contract.
+  await page.locator("#v3-modal-popover-trigger").focus();
+  await expectDom(
+    "Keyboard focus is explicitly on the modal-owned Popover trigger before Escape",
+    () => document.activeElement?.id === "v3-modal-popover-trigger"
+  );
   await page.keyboard.press("Escape");
   await expectDom(
     "First Escape closes only the Popover and restores trigger focus",
