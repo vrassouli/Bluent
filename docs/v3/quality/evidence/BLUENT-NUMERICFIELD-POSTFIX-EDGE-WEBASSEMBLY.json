@@ -1,0 +1,674 @@
+{
+  "browser": "Edge",
+  "renderMode": "WebAssembly",
+  "passed": 40,
+  "total": 40,
+  "failures": [],
+  "checks": [
+    {
+      "name": "NumericFields route loads in real Edge WebAssembly",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:52707/components/numeric-fields"
+      }
+    },
+    {
+      "name": "native text input exposes spinbutton semantics and LTR direction",
+      "pass": true,
+      "detail": {
+        "type": "text",
+        "role": "spinbutton",
+        "dir": "ltr",
+        "mode": "text",
+        "min": "0",
+        "max": "100",
+        "now": "25",
+        "hasMin": "true",
+        "hasMax": "true"
+      }
+    },
+    {
+      "name": "spinbutton announces inclusive range and current value",
+      "pass": true,
+      "detail": {
+        "type": "text",
+        "role": "spinbutton",
+        "dir": "ltr",
+        "mode": "text",
+        "min": "0",
+        "max": "100",
+        "now": "25",
+        "hasMin": "true",
+        "hasMax": "true"
+      }
+    },
+    {
+      "name": "RTL host retains LTR physical-left numeric text",
+      "pass": true,
+      "detail": {
+        "hostDirection": "rtl",
+        "inputDirAttribute": "ltr",
+        "inputDirection": "ltr",
+        "textAlign": "left",
+        "classes": "bui-field bui-numeric-field  "
+      }
+    },
+    {
+      "name": "component ES module static web asset is served successfully",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "url": "http://127.0.0.1:52707/_content/Bluent.UI/bluent.ui.numeric-field.js",
+        "contentType": "text/javascript"
+      }
+    },
+    {
+      "name": "StartAddon and EndAddon render in logical slots and inherited Class/Style are forwarded",
+      "pass": true,
+      "detail": {
+        "start": "$",
+        "end": "per item",
+        "classApplied": true,
+        "maxWidth": "448px",
+        "inputId": "numeric-addons",
+        "blazorHandlerKeys": [
+          "focusin",
+          "focusout",
+          "change"
+        ]
+      }
+    },
+    {
+      "name": "Blazor registers bubbling focusin/focusout handlers on NumericField",
+      "pass": true,
+      "detail": [
+        "focusin",
+        "focusout",
+        "change"
+      ]
+    },
+    {
+      "name": "GainFocus focuses the input on its first interactive render",
+      "pass": true,
+      "detail": {
+        "active": "numeric-gain-focus",
+        "value": "12.50"
+      }
+    },
+    {
+      "name": "ParsingErrorMessage override is shown by the real EditForm validation path",
+      "pass": true,
+      "detail": {
+        "value": "abc",
+        "invalid": "true",
+        "now": null,
+        "message": "Enter a valid whole number."
+      }
+    },
+    {
+      "name": "MinimumErrorMessage override is shown by the real EditForm validation path",
+      "pass": true,
+      "detail": {
+        "value": "9",
+        "invalid": "true",
+        "now": null,
+        "message": "The custom amount must be at least 10."
+      }
+    },
+    {
+      "name": "MaximumErrorMessage override is shown by the real EditForm validation path",
+      "pass": true,
+      "detail": {
+        "value": "21",
+        "invalid": "true",
+        "now": null,
+        "message": "The custom amount must be at most 20."
+      }
+    },
+    {
+      "name": "OverflowErrorMessage override is shown by the real EditForm validation path",
+      "pass": true,
+      "detail": {
+        "value": "2147483648",
+        "invalid": "true",
+        "now": null,
+        "message": "The custom amount is outside the supported integer range."
+      }
+    },
+    {
+      "name": "custom validation override fixture recovers after valid input",
+      "pass": true,
+      "detail": {
+        "value": "15",
+        "invalid": null,
+        "message": ""
+      }
+    },
+    {
+      "name": "signed decimal input commits without stripping sign or decimal separator",
+      "pass": true,
+      "detail": {
+        "value": "-12.50",
+        "output": "Signed value: -12.50",
+        "now": "-12.5",
+        "min": null,
+        "max": null,
+        "hasMin": "false",
+        "hasMax": "false"
+      }
+    },
+    {
+      "name": "signed decimal aria-valuenow remains the numeric value",
+      "pass": true,
+      "detail": {
+        "value": "-12.50",
+        "output": "Signed value: -12.50",
+        "now": "-12.5",
+        "min": null,
+        "max": null,
+        "hasMin": "false",
+        "hasMax": "false"
+      }
+    },
+    {
+      "name": "unbounded spinbutton does not advertise CLR storage limits as ARIA bounds",
+      "pass": true,
+      "detail": {
+        "value": "-12.50",
+        "output": "Signed value: -12.50",
+        "now": "-12.5",
+        "min": null,
+        "max": null,
+        "hasMin": "false",
+        "hasMax": "false"
+      }
+    },
+    {
+      "name": "pointer step-up increments decimal by configured 0.25",
+      "pass": true,
+      "detail": {
+        "value": "12.75",
+        "output": "Committed value: 12.75",
+        "active": "numeric-price"
+      }
+    },
+    {
+      "name": "ArrowUp increments decimal by configured Step",
+      "pass": true,
+      "detail": {
+        "value": "13.00",
+        "output": "Committed value: 13.00"
+      }
+    },
+    {
+      "name": "out-of-range text remains visible after blur and omits stale aria-valuenow",
+      "pass": true,
+      "detail": {
+        "value": "-1",
+        "now": null,
+        "invalid": "true",
+        "message": "The Quantity must be at least 0."
+      }
+    },
+    {
+      "name": "ArrowUp or stepper moves an out-of-range value into the inclusive range",
+      "pass": true,
+      "detail": {
+        "before": {
+          "value": "-1",
+          "upDisabled": false,
+          "downDisabled": true,
+          "active": "numeric-quantity"
+        },
+        "after": {
+          "value": "4",
+          "now": "4",
+          "upDisabled": false,
+          "downDisabled": false,
+          "active": "numeric-quantity"
+        }
+      }
+    },
+    {
+      "name": "End moves to the explicitly configured Max",
+      "pass": true,
+      "detail": {
+        "value": "100",
+        "hasMax": "true",
+        "active": "numeric-quantity"
+      }
+    },
+    {
+      "name": "Home moves to the explicitly configured Min",
+      "pass": true,
+      "detail": {
+        "value": "0",
+        "hasMin": "true",
+        "active": "numeric-quantity"
+      }
+    },
+    {
+      "name": "readonly and disabled native states suppress stepper controls",
+      "pass": true,
+      "detail": {
+        "readOnly": {
+          "readOnly": true,
+          "stepperHidden": true
+        },
+        "disabled": {
+          "disabled": true,
+          "stepperHidden": true
+        },
+        "buttons": [
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          },
+          {
+            "tag": "BUTTON",
+            "tabindex": "-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "pointer stepper buttons are not sequential Tab stops",
+      "pass": true,
+      "detail": [
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        },
+        {
+          "tag": "BUTTON",
+          "tabindex": "-1"
+        }
+      ]
+    },
+    {
+      "name": "native clipboard paste preserves grouping and commits the decimal value",
+      "pass": true,
+      "detail": {
+        "value": "1,234.50",
+        "output": "Signed value: 1,234.50"
+      }
+    },
+    {
+      "name": "mid-string editing retains the caret after a bound-value rerender",
+      "pass": true,
+      "detail": {
+        "value": "129345.67",
+        "start": 3,
+        "end": 3
+      }
+    },
+    {
+      "name": "IME composition keystrokes do not trigger spinner stepping",
+      "pass": true,
+      "detail": {
+        "before": "129345.67",
+        "after": "129345.67",
+        "prevented": false
+      }
+    },
+    {
+      "name": "forced-colors mode uses system border, focus, button and disabled colors",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "border": "rgb(255, 255, 255)",
+        "canvasText": "rgb(255, 255, 255)",
+        "focusBorder": "rgb(26, 235, 255)",
+        "highlight": "rgb(26, 235, 255)",
+        "buttonColor": "rgb(255, 255, 255)",
+        "buttonText": "rgb(255, 255, 255)",
+        "disabledColor": "rgb(63, 242, 63)",
+        "grayText": "rgb(63, 242, 63)"
+      }
+    },
+    {
+      "name": "keyboard listener disposal is idempotent and prevents later callbacks",
+      "pass": true,
+      "detail": {
+        "calls": 0,
+        "prevented": false
+      }
+    },
+    {
+      "name": "en-US browser Accept-Language selects the expected .NET culture and parses grouped/mixed-script input",
+      "pass": true,
+      "detail": {
+        "input": "1,234.50",
+        "output": "Signed value: 1,234.50",
+        "aria": "1234.5",
+        "culture": "en-US",
+        "nativeDigits": "0,1,2,3,4,5,6,7,8,9",
+        "language": "en-US",
+        "languages": [
+          "en-US",
+          "en;q=0.9"
+        ],
+        "typed": "1,234.50",
+        "requestedCulture": "en-US"
+      }
+    },
+    {
+      "name": "en-US committed value uses the culture-specific formatted digits and separators",
+      "pass": true,
+      "detail": {
+        "input": "1,234.50",
+        "aria": "1234.5",
+        "culture": "en-US",
+        "nativeDigits": "0,1,2,3,4,5,6,7,8,9",
+        "typed": "1,234.50",
+        "expected": "1,234.50",
+        "requestedCulture": "en-US"
+      }
+    },
+    {
+      "name": "de-DE browser Accept-Language selects the expected .NET culture and parses grouped/mixed-script input",
+      "pass": true,
+      "detail": {
+        "input": "1.234,50",
+        "output": "Signed value: 1.234,50",
+        "aria": "1234.5",
+        "culture": "de-DE",
+        "nativeDigits": "0,1,2,3,4,5,6,7,8,9",
+        "language": "de-DE",
+        "languages": [
+          "de-DE",
+          "de;q=0.9"
+        ],
+        "typed": "1.234,50",
+        "requestedCulture": "de-DE"
+      }
+    },
+    {
+      "name": "de-DE committed value uses the culture-specific formatted digits and separators",
+      "pass": true,
+      "detail": {
+        "input": "1.234,50",
+        "aria": "1234.5",
+        "culture": "de-DE",
+        "nativeDigits": "0,1,2,3,4,5,6,7,8,9",
+        "typed": "1.234,50",
+        "expected": "1.234,50",
+        "requestedCulture": "de-DE"
+      }
+    },
+    {
+      "name": "fa-IR browser Accept-Language selects the expected .NET culture and parses grouped/mixed-script input",
+      "pass": true,
+      "detail": {
+        "input": "1٬۲٣٤٫۵۰",
+        "output": "Signed value: 1٬234٫50",
+        "aria": "1234.5",
+        "culture": "fa-IR",
+        "nativeDigits": "۰,۱,۲,۳,۴,۵,۶,۷,۸,۹",
+        "language": "fa-IR",
+        "languages": [
+          "fa-IR",
+          "fa;q=0.9"
+        ],
+        "typed": "1٬۲٣٤٫۵۰",
+        "requestedCulture": "fa-IR"
+      }
+    },
+    {
+      "name": "fa-IR committed value uses the culture-specific formatted digits and separators",
+      "pass": true,
+      "detail": {
+        "input": "۱٬۲۳۴٫۵۰",
+        "aria": "1234.5",
+        "culture": "fa-IR",
+        "nativeDigits": "۰,۱,۲,۳,۴,۵,۶,۷,۸,۹",
+        "typed": "1٬۲٣٤٫۵۰",
+        "expected": "۱٬۲۳۴٫۵۰",
+        "requestedCulture": "fa-IR"
+      }
+    },
+    {
+      "name": "ar-EG browser Accept-Language selects the expected .NET culture and parses grouped/mixed-script input",
+      "pass": true,
+      "detail": {
+        "input": "١٬2٣٤٫٥٠",
+        "output": "Signed value: 1٬234٫50",
+        "aria": "1234.5",
+        "culture": "ar-EG",
+        "nativeDigits": "٠,١,٢,٣,٤,٥,٦,٧,٨,٩",
+        "language": "ar-EG",
+        "languages": [
+          "ar-EG",
+          "ar;q=0.9"
+        ],
+        "typed": "١٬2٣٤٫٥٠",
+        "requestedCulture": "ar-EG"
+      }
+    },
+    {
+      "name": "ar-EG committed value uses the culture-specific formatted digits and separators",
+      "pass": true,
+      "detail": {
+        "input": "١٬٢٣٤٫٥٠",
+        "aria": "1234.5",
+        "culture": "ar-EG",
+        "nativeDigits": "٠,١,٢,٣,٤,٥,٦,٧,٨,٩",
+        "typed": "١٬2٣٤٫٥٠",
+        "expected": "١٬٢٣٤٫٥٠",
+        "requestedCulture": "ar-EG"
+      }
+    },
+    {
+      "name": "lifecycle probe NumericField is mounted before removal",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "component unmount disposes its actual keyboard listener",
+      "pass": true,
+      "detail": {
+        "connected": false,
+        "defaultPrevented": false,
+        "dispatchResult": true
+      }
+    },
+    {
+      "name": "no unhandled browser exceptions or console errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "runtimeSignals": []
+}

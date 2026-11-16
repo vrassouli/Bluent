@@ -1,6 +1,6 @@
 # NumericField — Bluent v3 implementation record
 
-> **Implementation and QA complete on the task branch; Issue #433 remains In progress pending owner design sign-off and independent PR review.** This work targets `bluent-v3` only. It is not an accepted/released v3 API or a stable NuGet contract. The seven Penpot boards remain DRAFT; visual approval and spoken assistive-technology acceptance are not claimed.
+> **Accepted and merged into bluent-v3 on 2026-11-16 via PR #563.** This remains an unreleased v3 component, not a stable NuGet contract. Six engineering-baseline boards were accepted for this implementation; the Theme board remains DRAFT under #418. Spoken screen-reader output and physical OS IME acceptance are not claimed.
 
 ## Identity and maturity
 
@@ -14,7 +14,7 @@
 | Integration target | `bluent-v3` only; no `Dev`, `main`, 2.x or NuGet change |
 | Upstream design baseline | Fluent UI Web Components Number Field; WAI-ARIA APG Spinbutton |
 | Owned design | Bluent v3 Design System, Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 51 `e9b4dbe1-9dd3-8094-8008-f2a6fdb3c800` |
-| Design state | Seven anatomy/behavior boards exist; all remain DRAFT pending owner/design sign-off; the Theme board also depends on #418 token approval |
+| Design state | Six boards carry the ENGINEERING BASELINE marker and were accepted for #433; the Theme board remains DRAFT pending the independent #418 token decision |
 
 ## Source/API inventory
 
@@ -105,24 +105,27 @@ No manual global script tag is required; the ES module is dynamically imported f
 
 | Scope | Evidence | Result |
 | --- | --- | --- |
-| Numeric value pipeline | 23 focused tests: culture parsing, Unicode digits/signs, empty/invalid/overflow, formatting and Step boundaries | **23/23 pass** |
-| NumericField pipeline unit tests | `NumericFieldValuePipelineTests` in the existing test project | **23/23 pass** |
+| Numeric value pipeline | 27 focused tests: culture parsing, Unicode digits/signs, empty/invalid/overflow, formatting and Step boundaries | **27/27 pass** |
+| NumericField pipeline unit tests | `NumericFieldValuePipelineTests` in the existing test project | **27/27 pass** |
 | Full Solution Release build | `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` | **0 warnings / 0 errors** |
-| Full Solution tests | `dotnet test Bluent.sln --configuration Release --no-build` | **93/93 pass** |
-| Consolidated real browser / render-mode | Chrome/Edge × WebAssembly/InteractiveServer; signed/decimal edits, stepping, inclusive bounds/recovery, clipboard paste/model commit, mid-string caret after rerender, mixed-script culture matrix (en-US/de-DE/fa-IR/ar-EG), forced-colors behavior, validation overrides, Addon/Class/Style, GainFocus, focusin/focusout registration and actual component unmount/disposal | **160/160 pass** (40 assertions per browser/render-mode cell) |
+| Full Solution tests | `dotnet test Bluent.sln --configuration Release --no-build` | **97/97 pass** |
+| Consolidated real browser / render-mode | Post-fix Chrome/Edge × WebAssembly/InteractiveServer; signed/decimal edits, stepping, inclusive bounds/recovery, clipboard paste/model commit, mid-string caret after rerender, mixed-script culture matrix (en-US/de-DE/fa-IR/ar-EG), forced-colors behavior, validation overrides, Addon/Class/Style, GainFocus, focusin/focusout registration and actual component unmount/disposal | **160/160 pass** (40 assertions per browser/render-mode cell; zero runtime signals) |
 | Native Windows callback behavior | Live Edge InteractiveServer; Windows UIA focus moved from NumericField A to NumericField B and parent counters were read after each transition | **OnFocus and OnBlur each invoked exactly once**; screenshot + JSON retained |
 | Native Windows acceptance | High Contrast White, Persian keyboard-layout event/caret and Narrator UIA semantics | **Contrast and UIA pass; physical IME and spoken AT acceptance remain open** |
 | Native Windows Contrast | Windows 11 Pro High Contrast White was actually enabled (HighContrast flags 127); Edge reported forced-colors active; focused, disabled, invalid and RTL states were inspected on the live InteractiveServer demo | **Pass; screenshot + JSON retained** |
 | Native Windows Persian layout | KLID 00000429 on the Edge UI thread; A → U+0634; caret at position 6; LTR/left alignment unchanged | **Pass for OS layout event; no physical keyboard or composition IME claim** |
 | Native Windows focus callbacks | Live InteractiveServer page: Windows UIA moved focus from numeric-addons to numeric-price; demo counters moved 0/0 → 1/0 → 1/1 | **Pass; screenshot + JSON retained** |
 | Narrator / Windows UIA | Narrator running while native UIA exposed the labeled spinbutton, value/range, invalid state and validation message | **UIA checked; spoken output not recorded/listened to** |
-| Penpot design parity | Owned file, page 51; all seven NumericField boards exported and visually inspected against implementation | **Owner sign-off outstanding; #418 theme-token gate remains open** |
+| Penpot design parity | Owned file, page 51; all seven NumericField boards exported and visually inspected against implementation | **Six ENGINEERING BASELINE boards accepted for #433; Theme board remains DRAFT under #418** |
 
-The latest consolidated live-browser matrix passes 40 assertions in each of Chrome/WASM, Edge/WASM, Chrome/InteractiveServer and Edge/InteractiveServer (160/160 total). It exercises input binding, signed/decimal edits, Step and keyboard stepping, inclusive bounds and recovery, RTL direction/alignment, static assets, readonly/disabled, native clipboard paste/model commit, mid-string caret after rerender, mixed-script/grouped parsing and committed formatting for en-US/de-DE/fa-IR/ar-EG, forced-colors behavior, the custom parsing/minimum/maximum/overflow validation messages and recovery, StartAddon/EndAddon, inherited Class/Style, GainFocus, Blazor focusin/focusout registration, and actual component conditional-unmount/disposal. Native Windows UIA separately confirms OnFocus and OnBlur each invoke once on actual focus transitions. Native Windows evidence is retained in `../quality/evidence/BLUENT-NUMERICFIELD-WINDOWS-HIGH-CONTRAST.json`, `BLUENT-NUMERICFIELD-WINDOWS-HIGH-CONTRAST.png`, `BLUENT-NUMERICFIELD-WINDOWS-PERSIAN-KEYBOARD.json`, `BLUENT-NUMERICFIELD-WINDOWS-FOCUS-CALLBACKS.json/.png` and `BLUENT-NUMERICFIELD-WINDOWS-NARRATOR-UIA.json`. The Persian check uses an OS keyboard-layout key event, not a physically pressed hardware key or a composition-based IME. OnFocus and OnBlur each fired once during real Windows UIA focus transitions. Narrator was running and UIA-visible semantics were checked, but spoken output is not yet recorded or independently heard. Remaining: spoken Narrator/NVDA acceptance, owner approval of the six Engineering Baseline Penpot boards (the Theme board waits for #418 token approval), and independent PR review. Exact-head CI on da998d052a44f8fb1c748795531f1296343267d6 is green: 8/8 workflows and every job passed. Do not generalize browser emulation or UIA inspection into spoken screen-reader acceptance. The `#418` token foundation remains open and unapproved; this component work does not mark it complete or consume its draft aliases.
+The final post-fix browser matrix passes 40 assertions in each of Chrome/WebAssembly, Edge/WebAssembly, Chrome/InteractiveServer and Edge/InteractiveServer (160/160 total, zero runtime signals). Four machine-readable reports are retained under docs/v3/quality/evidence/BLUENT-NUMERICFIELD-POSTFIX-*.json. Coverage includes binding, signed/decimal edits, Step and keyboard stepping, inclusive bounds and recovery from either side of the range, RTL direction/alignment, static assets, readonly/disabled, native clipboard paste/model commit, mid-string caret after rerender, mixed-script/grouped parsing and committed formatting for en-US/de-DE/fa-IR/ar-EG, forced-colors behavior, custom parsing/minimum/maximum/overflow messages and recovery, StartAddon/EndAddon, inherited Class/Style, GainFocus, focusin/focusout registration and actual component unmount/disposal.
 
+The full Release solution build passes with zero warnings and zero errors; the full .NET suite passes 97/97. The focused NumericField value-pipeline suite passes 27/27, including malformed double classification, non-finite overflow, decimal boundary saturation and stepping an out-of-range value toward (but not away from) its inclusive range. The NumericField source/API contract passes; its mutation tests pass 14/14. Documentation, Skills, TextField regression and inventory contracts pass; local Markdown links were checked in 176 files. Exact-head GitHub Actions for the final PR head are recorded on PR #563.
+
+Native Windows evidence remains separate: High Contrast White was actually enabled and restored; Persian KLID 00000429 was tested using an OS keyboard-layout event, not a physical keyboard; UIA focus transitions verified OnFocus/OnBlur exactly once; Narrator was running while its UIA tree was inspected. Spoken Narrator/NVDA output was not independently recorded or heard, and composition-based OS IME was not tested. Spoken output is not yet independently heard. These are explicit follow-up boundaries, not claims of completed screen-reader acceptance or accessibility certification. The six engineering-baseline boards were accepted for this component by the maintainer's direction on 2026-11-16. The Theme board remains DRAFT and #418 remains In progress; this merge neither approves nor consumes draft #418 token aliases.
 ## 2.x migration impact
 
-The existing public parameter and inherited binding names are retained. The v3 task branch adds observable native markup/interaction semantics (`role="spinbutton"`, ARIA range/value state, pointer stepper and Arrow/Home/End behavior), corrects destructive input normalization, makes culture parsing/formatting coherent, and makes the existing `Step` parameter operative. DOM consumers that assumed no stepper descendants or no spinbutton role must recheck selectors/AX behavior. No stable v2 assets/packages are changed. Full migration guidance remains proposed until #433 is accepted.
+The existing public parameter and inherited binding names are retained. The v3 task branch adds observable native markup/interaction semantics (`role="spinbutton"`, ARIA range/value state, pointer stepper and Arrow/Home/End behavior), corrects destructive input normalization, makes culture parsing/formatting coherent, and makes the existing `Step` parameter operative. DOM consumers that assumed no stepper descendants or no spinbutton role must recheck selectors/AX behavior. No stable v2 assets/packages are changed. Implementation #433 is accepted and merged into bluent-v3; consumer migration guidance is now part of the unreleased v3 integration and does not imply a stable package release.
 
 ## Native Windows acceptance evidence
 
@@ -130,21 +133,22 @@ The Windows-specific evidence JSON and PNG files under `../quality/evidence/` ar
 
 ## Acceptance and remaining gates
 
-- [ ] Obtain owner/design sign-off for the seven owned Penpot boards and record reviewed variant/node IDs and parity. Six boards now state ENGINEERING BASELINE; the Theme board remains DRAFT pending the #418 token foundation.
+- [x] Maintainer accepted the six ENGINEERING BASELINE boards for #433 on 2026-11-16; the Theme board remains DRAFT and is still owned by #418.
 - [x] Run the focused Chrome and Edge × WebAssembly and published InteractiveServer interaction checks: 64/64 assertions across the four modes.
 - [x] Extend real-browser coverage for clipboard paste through model commit and caret preservation after mid-string editing: 84/84 across Chrome/Edge × WebAssembly/InteractiveServer.
 - [x] Verify the production static-web-assets module is served (HTTP 200) and the interactive listener initializes in WebAssembly and InteractiveServer.
 - [x] Verify the JS listener disposal handle is idempotent and stops later callbacks (all four browser/render-mode cells).
 - [x] Add a component-level unmount test proving actual Blazor teardown removes its keyboard listener (Chrome/Edge × WebAssembly/InteractiveServer).
 - [x] Run the live browser culture matrix (en-US, de-DE, fa-IR, ar-EG; mixed digit/separator input and committed formatting) in Chrome and Edge across both render modes: 124/124 assertions.
-- [x] Run full Release solution build/tests: 0 warnings / 0 errors; 93/93 tests.
+- [x] Run full Release solution build/tests: 0 warnings / 0 errors; 97/97 tests.
 - [x] Run docs/skills contracts and repository Markdown link validation: docs 0 findings, Skills 0 errors, 176 Markdown files checked.
 - [x] Verify Native Windows High Contrast White on Windows 11 Pro with native forced-colors active, including focus, disabled, invalid and RTL states; screenshot and JSON evidence retained.
 - [x] Verify Persian Windows keyboard-layout translation and caret placement on the live field (U+0634 at caret 6); this is not a physical keyboard/IME composition test.
 - [x] Inspect NumericField native Windows UIA semantics while Narrator is running: name, role, value/range, invalid state and validation message.
 - [x] Verify OnFocus and OnBlur callbacks in native Windows Edge InteractiveServer by moving UIA focus between two NumericField inputs; both counters increment exactly once.
 - [x] Run the consolidated four-cell browser matrix after adding public-parameter demo coverage and the explicit ARIA-bound regression: 160/160 assertions.
-- [ ] Obtain spoken Narrator/NVDA acceptance; no spoken output has been independently recorded or heard.
+- [ ] Follow-up boundary: spoken Narrator/NVDA output has not been independently recorded or heard. Do not claim spoken screen-reader acceptance.
+- [ ] Follow-up boundary: physical keyboard hardware and composition-based OS IME input were not tested; the Persian OS keyboard-layout event is not equivalent.
 - [x] Verify the unbounded spinbutton omits CLR storage limits from aria-valuemin/aria-valuemax; explicitly configured bounds remain exposed. Confirmed in all four real-browser cells (160/160 total).
-- [x] Confirm exact-head GitHub Actions for commit da998d052a44f8fb1c748795531f1296343267d6: 8/8 workflows and all jobs completed successfully, including four NumericField browser jobs and four Component Lab browser jobs.
-- [ ] Obtain independent review and merge the PR to `bluent-v3`; only then can #433 move Review → Done.
+- [x] Confirm exact-head GitHub Actions for the final PR #563 commit: all 8 workflows and every job passed, including the four NumericField Chrome/Edge × WebAssembly/Server jobs and four Component Lab browser jobs.
+- [x] Maintainer-directed acceptance and squash merge of PR #563 into bluent-v3 completed on 2026-11-16. #433 is Done; this does not release a NuGet package or change stable branches.

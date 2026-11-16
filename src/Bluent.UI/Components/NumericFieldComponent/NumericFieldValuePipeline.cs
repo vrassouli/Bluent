@@ -157,7 +157,7 @@ internal static class NumericFieldValuePipeline
         else if (valueType == typeof(double))
         {
             if (!double.TryParse(normalized, FloatingStyles, numberFormat, out var number))
-                return Fail(NumericFieldParseFailure.Overflow, out result, out failure);
+                return Fail(NumericFieldParseFailure.Invalid, out result, out failure);
             if (!double.IsFinite(number))
                 return Fail(NumericFieldParseFailure.NonFinite, out result, out failure);
             parsed = number;
@@ -349,18 +349,21 @@ internal static class NumericFieldValuePipeline
         if (hasCurrentValue && currentDecimal > upperDecimal && direction > 0)
             return false;
 
-        try
-        {
-            var candidateDecimal = currentDecimal + (stepDecimal * direction);
-            candidateDecimal = Math.Clamp(candidateDecimal, lowerDecimal, upperDecimal);
-            object convertedDecimal = Convert.ChangeType(candidateDecimal, type, CultureInfo.InvariantCulture);
-            result = (TValue)convertedDecimal;
-            return true;
-        }
-        catch (OverflowException)
-        {
-            return false;
-        }
+        // Compare against representable limits before doing arithmetic.
+        // Decimal addition/subtraction can overflow even when the intended result
+        // should simply clamp to an explicit Min/Max or the CLR storage boundary.
+        var candidateDecimal = direction > 0
+            ? currentDecimal > decimal.MaxValue - stepDecimal
+                ? decimal.MaxValue
+                : currentDecimal + stepDecimal
+            : currentDecimal < decimal.MinValue + stepDecimal
+                ? decimal.MinValue
+                : currentDecimal - stepDecimal;
+        candidateDecimal = Math.Clamp(candidateDecimal, lowerDecimal, upperDecimal);
+
+        object convertedDecimal = Convert.ChangeType(candidateDecimal, type, CultureInfo.InvariantCulture);
+        result = (TValue)convertedDecimal;
+        return true;
     }
     public static bool IsFinite(object? value)
     {

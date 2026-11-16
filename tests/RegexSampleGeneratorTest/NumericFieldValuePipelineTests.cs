@@ -101,6 +101,49 @@ public class NumericFieldValuePipelineTests
     }
 
     [Test]
+    public void TryParse_double_reports_malformed_text_as_invalid_not_overflow()
+    {
+        var malformed = NumericFieldValuePipeline.TryParse<double>("not a number", CultureInfo.GetCultureInfo("en-US"), out _, out var malformedFailure);
+        var tooLarge = NumericFieldValuePipeline.TryParse<double>("1e9999", CultureInfo.GetCultureInfo("en-US"), out _, out var overflowFailure);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(malformed, Is.False);
+            Assert.That(malformedFailure, Is.EqualTo(NumericFieldParseFailure.Invalid));
+            Assert.That(tooLarge, Is.False);
+            Assert.That(overflowFailure, Is.EqualTo(NumericFieldParseFailure.NonFinite));
+        });
+    }
+
+    [Test]
+    public void TryStep_decimal_clamps_at_maximum_without_intermediate_overflow()
+    {
+        var success = NumericFieldValuePipeline.TryStep<decimal>(
+            decimal.MaxValue - 1m, decimal.MaxValue, decimal.MinValue, decimal.MaxValue,
+            true, true, true, 1, out var result);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(success, Is.True);
+            Assert.That(result, Is.EqualTo(decimal.MaxValue));
+        });
+    }
+
+    [Test]
+    public void TryStep_decimal_clamps_at_minimum_without_intermediate_underflow()
+    {
+        var success = NumericFieldValuePipeline.TryStep<decimal>(
+            decimal.MinValue + 1m, decimal.MaxValue, decimal.MinValue, decimal.MaxValue,
+            true, true, true, -1, out var result);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(success, Is.True);
+            Assert.That(result, Is.EqualTo(decimal.MinValue));
+        });
+    }
+
+    [Test]
     public void Format_uses_fa_IR_native_digits_and_negative_sign()
     {
         var formatted = NumericFieldValuePipeline.Format(-12.5m, "N2", CultureInfo.GetCultureInfo("fa-IR"));
@@ -142,6 +185,18 @@ public class NumericFieldValuePipelineTests
         {
             Assert.That(success, Is.True);
             Assert.That(result, Is.EqualTo(10));
+        });
+    }
+
+    [Test]
+    public void TryStep_out_of_range_value_applies_the_configured_step_toward_the_range()
+    {
+        var success = NumericFieldValuePipeline.TryStep<int?>(-1, 5, 0, 100, true, true, true, 1, out var result);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(success, Is.True);
+            Assert.That(result, Is.EqualTo(4));
         });
     }
 
