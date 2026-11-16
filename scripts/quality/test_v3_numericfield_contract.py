@@ -49,6 +49,10 @@ class NumericFieldContractTests(unittest.TestCase):
         self.mutate("src/Bluent.UI.Demo.Pages/Pages/Components/NumericFields.razor",
                     'OnFocus="HandleDemoNumericFocus"', 'OnFocus="default"')
 
+    def test_focus_events_must_remain_bubbling_focusin_focusout(self):
+        self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor",
+                    '@onfocusin="HandleFocus"', '@onfocus="HandleFocus"')
+
     def test_missing_step_default_is_rejected(self):
         self.mutate("src/Bluent.UI/Components/NumericFieldComponent/NumericField.razor.cs",
                     "_effectiveStep = _stepWasProvided", "_effectiveStep = false && _stepWasProvided")
