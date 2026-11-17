@@ -445,3 +445,7 @@ The source-owned Penpot TokenSets are reconciled with the selected #418 Option B
 The editable page-27 architecture board records **16 source + 17 semantic + 13 component = 46 logical tokens**. Live Penpot verification at revision **840** passed **1,285/1,285 assertions**, including all 20 Brand×Mode themes, eight palette roles per theme and the shared semantic/component TokenSets. See the Penpot decision/acceptance record, the schema's `latestValidation.nativePenpotTokenAudit`, and the repeatable `scripts/quality/penpot_v3_issue418_token_schema_audit.js`.
 
 This proves native design-library/schema parity only. It does not approve production aliases, every semantic role, page-45 maintainer review, experimental public API names, native OS accessibility or spoken AT.
+
+### Native Penpot physical inventory clarification
+
+At file revision **842**, the source-owned file contains **45 TokenSets / 492 token entries**. Each Light/Dark mode theme activates 17 sets / 262 entries. These physical counts include the separate foundation, focus, accessibility and preview sets; the #418 logical color contract remains **16 source + 17 semantic + 13 component = 46 roles per mode**.

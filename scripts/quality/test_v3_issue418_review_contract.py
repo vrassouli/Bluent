@@ -114,6 +114,11 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(audit["logicalTokenCounts"], {"source": 16, "semantic": 17, "component": 13, "total": 46})
         self.assertEqual(audit["nativeBrandThemes"], 20)
         self.assertEqual(audit["brandPaletteTokenCountPerTheme"], 8)
+        self.assertEqual(audit["revision"], self.policy["latestValidation"]["penpot"]["currentRevision"])
+        self.assertEqual(audit["totalNativeTokenSets"], 45)
+        self.assertEqual(audit["totalNativeTokenEntries"], 492)
+        self.assertEqual(audit["activeModeTokenSets"], 17)
+        self.assertEqual(audit["activeModeTokenEntries"], 262)
         self.assertFalse(audit["legacyLinkSourceAliasesRemaining"])
 
     def test_native_penpot_audit_script_is_stored(self):

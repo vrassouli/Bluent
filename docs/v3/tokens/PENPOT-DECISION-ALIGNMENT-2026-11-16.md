@@ -132,3 +132,9 @@ The page-27 architecture board was updated/exported to record **46 logical roles
 The repeatable read-only audit is stored at `scripts/quality/penpot_v3_issue418_token_schema_audit.js`. It temporarily activates Light/Dark mode themes, checks all 46 roles and resolved alias values, verifies all 20 Brand×Mode preview themes with eight palette roles each and both shared eight-token semantic/component layers, then restores original active themes in `finally`. Live Penpot verification at file revision **840** passed **1,285/1,285 assertions**, zero errors. Results are mirrored in `issue-418-token-schema.preview.json` → `reviewPolicy.latestValidation.nativePenpotTokenAudit`.
 
 **Acceptance boundary unchanged:** this proves native design-library/schema parity, not approval of page 45, the final public semantic allow-list, production aliases, public Focus/Portal/Dialog API names, native OS Contrast Themes or spoken assistive technology. The preview remains opt-in; no production CSS/package changed.
+
+### 2026-11-17 — Penpot revision and TokenSet inventory refresh
+
+The repeatable audit was fetched from the branch and executed directly inside Penpot. It returned **1,285/1,285 PASS** on file revision **842**, with the original Light · Draft and default / light preview themes restored. Current Penpot inventory: **45 TokenSets / 492 token entries**; the active Light/Dark mode theme each references **17 TokenSets / 262 token entries**, including the 46 logical color roles, separate foundation aliases and candidate layers. The logical token schema remains 16 source + 17 semantic + 13 component roles per mode; it is not the count of every foundation, typography or brand-preview entry.
+
+The machine-readable schema now distinguishes logical color token counts from physical TokenSet/token-entry inventory, avoiding the older 24/48 count being mistaken for the complete #418 layer contract.
