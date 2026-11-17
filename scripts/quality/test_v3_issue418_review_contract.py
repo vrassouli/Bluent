@@ -106,7 +106,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
     def test_native_penpot_schema_audit_is_recorded_and_green(self):
         audit = self.policy["latestValidation"]["nativePenpotTokenAudit"]
         self.assertEqual(audit["fileId"], "b64f6665-c9ab-80b5-8008-c4ac99d9d000")
-        self.assertEqual(audit["revision"], 840)
+        self.assertEqual(audit["revision"], 842)
         self.assertEqual(audit["result"], "PASS")
         self.assertEqual(audit["assertions"], 1285)
         self.assertEqual(audit["passed"], 1285)
@@ -120,6 +120,14 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(audit["activeModeTokenSets"], 17)
         self.assertEqual(audit["activeModeTokenEntries"], 262)
         self.assertFalse(audit["legacyLinkSourceAliasesRemaining"])
+        self.assertEqual(audit["totalNativeTokenSets"], 45)
+        self.assertEqual(audit["totalNativeTokenEntries"], 492)
+        self.assertEqual(audit["activeModeTokenSets"], 17)
+        self.assertEqual(audit["activeModeTokenEntries"], 262)
+
+    def test_generated_brand_matrix_design_metadata_matches_schema(self):
+        matrix = json.loads((ROOT / "docs/v3/tokens/issue-418-brand-matrix.preview.json").read_text(encoding="utf-8"))
+        self.assertEqual(matrix["design"], self.data["design"])
 
     def test_native_penpot_audit_script_is_stored(self):
         source = (ROOT / "scripts/quality/penpot_v3_issue418_token_schema_audit.js").read_text(encoding="utf-8")
