@@ -1169,7 +1169,7 @@
           "outputCss": "--bui-v3-semantic-link-foreground-hover",
           "source": "#60A072",
           "candidate": "#60A072",
-          "whiteMix": 0,
+          "whiteMix": 0.0,
           "contrastRatio": 4.6891
         },
         "linkPressed": {
