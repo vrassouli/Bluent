@@ -294,7 +294,7 @@ try {
     JSON.stringify(immutableDialogs)
   );
 
-  await page.locator(".dialog-wrapper").nth(1).locator('button[aria-label="بستن پنجره"]').click();
+  await page.locator(".dialog-wrapper").nth(1).locator('button[aria-label="\u0628\u0633\u062A\u0646 \u067E\u0646\u062C\u0631\u0647"]').click();
   await page.locator(".dialog-wrapper").nth(0).locator('button[aria-label="Close dialog"]').click();
   await expectDom("Both non-modal service Dialogs close", () => document.querySelectorAll(".dialog-wrapper").length === 0);
 
@@ -374,6 +374,13 @@ try {
   await page.locator("#v3-show-keyboard-modal").click();
   await page.locator("#v3-modal-open-nested").click();
   await expectDom("Nested Dialog is stacked above its owner", () => document.querySelectorAll(".dialog-wrapper").length === 2);
+  await expectDom(
+    "Both parent and nested keyboard Modal handlers are registered",
+    () => {
+      const roots = [...document.querySelectorAll(".dialog-wrapper .bui-dialog[aria-modal=\'true\'][data-bui-v3-keyboard-modal]")];
+      return roots.length === 2 && roots.every(root => root.hasAttribute("data-bui-v3-keyboard-bound"));
+    }
+  );
   await page.keyboard.press("Escape");
   await expectDom(
     "Nested Escape closes only the top Dialog and returns focus to its opener",
