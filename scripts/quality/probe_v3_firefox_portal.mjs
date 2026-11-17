@@ -309,6 +309,34 @@ try {
         dialog.hasAttribute("data-bui-v3-keyboard-bound");
     }
   );
+  const pendingRegistrationGuard = await page.evaluate(() => {
+    const parent = document.querySelector(".dialog-wrapper .bui-dialog[aria-modal='true'][data-bui-v3-keyboard-modal]");
+    const last = parent?.querySelector("#v3-modal-last-0");
+    if (!parent || !last) return { found: false };
+    last.focus();
+    const wrapper = document.createElement("div");
+    wrapper.className = "dialog-wrapper";
+    wrapper.style.cssText = "display:block;position:fixed;inset:20px;z-index:99999";
+    const pending = document.createElement("div");
+    pending.className = "bui-dialog";
+    pending.id = "v3-unregistered-modal-probe";
+    pending.setAttribute("role", "dialog");
+    pending.setAttribute("aria-modal", "true");
+    pending.setAttribute("data-bui-v3-keyboard-modal", "");
+    pending.style.cssText = "display:block;position:fixed;inset:30px;width:320px;height:180px";
+    wrapper.append(pending);
+    document.body.append(wrapper);
+    const event = new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true });
+    document.body.dispatchEvent(event);
+    const result = { found: true, prevented: event.defaultPrevented, activeId: document.activeElement?.id, expectedActiveId: last.id, pendingHasRegistration: pending.hasAttribute("data-bui-v3-keyboard-bound") };
+    wrapper.remove();
+    return result;
+  });
+  record(
+    "Unregistered topmost Dialog blocks Tab from being redirected into its registered parent",
+    pendingRegistrationGuard.found && pendingRegistrationGuard.prevented && pendingRegistrationGuard.activeId === pendingRegistrationGuard.expectedActiveId && !pendingRegistrationGuard.pendingHasRegistration,
+    JSON.stringify(pendingRegistrationGuard)
+  );
   await page.locator("#v3-modal-popover-trigger").click();
   await expectDom(
     "Popover opens from inside the owning Modal",

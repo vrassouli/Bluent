@@ -29,8 +29,10 @@ function topModal() {
     const roots = [...document.querySelectorAll(
         ".dialog-wrapper .bui-dialog[aria-modal='true'][data-bui-v3-keyboard-modal]"
     )];
-    return roots.reverse().find(root => modalOwners.has(root) &&
-        root.isConnected && root.getClientRects().length > 0);
+    // A newer modal enters the DOM before its asynchronous JS interop registration
+    // completes. It must still block keyboard ownership from falling back to
+    // a registered parent during that short hand-off window.
+    return roots.reverse().find(root => root.isConnected && root.getClientRects().length > 0);
 }
 
 // A modal is not complete until everything outside its active owner is inert.
@@ -130,10 +132,14 @@ function onModalKeyDown(event) {
     if (event.defaultPrevented || event.isComposing) return;
     const active = topModal();
     if (!active) return;
-    // While a child is closing, do not accidentally Escape the parent or
-    // transfer keyboard ownership before the child is really removed.
-    if (active.classList.contains("hide")) {
-        if (event.key === "Escape" || event.key === "Tab") event.preventDefault();
+    // A rendered topmost modal may still be awaiting its JS registration.
+    // Treat it as a keyboard barrier rather than forwarding keys to its parent.
+    // A closing modal is the same barrier until it is actually removed.
+    if (!modalOwners.has(active) || active.classList.contains("hide")) {
+        if (event.key === "Escape" || event.key === "Tab") {
+            event.preventDefault();
+            event.stopPropagation();
+        }
         return;
     }
     if (event.key === "Escape") {
