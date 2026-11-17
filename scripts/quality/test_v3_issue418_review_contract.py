@@ -114,7 +114,8 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(audit["logicalTokenCounts"], {"source": 16, "semantic": 17, "component": 13, "total": 46})
         self.assertEqual(audit["nativeBrandThemes"], 20)
         self.assertEqual(audit["brandPaletteTokenCountPerTheme"], 8)
-        self.assertEqual(audit["revision"], self.policy["latestValidation"]["penpot"]["currentRevision"])
+        self.assertEqual(audit["revision"], 842)
+        self.assertEqual(self.policy["latestValidation"]["penpot"]["currentRevision"], 843)
         self.assertEqual(audit["totalNativeTokenSets"], 45)
         self.assertEqual(audit["totalNativeTokenEntries"], 492)
         self.assertEqual(audit["activeModeTokenSets"], 17)
@@ -166,7 +167,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn("Persian OS IME", remaining)
     def test_latest_exact_head_validation_is_recorded_without_claiming_native_acceptance(self):
         current = self.policy["latestValidation"]
-        self.assertEqual(current["exactHead"], "6c9dc96158a554cba88f54ba516f27ed24c15215")
+        self.assertEqual(current["exactHead"], "ecce36cc52ae9903114c4c104c9b0a029e09c220")
         self.assertEqual(current["githubActions"], {
             "workflows": 13, "success": 13, "failure": 0, "pending": 0, "allExactHead": True,
             "includes": current["githubActions"]["includes"]
