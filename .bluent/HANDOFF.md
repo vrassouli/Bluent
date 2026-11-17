@@ -2,13 +2,16 @@
 
 This file is the operational entry point for continuing the current Bluent work with Codex or another coding agent.
 
-## Active v3 continuation — #418 Design Tokens (2026-11-16)
+## Active v3 continuation — #418 Design Tokens (2026-11-17)
 
-- Worktree: `C:/Projects/Bluent-issue418`; branch: `v3/issue-418-design-tokens`; PR: [#500](https://github.com/vrassouli/Bluent/pull/500), base `bluent-v3`.
-- The maintainer delegated the outstanding choices. Selected directions: Option B token vocabulary; Option A explicit same-host Focus metadata; Option A explicit Dialog owner context through the existing builder; selected 40 Dark foreground candidates as preview-only targets for four roles on opaque NeutralBackground1; retain the narrow Danger usage boundary. Full decision record: `docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md`.
-- Selected directions do not approve public API names/signatures, production CSS, stable packages or Penpot review boards. Page 45 and pages 52–55 remain in their recorded DRAFT / REVIEW REQUIRED states pending visual/design and native acceptance.
-- Exact-head CI on `3389a392c8c187d9835cb93d72b817fea06938f2` was 11/11 success. New decision-record changes require fresh focused/docs checks and CI. Do not merge PR #500 or move #418 to Done until the actual design/acceptance gates pass.
-- #434 Checkbox remains Analysis; design and acceptance remain separate. No implementation until its own Penpot design and Ready gate are satisfied.
+- Worktree: `/private/tmp/Bluent-418`; branch: `v3/issue-418-design-tokens`; PR: [#500](https://github.com/vrassouli/Bluent/pull/500), base `bluent-v3`. This is an isolated worktree; do not modify the separate `Dev` checkout.
+- Current branch head: `6c9dc96158a554cba88f54ba516f27ed24c15215`. Exact-head GitHub Actions: **13/13 success**, including Firefox and GitHub macOS Playwright WebKit D2/D5.
+- Penpot primary is restored: `Bluent v3 Design System` (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`), revision **833**. Pages 45 and 52–55 were exported and visually inspected. Page 45 remains REVIEW REQUIRED; page 55 remains DRAFT / exact values not approved.
+- Delegated engineering directions: Option B token vocabulary; Option A same-host Focus metadata; Option A explicit Dialog owner context through the existing builder; 40 Dark candidates preview-only; narrow Danger boundary. Full decision record: `docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md`; current Penpot/CI/local acceptance record: `docs/v3/tokens/PENPOT-DECISION-ALIGNMENT-2026-11-16.md`.
+- Local current-head validation on macOS 27.2 ARM64 / .NET SDK 10.0.300: restore PASS; Release solution build with `-warnaserror` 0 warnings/0 errors; solution tests 140/140; NuGet boundary controls 9/9 and local-only package inspection PASS; focused #418 review 10/10, additive API 13/13, token contrast 12/12, foundation preview 7/7, Focus bridge 7/7, Focus host matrix 22/22, typography/source/docs/skills checks PASS.
+- Remaining gates: native NVDA/Narrator/VoiceOver speech and Persian Dialog/Close/focus-return acceptance; native Windows Contrast Themes for Dialog/Popover; Safari.app/SafariDriver (Allow Remote Automation remains disabled and was not changed); composition-based Persian OS IME/caret/selection; final maintainer approval of exact public semantic allow-list, production aliases and public Focus/Portal/Dialog contract. Playwright WebKit is not native Safari or spoken AT.
+- #418 remains **In progress**; PR #500 remains OPEN/mergeable/unmerged. Do not merge or mark Done until the actual native/design/production approval gates are satisfied. No stable `Dev`/`main`, production CSS activation, NuGet publication or deployment.
+- #434 Checkbox remains Analysis; its implementation and acceptance are separate. Do not start implementation before its own Penpot design and Ready gate.
 
 ## Current Objective
 

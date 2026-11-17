@@ -80,7 +80,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
     def test_penpot_review_records_are_versioned_and_not_approved(self):
         records = self.policy["penpotReviewRecords"]
         by_page = {item["pageNumber"]: item for item in records}
-        self.assertEqual(set(by_page), {30, 33, 45})
+        self.assertEqual(set(by_page), {30, 33, 45, 52, 53, 54, 55})
         self.assertTrue(all(item["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000" for item in records))
         self.assertEqual(by_page[30]["observedRevision"], 808)
         self.assertEqual(by_page[30]["status"], "DRAFT")
@@ -89,6 +89,22 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(by_page[45]["observedRevision"], 810)
         self.assertEqual(by_page[45]["status"], "DRAFT / REVIEW REQUIRED")
         self.assertIn("production aliases", by_page[45]["scope"])
+        self.assertEqual(by_page[52]["status"], "OPTION B SELECTED / PREVIEW ONLY")
+        self.assertEqual(by_page[53]["status"], "OPTION A SELECTED / PREVIEW ONLY / PUBLIC API OPEN")
+        self.assertEqual(by_page[54]["status"], "OPTION A SELECTED / PROTOTYPE ONLY / NATIVE ACCEPTANCE OPEN")
+        self.assertEqual(by_page[55]["status"], "DRAFT / EXACT VALUES NOT APPROVED")
+        self.assertTrue(all(by_page[n]["observedRevision"] == 833 for n in (52, 53, 54, 55)))
+
+    def test_latest_exact_head_validation_is_recorded_without_claiming_native_acceptance(self):
+        current = self.policy["latestValidation"]
+        self.assertEqual(current["exactHead"], "6c9dc96158a554cba88f54ba516f27ed24c15215")
+        self.assertEqual(current["githubActions"], {
+            "workflows": 13, "success": 13, "failure": 0, "pending": 0, "allExactHead": True,
+            "includes": current["githubActions"]["includes"]
+        })
+        self.assertEqual(current["localRelease"]["solutionTests"], "140/140")
+        self.assertIn("Native spoken NVDA/Narrator/VoiceOver", current["remainingAcceptance"][0])
+        self.assertIn("Safari.app/SafariDriver", current["remainingAcceptance"][2])
 
     def test_public_vocabulary_selected_but_aliases_not_shipped(self):
         proposal = self.policy["publicVocabularyProposal"]

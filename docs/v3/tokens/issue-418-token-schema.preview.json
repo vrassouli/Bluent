@@ -629,6 +629,46 @@
         "observedRevision": 810,
         "status": "DRAFT / REVIEW REQUIRED",
         "scope": "Dark semantic role decisions remain preview candidates; page 45 Danger caveat aligns Label-only text.dangerAccessible and non-text-only status.danger; no full public vocabulary or production aliases approved."
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 52,
+        "pageId": "388782f1-b766-8073-8008-f3299e62827a",
+        "boardId": "388782f1-b766-8073-8008-f3299e849141",
+        "status": "OPTION B SELECTED / PREVIEW ONLY",
+        "scope": "Public palette namespace plus individually approved semantic roles; source internal and component private; CSS aliases only within v3 opt-in after role approval.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 53,
+        "pageId": "388782f1-b766-8073-8008-f32b0b243fc9",
+        "boardId": "388782f1-b766-8073-8008-f32b0b39e88b",
+        "status": "OPTION A SELECTED / PREVIEW ONLY / PUBLIC API OPEN",
+        "scope": "Explicit same-host data-bui-v3-focus-mode and data-bui-v3-focus-host direction; unsupported hosts fail closed while preserving current visible focus; public attributes and production CSS remain unapproved.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 54,
+        "pageId": "388782f1-b766-8073-8008-f32c913ab071",
+        "boardId": "388782f1-b766-8073-8008-f32c9154ed0d",
+        "status": "OPTION A SELECTED / PROTOTYPE ONLY / NATIVE ACCEPTANCE OPEN",
+        "scope": "Reuse existing Dialog configuration builder; Popover follows owner cascade; Dialog captures immutable ShowAsync owner snapshot; private owner identity; no public Portal/Dialog/Popover API approval.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 55,
+        "pageId": "388782f1-b766-8073-8008-f32e8223fd29",
+        "boardId": "388782f1-b766-8073-8008-f32e823c8580",
+        "status": "DRAFT / EXACT VALUES NOT APPROVED",
+        "scope": "Forty per-brand Dark candidate values for Action Rest, Link Rest, Link Hover and Link Pressed; 4.6:1 opaque NeutralBackground1 preview target only.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
       }
     ],
     "publicVocabularyProposal": {
@@ -719,6 +759,85 @@
         ]
       },
       "publicationBoundary": "No production CSS, stable branch, stable package, NuGet publication or deployment is authorized by these decisions. Keep design boards in their actual DRAFT/REVIEW REQUIRED states until reviewed in Penpot."
+    },
+    "latestValidation": {
+      "date": "2026-11-17",
+      "exactHead": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+      "baseBranch": "bluent-v3",
+      "githubActions": {
+        "workflows": 13,
+        "success": 13,
+        "failure": 0,
+        "pending": 0,
+        "allExactHead": true,
+        "includes": [
+          "Baseline Quality Gate",
+          "Button Runtime Contract",
+          "Button Focus Design Contract",
+          "Documentation Contract",
+          "Firefox Portal Lab",
+          "WebKit Portal Lab",
+          "Interaction Source Contract",
+          "Local Package Boundary",
+          "Public Component Census",
+          "Real Browser Lab",
+          "Real Compatibility Browsers",
+          "Token Contract",
+          "Component Lab Pilot"
+        ]
+      },
+      "localRelease": {
+        "environment": "macOS 27.2 ARM64; .NET SDK 10.0.300",
+        "restore": "PASS",
+        "releaseBuildWarningsAsErrors": "PASS; 0 warnings; 0 errors",
+        "solutionTests": "140/140",
+        "nugetBoundaryUnitTests": "9/9",
+        "localOnlyPackage": "PASS; Bluent.UI 1.0.0; 10 legacy theme bundles; no unexpected v3/demo-only assets or unapproved fonts",
+        "gitDiffCheck": "PASS"
+      },
+      "focusedContracts": {
+        "issue418Review": "9/9",
+        "additiveApiLedger": "13/13",
+        "tokenPreviewContrast": "12/12",
+        "foundationPreview": "7/7",
+        "approvedFocusHostBridge": "7/7",
+        "focusHostSurfaceMatrix": "22/22",
+        "focusAlphaHost": "PASS",
+        "typographySource": "PASS",
+        "systemFontContinuity": "PASS",
+        "docsContract": "0 findings",
+        "skillsContract": "0 errors"
+      },
+      "penpot": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "currentRevision": 833,
+        "inspectedPages": [
+          31,
+          32,
+          33,
+          42,
+          45,
+          52,
+          53,
+          54,
+          55
+        ],
+        "decisionBoardsExportedAndVisuallyInspected": [
+          45,
+          52,
+          53,
+          54,
+          55
+        ]
+      },
+      "remainingAcceptance": [
+        "Native spoken NVDA/Narrator/VoiceOver and keyboard navigation acceptance, including Persian Dialog description, localized Close activation and focus return.",
+        "Native Windows Contrast Themes for Dialog/Popover and unrecognized/translucent Focus host surfaces.",
+        "Safari.app/SafariDriver current-head run remains blocked by the existing Allow Remote Automation setting; Playwright WebKit CI is green but is not Safari.app or native VoiceOver.",
+        "Composition-based Persian OS IME/caret/selection and cross-platform font metrics.",
+        "Final maintainer approval of individual public semantic allow-list, exact public CSS alias set, and public Focus/Portal/Dialog API spelling/ownership before any production promotion."
+      ]
     }
   }
 }

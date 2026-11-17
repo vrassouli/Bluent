@@ -87,3 +87,21 @@ The shared Popover source intentionally consumes Escape only when the keyboard e
 - PR #500 remains open against `bluent-v3`; its mergeability and green CI do not close the remaining design/native acceptance gates.
 - #434 Checkbox may use these selected directions as design foundations, but its own component design and Ready gate remain separate.
 - No stable `Dev` / `main` change, production CSS activation, NuGet publication or deployment is authorized by this checkpoint.
+
+
+## 2026-11-17 — current-head verification and acceptance boundary
+
+The Penpot primary is restored. The source-owned **Bluent v3 Design System** file (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`) is reachable at revision **833**. Pages **31, 32, 33, 42, 45, 52, 53, 54 and 55** were inspected; the decision/evidence boards 45 and 52–55 were exported and visually inspected. The original Microsoft Fluent 2 reference remains untouched. Page 45 keeps its REVIEW REQUIRED status; page 55 remains DRAFT / exact values not approved. Pages 52–54 continue to show selected engineering directions as preview/prototype only, not public API promotion.
+
+Exact current PR head `6c9dc96158a554cba88f54ba516f27ed24c15215`: **13/13 GitHub Actions workflows successful, 0 failed, 0 pending**, including Firefox and the GitHub macOS Playwright WebKit Portal Lab.
+
+Local verification on macOS 27.2 ARM64 / .NET SDK 10.0.300:
+- `dotnet restore Bluent.sln --nologo` — PASS.
+- `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror --nologo` — PASS, **0 warnings / 0 errors**.
+- `dotnet test Bluent.sln --configuration Release --no-build --no-restore --nologo` — **140/140**.
+- `scripts/quality/test_v3_nuget_boundary.py` — **9/9** negative/positive controls. A local-only `Bluent.UI.1.0.0.nupkg` was packed and inspected: all ten legacy themes and reviewed opt-in Dialog/Danger assets are present; no unexpected v3/demo-only assets or unapproved fonts; no publish/upload was performed.
+- Focused #418 review contract **10/10**, additive API ledger **13/13**, token contrast **12/12**, foundation preview **7/7**, Focus bridge **7/7**, Focus host matrix **22/22**; typography and system-font continuity source audits PASS; docs contract **0 findings**; Skills contract **0 errors**; `git diff --check` PASS.
+
+**Still open before #418 Review/Done or PR #500 merge:** native spoken NVDA/Narrator/VoiceOver (including Persian description, localized Close activation and focus return); native Windows Contrast Themes for Dialog/Popover and unsupported Focus hosts; current Safari.app/SafariDriver (the existing Allow Remote Automation setting remains disabled; it was not changed); composition-based Persian OS IME/caret/selection and cross-platform font metrics; and final maintainer approval of the individual public semantic allow-list, exact production alias set and public Focus/Portal/Dialog API contract. Playwright WebKit CI success is cross-engine browser evidence, not native Safari.app or spoken AT acceptance.
+
+**Disposition:** #418 is In progress, not Blocked, because the Penpot access blocker is resolved. PR #500 remains OPEN, CLEAN/mergeable and unmerged against `bluent-v3`. No stable `Dev`/`main`, production CSS activation, NuGet publication, release or deployment changed. Do not mark Done or merge by inferring native acceptance from green CI.

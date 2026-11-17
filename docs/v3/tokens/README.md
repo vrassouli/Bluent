@@ -1,6 +1,6 @@
 # #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
-**Status:** In progress · **current checkpoint 2026-11-15** · **engineering follow-up recorded; not final v3 token API or release-ready**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+**Status:** In progress · **current checkpoint 2026-11-17** · **engineering checks green; native/design approval and production promotion remain gated**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
 
 ## Historical checkpoint — 2026-11-10
 
@@ -422,3 +422,12 @@ Project #5 status on 2026-11-16: #418 In progress, #421 In progress (reusable Co
 The selected directions are recorded in [FOUNDATION-REVIEW-DECISIONS.md](FOUNDATION-REVIEW-DECISIONS.md) and `issue-418-token-schema.preview.json` → `reviewPolicy.selectedDecisions`: Option B token vocabulary; Option A explicit same-host Focus metadata; Option A explicit Dialog owner context through the existing builder; four Dark brand foreground roles selected as opt-in preview targets on opaque NeutralBackground1; and the existing narrow Danger boundary.
 
 These are engineering/design directions, not publication approvals. Page 45 and pages 52–55 remain in their actual DRAFT / REVIEW REQUIRED states. Public API signatures, production CSS, native Dialog/Popover contrast and spoken AT, unsupported host compositions, and other listed acceptance gates remain open. At the synchronized head `3389a392c8c187d9835cb93d72b817fea06938f2`, all 11 exact-head GitHub Actions workflows passed; later commits require fresh exact-head validation.
+
+
+## 2026-11-17 — exact-head engineering verification and current acceptance gates
+
+The source-owned Penpot file is restored and verified at revision **833**. Pages 31, 32, 33, 42, 45 and 52–55 were inspected; pages 45 and 52–55 were exported and visually reviewed. Page 45 remains REVIEW REQUIRED, page 55 remains DRAFT, and the selected Option B / Option A / Option A directions on pages 52–54 are preview/prototype-only. See [the current alignment and validation record](PENPOT-DECISION-ALIGNMENT-2026-11-16.md).
+
+PR #500 exact head `6c9dc96158a554cba88f54ba516f27ed24c15215` has **13/13 GitHub Actions workflows green**, including Firefox and GitHub macOS Playwright WebKit D2/D5. Local macOS ARM64 / .NET 10.0.300 validation: Release solution build with `-warnaserror` **0 warnings / 0 errors**; .NET solution tests **140/140**; local NuGet package boundary **9/9** tests and a successful local-only Bluent.UI package inspection. Focused token/API/focus/typography/doc/skill contracts also pass; exact details are recorded in the alignment file and machine-readable schema `reviewPolicy.latestValidation`.
+
+This does **not** close native spoken NVDA/Narrator/VoiceOver, native Windows Contrast Themes for Dialog/Popover, Safari.app/SafariDriver (remote automation remains disabled and was not changed), composition-based Persian OS IME/caret/selection, or the final production public-token/API approval gates. Playwright WebKit is not native Safari or spoken AT. Keep #418 In progress and PR #500 open/unmerged until those gates have genuine evidence and review. No stable branch, production CSS, NuGet upload or deployment was changed.
