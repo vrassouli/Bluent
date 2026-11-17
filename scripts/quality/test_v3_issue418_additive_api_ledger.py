@@ -26,6 +26,7 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.payload = json.loads(CONTRACT.read_text(encoding="utf-8"))
+        cls.payload_schema = json.loads((ROOT / "docs/v3/tokens/issue-418-token-schema.preview.json").read_text(encoding="utf-8"))
     def test_explicit_component_deltas(self):
         types = self.payload["Components"]
         dialog = types["Bluent.UI::Bluent.UI.Components.Dialog"]
@@ -64,5 +65,67 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
         self.assertEqual(sum(len(x["Methods"]) for x in types.values()),196)
         self.assertEqual(sum(len(x["Constructors"]) for x in types.values()),139)
         self.assertEqual(sum(len(x["Events"]) for x in types.values()),13)
+
+    def test_public_portal_scope_value_carrier_is_immutable_and_experimental(self):
+        scope = (ROOT / "src/Bluent.UI/Components/PortalThemeScope.cs").read_text(encoding="utf-8-sig")
+        self.assertIn("public sealed record PortalThemeScope", scope)
+        self.assertIn('public PortalThemeScope(string mode, string direction = "ltr", string density = "comfortable", bool useV3Tokens = true, string? brand = null)', scope)
+        for declaration in (
+            "public string Mode { get; }",
+            "public string Direction { get; }",
+            "public string Density { get; }",
+            "public bool UseV3Tokens { get; }",
+            "public string? Brand { get; }",
+        ):
+            self.assertIn(declaration, scope)
+        self.assertNotIn("OwnerId", scope)
+        decision = self.payload_schema["reviewPolicy"]["selectedDecisions"]["portalOwnership"]
+        self.assertEqual(decision["publicScopeValueType"]["name"], "Bluent.UI.Components.PortalThemeScope")
+        self.assertFalse(decision["productionApiApproval"])
+
+    def test_public_dialog_configurator_additions_are_fully_recorded(self):
+        source = (ROOT / "src/Bluent.UI/Components/DialogComponent/DialogConfigurator.cs").read_text(encoding="utf-8-sig")
+        expected = (
+            "SetThemeScope(PortalThemeScope? themeScope)",
+            "SetAccessibleDialog(string name, string closeButtonLabel)",
+            "SetAccessibleDescription(string description)",
+            "SetReturnFocusTargetId(string elementId)",
+            "SetModalKeyboardNavigation(bool enabled = true)",
+            "SetInitialFocusTargetId(string elementId)",
+        )
+        for signature in expected:
+            self.assertIn("public DialogConfigurator " + signature, source)
+
+    def test_public_dialog_configuration_properties_are_fully_recorded(self):
+        source = (ROOT / "src/Bluent.UI/Components/DialogComponent/DialogConfiguration.cs").read_text(encoding="utf-8-sig")
+        self.assertIn("public class DialogConfiguration", source)
+        expected = (
+            "public PortalThemeScope? ThemeScope { get; init; }",
+            "public string? AccessibleName { get; init; }",
+            "public string? AccessibleDescription { get; init; }",
+            "public string? CloseButtonLabel { get; init; }",
+            "public string? ReturnFocusTargetId { get; init; }",
+            "public bool EnableModalKeyboard { get; init; }",
+            "public string? InitialFocusTargetId { get; init; }",
+        )
+        for declaration in expected:
+            self.assertIn(declaration, source)
+
+    def test_public_popover_settings_property_is_fully_recorded(self):
+        source = (ROOT / "src/Bluent.UI/Components/PopoverComponent/PopoverSettings.cs").read_text(encoding="utf-8-sig")
+        self.assertIn("public bool AccessibleTriggerState { get; set; }", source)
+
+    def test_machine_readable_complete_package_delta_has_required_members(self):
+        review = self.payload_schema["reviewPolicy"]["publicApiDelta"]
+        self.assertEqual(len(review["newExportedTypes"]), 1)
+        self.assertEqual(review["newExportedTypes"][0]["name"], "Bluent.UI.Components.PortalThemeScope")
+        members = review["addedPublicMembers"]
+        self.assertEqual(len(members["Bluent.UI.Components.DialogConfigurator"]), 6)
+        self.assertEqual(len(members["DialogConfiguration"]), 7)
+        self.assertEqual(len(members["Bluent.UI.Components.Dialog"]), 9)
+        self.assertEqual(len(members["Bluent.UI.Components.Popover"]), 2)
+        self.assertEqual(len(members["Bluent.UI.Components.PopoverSettings"]), 1)
+        self.assertIn("No existing public member signatures were removed or changed", review["compatibility"])
+
 if __name__=="__main__":
     unittest.main()

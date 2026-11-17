@@ -1,4 +1,4 @@
-using Bluent.UI.Components.DialogComponent;
+﻿using Bluent.UI.Components.DialogComponent;
 
 namespace Bluent.UI.Components;
 
@@ -47,14 +47,14 @@ public class DialogConfigurator
         return this;
     }
 
-    /// <summary>Opt-in return of focus to an explicitly named launcher after the final Dialog dismisses.</summary>
-    /// <summary>Draft #418: opt in to a visible description, linked by aria-describedby.</summary>
+    /// <summary>Opt in to a visible description, linked by aria-describedby.</summary>
     public DialogConfigurator SetAccessibleDescription(string description)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(description);
         _accessibleDescription = description;
         return this;
     }
+    /// <summary>Restore focus to the explicitly named launcher after the final Dialog dismisses.</summary>
     public DialogConfigurator SetReturnFocusTargetId(string elementId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(elementId);

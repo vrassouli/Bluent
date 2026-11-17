@@ -145,7 +145,7 @@ Added PORTAL-THEME-PUBLIC-API-PROPOSAL.md and native Penpot page 54 388782f1-b76
 
 It records the evidence-based lifecycle distinction: Popover follows its live owner cascade; service Dialog receives an explicit caller context and captures an immutable snapshot at ShowAsync. It compares existing DialogConfigurator builder reuse, typed separate PortalContext/AccessibilityOptions, and scoped launcher component. D5 modal accessibility remains a separate opt-in contract with name/modal validation, background inert/aria-hidden, portal-owned Popover exception, nested topmost stack, Escape ordering and focus restoration.
 
-A source/design gap is now explicit: the current PortalThemeScope record has no OwnerId, although the design proposal calls for one; a nullable Brand field does not itself prove scoped simultaneous brand CSS. SSR/prerender, no-scope legacy fallback, route/disposal, iframe/third-party popup, native spoken AT/OS contrast and Safari/WebKit are separate gates. Page 54 remains DRAFT; no public API or product runtime was approved/changed.
+The current PortalThemeScope record intentionally has no public OwnerId; caller identity remains private implementation bookkeeping. A nullable Brand field does not itself prove scoped simultaneous brand CSS. SSR/prerender, no-scope legacy fallback, route/disposal, iframe/third-party popup, native spoken AT/OS contrast and Safari/WebKit are separate gates. Page 54 remains DRAFT; no public API or product runtime was approved/changed.
 
 ### Dark semantic foreground exact-value matrix — 2026-11-15
 
@@ -180,6 +180,10 @@ Choose explicit same-host metadata: `data-bui-v3-focus-mode` and `data-bui-v3-fo
 Reuse the existing Dialog configuration-builder path and pass owner context explicitly. Popover follows its nearest live owner cascade while the owner/trigger is alive. A service Dialog captures an immutable owner snapshot at `ShowAsync`; later owner changes do not mutate an already-open Dialog. An unscoped call keeps the legacy fallback. Keep owner identity private to implementation/registry bookkeeping; do not expose `OwnerId` simply to support internal lifecycle management. Keep D5 modal/accessibility behavior separate from D2 owner context; retain explicit validated builder methods for accessible naming, modal keyboard containment and focus targets rather than introducing another public options or launcher type in this iteration.
 
 This is the selected API direction, not a final public API spelling/signature approval. The page-54 and page-33 boards remain DRAFT, and native Windows Contrast Themes for Dialog/Popover, spoken NVDA/Narrator/VoiceOver acceptance, independent engine coverage and lifecycle/popup arbitration remain acceptance gates.
+
+### 3a. Portal scope value carrier clarification — 2026-11-17
+
+Option A retains the existing `DialogConfigurator` builder and Popover owner cascade, but both entry points require a caller-constructible typed value. The isolated prototype therefore exposes one public immutable `PortalThemeScope` record with validated Mode, Direction, Density, optional Brand and UseV3Tokens. It is the data value passed to `SetThemeScope` / `CascadingValue`, not a scoped host component. No public `OwnerId`, launcher component or separate `DialogAccessibilityOptions` object is introduced. The type's current name and exact shape are experimental and remain unapproved for production. The complete CLR delta is recorded in `ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md` and `reviewPolicy.publicApiDelta`.
 
 ### 4. Dark brand foreground candidates — selected for preview only
 

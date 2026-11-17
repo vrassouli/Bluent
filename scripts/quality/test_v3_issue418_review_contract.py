@@ -93,7 +93,11 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(by_page[53]["status"], "OPTION A SELECTED / PREVIEW ONLY / PUBLIC API OPEN")
         self.assertEqual(by_page[54]["status"], "OPTION A SELECTED / PROTOTYPE ONLY / NATIVE ACCEPTANCE OPEN")
         self.assertEqual(by_page[55]["status"], "DRAFT / EXACT VALUES NOT APPROVED")
-        self.assertTrue(all(by_page[n]["observedRevision"] == 833 for n in (52, 53, 54, 55)))
+        self.assertEqual(by_page[52]["observedRevision"], 833)
+        self.assertEqual(by_page[53]["observedRevision"], 833)
+        self.assertEqual(by_page[54]["observedRevision"], 836)
+        self.assertEqual(by_page[55]["observedRevision"], 833)
+        self.assertIn("public immutable PortalThemeScope value object", by_page[54]["scope"])
 
     def test_latest_exact_head_validation_is_recorded_without_claiming_native_acceptance(self):
         current = self.policy["latestValidation"]
@@ -136,6 +140,18 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn("immutable snapshot at ShowAsync", decisions["portalOwnership"]["dialog"])
         self.assertIn("Private implementation identity", decisions["portalOwnership"]["ownerIdentity"])
         self.assertFalse(decisions["portalOwnership"]["productionApiApproval"])
+        scope_value = decisions["portalOwnership"]["publicScopeValueType"]
+        self.assertEqual(scope_value["name"], "Bluent.UI.Components.PortalThemeScope")
+        self.assertIn("CascadingValue", scope_value["whyPublic"])
+        self.assertFalse(decisions["portalOwnership"]["newOwnerId"])
+        self.assertFalse(decisions["portalOwnership"]["newLauncherComponent"])
+        self.assertFalse(decisions["portalOwnership"]["newDialogAccessibilityOptions"])
+        delta = self.policy["publicApiDelta"]
+        self.assertEqual(len(delta["newExportedTypes"]), 1)
+        self.assertEqual(len(delta["addedPublicMembers"]["Bluent.UI.Components.DialogConfigurator"]), 6)
+        self.assertEqual(len(delta["addedPublicMembers"]["DialogConfiguration"]), 7)
+        self.assertEqual(len(delta["addedPublicMembers"]["Bluent.UI.Components.Dialog"]), 9)
+        self.assertIn("No existing public member signatures were removed or changed", delta["compatibility"])
         self.assertEqual(decisions["darkBrandForeground"]["brands"], 10)
         self.assertEqual(decisions["darkBrandForeground"]["minimumCandidateContrast"], 4.6001)
         self.assertFalse(decisions["darkBrandForeground"]["productionCssApproved"])

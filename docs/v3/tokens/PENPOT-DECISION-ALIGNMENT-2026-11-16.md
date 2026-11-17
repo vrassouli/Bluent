@@ -39,7 +39,7 @@ The original read-only Microsoft Fluent 2 reference was not modified. All review
 - Selected direction: **Option A**, reuse the existing Dialog configuration-builder path.
 - Popover follows its nearest live cascading owner while attached to that owner/trigger.
 - Service Dialog receives an explicit owner scope and captures its immutable snapshot at its own `ShowAsync` call. Unscoped calls retain the legacy/root fallback.
-- Owner identity is private implementation bookkeeping. Do not add a public `OwnerId`, public scope type or launcher merely to expose internal registry identity.
+- Owner identity is private implementation bookkeeping. The Option A prototype uses one public immutable `PortalThemeScope` value object as the explicit scope carrier; do not add a public `OwnerId`, launcher component or separate accessibility-options object merely to expose internal registry identity.
 - D5 modal/accessibility configuration remains explicitly opt-in and independent of D2 theme ownership.
 - Boundary: this is an **opt-in prototype direction**, not approval of the experimental names or released public Portal/Dialog/Popover API.
 
@@ -91,7 +91,7 @@ The shared Popover source intentionally consumes Escape only when the keyboard e
 
 ## 2026-11-17 — current-head verification and acceptance boundary
 
-The Penpot primary is restored. The source-owned **Bluent v3 Design System** file (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`) is reachable at revision **833**. Pages **31, 32, 33, 42, 45, 52, 53, 54 and 55** were inspected; the decision/evidence boards 45 and 52–55 were exported and visually inspected. The original Microsoft Fluent 2 reference remains untouched. Page 45 keeps its REVIEW REQUIRED status; page 55 remains DRAFT / exact values not approved. Pages 52–54 continue to show selected engineering directions as preview/prototype only, not public API promotion.
+The Penpot primary is restored. The source-owned **Bluent v3 Design System** file (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`) is reachable at revision **836**. Pages **31, 32, 33, 42, 45, 52, 53, 54 and 55** were inspected; the decision/evidence boards 45 and 52–55 were exported and visually inspected. Page 54's Option A risk/invariant text was clarified to identify `PortalThemeScope` as the single public immutable experimental value carrier; the board was re-exported and visually rechecked at revision 836. The original Microsoft Fluent 2 reference remains untouched. Page 45 keeps its REVIEW REQUIRED status; page 55 remains DRAFT / exact values not approved. Pages 52–54 continue to show selected engineering directions as preview/prototype only, not public API promotion.
 
 Exact current PR head `6c9dc96158a554cba88f54ba516f27ed24c15215`: **13/13 GitHub Actions workflows successful, 0 failed, 0 pending**, including Firefox and the GitHub macOS Playwright WebKit Portal Lab.
 
@@ -100,8 +100,22 @@ Local verification on macOS 27.2 ARM64 / .NET SDK 10.0.300:
 - `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror --nologo` — PASS, **0 warnings / 0 errors**.
 - `dotnet test Bluent.sln --configuration Release --no-build --no-restore --nologo` — **140/140**.
 - `scripts/quality/test_v3_nuget_boundary.py` — **9/9** negative/positive controls. A local-only `Bluent.UI.1.0.0.nupkg` was packed and inspected: all ten legacy themes and reviewed opt-in Dialog/Danger assets are present; no unexpected v3/demo-only assets or unapproved fonts; no publish/upload was performed.
-- Focused #418 review contract **10/10**, additive API ledger **13/13**, token contrast **12/12**, foundation preview **7/7**, Focus bridge **7/7**, Focus host matrix **22/22**; typography and system-font continuity source audits PASS; docs contract **0 findings**; Skills contract **0 errors**; `git diff --check` PASS.
+- Focused #418 review contract **10/10**, additive API ledger **8/8**, token contrast **12/12**, foundation preview **7/7**, Focus bridge **7/7**, Focus host matrix **22/22**; typography and system-font continuity source audits PASS; docs contract **0 findings**; Skills contract **0 errors**; `git diff --check` PASS.
 
 **Still open before #418 Review/Done or PR #500 merge:** native spoken NVDA/Narrator/VoiceOver (including Persian description, localized Close activation and focus return); native Windows Contrast Themes for Dialog/Popover and unsupported Focus hosts; current Safari.app/SafariDriver (the existing Allow Remote Automation setting remains disabled; it was not changed); composition-based Persian OS IME/caret/selection and cross-platform font metrics; and final maintainer approval of the individual public semantic allow-list, exact production alias set and public Focus/Portal/Dialog API contract. Playwright WebKit CI success is cross-engine browser evidence, not native Safari.app or spoken AT acceptance.
 
 **Disposition:** #418 is In progress, not Blocked, because the Penpot access blocker is resolved. PR #500 remains OPEN, CLEAN/mergeable and unmerged against `bluent-v3`. No stable `Dev`/`main`, production CSS activation, NuGet publication, release or deployment changed. Do not mark Done or merge by inferring native acceptance from green CI.
+
+
+### 2026-11-17 — page-54 scope value carrier and public API audit correction
+
+The source-owned Penpot page-54 Option A board now makes one necessary point explicit: `PortalThemeScope` exists in the isolated prototype as a public immutable value object so callers can construct the explicit scope used by `CascadingValue` and `DialogConfigurator.SetThemeScope`. Its current name/shape remain provisional; it is not production API approval. Option A still adds no public `OwnerId`, launcher component or separate `DialogAccessibilityOptions` object. The page-54 board was updated and re-exported for visual review; its DRAFT/acceptance-open status is unchanged.
+
+A compiled CLR comparison of the Release `Bluent.UI.dll` from the #418 implementation head against the `bluent-v3` base exposed an undercount in the earlier component-only API note. The component delta remains 9 Dialog/Popover properties plus the two Dialog methods listed above, but the complete package delta also includes the new `PortalThemeScope` value type, six `DialogConfigurator` methods, seven `DialogConfiguration` init-only properties and `PopoverSettings.AccessibleTriggerState`. The full list is now in `ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md` and machine-readable `reviewPolicy.publicApiDelta`, with regression guards. No prior signature or `IDialogService` overload changed. Public names and production promotion remain unapproved.
+
+
+### 2026-11-17 — complete API ledger and CI checkpoint refresh
+
+The exact-head Actions run on `ae05397a26c3142385b667a96af302bedee5ff51` completed **13/13 SUCCESS**, 0 failures, 0 pending, including Real Browser Lab, Firefox and WebKit Portal Lab. The current local API-ledger correction (eight tests) and schema/design alignment pass locally; a new isolated documentation/schema/test commit will get its own exact-head CI run before this PR body is refreshed.
+
+Current focused tests on the uncommitted tree: Issue #418 review contract **10/10**; complete additive API ledger **8/8**; token contrast **12/12**; foundation preview **7/7**; approved Focus bridge **7/7**; Focus host surface matrix **22/22**; Focus alpha-host tests **PASS**. Full local Release build remains 0 warnings/0 errors; full Solution remains **140/140**; NuGet boundary tests **9/9** and local-only package inspection pass. Docs contract is 0 findings; Skills contract is 0 errors. `git diff --check` is clean.

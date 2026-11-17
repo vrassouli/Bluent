@@ -22,11 +22,11 @@ The proposed owner context contains:
 | Density | comfortable / compact | Present and validated |
 | Token opt-in | Whether the opt-in v3 token scope applies | Present as UseV3Tokens |
 | Brand | One of the ten existing source brands | Nullable Brand is present |
-| Owner identity | Distinguishes independent nested/concurrent owners and supports deterministic disposal/diagnostics | Not present on the current PortalThemeScope record; design proposal still calls for a unique owner ID |
+| Owner identity | Distinguishes independent nested/concurrent owners and supports deterministic disposal/diagnostics | Not carried as a public field; remains a private implementation/registry responsibility |
 
 The existence of a Brand field does not prove simultaneous per-host CSS brand isolation. The ordinary ten-brand Fluent source theme switching is document-wide. The prototype's separate scoped-brand CSS experiment has its own bounded evidence; the final crosswalk, stylesheet ownership, SSR rendering and fallback behavior still require acceptance.
 
-A final public contract must decide whether OwnerId is an implementation-only identity, a public snapshot member, or a private registry handle. It must also define whether brand resolution is a stable source-theme key, a token-provider identity or a resolved immutable palette. Do not expose an accidental mutable DOM/registry identifier as consumer API.
+The delegated Option A direction keeps OwnerId private to implementation/registry bookkeeping; do not expose an accidental mutable DOM/registry identifier as consumer API. The final contract must still define brand resolution as a stable source-theme key or resolved immutable palette, and must preserve the independently verified simultaneous brand CSS scope.
 
 ## 3. Consumer API options
 
@@ -81,14 +81,14 @@ Remaining evidence gates include native Narrator/VoiceOver speech, native OS Con
 
 ## 7. Acceptance required before publication
 
-1. Decide Option A/B/C or a revised contract.
-2. Decide OwnerId treatment, brand-source identity/resolution, snapshot immutability and owner update/disposal semantics.
+1. Confirm the selected Option A direction and the provisional `PortalThemeScope` value-carrier shape.
+2. Confirm private OwnerId treatment, brand-source identity/resolution, snapshot immutability and owner update/disposal semantics.
 3. Confirm Popover live-owner updates and Dialog show-time snapshots as separate documented lifecycle contracts.
 4. Decide whether D5 accessibility settings remain explicit builder methods or become a typed options object. Preserve the constraints and legacy fallback above.
 5. Review exact public interface/API diff, names, XML docs and migration. Verify no existing IDialogService overload ambiguity/breaking change.
 6. Review Penpot page 54 in the source-owned design file and cross-link it to accepted ADR-0001 D2/D5, page 33 and D5 boards. No board state is promoted automatically.
 7. Pass exact-head Chrome/Edge × WASM/InteractiveServer tests, native keyboard/OS contrast and real assistive technology. Keep skipped/unsupported scopes visible.
-8. Only after acceptance, implement a public API in a separate reviewable change. No preview name should silently become public because it already exists in prototype source.
+8. Keep the current value type and builder methods explicitly experimental; only promote individually reviewed names/signatures to a production API after design, native acceptance and migration review. Existing prototype source is evidence to review, not automatic approval.
 
 ## 8. Design traceability
 
@@ -104,6 +104,11 @@ The page-54 board is a proposal and proof map, not maintainer approval or runtim
 
 The maintainer delegated this choice to the engineering/design review. **Option A is selected as the future API direction**: retain the existing Dialog configuration-builder route and require explicit caller owner context. Popover follows the nearest live owner; a Dialog captures an immutable owner snapshot at `ShowAsync`; unscoped calls keep the legacy fallback. Keep OwnerId as private implementation identity, not consumer API.
 
-Keep D5 accessibility configuration separate from D2 owner context and retain the existing explicit, validated builder methods for accessible name, modal keyboard behavior and focus targets. Do not add a new public launcher, `PortalThemeScope` API name or grouped accessibility-options type in this iteration.
+Keep D5 accessibility configuration separate from D2 owner context and retain the existing explicit, validated builder methods for accessible name, modal keyboard behavior and focus targets. Use only the single immutable `PortalThemeScope` value carrier required by the existing builder and cascading-value path; do not add a public owner ID, launcher component or grouped accessibility-options type in this iteration.
 
 This selects an API direction only. Public type/member names and shipping API remain unapproved until exact API review, Penpot page-33/page-54 review, native Contrast Themes and spoken AT, independent engine, lifecycle and third-party popup arbitration gates pass.
+
+
+## 2026-11-17 — Option A scope value carrier clarification
+
+Option A requires one immutable, strongly typed public data value that consumers can instantiate and pass to the existing `DialogConfigurator.SetThemeScope` builder method and to `CascadingValue` for Popover ownership. The prototype therefore includes `PortalThemeScope` as that single value carrier (`Mode`, optional `Brand`, `Direction`, `Density`, `UseV3Tokens`). It is not a host/launcher component or owner-identity API. Do not add a public `OwnerId`, launcher component or separate `DialogAccessibilityOptions` type. `PortalThemeScope`'s current name and exact field shape remain experimental and require final public API review; its existence on the task branch is not production approval.

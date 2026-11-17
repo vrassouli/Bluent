@@ -656,8 +656,8 @@
         "pageId": "388782f1-b766-8073-8008-f32c913ab071",
         "boardId": "388782f1-b766-8073-8008-f32c9154ed0d",
         "status": "OPTION A SELECTED / PROTOTYPE ONLY / NATIVE ACCEPTANCE OPEN",
-        "scope": "Reuse existing Dialog configuration builder; Popover follows owner cascade; Dialog captures immutable ShowAsync owner snapshot; private owner identity; no public Portal/Dialog/Popover API approval.",
-        "observedRevision": 833,
+        "scope": "Option A reuses the existing Dialog configuration builder and CascadingValue path; current prototype includes one public immutable PortalThemeScope value object as the explicit data carrier. No public OwnerId, launcher component or DialogAccessibilityOptions type; final public names/shape remain unapproved.",
+        "observedRevision": 836,
         "updatedDate": "2026-11-17"
       },
       {
@@ -728,8 +728,23 @@
         "dialog": "Pass owner context explicitly through the existing Dialog configuration builder and capture an immutable snapshot at ShowAsync; unscoped calls retain the legacy fallback.",
         "ownerIdentity": "Private implementation identity/registry handle; do not expose a public OwnerId merely for internal bookkeeping.",
         "dialogAccessibility": "Keep D5 modal/accessibility configuration explicit and validated, separate from D2 owner context; retain existing explicit builder methods rather than adding a new options type in this iteration.",
-        "newLauncherOrPublicScopeType": false,
-        "productionApiApproval": false
+        "productionApiApproval": false,
+        "publicScopeValueType": {
+          "name": "Bluent.UI.Components.PortalThemeScope",
+          "status": "Present in the isolated prototype as one immutable public value object required to supply the same caller scope through CascadingValue and DialogConfigurator.SetThemeScope; not approved as a released public API name or shape.",
+          "fields": [
+            "Mode",
+            "Brand",
+            "Direction",
+            "Density",
+            "UseV3Tokens"
+          ],
+          "whyPublic": "A consumer must be able to construct a strongly typed value for the public builder method and Blazor CascadingValue. Making the type internal would make the public method unusable and the cascade contract untyped.",
+          "approvalBoundary": "This is the only public owner-scope data carrier in Option A. No public OwnerId, launcher component or separate DialogAccessibilityOptions object is added."
+        },
+        "newOwnerId": false,
+        "newLauncherComponent": false,
+        "newDialogAccessibilityOptions": false
       },
       "darkBrandForeground": {
         "selection": "Use the 40 generated candidates as the selected opt-in preview target for the four named roles only.",
@@ -796,8 +811,8 @@
         "gitDiffCheck": "PASS"
       },
       "focusedContracts": {
-        "issue418Review": "9/9",
-        "additiveApiLedger": "13/13",
+        "issue418Review": "10/10",
+        "additiveApiLedger": "8/8",
         "tokenPreviewContrast": "12/12",
         "foundationPreview": "7/7",
         "approvedFocusHostBridge": "7/7",
@@ -811,7 +826,7 @@
       "penpot": {
         "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
         "fileName": "Bluent v3 Design System",
-        "currentRevision": 833,
+        "currentRevision": 836,
         "inspectedPages": [
           31,
           32,
@@ -837,7 +852,94 @@
         "Safari.app/SafariDriver current-head run remains blocked by the existing Allow Remote Automation setting; Playwright WebKit CI is green but is not Safari.app or native VoiceOver.",
         "Composition-based Persian OS IME/caret/selection and cross-platform font metrics.",
         "Final maintainer approval of individual public semantic allow-list, exact public CSS alias set, and public Focus/Portal/Dialog API spelling/ownership before any production promotion."
+      ],
+      "publicApiAudit": {
+        "baseline": "origin/bluent-v3 f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6",
+        "comparedHead": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+        "newExportedTypes": 1,
+        "existingExportedTypesWithAdditions": 5,
+        "existingIdialogServiceOverloadsChanged": false,
+        "previouslyUnderreportedMembersNowRecorded": true,
+        "approval": "isolated experimental API only; final public names/shape remain unapproved",
+        "newPublicDialogConfiguratorMethods": 6,
+        "newPublicDialogConfigurationProperties": 7,
+        "newPublicPopoverSettingsProperties": 1,
+        "newPublicDialogAndPopoverComponentProperties": 9,
+        "newPublicDialogMethods": 2,
+        "auditMethod": "Release-compiled reflection comparison against a separate clean bluent-v3 base worktree",
+        "publicMemberRemovalOrChangeCount": 0
+      },
+      "verificationHistory": [
+        {
+          "head": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+          "purpose": "implementation + full native-independent browser/API evidence checkpoint",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Includes Firefox and GitHub macOS Playwright WebKit D2/D5; does not claim native Safari/AT."
+        },
+        {
+          "head": "ae05397a26c3142385b667a96af302bedee5ff51",
+          "purpose": "Penpot/schema/acceptance evidence synchronization",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Documentation/schema/test-only changes; full exact-head CI completed. The following API ledger correction is validated locally and will receive a separate exact-head CI run."
+        }
       ]
+    },
+    "publicApiDelta": {
+      "baseline": "origin/bluent-v3 at f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6",
+      "reviewedAgainst": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+      "newExportedTypes": [
+        {
+          "name": "Bluent.UI.Components.PortalThemeScope",
+          "kind": "public sealed immutable record value object",
+          "constructor": "PortalThemeScope(string mode, string direction = \"ltr\", string density = \"comfortable\", bool useV3Tokens = true, string? brand = null)",
+          "properties": [
+            "string Mode { get; }",
+            "string Direction { get; }",
+            "string Density { get; }",
+            "bool UseV3Tokens { get; }",
+            "string? Brand { get; }"
+          ]
+        }
+      ],
+      "addedPublicMembers": {
+        "Bluent.UI.Components.Dialog": [
+          "string? AccessibleName { get; set; }",
+          "string? AccessibleDescription { get; set; }",
+          "string? CloseButtonLabel { get; set; }",
+          "bool IsModal { get; set; }",
+          "bool EnableModalKeyboard { get; set; }",
+          "string? InitialFocusTargetId { get; set; }",
+          "bool UseStandardTitleHeading { get; set; }",
+          "void DismissOnEscape() [JSInvokable]",
+          "ValueTask DisposeAsync() [override]"
+        ],
+        "Bluent.UI.Components.Popover": [
+          "bool AccessibleTriggerState { get; set; }",
+          "PortalThemeScope? ThemeScope { get; set; } [CascadingParameter]"
+        ],
+        "Bluent.UI.Components.PopoverSettings": [
+          "bool AccessibleTriggerState { get; set; }"
+        ],
+        "Bluent.UI.Components.DialogConfigurator": [
+          "SetThemeScope(PortalThemeScope? themeScope)",
+          "SetAccessibleDialog(string name, string closeButtonLabel)",
+          "SetAccessibleDescription(string description)",
+          "SetReturnFocusTargetId(string elementId)",
+          "SetModalKeyboardNavigation(bool enabled = true)",
+          "SetInitialFocusTargetId(string elementId)"
+        ],
+        "DialogConfiguration": [
+          "PortalThemeScope? ThemeScope { get; init; }",
+          "string? AccessibleName { get; init; }",
+          "string? AccessibleDescription { get; init; }",
+          "string? CloseButtonLabel { get; init; }",
+          "string? ReturnFocusTargetId { get; init; }",
+          "bool EnableModalKeyboard { get; init; }",
+          "string? InitialFocusTargetId { get; init; }"
+        ]
+      },
+      "compatibility": "Compiled CLR comparison found one new exported helper type and additive members on five existing exported types. No existing public member signatures were removed or changed; no existing IDialogService overload was added, removed or changed.",
+      "scopeBoundary": "These are experimental opt-in additions on the isolated v3 branch only. They are not approved for stable Dev/2.x, NuGet or production until the individual public names and contracts pass final review."
     }
   }
 }
