@@ -80,7 +80,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
     def test_penpot_review_records_are_versioned_and_not_approved(self):
         records = self.policy["penpotReviewRecords"]
         by_page = {item["pageNumber"]: item for item in records}
-        self.assertEqual(set(by_page), {30, 33, 45, 52, 53, 54, 55})
+        self.assertEqual(set(by_page), {27, 30, 33, 45, 52, 53, 54, 55})
         self.assertTrue(all(item["fileId"] == "b64f6665-c9ab-80b5-8008-c4ac99d9d000" for item in records))
         self.assertEqual(by_page[30]["observedRevision"], 808)
         self.assertEqual(by_page[30]["status"], "DRAFT")
@@ -89,6 +89,10 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(by_page[45]["observedRevision"], 810)
         self.assertEqual(by_page[45]["status"], "DRAFT / REVIEW REQUIRED")
         self.assertIn("production aliases", by_page[45]["scope"])
+        self.assertEqual(by_page[27]["pageId"], "acf5f619-7d81-80da-8008-c5cad7f94014")
+        self.assertEqual(by_page[27]["boardId"], "acf5f619-7d81-80da-8008-c5cb90d6963b")
+        self.assertEqual(by_page[27]["observedRevision"], 840)
+        self.assertEqual(by_page[27]["status"], "DRAFT / native schema aligned; public promotion remains gated")
         self.assertEqual(by_page[52]["status"], "OPTION B SELECTED / PREVIEW ONLY")
         self.assertEqual(by_page[53]["status"], "OPTION A SELECTED / PREVIEW ONLY / PUBLIC API OPEN")
         self.assertEqual(by_page[54]["status"], "OPTION A SELECTED / PROTOTYPE ONLY / NATIVE ACCEPTANCE OPEN")
@@ -99,6 +103,27 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(by_page[55]["observedRevision"], 833)
         self.assertIn("public immutable PortalThemeScope value object", by_page[54]["scope"])
 
+    def test_native_penpot_schema_audit_is_recorded_and_green(self):
+        audit = self.policy["latestValidation"]["nativePenpotTokenAudit"]
+        self.assertEqual(audit["fileId"], "b64f6665-c9ab-80b5-8008-c4ac99d9d000")
+        self.assertEqual(audit["revision"], 840)
+        self.assertEqual(audit["result"], "PASS")
+        self.assertEqual(audit["assertions"], 1285)
+        self.assertEqual(audit["passed"], 1285)
+        self.assertEqual(audit["failed"], 0)
+        self.assertEqual(audit["logicalTokenCounts"], {"source": 16, "semantic": 17, "component": 13, "total": 46})
+        self.assertEqual(audit["nativeBrandThemes"], 20)
+        self.assertEqual(audit["brandPaletteTokenCountPerTheme"], 8)
+        self.assertFalse(audit["legacyLinkSourceAliasesRemaining"])
+
+    def test_native_penpot_audit_script_is_stored(self):
+        source = (ROOT / "scripts/quality/penpot_v3_issue418_token_schema_audit.js").read_text(encoding="utf-8")
+        self.assertIn("b64f6665-c9ab-80b5-8008-c4ac99d9d000", source)
+        self.assertIn("Bluent v3 / Brand×Mode (Preview)", source)
+        for token in ("bluent.color.foreground4", "bluent.color.brandForegroundLink", "bluent.semantic.text.placeholder", "bluent.semantic.text.dangerAccessible", "bluent.component.badge.dangerTextAccessible"):
+            self.assertIn(token, source)
+        self.assertIn("finally", source)
+        self.assertIn("initialThemes", source)
     def test_latest_exact_head_validation_is_recorded_without_claiming_native_acceptance(self):
         current = self.policy["latestValidation"]
         self.assertEqual(current["exactHead"], "6c9dc96158a554cba88f54ba516f27ed24c15215")
