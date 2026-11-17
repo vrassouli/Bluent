@@ -2,9 +2,9 @@
 
 ## Scope and exact revision
 
-Repository: vrassouli/Bluent  
-PR: https://github.com/vrassouli/Bluent/pull/500  
-Branch: v3/issue-418-design-tokens → bluent-v3  
+Repository: vrassouli/Bluent
+PR: https://github.com/vrassouli/Bluent/pull/500
+Branch: v3/issue-418-design-tokens → bluent-v3
 Exact tested head: ecce36cc52ae9903114c4c104c9b0a029e09c220
 
 This checkpoint records CI, a clean Windows acceptance clone, real browser/runtime probes and the native Penpot audit. It does not represent maintainer approval of production APIs/tokens or native OS/assistive-technology certification.
@@ -52,9 +52,9 @@ The previous test-only probe contained a mojibake Persian Close-button literal e
 
 ## Native Penpot state
 
-Source-owned file: Bluent v3 Design System  
-File ID: b64f6665-c9ab-80b5-8008-c4ac99d9d000  
-Current observed revision: **843**.  
+Source-owned file: Bluent v3 Design System
+File ID: b64f6665-c9ab-80b5-8008-c4ac99d9d000
+Current observed revision: **843**.
 The repeatable native TokenSet audit ran at revision 842 and passed **1,285/1,285 assertions** across 46 logical roles, Light/Dark and all 20 Brand×Mode themes. Physical inventory: 45 TokenSets / 492 token entries.
 
 Page 45 remains **REVIEW REQUIRED**; page 55 remains **DRAFT**. Pages 52–54 record selected engineering directions as preview/prototype only.
@@ -73,3 +73,14 @@ Page 45 remains **REVIEW REQUIRED**; page 55 remains **DRAFT**. Pages 52–54 re
 ## Disposition
 
 Issue #418 remains **Open / In progress**. PR #500 remains **Open / mergeable / unmerged**. No stable Dev/main changes, production CSS activation, NuGet publication or deployment were performed. The Windows browser evidence strengthens runtime confidence but does not close native OS/AT or maintainer design/API approval gates.
+## Follow-up — nested modal keyboard hand-off correction (2026-11-17)
+
+Commit: 8526d5e23b84f2b739cb3b71e0936f5e63b663d2 on v3/issue-418-design-tokens.
+
+A cross-engine run exposed a short hand-off window: the topmost nested Dialog is rendered before its asynchronous JS registry registration completes. The prior topModal helper skipped that unregistered Dialog and temporarily treated the registered parent as topmost, so Escape/Tab could be delivered to the wrong modal.
+
+The opt-in helper now selects the last visible modal regardless of registration state. Until that topmost modal is registered (or while it is closing), Escape/Tab are canceled instead of falling back to the parent. The Published InteractiveServer Firefox/WebKit probe includes a deterministic simulated unregistered-topmost-modal test; it verifies Tab is canceled and focus is not redirected into the parent.
+
+Windows 11 Pro / .NET 10 local validation on the change: Release build with warnings as errors — 0 warnings / 0 errors; solution tests 140/140; #418 review contract 15/15; additive API ledger 8/8; Firefox 35/35 and Playwright WebKit 35/35, with no uncaught page errors. GitHub Actions were triggered for the new commit; the first Baseline Quality Gate attempt found six trailing-space hard breaks in this checkpoint file. Those trailing spaces are removed in the follow-up commit; exact-head CI must be re-read before claiming a full green run.
+
+This fixes a keyboard-ownership race in the opt-in prototype only. Native Narrator/NVDA/VoiceOver speech, native Windows Contrast Themes for Dialog/Popover, Safari.app, OS IME, and final Penpot/public API approval remain open. Issue #418 and PR #500 remain open; no stable branch, production CSS, NuGet package, release or deployment was changed.
