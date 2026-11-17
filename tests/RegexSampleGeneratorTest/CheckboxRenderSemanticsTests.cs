@@ -14,6 +14,18 @@ namespace RegexSampleGeneratorTest;
 public class CheckboxRenderSemanticsTests
 {
     [Test]
+    public void DisposalRemainsAnInterfaceImplementationAndDoesNotExpandPublicComponentApi()
+    {
+        var checkboxType = typeof(Checkbox<bool>);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(typeof(IAsyncDisposable).IsAssignableFrom(checkboxType), Is.True);
+            Assert.That(checkboxType.GetMethod(nameof(IAsyncDisposable.DisposeAsync)), Is.Null);
+        });
+    }
+
+    [Test]
     public async Task BooleanCheckboxUsesOneNativeInputAndAnAssociatedVisibleLabel()
     {
         var markup = await RenderCheckboxAsync<bool>(new Dictionary<string, object?>

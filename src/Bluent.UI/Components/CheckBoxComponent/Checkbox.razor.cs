@@ -295,7 +295,7 @@ public partial class Checkbox<TValue> : IAsyncDisposable
         return _module ??= module;
     }
 
-    public async ValueTask DisposeAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
         _disposed = true;
 
