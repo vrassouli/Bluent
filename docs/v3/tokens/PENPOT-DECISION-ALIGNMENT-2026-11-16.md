@@ -138,3 +138,22 @@ The repeatable read-only audit is stored at `scripts/quality/penpot_v3_issue418_
 The repeatable audit was fetched from the branch and executed directly inside Penpot. It returned **1,285/1,285 PASS** on file revision **842**, with the original Light · Draft and default / light preview themes restored. Current Penpot inventory: **45 TokenSets / 492 token entries**; the active Light/Dark mode theme each references **17 TokenSets / 262 token entries**, including the 46 logical color roles, separate foundation aliases and candidate layers. The logical token schema remains 16 source + 17 semantic + 13 component roles per mode; it is not the count of every foundation, typography or brand-preview entry.
 
 The machine-readable schema now distinguishes logical color token counts from physical TokenSet/token-entry inventory, avoiding the older 24/48 count being mistaken for the complete #418 layer contract.
+
+### 2026-11-17 — Windows cross-engine acceptance checkpoint (exact PR head ecce36c)
+
+The isolated Windows 11 Pro environment (build 28000, .NET SDK 10.0.403) was checked against PR head ecce36cc52ae9903114c4c104c9b0a029e09c220; the main D:\projects\Bluent checkout stayed on Dev and was not modified.
+
+Release validation on that exact head: dotnet restore PASS; Release build with warnings as errors **0 warnings / 0 errors**; full solution tests **140/140**; focused Issue #418 review **13/13**; additive API ledger **8/8**; NuGet boundary controls **9/9**; Node syntax check and git diff --check PASS.
+
+Independent browser probes on the same isolated PR clone:
+- Chrome 157.0.8103.79 / Blazor WASM: probe_v3_blazor_runtime.mjs **1,179/1,179**, zero failures. Twenty brand×mode samples; 80 Dark foreground candidates with minimum contrast **4.600125:1**; focus/zoom, narrow viewport and double-ring matrices 80 samples each. Persian evidence is platform glyph observation, not OS IME acceptance.
+- Edge 157.0.4341.60 / Blazor WASM: the same **1,179/1,179**, zero failures.
+- Chrome and Edge / forced-colors + reduced-motion CDP emulation: probe_v3_forced_colors_runtime.mjs **299/299 each**. Covers ten brands × Light/Dark × normal, reduced-motion only, forced-colors only and combined media states. Button retains a visible 2px system Highlight focus ring without layout shift; TextField remains underline-only; reduced motion resolves to 0ms independently of forced colors.
+- Firefox 159 / Published InteractiveServer: D2/D5 Portal probe **34/34**.
+- Playwright WebKit 1.65.1 / Published InteractiveServer: D2/D5 Portal probe **34/34**.
+
+The D2/D5 probe now uses Unicode escapes for the Persian Close accessible name and waits for parent and nested Dialog roots to carry data-bui-v3-keyboard-bound before dispatching Escape. The previous WebKit timeout was a probe-only mojibake/race issue before asynchronous JS-interoperability registration. Once both handlers were registered, Firefox and WebKit each passed 34/34. The ecce36c change touches the probe harness only; no runtime implementation changed.
+
+Exact-head GitHub Actions on ecce36c: **13/13 SUCCESS**, zero failures and zero pending. Real Browser Lab completed all four cells: Chrome/Edge × WASM/InteractiveServer.
+
+**Native acceptance still open:** Windows Contrast Themes remains disabled on the test account and was not changed; Narrator is installed but not running, NVDA/JAWS are not installed. No spoken screen-reader acceptance has been performed. Native Safari.app/VoiceOver and composition-based Persian OS IME/caret/selection remain unverified. Browser CDP forced-colors emulation is not native Windows Contrast Themes. Penpot page 45 remains REVIEW REQUIRED; page 55 remains DRAFT. Public Focus/Portal/Dialog names and production semantic/token promotion still need maintainer approval.

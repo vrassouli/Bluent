@@ -449,3 +449,14 @@ This proves native design-library/schema parity only. It does not approve produc
 ### Native Penpot physical inventory clarification
 
 At file revision **842**, the source-owned file contains **45 TokenSets / 492 token entries**. Each Light/Dark mode theme activates 17 sets / 262 entries. These physical counts include the separate foundation, focus, accessibility and preview sets; the #418 logical color contract remains **16 source + 17 semantic + 13 component = 46 roles per mode**.
+
+### 2026-11-17 — Windows cross-engine acceptance evidence
+
+The current isolated PR head ecce36cc52ae9903114c4c104c9b0a029e09c220 has **13/13 exact-head GitHub Actions SUCCESS**. On Windows 11 Pro / .NET 10.0.403 the Release solution build has 0 warnings/errors and tests pass **140/140**; Issue #418 review **13/13**, API ledger **8/8**, NuGet boundary **9/9**.
+
+Real browser evidence on the same PR source:
+- Chrome 157 and Edge 157 Blazor WASM runtime probes: **1,179/1,179 each**.
+- Chrome and Edge forced-colors/reduced-motion media probes: **299/299 each** across ten brands, two modes and four media combinations.
+- Firefox 159 and Playwright WebKit 1.65.1 Published InteractiveServer D2/D5 probes: **34/34 each**.
+
+These are browser/runtime checks. Windows Contrast Themes remained off and unchanged; Narrator was not running; NVDA/JAWS were not installed. No spoken screen-reader acceptance or native OS Contrast Themes acceptance is claimed. Safari.app/VoiceOver and Persian OS IME/caret/selection are still open. Page 45 remains REVIEW REQUIRED, page 55 DRAFT, and final public API/token promotion needs maintainer approval. See ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-17.md.

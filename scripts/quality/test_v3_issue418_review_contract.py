@@ -137,6 +137,33 @@ class Issue418ReviewContractTests(unittest.TestCase):
             self.assertIn(token, source)
         self.assertIn("finally", source)
         self.assertIn("initialThemes", source)
+    def test_latest_windows_release_and_browser_acceptance_is_recorded(self):
+        windows = self.policy["latestValidation"]["windowsAcceptance"]
+        self.assertEqual(windows["head"], self.policy["latestValidation"]["exactHead"])
+        self.assertEqual(windows["releaseValidation"]["releaseBuildWarningsAsErrors"], "PASS; 0 warnings; 0 errors")
+        self.assertEqual(windows["releaseValidation"]["solutionTests"], "140/140")
+        self.assertEqual(windows["releaseValidation"]["issue418Review"], "13/13")
+        self.assertEqual(windows["releaseValidation"]["additiveApiLedger"], "8/8")
+        self.assertEqual(windows["browserRuntime"]["wasmChrome"]["checks"], 1179)
+        self.assertEqual(windows["browserRuntime"]["wasmEdge"]["passed"], 1179)
+        self.assertEqual(windows["browserRuntime"]["forcedColorsChrome"]["passed"], 299)
+        self.assertEqual(windows["browserRuntime"]["forcedColorsEdge"]["passed"], 299)
+        self.assertEqual(windows["browserRuntime"]["serverFirefox"]["passed"], 34)
+        self.assertEqual(windows["browserRuntime"]["serverWebKit"]["passed"], 34)
+        self.assertFalse(windows["nativeWindows"]["contrastThemesEnabled"])
+        self.assertFalse(windows["nativeWindows"]["narratorRunning"])
+        self.assertFalse(windows["nativeWindows"]["nvdaInstalled"])
+        self.assertEqual(self.policy["latestValidation"]["githubActions"]["success"], 13)
+        self.assertEqual(self.policy["latestValidation"]["exactHead"], "ecce36cc52ae9903114c4c104c9b0a029e09c220")
+
+    def test_native_os_and_screen_reader_acceptance_remains_open(self):
+        windows = self.policy["latestValidation"]["windowsAcceptance"]["nativeWindows"]
+        self.assertIn("not native Windows Contrast Themes", windows["acceptance"])
+        remaining = " ".join(self.policy["latestValidation"]["remainingAcceptance"])
+        self.assertIn("Native spoken NVDA/Narrator/VoiceOver", remaining)
+        self.assertIn("Native Windows Contrast Themes", remaining)
+        self.assertIn("Native Safari.app/SafariDriver", remaining)
+        self.assertIn("Persian OS IME", remaining)
     def test_latest_exact_head_validation_is_recorded_without_claiming_native_acceptance(self):
         current = self.policy["latestValidation"]
         self.assertEqual(current["exactHead"], "6c9dc96158a554cba88f54ba516f27ed24c15215")

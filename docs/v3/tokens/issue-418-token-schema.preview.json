@@ -24,7 +24,7 @@
     "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
     "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
     "savedVersion": "Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11",
-    "observedRevision": 842,
+    "observedRevision": 843,
     "nativeTokensPerMode": 46,
     "totalNativeTokens": 92,
     "sourceAddedPerMode": 16,
@@ -790,7 +790,7 @@
     },
     "latestValidation": {
       "date": "2026-11-17",
-      "exactHead": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+      "exactHead": "ecce36cc52ae9903114c4c104c9b0a029e09c220",
       "baseBranch": "bluent-v3",
       "githubActions": {
         "workflows": 13,
@@ -824,7 +824,7 @@
         "gitDiffCheck": "PASS"
       },
       "focusedContracts": {
-        "issue418Review": "10/10",
+        "issue418Review": "13/13",
         "additiveApiLedger": "8/8",
         "tokenPreviewContrast": "12/12",
         "foundationPreview": "7/7",
@@ -839,7 +839,7 @@
       "penpot": {
         "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
         "fileName": "Bluent v3 Design System",
-        "currentRevision": 842,
+        "currentRevision": 843,
         "inspectedPages": [
           27,
           31,
@@ -863,10 +863,10 @@
       },
       "remainingAcceptance": [
         "Native spoken NVDA/Narrator/VoiceOver and keyboard navigation acceptance, including Persian Dialog description, localized Close activation and focus return.",
-        "Native Windows Contrast Themes for Dialog/Popover and unrecognized/translucent Focus host surfaces.",
-        "Safari.app/SafariDriver current-head run remains blocked by the existing Allow Remote Automation setting; Playwright WebKit CI is green but is not Safari.app or native VoiceOver.",
-        "Composition-based Persian OS IME/caret/selection and cross-platform font metrics.",
-        "Final maintainer approval of individual public semantic allow-list, exact public CSS alias set, and public Focus/Portal/Dialog API spelling/ownership before any production promotion."
+        "Native Windows Contrast Themes for Dialog/Popover and unrecognized/translucent Focus host surfaces; browser CDP media emulation is not native OS evidence.",
+        "Native Safari.app/SafariDriver plus VoiceOver acceptance; Playwright WebKit is not Safari.app or spoken AT.",
+        "Composition-based Persian OS IME/caret/selection and cross-platform font metrics; platform glyph observation is not an IME/typing test.",
+        "Page 45 maintainer review and final approval of the individual public semantic allow-list, exact production alias set, and public Focus/Portal/Dialog type/member names."
       ],
       "publicApiAudit": {
         "baseline": "origin/bluent-v3 f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6",
@@ -896,6 +896,12 @@
           "purpose": "Penpot/schema/acceptance evidence synchronization",
           "githubActions": "13/13 SUCCESS",
           "note": "Documentation/schema/test-only changes; full exact-head CI completed. The following API ledger correction is validated locally and will receive a separate exact-head CI run."
+        },
+        {
+          "head": "ecce36cc52ae9903114c4c104c9b0a029e09c220",
+          "purpose": "latest #418 probe harness and Windows acceptance evidence",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Windows Release solution build 0 warnings/errors, 140/140 solution tests; Chrome/Edge WASM 1,179/1,179 each; Chrome/Edge forced-colors 299/299 each; Firefox/WebKit Published InteractiveServer D2/D5 34/34 each."
         }
       ],
       "nativePenpotTokenAudit": {
@@ -953,6 +959,148 @@
         "totalNativeTokenEntries": 492,
         "activeModeTokenSets": 17,
         "activeModeTokenEntries": 262
+      },
+      "windowsAcceptance": {
+        "date": "2026-11-17",
+        "head": "ecce36cc52ae9903114c4c104c9b0a029e09c220",
+        "environment": {
+          "os": "Windows 11 Pro",
+          "build": "28000",
+          "dotnetSdk": "10.0.403",
+          "isolatedWorktree": "%TEMP%/Bluent-418-Acceptance",
+          "protectedCheckout": "D:\\projects\\Bluent remained on Dev and clean"
+        },
+        "releaseValidation": {
+          "restore": "PASS",
+          "releaseBuildWarningsAsErrors": "PASS; 0 warnings; 0 errors",
+          "solutionTests": "140/140",
+          "issue418Review": "13/13",
+          "additiveApiLedger": "8/8",
+          "nugetBoundaryUnitTests": "9/9",
+          "gitDiffCheck": "PASS"
+        },
+        "browserRuntime": {
+          "wasmChrome": {
+            "browser": "Google Chrome 157.0.8103.79",
+            "probe": "scripts/quality/probe_v3_blazor_runtime.mjs",
+            "checks": 1179,
+            "passed": 1179,
+            "failed": 0,
+            "brandModeSamples": 20,
+            "darkBrandForegroundSamples": 80,
+            "focusZoomSamples": 80,
+            "narrowViewportSamples": 80,
+            "doubleRingViewportSamples": 80,
+            "minimumDarkBrandForegroundContrast": 4.60012520805205,
+            "persianFontEvidence": "platform-glyph-observed",
+            "classification": "Actual Blazor WebAssembly interaction/computed-style smoke; not AT, full WCAG or native OS certification."
+          },
+          "wasmEdge": {
+            "browser": "Microsoft Edge 157.0.4341.60",
+            "probe": "scripts/quality/probe_v3_blazor_runtime.mjs",
+            "checks": 1179,
+            "passed": 1179,
+            "failed": 0,
+            "brandModeSamples": 20,
+            "darkBrandForegroundSamples": 80,
+            "focusZoomSamples": 80,
+            "narrowViewportSamples": 80,
+            "doubleRingViewportSamples": 80,
+            "minimumDarkBrandForegroundContrast": 4.60012520805205,
+            "persianFontEvidence": "platform-glyph-observed",
+            "classification": "Actual Blazor WebAssembly interaction/computed-style smoke; not AT, full WCAG or native OS certification."
+          },
+          "forcedColorsChrome": {
+            "browser": "Google Chrome 157.0.8103.79",
+            "probe": "scripts/quality/probe_v3_forced_colors_runtime.mjs",
+            "checks": 299,
+            "passed": 299,
+            "failed": 0,
+            "brands": 10,
+            "modes": [
+              "Light",
+              "Dark"
+            ],
+            "mediaCases": [
+              "normal",
+              "reduced-motion only",
+              "forced-colors only",
+              "forced-colors + reduced-motion"
+            ],
+            "focusContract": "Button retains visible 2px system Highlight focus ring without layout shift; TextField retains underline-only focus.",
+            "classification": "Real Blazor WASM with browser CDP media emulation; not native Windows High Contrast."
+          },
+          "forcedColorsEdge": {
+            "browser": "Microsoft Edge 157.0.4341.60",
+            "probe": "scripts/quality/probe_v3_forced_colors_runtime.mjs",
+            "checks": 299,
+            "passed": 299,
+            "failed": 0,
+            "brands": 10,
+            "modes": [
+              "Light",
+              "Dark"
+            ],
+            "mediaCases": [
+              "normal",
+              "reduced-motion only",
+              "forced-colors only",
+              "forced-colors + reduced-motion"
+            ],
+            "focusContract": "Button retains visible 2px system Highlight focus ring without layout shift; TextField retains underline-only focus.",
+            "classification": "Real Blazor WASM with browser CDP media emulation; not native Windows High Contrast."
+          },
+          "serverFirefox": {
+            "browser": "Firefox 159",
+            "playwright": "1.65.1",
+            "probe": "scripts/quality/probe_v3_firefox_portal.mjs",
+            "renderMode": "Published InteractiveServer",
+            "checks": 34,
+            "passed": 34,
+            "failed": 0,
+            "coverage": [
+              "D2 scoped owner snapshots",
+              "independent nested/concurrent Dialog and Popover ownership",
+              "modal inert background",
+              "Escape priority",
+              "nested Escape and focus restoration",
+              "route teardown",
+              "no uncaught browser errors"
+            ]
+          },
+          "serverWebKit": {
+            "browser": "Playwright WebKit",
+            "playwright": "1.65.1",
+            "probe": "scripts/quality/probe_v3_firefox_portal.mjs",
+            "renderMode": "Published InteractiveServer",
+            "checks": 34,
+            "passed": 34,
+            "failed": 0,
+            "coverage": [
+              "D2 scoped owner snapshots",
+              "independent nested/concurrent Dialog and Popover ownership",
+              "modal inert background",
+              "Escape priority",
+              "nested Escape and focus restoration",
+              "route teardown",
+              "no uncaught browser errors"
+            ]
+          }
+        },
+        "probeHarnessCorrections": {
+          "localizedCloseLabel": "The prior JS probe source contained a mojibake Persian literal. It now encodes the actual Persian Close accessible name with JavaScript Unicode escapes.",
+          "modalRegistrationReadiness": "The probe waits until both parent and nested modal roots carry data-bui-v3-keyboard-bound before dispatching Escape.",
+          "runtimeCodeChanged": false
+        },
+        "nativeWindows": {
+          "contrastThemesEnabled": false,
+          "narratorInstalled": true,
+          "narratorRunning": false,
+          "nvdaInstalled": false,
+          "jawsInstalled": false,
+          "settingsChanged": false,
+          "acceptance": "Open. Browser CDP forced-colors media emulation is not native Windows Contrast Themes or spoken screen-reader acceptance."
+        }
       }
     },
     "publicApiDelta": {
