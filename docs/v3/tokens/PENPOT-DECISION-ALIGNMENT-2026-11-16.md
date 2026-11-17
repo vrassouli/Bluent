@@ -119,3 +119,16 @@ A compiled CLR comparison of the Release `Bluent.UI.dll` from the #418 implement
 The exact-head Actions run on `ae05397a26c3142385b667a96af302bedee5ff51` completed **13/13 SUCCESS**, 0 failures, 0 pending, including Real Browser Lab, Firefox and WebKit Portal Lab. The current local API-ledger correction (eight tests) and schema/design alignment pass locally; a new isolated documentation/schema/test commit will get its own exact-head CI run before this PR body is refreshed.
 
 Current focused tests on the uncommitted tree: Issue #418 review contract **10/10**; complete additive API ledger **8/8**; token contrast **12/12**; foundation preview **7/7**; approved Focus bridge **7/7**; Focus host surface matrix **22/22**; Focus alpha-host tests **PASS**. Full local Release build remains 0 warnings/0 errors; full Solution remains **140/140**; NuGet boundary tests **9/9** and local-only package inspection pass. Docs contract is 0 findings; Skills contract is 0 errors. `git diff --check` is clean.
+
+
+### 2026-11-17 — native Penpot TokenSet schema reconciliation
+
+A native TokenSet readback against the source-owned Bluent v3 Design System found that the editable design library did not yet match the selected schema, despite generated CSS/schema checks being green. Seven expected logical token names were missing and three Link source tokens still used the old `bluent.source.*` prefix.
+
+The migration was performed only in the owned TokenSets, after saving a recovery version (`Before #418 native token schema alignment — 2026-11-17`). For both Light and Dark it added `bluent.color.foreground4` and `bluent.source.paletteRedForeground1`; added `bluent.semantic.text.placeholder` and the Label-only `bluent.semantic.text.dangerAccessible`; added the explicitly unapproved Badge text candidate `bluent.component.badge.dangerTextAccessible`; renamed Link Rest/Hover/Pressed from `bluent.source.brandForegroundLink*` to `bluent.color.brandForegroundLink*`, preserving exact mode values; and updated all three semantic Link aliases.
+
+The page-27 architecture board was updated/exported to record **46 logical roles (16 source + 17 semantic + 13 component)** and to separate the ten-brand preview from the native Light/Dark bridge.
+
+The repeatable read-only audit is stored at `scripts/quality/penpot_v3_issue418_token_schema_audit.js`. It temporarily activates Light/Dark mode themes, checks all 46 roles and resolved alias values, verifies all 20 Brand×Mode preview themes with eight palette roles each and both shared eight-token semantic/component layers, then restores original active themes in `finally`. Live Penpot verification at file revision **840** passed **1,285/1,285 assertions**, zero errors. Results are mirrored in `issue-418-token-schema.preview.json` → `reviewPolicy.latestValidation.nativePenpotTokenAudit`.
+
+**Acceptance boundary unchanged:** this proves native design-library/schema parity, not approval of page 45, the final public semantic allow-list, production aliases, public Focus/Portal/Dialog API names, native OS Contrast Themes or spoken assistive technology. The preview remains opt-in; no production CSS/package changed.

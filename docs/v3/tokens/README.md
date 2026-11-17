@@ -436,3 +436,12 @@ This does **not** close native spoken NVDA/Narrator/VoiceOver, native Windows Co
 ### Portal API accounting clarification (2026-11-17)
 
 Option A's current experimental builder/cascade implementation includes one public immutable `PortalThemeScope` value object because consumers must be able to construct the value passed to `DialogConfigurator.SetThemeScope` and `CascadingValue`. This is a necessary value carrier, not a launcher component or public owner identity; no `OwnerId` or separate `DialogAccessibilityOptions` type is added. The current type name/shape is not approved for production. The full Release-compiled public API delta (including DialogConfigurator, DialogConfiguration and PopoverSettings) is recorded in [the additive API review](ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md) and the machine-readable preview schema.
+
+
+### 2026-11-17 — native Penpot TokenSet alignment
+
+The source-owned Penpot TokenSets are reconciled with the selected #418 Option B schema. Missing FG4 placeholder and PaletteRed accessible-Danger source roles were added; three Link state primitives were moved into the public `bluent.color.*` namespace; placeholder, Label-only Danger and the explicitly unapproved Badge text candidate alias were added. Exact values and semantic alias chains were preserved for both modes.
+
+The editable page-27 architecture board records **16 source + 17 semantic + 13 component = 46 logical tokens**. Live Penpot verification at revision **840** passed **1,285/1,285 assertions**, including all 20 Brand×Mode themes, eight palette roles per theme and the shared semantic/component TokenSets. See the Penpot decision/acceptance record, the schema's `latestValidation.nativePenpotTokenAudit`, and the repeatable `scripts/quality/penpot_v3_issue418_token_schema_audit.js`.
+
+This proves native design-library/schema parity only. It does not approve production aliases, every semantic role, page-45 maintainer review, experimental public API names, native OS accessibility or spoken AT.
