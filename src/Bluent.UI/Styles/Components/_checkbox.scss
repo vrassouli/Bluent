@@ -1,184 +1,262 @@
-﻿.bui-checkbox {
-    color: var(--colorNeutralForeground3);
-    position: relative;
-    display: inline-flex;
+$checkbox-indicator-size: 16px;
+$checkbox-indicator-size-large: 20px;
+
+.bui-checkbox {
+    --bui-checkbox-indicator-size: #{$checkbox-indicator-size};
+
+    align-items: flex-start;
+    box-sizing: border-box;
+    color: var(--colorNeutralForeground1);
     cursor: pointer;
+    display: inline-flex;
+    min-block-size: 24px;
+    position: relative;
     vertical-align: middle;
 
     > input {
-        box-sizing: border-box;
+        appearance: none;
+        block-size: 100%;
         cursor: inherit;
-        height: 100%;
+        inline-size: calc(var(--bui-checkbox-indicator-size) + 2 * var(--spacingHorizontalS));
+        inset-block: 0;
+        inset-inline-start: 0;
         margin: 0;
         opacity: 0;
         position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(16px + 2* var(--spacingHorizontalS));
-        order: 1;
+        z-index: 1;
 
-        &:checked {
-            + .indicator {
-                --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-                --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-                --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-                color: var(--colorNeutralForegroundInverted);
+        &:disabled {
+            cursor: default;
+        }
 
-                > .checked-state {
-                    display: block !important;
-                }
-
-                + label {
-                    --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-                    --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-                    --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-                    color: var(--colorNeutralForeground1);
-                }
-            }
+        &:focus-visible + .indicator {
+            outline: 2px solid var(--colorStrokeFocus2);
+            outline-offset: 2px;
         }
     }
 
     > .indicator {
-        align-self: flex-start;
-        box-sizing: border-box;
-        flex-shrink: 0;
-        display: flex;
         align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        color: var(--bui-checkbox-indicator-color);
-        background-color: var(--bui-checkbox-indicator-backgroundColor);
-        border-color: var(--bui-checkbox-indicator-borderColor, var(--colorNeutralStrokeAccessible));
-        border-style: solid;
-        border-width: var(--strokeWidthThin);
+        align-self: flex-start;
+        background-color: var(--colorNeutralBackground1);
+        border: var(--strokeWidthThin) solid var(--colorNeutralStrokeAccessible);
         border-radius: var(--borderRadiusSmall);
+        box-sizing: border-box;
+        color: var(--colorNeutralForeground1);
+        display: inline-flex;
+        flex: 0 0 var(--bui-checkbox-indicator-size);
+        block-size: var(--bui-checkbox-indicator-size);
+        inline-size: var(--bui-checkbox-indicator-size);
+        justify-content: center;
         margin: var(--spacingVerticalS) var(--spacingHorizontalS);
-        fill: currentcolor;
         pointer-events: none;
-        font-size: 12px;
-        height: 16px;
-        width: 16px;
-        order: 1;
 
-        > .indeterminate-state, .checked-state {
+        > svg {
+            display: none;
+            flex: none;
+            block-size: 12px;
+            inline-size: 12px;
+        }
+
+        > .indeterminate-state.circular {
             display: none;
         }
     }
 
     > label {
-        cursor: inherit;
-        color: inherit;
-        /*margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);*/
-        margin-top: calc((16px - var(--lineHeightBase300)) / 2);
         align-self: center;
-        padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
-        font-size: var(--fontSizeBase300);
+        color: inherit;
+        cursor: inherit;
+        flex: 0 1 auto;
         font-family: var(--fontFamilyBase);
-        order: 2;
+        font-size: var(--fontSizeBase300);
+        line-height: var(--lineHeightBase300);
+        margin: 0;
+        min-inline-size: 0;
+        padding-block: var(--spacingVerticalS);
+        padding-inline: var(--spacingHorizontalXS);
+        user-select: none;
 
         > .required {
-            padding-inline-start: var(--spacingHorizontalXS);
             color: var(--colorPaletteRedForeground3);
+            padding-inline-start: var(--spacingHorizontalXS);
         }
     }
 
-    &.large {
-        > input {
-            width: calc(20px + 2* var(--spacingHorizontalS));
-        }
-
+    &.checked {
         > .indicator {
-            width: 20px;
-            height: 20px;
-            font-size: 16px;
+            background-color: var(--colorCompoundBrandBackground);
+            border-color: var(--colorCompoundBrandBackground);
+            color: var(--colorNeutralForegroundInverted);
+
+            > .checked-state {
+                display: block;
+            }
         }
 
-        > label {
-            margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
-            margin-top: calc((20px - var(--lineHeightBase300)) / 2);
-            line-height: var(--lineHeightBase300);
+        &:hover:not(.disabled) > .indicator {
+            background-color: var(--colorCompoundBrandBackgroundHover);
+            border-color: var(--colorCompoundBrandBackgroundHover);
+        }
+
+        &:active:not(.disabled) > .indicator,
+        > input:active:not(:disabled) + .indicator {
+            background-color: var(--colorCompoundBrandBackgroundPressed);
+            border-color: var(--colorCompoundBrandBackgroundPressed);
         }
     }
 
-    &.label-before {
-        > input {
-            order: 2;
-            left: unset;
-            right: 0;
+    &.unchecked {
+        &:hover:not(.disabled) > .indicator {
+            background-color: var(--colorNeutralBackground3);
+            border-color: var(--colorNeutralStrokeAccessibleHover);
         }
 
+        &:active:not(.disabled) > .indicator,
+        > input:active:not(:disabled) + .indicator {
+            background-color: var(--colorNeutralBackground3Pressed);
+            border-color: var(--colorNeutralStrokeAccessiblePressed);
+        }
+    }
+
+    &.indeterminate {
         > .indicator {
-            order: 2;
+            background-color: var(--colorNeutralBackground1);
+            border-color: var(--colorCompoundBrandStroke);
+            color: var(--colorCompoundBrandForeground1);
+
+            > .indeterminate-state.standard {
+                display: block;
+            }
         }
 
-        > label {
-            order: 1;
+        &:hover:not(.disabled) > .indicator {
+            background-color: var(--colorNeutralBackground3);
+            border-color: var(--colorCompoundBrandStrokeHover);
+            color: var(--colorCompoundBrandForeground1Hover);
+        }
+
+        &:active:not(.disabled) > .indicator,
+        > input:active:not(:disabled) + .indicator {
+            background-color: var(--colorNeutralBackground3Pressed);
+            border-color: var(--colorCompoundBrandStrokeHover);
         }
     }
 
     &.circular {
         > .indicator {
             border-radius: var(--borderRadiusCircular);
-        }
-    }
 
-    &.indeterminate {
-        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStroke);
-        --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1);
-        --bui-checkbox-indicator-backgroundColor: unset;
-        color: var(--colorNeutralForeground1);
-
-        &:hover {
-            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStrokeHover);
-            --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1Hover);
-            --bui-checkbox-indicator-backgroundColor: unset;
-        }
-
-        > .indicator {
-            > .indeterminate-state {
-                display: block !important;
+            > .indeterminate-state.standard,
+            > .indeterminate-state.circular {
+                display: none;
             }
         }
+
+        &.indeterminate > .indicator > .indeterminate-state.circular {
+            display: block;
+        }
     }
 
-    &.checked {
-        --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-        --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-        --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-        color: var(--colorNeutralForegroundInverted);
-
-        &:hover {
-            --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackgroundHover);
-            --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-            --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackgroundHover);
-        }
+    &.large {
+        --bui-checkbox-indicator-size: #{$checkbox-indicator-size-large};
 
         > .indicator {
-            > .checked-state {
-                display: block !important;
-            }
+            border-radius: var(--borderRadiusSmall);
+        }
+
+        &.circular > .indicator {
+            border-radius: var(--borderRadiusCircular);
         }
     }
 
-    &.unchecked {
-        --bui-checkbox-indicator-borderColor: unset;
-        --bui-checkbox-indicator-color: unset;
-        --bui-checkbox-indicator-backgroundColor: unset;
+    &.label-before {
+        flex-direction: row-reverse;
+
+        > input {
+            inset-inline-end: 0;
+            inset-inline-start: auto;
+        }
+    }
+
+    &.invalid > .indicator {
+        border-color: var(--colorStatusDangerBorderActive);
     }
 
     &.disabled {
-        --bui-checkbox-indicator-borderColor: var(--colorNeutralStrokeDisabled) !important;
-        --bui-checkbox-indicator-color: var(--colorNeutralForegroundDisabled) !important;
-        --bui-checkbox-indicator-backgroundColor: unset !important;
+        color: var(--colorNeutralForegroundDisabled);
         cursor: default;
+
+        > .indicator {
+            background-color: var(--colorNeutralBackground1);
+            border-color: var(--colorNeutralStrokeDisabled);
+            color: var(--colorNeutralForegroundDisabled);
+        }
+
+        &.checked > .indicator {
+            background-color: var(--colorNeutralBackgroundDisabled);
+            border-color: var(--colorNeutralStrokeDisabled);
+        }
+
+        > label,
+        > label > .required {
+            color: var(--colorNeutralForegroundDisabled);
+            cursor: default;
+        }
     }
 }
 
-.rtl, [dir=rtl] {
+@media (forced-colors: active) {
     .bui-checkbox {
-        > input {
-            left: unset;
-            right: 0px;
+        > input:focus-visible + .indicator {
+            outline-color: Highlight;
         }
+
+        > .indicator {
+            background-color: Canvas;
+            border-color: CanvasText;
+            color: CanvasText;
+            forced-color-adjust: none;
+        }
+
+        &.checked > .indicator {
+            background-color: Highlight;
+            border-color: Highlight;
+            color: HighlightText;
+        }
+
+        &.indeterminate > .indicator {
+            background-color: Canvas;
+            border-color: Highlight;
+            color: Highlight;
+        }
+
+        &.disabled {
+            color: GrayText;
+
+            > .indicator {
+                background-color: Canvas;
+                border-color: GrayText;
+                color: GrayText;
+            }
+
+            &.checked > .indicator {
+                background-color: Canvas;
+                border-color: GrayText;
+            }
+        }
+
+        &.invalid > .indicator {
+            border-color: Mark;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bui-checkbox,
+    .bui-checkbox > .indicator,
+    .bui-checkbox > .indicator > svg {
+        animation: none !important;
+        transition: none !important;
     }
 }

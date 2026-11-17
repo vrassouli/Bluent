@@ -1,82 +1,158 @@
-﻿@page "/components/checkboxes"
+@page "/components/checkboxes"
 @namespace Bluent.UI.Demo.Pages.Components
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
 
 <div class="p-5 py-md-10 px-md-12">
-    <div class="w-100 w-md-50 m-auto">
-        <h1>Checkbox</h1>
-        <p>Checkboxes give people a way to select one or more items from a group, or switch between two mutually exclusive options (checked or unchecked).</p>
-        <h3>Default</h3>
+    <div class="w-100 w-md-75 m-auto">
+        <ShowcaseHeader Title="Checkbox"
+                        Purpose="Select independent options with native keyboard, form and nullable mixed-state behavior."
+                        Package="Bluent.UI"
+                        Namespace="Bluent.UI.Components"
+                        ApiSummary="bool / bool? InputBase binding, Label / UncheckedLabel / IndeterminateLabel, Required marker, Circular, Medium/Large and Before/After label placement."
+                        SourcePath="Checkboxes.razor"
+                        Notes="Mixed is synchronized to the native input.indeterminate property. Required is decorative marker text only; the form validation example uses a separate DataAnnotations rule." />
+
+        <h3>Boolean binding and label fallback</h3>
         <section class="p-7 rounded-5 shadow-3">
-                <Checkbox @bind-Value="_checked" Label="Checkbox" />
-                <pre>
-                    @(_checked ? "Checked" : "Not checked")
-                </pre>
+            <Checkbox TValue="bool"
+                      @bind-Value="_notifications"
+                      id="checkbox-notifications"
+                      Label="Send product and maintenance updates"
+                      UncheckedLabel="Do not send product and maintenance updates"
+                      aria-describedby="checkbox-notifications-state" />
+            <p id="checkbox-notifications-state" class="mt-3 mb-0" role="status">
+                Bound value: @(_notifications ? "true" : "false")
+            </p>
+
+            <Checkbox TValue="bool"
+                      @bind-Value="_compactMode"
+                      id="checkbox-compact-mode"
+                      aria-label="Enable compact mode"
+                      Class="mt-3" />
+            <p class="mt-2 mb-0">This example has no visible label; its accessible name comes from the caller's aria-label.</p>
         </section>
 
-        <h3>Indeterminate</h3>
+        <h3>Nullable Mixed state</h3>
         <section class="p-7 rounded-5 shadow-3">
-                <Checkbox @bind-Value="_nullableChecked" Label="Indeterminate checkbox" />
-                @if (_nullableChecked == null)
-                {
-                    <pre>Indeterminate</pre>
-                }
-                else if (_nullableChecked == true)
-                {
-                    <pre>Checked</pre>
-                }
-                else 
-                {
-                    <pre>Not checked</pre>
-                }
+            <Checkbox TValue="bool?"
+                      @bind-Value="_selectAll"
+                      id="checkbox-select-all"
+                      Label="Select all rows"
+                      aria-describedby="checkbox-select-all-state" />
+            <p id="checkbox-select-all-state" class="mt-3 mb-0" role="status">
+                Model value: @(_selectAll switch { null => "null (Mixed)", true => "true (Checked)", false => "false (Unchecked)" })
+            </p>
+            <p class="mt-2 mb-0">
+                Activating Mixed follows native checkbox behavior: null → true → false. Application code can set null again when the selection becomes mixed.
+            </p>
+            <button id="checkbox-reset-mixed" type="button" class="mt-3" @onclick="ResetSelectAll">
+                Reset to Mixed
+            </button>
         </section>
 
-        <h3>Disabled</h3>
+        <h3>Shape and size</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_uncheckedState" Label="Not checked" disabled />
-            <Checkbox @bind-Value="_checkedState" Label="Checked" disabled />
-            <Checkbox @bind-Value="_indeterminateState" Label="Indeterminate checkbox" disabled />
+            <div class="mb-3">
+                <Checkbox TValue="bool" @bind-Value="_standard" Label="Standard · Medium" />
+            </div>
+            <div class="mb-3">
+                <Checkbox TValue="bool" @bind-Value="_large" Label="Standard · Large" Size="CheckboxSize.Large" />
+            </div>
+            <div class="mb-3">
+                <Checkbox TValue="bool" @bind-Value="_circular" Label="Circular · Medium" Circular />
+            </div>
+            <div>
+                <Checkbox TValue="bool?" @bind-Value="_circularMixed" Label="Circular · Mixed" Circular />
+            </div>
         </section>
 
-        <h3>Large</h3>
+        <h3>Disabled and label placement</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_uncheckedStateLarge" Label="Not checked" Size="CheckboxSize.Large" />
-            <Checkbox @bind-Value="_checkedStateLarge" Label="Checked" Size="CheckboxSize.Large" />
-            <Checkbox @bind-Value="_indeterminateStateLarge" Label="Indeterminate checkbox" Size="CheckboxSize.Large" />
+            <div class="mb-3">
+                <Checkbox TValue="bool" Value="false" Label="Disabled · Unchecked" disabled />
+            </div>
+            <div class="mb-3">
+                <Checkbox TValue="bool" Value="true" Label="Disabled · Checked" disabled />
+            </div>
+            <div class="mb-3">
+                <Checkbox TValue="bool?" Value="null" Label="Disabled · Mixed" disabled />
+            </div>
+            <div class="mb-3">
+                <Checkbox TValue="bool" @bind-Value="_labelBefore" Label="Label before indicator" LabelPosition="LabelPosition.Before" />
+            </div>
+            <Checkbox TValue="bool"
+                      @bind-Value="_wrapping"
+                      Label="A longer label wraps naturally across lines without shrinking or obscuring the native checkbox target."
+                      Style="max-width: 26rem" />
         </section>
 
-        <h3>Label before</h3>
+        <h3>Required marker and EditForm validation</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_labelBefore" Label="Not checked" LabelPosition="LabelPosition.Before" />
+            <EditForm id="checkbox-validation-form"
+                      Model="_validationModel"
+                      OnValidSubmit="HandleValidSubmit"
+                      OnInvalidSubmit="HandleInvalidSubmit">
+                <DataAnnotationsValidator />
+                <Checkbox TValue="bool"
+                          @bind-Value="_validationModel.Accepted"
+                          id="checkbox-terms"
+                          Label="I accept the terms and conditions"
+                          Required="*"
+                          aria-describedby="checkbox-terms-description checkbox-terms-validation" />
+                <p id="checkbox-terms-description" class="mt-2 mb-1">
+                    The asterisk is decorative. The DataAnnotations rule below owns the actual validation requirement.
+                </p>
+                <ValidationMessage For="@(() => _validationModel.Accepted)" id="checkbox-terms-validation" />
+                <button id="checkbox-validation-submit" type="submit" class="mt-3">Submit</button>
+                <p id="checkbox-validation-status" class="mt-2 mb-0" role="status">@_validationStatus</p>
+            </EditForm>
         </section>
 
-        <h3>Label wrapping</h3>
-        <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_labelWrapping" Label="Here is an example of a checkbox with a long label and it starts to wrap to a second line" Style="max-width: 400px" />
-        </section>
-
-        <h3>Required</h3>
-        <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_required" Label="Required" Required="*" />
-        </section>
-
-        <h3>Circular</h3>
-        <section class="p-7 rounded-5 shadow-3">
-            <Checkbox @bind-Value="_circular" Label="Circular" Circular />
+        <h3>RTL and Persian label placement</h3>
+        <section class="p-7 rounded-5 shadow-3" dir="rtl" lang="fa">
+            <Checkbox TValue="bool"
+                      @bind-Value="_rtlSelection"
+                      Label="ارسال اعلان‌های مربوط به به‌روزرسانی"
+                      LabelPosition="LabelPosition.Before"
+                      aria-describedby="checkbox-rtl-description" />
+            <p id="checkbox-rtl-description" class="mt-3 mb-0" role="status">
+                @(_rtlSelection ? "انتخاب شده" : "انتخاب نشده")
+            </p>
         </section>
     </div>
 </div>
 
 @code {
-    bool _checked;
-    bool? _nullableChecked;
-    bool _uncheckedState;
-    bool _checkedState = true;
-    bool? _indeterminateState;
-    bool _uncheckedStateLarge;
-    bool _checkedStateLarge = true;
-    bool? _indeterminateStateLarge;
-    bool _labelBefore;
-    bool _labelWrapping;
-    bool _required;
-    bool? _circular;
+    private bool _notifications;
+    private bool _compactMode;
+    private bool? _selectAll;
+    private bool _standard;
+    private bool _large = true;
+    private bool _circular;
+    private bool? _circularMixed;
+    private bool _labelBefore;
+    private bool _wrapping;
+    private bool _rtlSelection;
+
+    private readonly CheckboxValidationModel _validationModel = new();
+    private string _validationStatus = "Submit without accepting to see the validation message.";
+
+    private void ResetSelectAll() => _selectAll = null;
+
+    private void HandleValidSubmit()
+    {
+        _validationStatus = "The terms have been accepted.";
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        _validationStatus = "Validation failed. Accept the terms before submitting.";
+    }
+
+    private sealed class CheckboxValidationModel
+    {
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions.")]
+        public bool Accepted { get; set; }
+    }
 }

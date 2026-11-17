@@ -1,0 +1,75 @@
+@page "/compatibility/checkboxes-server"
+@rendermode InteractiveServer
+@layout Bluent.UI.Demo.Interactive.Client.Layout.CompatibilityLayout
+@using Bluent.UI.Demo.Pages.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+@* Reuse the same source-owned Checkbox showcase in a real InteractiveServer circuit. *@
+<Containers />
+<Checkboxes />
+
+<section class="p-3" aria-label="Checkbox DOM probe">
+    <button id="checkbox-probe-mixed" type="button" @onclick="InspectMixedAsync">Inspect native Mixed state</button>
+    <p id="checkbox-probe-mixed-status" role="status">@_mixedProbeStatus</p>
+    <button id="checkbox-probe-required" type="button" @onclick="InspectRequiredAsync">Inspect Required name</button>
+    <p id="checkbox-probe-required-status" role="status">@_requiredProbeStatus</p>
+</section>
+
+<div id="checkbox-interactive-ready" data-ready="@(_interactiveReady ? "true" : "false")" hidden></div>
+
+@code {
+    private bool _interactiveReady;
+    private string _mixedProbeStatus = "Not inspected.";
+    private string _requiredProbeStatus = "Not inspected.";
+    private IJSObjectReference? _probeModule;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactiveReady = true;
+            StateHasChanged();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private async Task InspectMixedAsync()
+    {
+        var state = await ReadCheckboxAsync("checkbox-select-all");
+        _mixedProbeStatus = $"checked={state.Checked}; indeterminate={state.Indeterminate}; disabled={state.Disabled}";
+    }
+
+    private async Task InspectRequiredAsync()
+    {
+        var state = await ReadCheckboxAsync("checkbox-terms");
+        _requiredProbeStatus =
+            $"labelledby={state.AriaLabelledBy}; ariaInvalid={state.AriaInvalid}; required={state.Required}; labelText={state.AssociatedLabelText}; marker={state.MarkerText}; markerHidden={state.MarkerAriaHidden}";
+    }
+
+    private async Task<CheckboxDomState> ReadCheckboxAsync(string inputId)
+    {
+        _probeModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./checkbox-probe.js");
+        return await _probeModule.InvokeAsync<CheckboxDomState>("readCheckboxState", inputId);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_probeModule is not null)
+            await _probeModule.DisposeAsync();
+    }
+
+    private sealed record CheckboxDomState(
+        bool Checked,
+        bool Indeterminate,
+        bool Disabled,
+        bool Required,
+        string? AriaInvalid,
+        string? AriaLabel,
+        string? AriaLabelledBy,
+        string? AssociatedLabelText,
+        string? MarkerText,
+        string? MarkerAriaHidden);
+}
