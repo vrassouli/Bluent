@@ -28,7 +28,7 @@
 - .NET render contract tests: `tests/RegexSampleGeneratorTest/CheckboxRenderSemanticsTests.cs`.
 - Source styles: `src/Bluent.UI/Styles/Components/_checkbox.scss`.
 - Native indeterminate module: `src/Bluent.UI/wwwroot/bluent.ui.checkbox.js`.
-- Current local checkpoint: Release library and SSR host compile with zero warnings/errors; .NET test suite 112/112; Chrome/InteractiveServer confirms native `indeterminate`, click/Space model transitions, Required accessible name, `aria-invalid` from EditForm and 320px no-overflow. This is not hosted four-cell CI, native Safari/VoiceOver, Windows Contrast Themes or spoken AT acceptance.
+- Current local checkpoint (Dev01, 2026-11-17): focused .NET render suite 112/112; Release `Bluent.UI` and SSR host builds plus Debug WASM host build pass with 0 warnings/errors. Real Chrome/Edge × WebAssembly/InteractiveServer probes pass 22/22 per cell (88/88 total), including native `indeterminate` and computed AX mixed state, click/Space transitions, Required accessible-name isolation, native Disabled/validation, focus/hover/pressed, forced-colors/reduced-motion and 320px no-overflow. Four JSON reports and eight PNGs are retained under `docs/v3/quality/evidence/BLUENT-CHECKBOX-*`. The optional Blazor hot-reload settings 404 is informational tooling traffic; all application HTTP/console/exception gates pass. Exact-head hosted CI, native OS contrast and spoken AT acceptance remain open.
 
 ## Boundary and workflow
 

@@ -111,7 +111,11 @@ The task-only `/compatibility/checkboxes-server` host reuses that same shared pa
 | Validation | Submit invalid EditForm; message appears and native input probe reads `aria-invalid=true` | Chrome / InteractiveServer | Pass |
 | Narrow reflow | No visible DOM element extends beyond the 320 CSS-pixel viewport | Chrome / InteractiveServer, 320px | Pass |
 
-The four-cell Chrome/Edge × WebAssembly/InteractiveServer browser gate is a separate CI requirement. This local checkpoint does not claim that hosted CI has passed. Native Safari.app/VoiceOver, Windows Contrast Themes/Narrator, spoken assistive-technology output, and physical touch hardware are not claimed. Do not infer WCAG certification from source inspection or browser snapshots.
+## 2026-11-17 Dev01 revalidation
+
+The local four-cell Chrome/Edge × WebAssembly/InteractiveServer matrix now passes **22/22 assertions per cell (88/88 total)**. Every cell verifies native Mixed and computed AX state, native click/Space model transitions, Required accessible-name isolation, native Disabled states, EditForm validation/`aria-invalid`, focus-visible, hover and pressed styling, forced-colors/reduced-motion behavior, RTL inheritance and 320px no-overflow. Four JSON reports and eight PNG screenshots are retained under `docs/v3/quality/evidence/BLUENT-CHECKBOX-*`.
+
+The optional Blazor browser-tools hot-reload settings request (`/_framework/dotnet-browser-tools/hot-reload-settings.json`) returns 404 in the two WebAssembly sessions and is recorded as informational tooling traffic only. All other application HTTP failures, console errors and browser exceptions remain fatal; none occurred. Both WebAssembly and InteractiveServer cells pass. Browser media emulation does not certify native Windows Contrast Themes, and Chromium AX snapshots do not certify spoken screen-reader output. Exact-head hosted GitHub Actions, native OS contrast and named AT acceptance remain open. Native Safari.app/VoiceOver, Windows Contrast Themes/Narrator, spoken assistive-technology output, and physical touch hardware are not claimed. Do not infer WCAG certification from source inspection or browser snapshots.
 
 ## 2.x → v3 compatibility
 
@@ -133,7 +137,8 @@ No released 2.x package, `Dev`, or stable branch is modified by this v3 task. Ro
 - [x] Owned Penpot pages 56 and 57 renamed DESIGN DECIDED for this component-specific direction; global #418 approval remains separate.
 - [x] Native `input.indeterminate`, Required-name isolation, focus/pressed/hover/disabled/error and RTL decisions implemented in the isolated branch.
 - [x] .NET render contract tests and task demo/InteractiveServer host added.
-- [ ] Four-cell Chrome/Edge × WebAssembly/InteractiveServer browser CI and exact-head Actions.
+- [x] Local Dev01 four-cell Chrome/Edge × WebAssembly/InteractiveServer browser matrix: 22/22 per cell (88/88 total); four JSON reports and eight PNG screenshots retained.
+- [ ] Hosted exact-head GitHub Actions on the review PR.
 - [ ] Final maintainer review, project status transition, merge to `bluent-v3`, and component-family acceptance.
 - [ ] Native operating-system contrast and named assistive-technology acceptance remain follow-up gates; spoken output is not claimed.
 

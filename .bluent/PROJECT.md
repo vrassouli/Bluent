@@ -12,6 +12,8 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **#418 token system:** Next foundation task after acceptance of D1–D5. Must enter Ready only after design-first, source-to-token mapping and 10-brand Light/Dark/RTL/high-contrast acceptance goals are traceable. Token/brand decisions and implementation require a dedicated `v3/issue-418-...` branch and PR.
 
+**#434 Checkbox:** Maintainer-delegated design direction is recorded in Issue #434 and Penpot pages 56–57; implementation is on `v3/issue-434-checkbox` and retains the current public API. Dev01 local verification: focused .NET tests 112/112; Release `Bluent.UI` and SSR builds plus Debug WASM build all pass with 0 warnings/errors; Chrome/Edge × WebAssembly/InteractiveServer pass 22/22 per cell (88/88 total). Four JSON reports and eight viewport screenshots are retained under `docs/v3/quality/evidence/`. Hosted exact-head CI, final maintainer review, native OS contrast and spoken AT remain open; stable `Dev`/2.x/NuGet are unchanged.
+
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
 **GitHub workflow:** [Backlog → Ready → In progress → Review → Done](../docs/v3/ISSUE-WORKFLOW.md). No task automatically merges to `Dev` before the complete v3 epic is accepted and separately authorized.

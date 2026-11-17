@@ -1,0 +1,309 @@
+{
+  "issue": 434,
+  "browser": "Chrome",
+  "renderMode": "WebAssembly",
+  "base": "http://127.0.0.1:49715",
+  "route": "/components/checkboxes",
+  "generatedAt": "2026-11-17T19:55:32.268Z",
+  "passed": 22,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Checkbox showcase loads in Chrome/WebAssembly",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:49715/components/checkboxes"
+      }
+    },
+    {
+      "name": "one native input per fixture and generated ID is associated with the visible label",
+      "pass": true,
+      "detail": {
+        "inputCount": 16,
+        "id": "checkbox-select-all",
+        "labelFor": "checkbox-select-all",
+        "checked": false,
+        "indeterminate": true,
+        "role": null,
+        "ariaChecked": null,
+        "markerNameRef": "checkbox-terms-label",
+        "markerNameText": "I accept the terms and conditions",
+        "markerText": "*",
+        "markerHidden": "true",
+        "markerNativeRequired": false,
+        "markerOwnAriaLabel": null,
+        "target": {
+          "width": 32,
+          "height": 36
+        },
+        "disabledCount": 3,
+        "rtlDirection": "rtl",
+        "moduleLoaded": true
+      }
+    },
+    {
+      "name": "nullable Mixed is native indeterminate, unchecked, and does not author aria-checked",
+      "pass": true,
+      "detail": {
+        "inputCount": 16,
+        "id": "checkbox-select-all",
+        "labelFor": "checkbox-select-all",
+        "checked": false,
+        "indeterminate": true,
+        "role": null,
+        "ariaChecked": null,
+        "markerNameRef": "checkbox-terms-label",
+        "markerNameText": "I accept the terms and conditions",
+        "markerText": "*",
+        "markerHidden": "true",
+        "markerNativeRequired": false,
+        "markerOwnAriaLabel": null,
+        "target": {
+          "width": 32,
+          "height": 36
+        },
+        "disabledCount": 3,
+        "rtlDirection": "rtl",
+        "moduleLoaded": true
+      }
+    },
+    {
+      "name": "Required marker is hidden from the native checkbox accessible name without making it required",
+      "pass": true,
+      "detail": {
+        "inputCount": 16,
+        "id": "checkbox-select-all",
+        "labelFor": "checkbox-select-all",
+        "checked": false,
+        "indeterminate": true,
+        "role": null,
+        "ariaChecked": null,
+        "markerNameRef": "checkbox-terms-label",
+        "markerNameText": "I accept the terms and conditions",
+        "markerText": "*",
+        "markerHidden": "true",
+        "markerNativeRequired": false,
+        "markerOwnAriaLabel": null,
+        "target": {
+          "width": 32,
+          "height": 36
+        },
+        "disabledCount": 3,
+        "rtlDirection": "rtl",
+        "moduleLoaded": true
+      }
+    },
+    {
+      "name": "input hit target is at least 24×24 CSS pixels and RTL host direction is inherited",
+      "pass": true,
+      "detail": {
+        "inputCount": 16,
+        "id": "checkbox-select-all",
+        "labelFor": "checkbox-select-all",
+        "checked": false,
+        "indeterminate": true,
+        "role": null,
+        "ariaChecked": null,
+        "markerNameRef": "checkbox-terms-label",
+        "markerNameText": "I accept the terms and conditions",
+        "markerText": "*",
+        "markerHidden": "true",
+        "markerNativeRequired": false,
+        "markerOwnAriaLabel": null,
+        "target": {
+          "width": 32,
+          "height": 36
+        },
+        "disabledCount": 3,
+        "rtlDirection": "rtl",
+        "moduleLoaded": true
+      }
+    },
+    {
+      "name": "component-specific ES module is requested by the browser",
+      "pass": true,
+      "detail": {
+        "inputCount": 16,
+        "id": "checkbox-select-all",
+        "labelFor": "checkbox-select-all",
+        "checked": false,
+        "indeterminate": true,
+        "role": null,
+        "ariaChecked": null,
+        "markerNameRef": "checkbox-terms-label",
+        "markerNameText": "I accept the terms and conditions",
+        "markerText": "*",
+        "markerHidden": "true",
+        "markerNativeRequired": false,
+        "markerOwnAriaLabel": null,
+        "target": {
+          "width": 32,
+          "height": 36
+        },
+        "disabledCount": 3,
+        "rtlDirection": "rtl",
+        "moduleLoaded": true
+      }
+    },
+    {
+      "name": "native Mixed is exposed in the browser accessibility tree as a checkbox with a computed mixed state",
+      "pass": true,
+      "detail": {
+        "role": "checkbox",
+        "name": "Select all rows",
+        "checked": "mixed"
+      }
+    },
+    {
+      "name": "Required checkbox computed accessible name excludes the decorative asterisk",
+      "pass": true,
+      "detail": {
+        "role": "checkbox",
+        "name": "I accept the terms and conditions",
+        "checked": "false"
+      }
+    },
+    {
+      "name": "pointer activation changes Mixed to Checked and clears native indeterminate",
+      "pass": true,
+      "detail": {
+        "checked": true,
+        "indeterminate": false,
+        "status": "\n                Model value: true (Checked)"
+      }
+    },
+    {
+      "name": "native Space activation changes Checked to Unchecked and updates the bound model",
+      "pass": true,
+      "detail": {
+        "checked": false,
+        "indeterminate": false,
+        "status": "\n                Model value: false (Unchecked)"
+      }
+    },
+    {
+      "name": "native Space activation from Mixed follows null → true without custom cycling",
+      "pass": true,
+      "detail": {
+        "checked": true,
+        "indeterminate": false
+      }
+    },
+    {
+      "name": "Disabled Unchecked/Checked/Mixed examples use native disabled inputs",
+      "pass": true,
+      "detail": [
+        {
+          "disabled": true,
+          "checked": false,
+          "indeterminate": false
+        },
+        {
+          "disabled": true,
+          "checked": true,
+          "indeterminate": false
+        },
+        {
+          "disabled": true,
+          "checked": false,
+          "indeterminate": true
+        }
+      ]
+    },
+    {
+      "name": "Large, Circular and LabelPosition.Before variants are present",
+      "pass": true,
+      "detail": {
+        "large": true,
+        "circular": true,
+        "before": true,
+        "errorRow": false
+      }
+    },
+    {
+      "name": "EditForm validation adds native aria-invalid without treating the decoration as required",
+      "pass": true,
+      "detail": {
+        "invalid": "true",
+        "required": false,
+        "message": "You must accept the terms and conditions."
+      }
+    },
+    {
+      "name": "clicking the decorative marker still activates its associated native checkbox",
+      "pass": true,
+      "detail": {
+        "checked": true,
+        "markerHidden": "true"
+      }
+    },
+    {
+      "name": "native Tab navigation reaches a checkbox and exposes the visible 2px focus ring",
+      "pass": true,
+      "detail": {
+        "id": "f5d45ff8d",
+        "isCheckbox": true,
+        "focusVisible": true,
+        "outline": "2px"
+      }
+    },
+    {
+      "name": "unchecked Rest/Hover state responds to pointer hover",
+      "pass": true,
+      "detail": {
+        "hover": true,
+        "border": "rgb(87, 87, 87)"
+      }
+    },
+    {
+      "name": "unchecked Rest/Pressed state responds to pointer press",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "border": "rgb(77, 77, 77)"
+      }
+    },
+    {
+      "name": "forced-colors stylesheet activates without removing native indicator semantics",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "adjust": "none"
+      }
+    },
+    {
+      "name": "reduced-motion stylesheet disables Checkbox transitions and animations",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "transition": "0s",
+        "animation": "0s"
+      }
+    },
+    {
+      "name": "320px reflow preserves all Checkbox examples without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "body": 320,
+        "checkboxes": 16
+      }
+    },
+    {
+      "name": "no browser exceptions, console errors or application HTTP failures occurred",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "runtimeSignals": [
+    {
+      "type": "informational",
+      "status": 404,
+      "url": "http://127.0.0.1:49715/_framework/dotnet-browser-tools/hot-reload-settings.json",
+      "reason": "Optional Blazor browser-tools hot-reload settings endpoint is not hosted."
+    }
+  ],
+  "profilePrefix": "bluent-v3-434-checkbox-89395fa30920415a9a0e3ec5db4cd150-",
+  "screenshotPrefix": "C:\\Users\\MateMCP\\AppData\\Local\\Temp\\bluent-v3-434-evidence\\Chrome-WebAssembly"
+}

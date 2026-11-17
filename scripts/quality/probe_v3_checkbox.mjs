@@ -125,8 +125,18 @@ try {
       signals.push({ type: 'exception', text: message.params?.exceptionDetails?.text });
     if (message.method === 'Runtime.consoleAPICalled' && ['error', 'warning'].includes(message.params?.type))
       signals.push({ type: message.params.type, text: message.params?.args?.map(x => x.value || x.description || '').join(' ').slice(0, 300) });
-    if (message.method === 'Network.responseReceived' && message.params?.response?.status >= 400)
-      signals.push({ type: 'http', status: message.params.response.status, url: message.params.response.url });
+    if (message.method === 'Network.responseReceived' && message.params?.response?.status >= 400) {
+      const response = message.params.response;
+      const responsePath = new URL(response.url).pathname;
+      // Blazor's optional browser-tools hot-reload settings probe returns 404 when the
+      // devtools endpoint is not hosted. Record it, but do not treat this tooling probe
+      // as an application resource failure; all other HTTP 4xx/5xx remain fatal.
+      if (response.status === 404 && responsePath === '/_framework/dotnet-browser-tools/hot-reload-settings.json') {
+        signals.push({ type: 'informational', status: response.status, url: response.url, reason: 'Optional Blazor browser-tools hot-reload settings endpoint is not hosted.' });
+      } else {
+        signals.push({ type: 'http', status: response.status, url: response.url });
+      }
+    }
   });
 
   await send('Page.enable');
@@ -290,7 +300,7 @@ try {
   await snapshot('1280px');
 
   const hardErrors = signals.filter(x => x.type === 'exception' || x.type === 'error' || x.type === 'http');
-  check('no browser exceptions, console errors or HTTP failures occurred', hardErrors.length === 0, hardErrors);
+  check('no browser exceptions, console errors or application HTTP failures occurred', hardErrors.length === 0, hardErrors);
 } catch (error) {
   signals.push({ type: 'fatal', text: error?.stack || String(error) });
   console.error(error?.stack || error);
