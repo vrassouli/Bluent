@@ -67,8 +67,14 @@ try {
       m.params?.args?.map(x=>x.value||x.description||'').join(' ');
     runtimeSignals.push({type:m.method,text:String(text).slice(0,320)});
   }
-  if(m.method==='Network.responseReceived'&&m.params?.response?.status>=400)
-    runtimeSignals.push({type:'HTTP',status:m.params.response.status,url:m.params.response.url});
+  if(m.method==='Network.responseReceived'&&m.params?.response?.status>=400) {
+    const response=m.params.response;
+    const responsePath=new URL(response.url).pathname;
+    const optionalDevHotReloadSettings=response.status===404 &&
+      responsePath==='/_framework/dotnet-browser-tools/hot-reload-settings.json';
+    if(!optionalDevHotReloadSettings)
+      runtimeSignals.push({type:'HTTP',status:response.status,url:response.url});
+  }
   if(m.method==='Network.loadingFailed')runtimeSignals.push({type:'Network',detail:m.params?.errorText});
   if(m.method==='Network.webSocketCreated')
     webSocketUrls.set(m.params.requestId,m.params.url);
@@ -690,9 +696,9 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
- // but the future #435 semantic switch role and Windows AT are NOT
- // implemented or certified by the #421 source-owned demo.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Eighth current API pilot: Switch is a dedicated binary setting input with role=switch,
+ // Stable setting names and current v3 API are exercised here; this remains a representative pilot,
+ // not native Windows AT certification or full family acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Switch')"),12000);
  await js("document.querySelector('button.lab-family')?.click()");
@@ -700,15 +706,15 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  check('eighth Switch pilot renders actual Bluent input family through interactive catalog',switchReady);
  const switchInitial=await js("(()=>{const a=document.getElementById('lab-switch-primary'),b=document.getElementById('lab-switch-before'),d=document.getElementById('lab-switch-disabled'),wrap=x=>x?.closest('.bui-switch');return {native:a?.type==='checkbox'&&b?.type==='checkbox'&&d?.type==='checkbox',off:!a?.checked,offLabel:wrap(a)?.querySelector('label')?.textContent.trim(),labelBefore:wrap(b)?.classList.contains('label-before'),beforeLabel:wrap(b)?.querySelector('label')?.textContent.trim(),disabled:d?.disabled,disabledChecked:d?.checked,cards:document.querySelector('.lab-switch-grid')?.children.length}})()");
  check('Switch current native off label-before and disabled true states render',
-  switchInitial.native&&switchInitial.off&&switchInitial.offLabel==='Notifications off'&&switchInitial.labelBefore&&switchInitial.beforeLabel==='Feature inactive'&&switchInitial.disabled&&switchInitial.disabledChecked&&switchInitial.cards===3,switchInitial);
+  switchInitial.native&&switchInitial.off&&switchInitial.offLabel==='Notifications'&&switchInitial.labelBefore&&switchInitial.beforeLabel==='Feature access'&&switchInitial.disabled&&switchInitial.disabledChecked&&switchInitial.cards===3,switchInitial);
  await js("document.getElementById('lab-switch-primary')?.focus()");
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
- const switchOn=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: True'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications on'})()"),12000);
+ const switchOn=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: True'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications'})()"),12000);
  check('native Space on current Switch toggles true and updates label plus Blazor model',switchOn);
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
- const switchOff=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return !x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: False'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications off'})()"),12000);
+ const switchOff=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return !x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: False'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications'})()"),12000);
  check('second native Space returns Switch to off without stale label or value',switchOff);
  const switchDisabled=await js("(()=>{const d=document.getElementById('lab-switch-disabled');d?.focus();return {disabled:d?.disabled,checked:d?.checked,focusDenied:document.activeElement!==d}})()");
  check('current disabled Switch rejects native focus and remains checked',
@@ -722,7 +728,7 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  check('hit-tested native pointer cannot toggle disabled public Switch',switchPointer.disabled&&switchPointer.checked,switchPointer);
  const switchCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
  check('generated Switch Razor contains two bind Value models before-label and disabled',
-  switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
+  switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="SwitchLabelPosition.Before"')&&switchCopy?.includes('Label="Feature access"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Ninth existing NumericField<T> API pilot from public source: real
  // native text entry and Blazor int binding, callbacks and a separate

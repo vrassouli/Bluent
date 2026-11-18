@@ -1,4 +1,4 @@
-# Component Lab pilot (#421)
+﻿# Component Lab pilot (#421)
 
 Status: In progress, not v3 release acceptance and not 100 percent
 component/API coverage. Branch: v3/issue-421-component-lab; target:
@@ -571,7 +571,7 @@ spaced, padded cards:
 1. Current on/off Switch bound to Blazor bool; native Space
    twice verifies off -> on -> off, model status and its
    state-specific Label / UncheckedLabel remain synchronized.
-2. LabelPosition.Before on a second separately bound Switch,
+2. SwitchLabelPosition.Before on a second separately bound Switch,
    verifying existing label-before public API/class and label.
 3. HTML native disabled checked Switch, which cannot be focused
    via keyboard and remains true after an actual hit-tested
@@ -869,3 +869,8 @@ The current source-linked catalog contains **18 live pilot specimens / 66 source
 On Dev01, after restoring the #425 security package changes and building the full solution in Release with warnings-as-errors (0 warnings, 0 errors), the real Component Lab scenario was executed in all four modes: Chrome/WASM, Edge/WASM, Chrome/InteractiveServer and Edge/InteractiveServer. Each run completed successfully; the 18 pilot scenarios, live Razor/source mapping, 66-row queue, keyboard and pointer behavior, RTL 320px layouts, disabled controls, search, copy-source interop and browser cleanup were exercised. Known, explicitly reported InteractiveServer pointer-binding gaps remain for Slider #442 and RangeSlider #443; the Lab does not claim those family behaviors as accepted. CI on the merge commit initially failed before browser execution because the source contract still asserted the pre-fix disabled-Split pointer-test label; that guard now matches the corrected neutral-focus/bounds-based test. Re-run exact-head CI before promoting #421 to Review.
 
 Platform/family acceptance boundary: [Component Lab platform and per-family acceptance](COMPONENT-LAB-ACCEPTANCE.md). The Lab platform merge does not complete or approve an individual component family.
+
+
+## Issue #435 — v3 Switch source update (2026-11-18)
+
+The Component Lab Switch specimen now uses the dedicated v3 `BluentInputComponentBase<bool>` implementation, the native `input[type=checkbox][role=switch]` contract and a stable setting-oriented label. Its copyable example uses `SwitchLabelPosition.Before`; it no longer exposes the Checkbox-derived `UncheckedLabel` API. The source guard and live browser probe follow that API. The family remains `representative_only` in the 66-family ledger: this pilot does not imply full Switch-family acceptance, native Windows contrast approval or spoken assistive-technology acceptance. See the [Switch v3 implementation record](../components/switch.md), [#435](https://github.com/vrassouli/Bluent/issues/435) and the final `BLUENT-SWITCH-*` evidence set.

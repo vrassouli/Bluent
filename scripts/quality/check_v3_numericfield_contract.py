@@ -1,7 +1,8 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Issue #433: NumericField source/API and real-browser CI contract."""
 from __future__ import annotations
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -66,7 +67,8 @@ def check_numericfield_contract(root: Path = ROOT) -> None:
     for token in ('[ValidateSet("WebAssembly", "Server")]', '[ValidateSet("Chrome", "Edge")]', "dotnet publish"):
         need(token in runner, f"browser runner does not support the required mode: {token}")
     need("  numericfield-runtime:" in workflow, "permanent NumericField browser job is missing")
-    numeric_job = workflow.split("  numericfield-runtime:", 1)[1]
+    numeric_tail = workflow.split("  numericfield-runtime:", 1)[1]
+    numeric_job = re.split(r"(?m)^  [A-Za-z0-9_-]+:", numeric_tail, maxsplit=1)[0]
     for token in ("browser: [Chrome, Edge]", "render_mode: [WebAssembly, Server]",
                   "windows-latest", "run_v3_numericfield.ps1", "BLUENT_NUMERIC_EVIDENCE_PATH",
                   "if: always()", "actions/upload-artifact@v4", "retention-days: 7"):

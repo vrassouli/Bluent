@@ -513,21 +513,19 @@
                     <div class="lab-switch-card">
                         <h3>Notifications</h3>
                         <Switch id="lab-switch-primary" @bind-Value="_labSwitchOn"
-                                Label="Notifications on" UncheckedLabel="Notifications off" />
+                                Label="Notifications" />
                         <p class="lab-switch-status" role="status">Enabled: @_labSwitchOn</p>
                     </div>
                     <div class="lab-switch-card">
                         <h3>Label before indicator</h3>
-                        <Switch id="lab-switch-before" @bind-Value="_labSwitchBefore"
-                                Label="Feature active" UncheckedLabel="Feature inactive"
-                                LabelPosition="LabelPosition.Before" />
+                        <Switch id="lab-switch-before" @bind-Value="_labSwitchBefore" Label="Feature access" LabelPosition="SwitchLabelPosition.Before" />
                     </div>
                     <div class="lab-switch-card">
                         <h3>Disabled switch</h3>
                         <Switch id="lab-switch-disabled" Value="true" Label="Managed setting" disabled />
                     </div>
                 </div>
-                <p class="lab-controls-note">Current Bluent Switch API. #435 redesign, accessible switch role and native OS/AT checks remain pending.</p>
+                <p class="lab-controls-note">Issue #435 Switch implementation proposal. Browser and native OS/assistive-technology acceptance remain in progress.</p>
             }
             else if (_selected == "numeric")
             {
@@ -911,9 +909,9 @@
             "Existing bool/bool? Checkbox with dynamic labels and native disabled state. Not a Fluent v3 rewrite.",
             "<Checkbox @bind-Value=\"_labChecked\" Label=\"Accept terms\" />",
             "Representative runnable scenario only"),
-        new("switch", "Switch", "components/fields", "On off and managed states",
-            "Existing Switch renders a native checkbox with on/off labels and a managed disabled state.",
-            "<Switch @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />",
+        new("switch", "Switch", "components/fields", "Binary settings and managed state",
+            "Switch uses a native checkbox with switch semantics, a stable setting label and a managed disabled state.",
+            "<Switch @bind-Value=\"_labSwitchOn\" Label=\"Notifications\" />",
             "Representative runnable scenario only"),
         new("numeric", "NumericField", "components/fields", "Integers decimal and bounds",
             "Current NumericField data binding, format, min/max, focus/blur and native disabled state.",
@@ -1059,8 +1057,12 @@
 
     private bool _labSwitchOn;
     private bool _labSwitchBefore;
-    private string SelectedSwitchRazor => "<Switch id=\"lab-switch-primary\" @bind-Value=\"_labSwitchOn\" Label=\"Notifications on\" UncheckedLabel=\"Notifications off\" />\n<Switch id=\"lab-switch-before\" @bind-Value=\"_labSwitchBefore\" Label=\"Feature active\" UncheckedLabel=\"Feature inactive\" LabelPosition=\"LabelPosition.Before\" />\n<Switch id=\"lab-switch-disabled\" Value=\"true\" Label=\"Managed setting\" disabled />\n@code { private bool _labSwitchOn; private bool _labSwitchBefore; }";
-
+    private string SelectedSwitchRazor => """
+        <Switch id="lab-switch-primary" @bind-Value="_labSwitchOn" Label="Notifications" />
+        <Switch id="lab-switch-before" @bind-Value="_labSwitchBefore" Label="Feature access" LabelPosition="SwitchLabelPosition.Before" />
+        <Switch id="lab-switch-disabled" Value="true" Label="Managed setting" disabled />
+        @code { private bool _labSwitchOn; private bool _labSwitchBefore; }
+        """;
     private int _labInteger = 5;
     private decimal _labDecimal = 12.5m;
     private int _numericFocusCount;

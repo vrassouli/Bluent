@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Source-backed pilot coverage contract. Does not claim complete component validation."""
 import json
 import re
@@ -420,13 +420,15 @@ def check() -> int:
     assert data["families"][7]["classification"] == "representative_only"
     assert data["families"][7]["existingDemoRoute"] == "/components/fields"
     assert set(data["families"][7]["propertiesDemonstrated"]) == {
-        "Value", "ValueChanged", "Label", "UncheckedLabel", "LabelPosition", "disabled"
+        "Value", "ValueChanged", "Label", "SwitchLabelPosition", "disabled"
     }
     switch_source = (ROOT/"src/Bluent.UI/Components/SwitchComponent/Switch.razor").read_text(encoding="utf-8-sig")
-    assert "@inherits Checkbox<bool>" in switch_source
+    assert "@inherits BluentInputComponentBase<bool>" in switch_source
+    assert 'role="switch"' in switch_source
+    assert "UncheckedLabel" not in switch_source
     for x in ('new("switch", "Switch"', 'class="lab-switch-grid"',
               'id="lab-switch-primary"', 'id="lab-switch-before"',
-              'id="lab-switch-disabled"', 'LabelPosition="LabelPosition.Before"',
+              'id="lab-switch-disabled"', 'LabelPosition="SwitchLabelPosition.Before"',
               'SelectedSwitchRazor'):
         assert x in source, "Source-backed Switch preview missing: "+x
     assert '.lab-canvas.narrow .lab-switch-grid' in css

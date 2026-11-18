@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """#423: v3 Skill version-routing contract, links, and maturity boundaries.
 
 Checks only supported static invariants; this cannot certify future component
@@ -16,6 +16,7 @@ REQUIRED = (
     SKILL_DIR / "FAMILY-SKILL-TEMPLATE.md",
     ROOT / "docs/v3/skills/README.md",
     ROOT / ".agents/skills/bluent-v3-numericfield/SKILL.md",
+    ROOT / ".agents/skills/bluent-v3-switch/SKILL.md",
 )
 LEGACY = ROOT / ".agents/skills/bluent/SKILL.md"
 V3_INDEX = ROOT / "docs/v3/README.md"
@@ -63,6 +64,16 @@ def validate_numericfield_skill(body: str) -> list[str]:
     return errors
 
 
+
+def validate_switch_skill(body: str) -> list[str]:
+    errors = []
+    for phrase in ("#435", "#418", "SwitchLabelPosition", "BluentInputComponentBase<bool>",
+                   "role=switch", "Penpot", "bluent-v3", "not a released v3 API"):
+        if phrase not in body:
+            errors.append(f"Switch task Skill missing source-backed boundary: {phrase}")
+    return errors
+
+
 def validate_repo() -> list[str]:
     errors = []
     for path in REQUIRED:
@@ -80,8 +91,13 @@ def validate_repo() -> list[str]:
         if "This skill is maintained from the Bluent" not in legacy:
             errors.append("Existing 2.x legacy skill unexpected; confirm old Skill source")
         errors.extend(validate_numericfield_skill(REQUIRED[4].read_text(encoding="utf-8")))
+        errors.extend(validate_switch_skill(REQUIRED[5].read_text(encoding="utf-8")))
         if "../bluent-v3-numericfield/SKILL.md" not in REQUIRED[1].read_text(encoding="utf-8"):
             errors.append("NumericField task Skill is not reachable from the canonical component router")
+        if "bluent-v3-switch/SKILL.md" not in REQUIRED[1].read_text(encoding="utf-8"):
+            errors.append("Switch task Skill is not reachable from the canonical component router")
+        if "bluent-v3-switch/SKILL.md" not in REQUIRED[3].read_text(encoding="utf-8"):
+            errors.append("Switch task Skill is not linked from the v3 Skills index")
         if "bluent-v3-numericfield/SKILL.md" not in REQUIRED[3].read_text(encoding="utf-8"):
             errors.append("NumericField task Skill is not linked from the v3 Skills index")
     else:
