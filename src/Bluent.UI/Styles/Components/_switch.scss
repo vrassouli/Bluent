@@ -1,116 +1,128 @@
-﻿.bui-switch {
-    align-items: flex-start;
+.bui-switch {
+    align-items: center;
     box-sizing: border-box;
-    display: inline-flex;
-    position: relative;
+    color: var(--colorNeutralForeground1);
     cursor: pointer;
+    display: inline-flex;
+    min-block-size: 24px;
+    position: relative;
+    vertical-align: middle;
 
     > input {
-        top: 0px;
-        left: 0px;
-        box-sizing: border-box;
-        height: 100%;
-        margin: 0px;
+        appearance: none;
+        block-size: 24px;
+        cursor: inherit;
+        inline-size: calc(40px + 2 * var(--spacingHorizontalS));
+        inset-block: 0;
+        inset-inline-start: 0;
+        margin: 0;
         opacity: 0;
         position: absolute;
-        width: calc(40px + 2* var(--spacingHorizontalS));
-        cursor: pointer;
-
-        &:enabled:not(:checked) {
-            ~ .indicator {
-                color: var(--colorNeutralStrokeAccessible);
-                border-color: var(--colorNeutralStrokeAccessible);
-            }
-
-            ~ label {
-                color: var(--colorNeutralForeground1);
-            }
-        }
-
-        &:enabled:checked {
-            ~ .indicator {
-                background-color: var(--colorCompoundBrandBackground);
-                color: var(--colorNeutralForegroundInverted);
-                border-color: var(--colorTransparentStroke);
-            }
-        }
-
-        &:disabled:not(:checked) {
-            ~ .indicator {
-                border-color: var(--colorNeutralStrokeDisabled);
-            }
-        }
-
-        &:disabled:checked {
-            ~ .indicator {
-                background-color: var(--colorNeutralBackgroundDisabled);
-                border-color: var(--colorTransparentStrokeDisabled);
-            }
-        }
-
-        &:checked {
-            ~ .indicator > * {
-                transform: translateX(20px);
-            }
-        }
+        z-index: 1;
 
         &:disabled {
             cursor: default;
+        }
 
-            ~ .indicator {
-                color: var(--colorNeutralForegroundDisabled);
-                cursor: default;
-            }
-
-            ~ label {
-                color: var(--colorNeutralForegroundDisabled);
-                cursor: default;
-            }
+        &:focus-visible + .indicator {
+            outline: 2px solid var(--colorStrokeFocus2);
+            outline-offset: 2px;
         }
     }
 
     > .indicator {
+        align-items: center;
+        background-color: var(--colorNeutralBackground1);
+        border: var(--strokeWidthThin) solid var(--colorNeutralStrokeAccessible);
         border-radius: var(--borderRadiusCircular);
-        border: 1px solid;
-        line-height: 0;
         box-sizing: border-box;
-        fill: currentcolor;
-        flex-shrink: 0;
-        font-size: 18px;
-        height: 20px;
-        margin: var(--spacingVerticalS) var(--spacingHorizontalS);
+        display: inline-flex;
+        flex: 0 0 40px;
+        block-size: 20px;
+        inline-size: 40px;
+        margin: 0 var(--spacingHorizontalS);
         pointer-events: none;
-        transition-duration: var(--durationNormal);
-        transition-timing-function: var(--curveEasyEase);
-        transition-property: background, border, color;
-        width: 40px;
-        cursor: inherit;
 
-        > svg {
-            display: inline;
-            line-height: 0;
+        > .thumb {
+            background-color: var(--colorNeutralStrokeAccessible);
+            border-radius: 50%;
+            block-size: 14px;
+            inline-size: 14px;
+            margin-inline-start: 0;
             transition-duration: var(--durationNormal);
+            transition-property: margin-inline-start, background-color;
             transition-timing-function: var(--curveEasyEase);
-            transition-property: transform;
         }
     }
 
     > label {
-        padding: var(--spacingVerticalS) 0;
-        padding-inline: var(--spacingHorizontalXS) var(--spacingHorizontalS);
-        margin-top: calc((20px - var(--lineHeightBase300)) / 2);
-        margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
-        line-height: var(--lineHeightBase300);
-        font-size: var(--fontSizeBase300);
-        font-family: var(--fontFamilyBase);
+        align-self: center;
+        color: inherit;
         cursor: inherit;
+        flex: 0 1 auto;
+        font-family: var(--fontFamilyBase);
+        font-size: var(--fontSizeBase300);
+        line-height: var(--lineHeightBase300);
+        margin: 0;
+        min-inline-size: 0;
+        padding-block: var(--spacingVerticalS);
+        padding-inline: var(--spacingHorizontalXS);
+        user-select: none;
+
+        > .required {
+            color: var(--colorPaletteRedForeground3);
+            padding-inline-start: var(--spacingHorizontalXS);
+        }
+    }
+
+    &.checked {
+        > .indicator {
+            background-color: var(--colorCompoundBrandBackground);
+            border-color: var(--colorCompoundBrandBackground);
+
+            > .thumb {
+                background-color: var(--colorNeutralForegroundInverted);
+                margin-inline-start: calc(100% - 14px);
+            }
+        }
+    }
+
+    &:not(.disabled).unchecked {
+        &:hover > .indicator {
+            background-color: var(--colorNeutralBackground3);
+            border-color: var(--colorNeutralStrokeAccessibleHover);
+
+            > .thumb {
+                background-color: var(--colorNeutralStrokeAccessibleHover);
+            }
+        }
+
+        &:active > .indicator {
+            background-color: var(--colorNeutralBackground3Pressed);
+            border-color: var(--colorNeutralStrokeAccessiblePressed);
+
+            > .thumb {
+                background-color: var(--colorNeutralStrokeAccessiblePressed);
+            }
+        }
+    }
+
+    &:not(.disabled).checked {
+        &:hover > .indicator {
+            background-color: var(--colorCompoundBrandBackgroundHover);
+            border-color: var(--colorCompoundBrandBackgroundHover);
+        }
+
+        &:active > .indicator {
+            background-color: var(--colorCompoundBrandBackgroundPressed);
+            border-color: var(--colorCompoundBrandBackgroundPressed);
+        }
     }
 
     &.label-before {
         > input {
-            order: 2;
-            left: unset;
-            right: 0;
+            inset-inline-start: auto;
+            inset-inline-end: 0;
         }
 
         > .indicator {
@@ -121,19 +133,104 @@
             order: 1;
         }
     }
-}
 
-.rtl, [dir=rtl] {
-    .bui-switch {
+    &.label-above {
+        align-items: flex-start;
+        flex-direction: column;
+
         > input {
-            left: unset;
-            right: 0px;
+            inline-size: calc(40px + 2 * var(--spacingHorizontalS));
+        }
 
-            &:checked {
-                ~ .indicator > * {
-                    transform: translateX(-20px);
-                }
+        > .indicator {
+            margin-block: var(--spacingVerticalXS);
+        }
+
+        > label {
+            order: -1;
+            inline-size: 100%;
+            padding-inline: var(--spacingHorizontalS);
+        }
+    }
+
+    &.invalid > .indicator {
+        border-color: var(--colorStatusDangerBorderActive);
+    }
+
+    &.disabled {
+        color: var(--colorNeutralForegroundDisabled);
+        cursor: default;
+
+        > .indicator {
+            background-color: var(--colorNeutralBackground1);
+            border-color: var(--colorNeutralStrokeDisabled);
+
+            > .thumb {
+                background-color: var(--colorNeutralForegroundDisabled);
+                transition: none;
             }
         }
+
+        &.checked > .indicator {
+            background-color: var(--colorNeutralBackgroundDisabled);
+            border-color: var(--colorNeutralStrokeDisabled);
+        }
+
+        > label,
+        > label > .required {
+            color: var(--colorNeutralForegroundDisabled);
+            cursor: default;
+        }
+    }
+}
+
+@media (forced-colors: active) {
+    .bui-switch {
+        > input:focus-visible + .indicator {
+            outline-color: Highlight;
+        }
+
+        > .indicator {
+            background-color: Canvas;
+            border-color: CanvasText;
+            forced-color-adjust: none;
+
+            > .thumb {
+                background-color: CanvasText;
+            }
+        }
+
+        &.checked > .indicator {
+            background-color: Highlight;
+            border-color: Highlight;
+
+            > .thumb {
+                background-color: HighlightText;
+            }
+        }
+
+        &.disabled {
+            color: GrayText;
+
+            > .indicator {
+                background-color: Canvas;
+                border-color: GrayText;
+
+                > .thumb {
+                    background-color: GrayText;
+                }
+            }
+
+            &.checked > .indicator {
+                background-color: Canvas;
+                border-color: GrayText;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bui-switch > .indicator > .thumb {
+        transition: none;
     }
 }

@@ -1,4 +1,4 @@
-# Bluent v3 Skills authoring and routing
+﻿# Bluent v3 Skills authoring and routing
 
 The canonical v3 development router is [`.agents/skills/bluent-v3/SKILL.md`](../../../.agents/skills/bluent-v3/SKILL.md). It selects the correct package/version and distinguishes the already-supported 2.x consumer experience from v3 prototype work. There is **no released v3 public API** merely because this Skill exists.
 
@@ -8,6 +8,8 @@ The [Label implementation handoff](../../../.agents/skills/bluent-v3-label/SKILL
 
 The [TextField implementation handoff](../../../.agents/skills/bluent-v3-textfield/SKILL.md) is the in-progress task-branch retrieval guide for #432; use it only with the [v3 TextField implementation record](../components/text-field.md). The existing 2.x consumer API remains authoritative for released packages.
 The [Checkbox implementation handoff](../../../.agents/skills/bluent-v3-checkbox/SKILL.md) is a task-branch route for #434. It preserves the existing `bool` / `bool?` InputBase API, records the Fluent 2 state matrix and native Mixed/Required accessibility contract, and links to the source-backed [v3 Checkbox implementation record](../components/checkbox.md). Global #418 token approval and final native OS/assistive-technology acceptance remain separate; the v3 code is not released.\n\nThe [NumericField implementation handoff](../../../.agents/skills/bluent-v3-numericfield/SKILL.md) is the task-branch retrieval guide for #433 / PR #563 (Ready for independent review). Use it only with the [v3 NumericField implementation record](../components/numeric-field.md). Six Penpot boards carry an ENGINEERING BASELINE marker with owner sign-off pending; the Theme board remains DRAFT. #418 token approval and spoken screen-reader acceptance remain open, and the existing 2.x NumericField API remains authoritative for released packages.
+
+The [Switch implementation handoff](../../../.agents/skills/bluent-v3-switch/SKILL.md) is the in-progress task-branch retrieval guide for #435. Use it only with the [v3 Switch implementation record](../components/switch.md); it documents native switch semantics, stable accessible naming, Medium-first geometry, the scoped #418 boundary and local four-cell browser evidence. The existing 2.x Switch remains authoritative for released packages.
 
 The [Icon implementation handoff](../../../.agents/skills/bluent-v3-icon/SKILL.md) is a **task-branch review handoff** for #429: its visual design is maintainer-approved and PR #558 is Ready for review, but the Skill is not yet an accepted family Skill and the API is not released. It routes v3 Icon implementers to the source-backed record while preserving the 2.x consumer route.
 

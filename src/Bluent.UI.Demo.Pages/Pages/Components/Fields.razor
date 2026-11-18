@@ -1,4 +1,4 @@
-﻿@page "/components/fields"
+@page "/components/fields"
 @namespace Bluent.UI.Demo.Pages.Components
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Forms
@@ -256,13 +256,10 @@
 
         <h3>Switch</h3>
         <section class="p-7 rounded-5 shadow-3">
-            <Switch @bind-Value="_switch" id="switchAfterLabel" Label="Switch is On" UncheckedLabel="Switch is Off"/>
-            <Switch @bind-Value="_switch" id="switchBeforeLabel" Label="Switch is On" UncheckedLabel="Switch is Off"
-                    LabelPosition="LabelPosition.Before"/>
-            <Switch @bind-Value="_disabledOffSwitch" Label="Switch is disabled and On"
-                    UncheckedLabel="Switch is disabled and Off" disabled/>
-            <Switch @bind-Value="_disabledOnSwitch" Label="Switch is disabled and On"
-                    UncheckedLabel="Switch is disabled and Off" disabled/>
+            <Switch @bind-Value="_switch" id="switchAfterLabel" Label="Notifications" />
+            <Switch @bind-Value="_switch" id="switchBeforeLabel" Label="Feature access" LabelPosition="SwitchLabelPosition.Before" />
+            <Switch @bind-Value="_disabledOffSwitch" Label="Disabled notifications" disabled />
+            <Switch @bind-Value="_disabledOnSwitch" Label="Disabled notifications" disabled />
         </section>
 
         <h3>Textarea field</h3>

@@ -1,0 +1,278 @@
+{
+  "issue": 435,
+  "browser": "Edge",
+  "renderMode": "InteractiveServer",
+  "base": "http://127.0.0.1:63815",
+  "route": "/compatibility/switches-server",
+  "generatedAt": "2026-11-18T07:59:47.386Z",
+  "passed": 21,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Switch showcase loads in Edge/InteractiveServer",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:63815/compatibility/switches-server"
+      }
+    },
+    {
+      "name": "native checkbox exposes switch role and the expected Medium geometry",
+      "pass": true,
+      "detail": {
+        "type": "checkbox",
+        "role": "switch",
+        "checked": false,
+        "id": "switch-notifications",
+        "labelFor": "switch-notifications",
+        "labelText": "Notifications",
+        "width": 40,
+        "height": 20,
+        "thumbWidth": 14,
+        "hit": {
+          "w": 56,
+          "h": 24
+        },
+        "ariaChecked": null
+      }
+    },
+    {
+      "name": "input id is stable and associated with its setting label",
+      "pass": true,
+      "detail": {
+        "type": "checkbox",
+        "role": "switch",
+        "checked": false,
+        "id": "switch-notifications",
+        "labelFor": "switch-notifications",
+        "labelText": "Notifications",
+        "width": 40,
+        "height": 20,
+        "thumbWidth": 14,
+        "hit": {
+          "w": 56,
+          "h": 24
+        },
+        "ariaChecked": null
+      }
+    },
+    {
+      "name": "native checked state is authoritative and aria-checked is absent",
+      "pass": true,
+      "detail": {
+        "type": "checkbox",
+        "role": "switch",
+        "checked": false,
+        "id": "switch-notifications",
+        "labelFor": "switch-notifications",
+        "labelText": "Notifications",
+        "width": 40,
+        "height": 20,
+        "thumbWidth": 14,
+        "hit": {
+          "w": 56,
+          "h": 24
+        },
+        "ariaChecked": null
+      }
+    },
+    {
+      "name": "browser accessibility tree exposes role switch and stable name",
+      "pass": true,
+      "detail": {
+        "role": "switch",
+        "name": "Notifications",
+        "checked": "false"
+      }
+    },
+    {
+      "name": "pointer activation updates checked state and bound model",
+      "pass": true,
+      "detail": {
+        "role": "switch",
+        "name": "Notifications",
+        "checked": "true"
+      }
+    },
+    {
+      "name": "On thumb animates through a length-based logical inline margin",
+      "pass": true,
+      "detail": {
+        "margin": "24px",
+        "transitionProperty": "margin-inline-start, background-color"
+      }
+    },
+    {
+      "name": "native Space key toggles the Switch back Off",
+      "pass": true,
+      "detail": {
+        "role": "switch",
+        "name": "Notifications",
+        "checked": "false"
+      }
+    },
+    {
+      "name": "keyboard focus-visible shows the 2px offset focus indicator",
+      "pass": true,
+      "detail": {
+        "focusVisible": true,
+        "outlineWidth": "2px",
+        "outlineOffset": "2px",
+        "outlineStyle": "solid"
+      }
+    },
+    {
+      "name": "accessible name remains unchanged across On and Off",
+      "pass": true,
+      "detail": {
+        "before": "Bound value: Off",
+        "after": "Notifications"
+      }
+    },
+    {
+      "name": "no-visible-label variant has caller-supplied accessible name",
+      "pass": true,
+      "detail": {
+        "exists": true,
+        "labels": 0,
+        "name": "Enable compact mode",
+        "role": "switch"
+      }
+    },
+    {
+      "name": "After, Before and Above layouts render using the dedicated position enum",
+      "pass": true,
+      "detail": {
+        "after": true,
+        "before": true,
+        "above": true,
+        "aboveDirection": "column",
+        "aboveLabelOrder": "-1"
+      }
+    },
+    {
+      "name": "both disabled values use native disabled input",
+      "pass": true,
+      "detail": [
+        {
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "disabled": true,
+          "checked": true
+        }
+      ]
+    },
+    {
+      "name": "disabled switch ignores pointer activation",
+      "pass": true,
+      "detail": {
+        "disabledBefore": false,
+        "disabledAfter": false
+      }
+    },
+    {
+      "name": "EditForm required rule reports error while marker remains decorative",
+      "pass": true,
+      "detail": {
+        "message": "You must accept the terms and conditions.",
+        "checked": false,
+        "markerHidden": "true"
+      }
+    },
+    {
+      "name": "EditForm accepts the bound Boolean after enabling it",
+      "pass": true,
+      "detail": {
+        "checked": true,
+        "status": "The setting has been accepted."
+      }
+    },
+    {
+      "name": "RTL specimen inherits RTL and thumb uses logical inline movement",
+      "pass": true,
+      "detail": {
+        "direction": "rtl",
+        "marginInlineStart": "0px",
+        "trackLeft": 628.765625,
+        "thumbLeft": 653.765625,
+        "trackRight": 668.765625,
+        "thumbRight": 667.765625
+      }
+    },
+    {
+      "name": "forced-colors rules activate with system-color track rendering",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "adjust": "none"
+      }
+    },
+    {
+      "name": "reduced-motion disables thumb animation",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "320px reflow has no horizontal overflow and preserves hit target",
+      "pass": true,
+      "detail": {
+        "width": 320,
+        "document": 305,
+        "body": 289,
+        "controls": [
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          },
+          {
+            "w": 56,
+            "h": 24
+          }
+        ]
+      }
+    },
+    {
+      "name": "no browser exceptions, console errors or application HTTP failures",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "runtimeSignals": [],
+  "profilePrefix": "bluent-v3-435-switch-b5f3d259a4304d99bc4d466ee480c969-"
+}

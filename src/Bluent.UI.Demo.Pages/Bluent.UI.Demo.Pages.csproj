@@ -44,6 +44,7 @@
       <AdditionalFiles Include="Pages\Components\Cards.razor" />
       <AdditionalFiles Include="Pages\Components\Charts.razor" />
       <AdditionalFiles Include="Pages\Components\Checkboxes.razor" />
+      <AdditionalFiles Include="Pages\Components\Switches.razor" />
       <AdditionalFiles Include="Pages\Components\DataGrids.razor" />
       <AdditionalFiles Include="Pages\Components\DataPagers.razor" />
       <AdditionalFiles Include="Pages\Components\Diagrams.razor" />
