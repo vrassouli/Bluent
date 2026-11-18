@@ -69,7 +69,7 @@ All 57 currently tracked `Bluent.UI` component families have source-verified can
 - [Menu and MenuList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/menu.md)
 - [MessageBar](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/message-bar.md)
 - [NavList](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/nav-list.md)
-- [NumericField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/numeric-field.md)
+- [Checkbox v3 implementation record](https://github.com/vrassouli/Bluent/blob/bluent-v3/docs/v3/components/checkbox.md): in-progress task-branch implementation for #434; not a released v3 or 2.x consumer API.\n- [NumericField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/numeric-field.md)
 - [OtpField](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/otp-field.md)
 - [Overflow](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/overflow.md)
 - [Overlay](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/overlay.md)
