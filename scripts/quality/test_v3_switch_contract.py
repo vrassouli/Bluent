@@ -159,6 +159,11 @@ class SwitchContractTests(unittest.TestCase):
         with self.assertRaises(SwitchContractError):
             check_switch_contract(self.root)
 
+    def test_rtl_thumb_geometry_must_check_on_and_off_against_track_midpoint(self):
+        self.mutate("scripts/quality/probe_v3_switch.mjs",
+                    "rtl.thumbRight<=rtl.midpoint&&rtl.offThumbLeft>=rtl.midpoint",
+                    "rtl.thumbLeft<rtl.trackLeft+rtl.trackRight/2")
+
     def test_switch_skill_must_be_linked_from_both_routers(self):
         self.mutate("docs/v3/skills/README.md",
                     "bluent-v3-switch/SKILL.md", "bluent-v3-component/SKILL.md")

@@ -112,6 +112,8 @@ def check_switch_contract(root: Path = ROOT) -> None:
                   "focus-visible", "320px reflow", "forced-colors", "reduced-motion",
                   "EditForm", "RTL specimen", "runtimeSignals"):
         need(token.lower() in probe.lower(), f"real Switch browser probe coverage is missing: {token}")
+    need("rtl.thumbRight<=rtl.midpoint&&rtl.offThumbLeft>=rtl.midpoint" in probe,
+         "RTL On/Off thumb geometry must be checked on opposite sides of the measured track midpoint")
     for token in ('WebAssembly', 'Server', 'Chrome', 'Edge', 'BLUENT_SWITCH_EVIDENCE_DIR',
                   'bluent-v3-435-evidence', 'bounded retries'):
         need(token.lower() in runner.lower(), f"Switch browser runner is missing matrix/cleanup/evidence behavior: {token}")
