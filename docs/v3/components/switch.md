@@ -1,6 +1,6 @@
 ﻿# Switch — Bluent v3 implementation record
 
-> **Not a released v3 API. In progress on `v3/issue-435-switch`; unreleased and not merged.** This record describes the v3 task-branch API only. The released 2.x API and its `UncheckedLabel`/Checkbox inheritance remain documented in [the 2.x Switch reference](../../components/switch.md). This task does not approve or complete the global #418 token foundation.
+> **Not a released v3 API. In Review via [PR #565](https://github.com/vrassouli/Bluent/pull/565) from `v3/issue-435-switch`; unreleased and not merged.** This record describes the v3 task-branch API only. The released 2.x API and its `UncheckedLabel`/Checkbox inheritance remain documented in [the 2.x Switch reference](../../components/switch.md). This task does not approve or complete the global #418 token foundation.
 
 ## Identity and maturity
 
@@ -111,7 +111,7 @@ This is intentional for the still-unreleased v3 branch and is migration-recorded
 - Focused render semantics: `tests/RegexSampleGeneratorTest/SwitchRenderSemanticsTests.cs`.
 - Browser probe/runner: `scripts/quality/probe_v3_switch.mjs`, `scripts/quality/run_v3_switch.ps1`.
 
-The local Dev01 Chrome/Edge × WebAssembly/InteractiveServer matrix passed **21/21 assertions per cell (84/84 total)**. Checks include native markup and AX role/name/checked, pointer and Space binding, Focus-visible geometry, stable naming, no-visible-label ARIA naming, all three label placements, disabled Off/On, EditForm validation, RTL thumb travel and animatable thumb transition, browser-emulated forced-colors and reduced-motion, 320 CSS-pixel no-overflow/hit area, and zero browser exceptions/console errors/application HTTP failures.
+The local Dev01 Chrome/Edge × WebAssembly/InteractiveServer matrix passed **25/25 assertions per cell (100/100 total)**. Checks include native markup and AX role/name/checked, pointer and Space binding, Focus-visible geometry, stable naming, no-visible-label ARIA naming, all three label placements, disabled Off/On, EditForm validation, RTL thumb travel and animatable thumb transition, real Light/Dark semantic-color switching (the actual Header control in WASM and the host theme attribute in the minimal Server probe), `Class`/`Style`/`aria-describedby` forwarding, browser-emulated forced-colors and reduced-motion, 320 CSS-pixel no-overflow/hit area, and zero browser exceptions/console errors/application HTTP failures.
 
 JSON reports and 320/1280 viewport PNGs are retained under `docs/v3/quality/evidence/BLUENT-SWITCH-*`. The 320 CSS-pixel screenshots are captured at deviceScaleFactor 2 and are therefore 640 physical pixels wide; the matching JSON report records the 320 CSS-pixel viewport and no-overflow assertion.
 
@@ -137,7 +137,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 
 pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 -Mode Server -Browser Edge
 ```
 
-The focused HtmlRenderer suite passed 11/11. Demo.Pages and Demo.SSR Release builds each passed with zero warnings/errors. The four browser reports each show 20/20 and zero runtime signals. Whole-solution Release/test, source guard, docs/links/Skills contracts and exact-head hosted CI remain separate gates until run on the final PR head.
+The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. Switch source/API guard and negative-mutation tests passed 13/13. The four real-browser reports each show 25/25; all 100 assertions passed with zero runtime signals. Docs, Skills, and Markdown-link contracts passed (179 Markdown files). The exact PR-head GitHub Actions run passed all 8 workflows and every job.
 
 ## Acceptance and change log
 
@@ -146,10 +146,11 @@ The focused HtmlRenderer suite passed 11/11. Demo.Pages and Demo.SSR Release bui
 - [x] Dedicated `bool` input implementation, stable naming, native switch role/state, normalized attributes and Switch-specific label-position enum.
 - [x] Existing v3 consumers and header setting labels migrated to stable names.
 - [x] WebAssembly showcase and InteractiveServer wrapper compile.
-- [x] Focused render tests 11/11; Chrome/Edge × WASM/InteractiveServer 84/84 local browser assertions.
-- [ ] Source/API fail-closed contract and negative mutation tests.
-- [ ] Whole-solution Release build and tests; docs/Skills/Markdown and package checks.
-- [ ] Exact-head hosted CI, final reviewer/maintainer design acceptance and merge into `bluent-v3`.
+- [x] Focused render tests 11/11; Chrome/Edge × WASM/InteractiveServer 100/100 local browser assertions, including Light/Dark theme and forwarded attributes.
+- [x] Source/API fail-closed contract and negative mutation tests 13/13.
+- [x] Whole-solution Release build (0 warnings/errors), .NET tests 124/124, and docs/Skills/Markdown-link contracts.
+- [x] Exact-head GitHub Actions on the final PR head: all 8 workflows and every job passed.
+- [ ] Independent maintainer visual-parity/design acceptance and PR merge into `bluent-v3` remain pending.
 - [ ] Native OS contrast and named assistive-technology acceptance remain outstanding; no spoken output is claimed.
 
 No stable 2.x, `Dev`/`main`, NuGet package, production deployment or #418 foundation status was changed by this task branch.

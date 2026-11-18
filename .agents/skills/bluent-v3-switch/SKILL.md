@@ -48,7 +48,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 
 pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 -Mode Server -Browser Edge
 ```
 
-Last local checkpoint: render semantics 11/11; fail-closed guard/mutation suite 13/13; four browser cells 84/84; full `Bluent.sln` Release build 0 warnings/errors and tests 124/124; Docs/Skills/Markdown contracts pass. Browser forced-colors is emulated; it does not certify native Windows Contrast Themes or spoken screen-reader output. Exact-head hosted CI, reviewer/maintainer acceptance and full family acceptance are still open.
+Latest local checkpoint: focused render semantics 11/11; fail-closed Switch guard/mutation suite 13/13; Chrome/Edge × WebAssembly/InteractiveServer **25/25 per cell, 100/100 total**. All four runs verify native role/name/checked, pointer/Space, focus, labels/disabled/form/RTL, real Light/Dark semantic colors (real Header control in WASM; host theme attribute in the minimal Server QA layout), forwarded `Class`/`Style`/`aria-describedby`, forced-colors/reduced-motion emulation, 320px reflow and zero runtime signals. Full `Bluent.sln` Release build passed with 0 warnings/errors and .NET tests 124/124. The previously verified PR SHA `2bfaa79` passed all 8 hosted workflows; after any follow-up push, verify the live current PR head before status promotion. Browser forced-colors is emulated and does not certify native Windows Contrast Themes or spoken screen-reader output. The Penpot boards remain proposals for independent maintainer visual-parity review; full 66-family Component Lab acceptance is separate and unchanged.
 
 ## Lifecycle and safety
 

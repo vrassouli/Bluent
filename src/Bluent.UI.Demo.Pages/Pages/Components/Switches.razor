@@ -18,6 +18,8 @@
             <Switch @bind-Value="_notifications"
                     id="switch-notifications"
                     Label="Notifications"
+                    Class="switch-demo-custom"
+                    Style="--switch-demo-custom-style: 1; margin-block: 0.25rem;"
                     aria-describedby="switch-notifications-state" />
             <p id="switch-notifications-state" class="mt-3 mb-0" role="status">
                 Bound value: @(_notifications ? "On" : "Off")
