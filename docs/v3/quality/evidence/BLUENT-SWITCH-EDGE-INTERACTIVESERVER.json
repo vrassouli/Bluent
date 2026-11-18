@@ -2,17 +2,62 @@
   "issue": 435,
   "browser": "Edge",
   "renderMode": "InteractiveServer",
-  "base": "http://127.0.0.1:63815",
+  "base": "http://127.0.0.1:50353",
   "route": "/compatibility/switches-server",
-  "generatedAt": "2026-11-18T07:59:47.386Z",
-  "passed": 21,
+  "generatedAt": "2026-11-18T12:08:03.303Z",
+  "passed": 25,
   "failed": 0,
   "checks": [
     {
       "name": "Switch showcase loads in Edge/InteractiveServer",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:63815/compatibility/switches-server"
+        "url": "http://127.0.0.1:50353/compatibility/switches-server"
+      }
+    },
+    {
+      "name": "Light theme baseline and host-appropriate theme control are present",
+      "pass": true,
+      "detail": {
+        "hasHeader": false,
+        "mode": "light",
+        "labelColor": "rgb(36, 36, 36)",
+        "trackColor": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "Dark mode changes document theme and Switch semantic colors",
+      "pass": true,
+      "detail": {
+        "light": {
+          "hasHeader": false,
+          "mode": "light",
+          "labelColor": "rgb(36, 36, 36)",
+          "trackColor": "rgb(255, 255, 255)"
+        },
+        "dark": {
+          "mode": "dark",
+          "labelColor": "rgb(255, 255, 255)",
+          "trackColor": "rgb(41, 41, 41)"
+        },
+        "themeSource": "host-level data-bui-theme emulation"
+      }
+    },
+    {
+      "name": "Light mode restores the original Switch semantic colors",
+      "pass": true,
+      "detail": {
+        "initial": {
+          "hasHeader": false,
+          "mode": "light",
+          "labelColor": "rgb(36, 36, 36)",
+          "trackColor": "rgb(255, 255, 255)"
+        },
+        "restored": {
+          "mode": "light",
+          "labelColor": "rgb(36, 36, 36)",
+          "trackColor": "rgb(255, 255, 255)"
+        }
       }
     },
     {
@@ -53,6 +98,15 @@
           "h": 24
         },
         "ariaChecked": null
+      }
+    },
+    {
+      "name": "Class, Style and aria-describedby reach their documented targets",
+      "pass": true,
+      "detail": {
+        "customClass": true,
+        "customStyle": "1",
+        "describedBy": "switch-notifications-state"
       }
     },
     {
@@ -274,5 +328,5 @@
     }
   ],
   "runtimeSignals": [],
-  "profilePrefix": "bluent-v3-435-switch-b5f3d259a4304d99bc4d466ee480c969-"
+  "profilePrefix": "bluent-v3-435-switch-da41023b46f441b1b42377976bea9a0c-"
 }
