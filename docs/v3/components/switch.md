@@ -98,6 +98,12 @@ RTL uses logical inline direction/spacing and the thumb moves on the logical inl
 
 This implementation follows the same narrow task-local pattern used by TextField #432 / PR #562 and NumericField #433 / PR #563. It may consume the existing shipped CSS roles above, but it must not consume preview-only #418 aliases, add global tokens/theme roles, or introduce the unfinished public Focus/Portal/Dialog APIs. #418 remains independently owned and In progress; this issue does not move or complete it.
 
+## Compiled CLR API inventory migration (#494)
+
+The canonical compiled API snapshot `docs/v3/inventory/public-component-contracts.json` records this issue's reviewed v3 API migration. The candidate was first written to a temporary path and compared structurally with the previous snapshot. The exact allowed delta is the Switch entry only: base type `BluentInputComponentBase<bool>` and direct `Label`, `LabelPosition: SwitchLabelPosition`, and `Required` parameters. All 140 exported CLR type records remain; all 8 shared Bluent-owned base declarations, other component records, constructors/methods/events and Scope remain byte-semantically unchanged. The total declared component property count changes from 779 to 783.
+
+This is intentional for the still-unreleased v3 branch and is migration-recorded in [M23](../design/MIGRATION-IMPACT-LEDGER.md). It does not change the stable 2.x API or authorize future unreviewed snapshot regeneration. The compiled-contract regression suite pins the new Switch shape and fails if Checkbox inheritance is restored.
+
 ## Demo and browser evidence
 
 - WebAssembly showcase: `src/Bluent.UI.Demo.Pages/Pages/Components/Switches.razor` → `/components/switches`.

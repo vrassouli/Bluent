@@ -1,4 +1,4 @@
-# Bluent v3 inventory — #494
+﻿# Bluent v3 inventory — #494
 
 Own the 66 retrieval families and 140 source candidates on the separate v3 worktree; not 140 confirmed public markup APIs. Penpot Bluent v3 Design System page 39 ID 44b12572-0104-807e-8008-ca032a4746f0, board 44b12572-0104-807e-8008-ca035bbc8ca7.
 
@@ -19,3 +19,6 @@ Current gate: 106 concrete consumer candidates, 42 singleton family, 22 family p
 2026-10-14 shared-base continuation: compiled signature snapshot now includes Bluent.Core DLL and transitive Bluent-owned base declarations (8 public bases/23 public properties: Tooltip on BluentUiComponentBase, Class/Id/Style/AdditionalAttributes on BluentComponentBase, generic field/input bases). Concrete API totals remain 140 exported tracked types with 779 declared public properties, 194 methods, plus 139 public constructors and 13 CLR events. Eight positive/negative tests include inherited Tooltip/Class mutations, Chart constructor deletion and DrawingCanvas.KeyDown event mutation. Scope: does NOT flatten inherited generic type substitutions or inspect framework external ancestors. Never claim ABI/runtime/OS AT certification solely from this contract; run API migration review on mismatches.
 
 2026-10-14 routed-exception audit: all 34 exported public CLR review cases now have nonblank exceptionReason, reviewOwnerIssue (family issue, or #420 for BluentDynamicComponent), checked docs and existing inventory Skill. TooltipContainer/TooltipSurface route to Tooltip #456, not Charts #486. All 106 public candidates have explicit docs/demo/Skill/Penpot future routing; pending fields mean not built. 20 source inventory tests guard these routes. Protect all exported CLR types; negative canonical consumer usage is not approval to delete.
+
+
+2026-11-18 reviewed contract migration: Issue #435 intentionally changes only `Bluent.UI::Bluent.UI.Components.Switch` in `docs/v3/inventory/public-component-contracts.json`: base `Checkbox<bool>` → `BluentInputComponentBase<bool>`; declared parameters `Label`, `SwitchLabelPosition` (`LabelPosition`) and decorative `Required`. Before `--write-contracts`, generate a candidate via `--contracts-path` and JSON-compare all `Components` and `SharedBaseContracts`; every component except the issue-owned type, the entire shared-base map and Scope must match. M23 documents the v3-only breaking migration; stable 2.x remains unchanged. The regression suite pins this reviewed shape and rejects reversion to Checkbox inheritance. Do not reuse this exception as blanket permission for other public API drift.

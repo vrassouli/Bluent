@@ -456,22 +456,21 @@
         "Value",
         "ValueChanged",
         "Label",
-        "UncheckedLabel",
-        "LabelPosition",
+        "SwitchLabelPosition",
         "disabled"
       ],
       "classification": "representative_only",
       "renderModesVerified": [
-        "Chrome/WebAssembly Dev01: Switch native Blazor browser 123/123; native Space twice, dynamic labels/binding, disabled pointer and queue; cleanup remaining=0",
-        "Edge/WebAssembly Dev01: Switch native Blazor browser 123/123; native Space twice, dynamic labels/binding, disabled pointer and queue; cleanup remaining=0",
-        "Chrome/Server Dev01: Switch native Blazor browser 123/123; published InteractiveServer keyboard state/binding, disabled pointer; cleanup remaining=0",
-        "Edge/Server Dev01: Switch native Blazor browser 123/123; published InteractiveServer keyboard state/binding, disabled pointer; cleanup remaining=0"
+        "Chrome/WebAssembly Dev01: Switch native Blazor browser 21/21; stable setting name, native switch role/state, Space, pointer, focus-visible, RTL and validation; cleanup remaining=0; full #435 evidence BLUENT-SWITCH-CHROME-WASM.",
+        "Edge/WebAssembly Dev01: Switch native Blazor browser 21/21; stable setting name, native switch role/state, Space, pointer, focus-visible, RTL and validation; cleanup remaining=0; full #435 evidence BLUENT-SWITCH-EDGE-WASM.",
+        "Chrome/Server Dev01: Switch native Blazor browser 21/21; InteractiveServer binding, stable setting name, native switch role/state, Space and disabled; cleanup remaining=0; full #435 evidence BLUENT-SWITCH-CHROME-INTERACTIVESERVER.",
+        "Edge/Server Dev01: Switch native Blazor browser 21/21; InteractiveServer binding, stable setting name, native switch role/state, Space and disabled; cleanup remaining=0; full #435 evidence BLUENT-SWITCH-EDGE-INTERACTIVESERVER."
       ],
-      "remaining": "Current API on/off, before-label and disabled native state only. Switch-role ARIA, forced colors, focus, accessible name, complete pointer/keyboard/AT, RTL and Fluent2 Penpot review in Backlog #435.",
-      "fourModeLocalBrowserEvidence": "2026-10-18 four independent Dev01 Chrome/Edge x WebAssembly/published InteractiveServer 123/123 each (492/492); errors=[], browser cleanup remaining=0",
-      "designAndAcceptance": "Existing canonical source-owned #421 Penpot page42 layout reused; no new Penpot parity / maintainer signoff; product #435 Backlog. Input uses native checkbox currently, not proven ARIA role=switch.",
+      "remaining": "This Component Lab remains one representative Switch pilot, not full family acceptance. Complete design/maintainer parity review, native Windows contrast and named assistive-technology speech acceptance remain separate gates. Product #435 is under PR #565 review; do not mark this pilot or the family fully accepted from these specimens.",
+      "fourModeLocalBrowserEvidence": "Historical 2026-10-18 123/123 per cell is retained as an explicitly superseded pilot record. Current #435 evidence is 21/21 per cell (84/84 total) under docs/v3/quality/evidence/BLUENT-SWITCH-*.",
+      "designAndAcceptance": "Current Switch design proposal and Medium-first API decision are in source-owned Penpot file Bluent v3 Design System page 58 (40-case matrix, anatomy/accessibility contract and Medium-first board). PR #565 records implementation and current evidence; final reviewer/maintainer parity approval remains open.",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-switch-live-rtl-chrome-wasm.png",
-      "knownAccessibilityReview": "Current Switch inherits Checkbox<bool>, rendering a native checkbox input; final Fluent 2 ARIA switch semantics, native OS ScreenReader and parity are not yet accepted. #435 Backlog."
+      "knownAccessibilityReview": "Current task-branch Switch uses native input[type=checkbox][role=switch], native checked state and a stable setting name. Browser AX/keyboard/forced-colors emulation evidence is retained under BLUENT-SWITCH-*. Native Windows Contrast Themes and spoken Narrator/NVDA/VoiceOver acceptance are not claimed and remain open."
     },
     {
       "id": "numeric",
