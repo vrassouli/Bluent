@@ -1,0 +1,699 @@
+{
+  "issue": 436,
+  "browser": "Chrome",
+  "renderMode": "WebAssembly",
+  "base": "http://127.0.0.1:50635",
+  "route": "/components/radios",
+  "generatedAt": "2026-11-18T19:32:16.511Z",
+  "passed": 26,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "RadioGroup showcase loads in Chrome/WebAssembly",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:50635/components/radios"
+      }
+    },
+    {
+      "name": "each visible group uses native fieldset and programmatically associated legend",
+      "pass": true,
+      "detail": [
+        {
+          "id": "radio-delivery-window",
+          "tag": "FIELDSET",
+          "legend": "Delivery window",
+          "ariaLabel": null
+        },
+        {
+          "id": "radio-contact-window",
+          "tag": "FIELDSET",
+          "legend": "Preferred contact time",
+          "ariaLabel": null
+        },
+        {
+          "id": "radio-priority",
+          "tag": "FIELDSET",
+          "legend": "Priority",
+          "ariaLabel": null
+        },
+        {
+          "id": "radio-delivery-speed",
+          "tag": "FIELDSET",
+          "legend": "Delivery speed",
+          "ariaLabel": null
+        },
+        {
+          "id": "radio-quiet-hours",
+          "tag": "FIELDSET",
+          "legend": null,
+          "ariaLabel": "Quiet hours preference"
+        },
+        {
+          "id": "radio-alert-frequency",
+          "tag": "FIELDSET",
+          "legend": "Alert frequency",
+          "ariaLabel": null
+        },
+        {
+          "id": "radio-delivery-language",
+          "tag": "FIELDSET",
+          "legend": "زبان اعلان",
+          "ariaLabel": null
+        },
+        {
+          "id": "radio-form-delivery",
+          "tag": "FIELDSET",
+          "legend": "Choose a delivery window",
+          "ariaLabel": null
+        }
+      ]
+    },
+    {
+      "name": "radios share a name within each group but have distinct names between groups",
+      "pass": true,
+      "detail": {
+        "firstName": "radio-delivery-window",
+        "secondName": "radio-contact-window",
+        "first": [
+          {
+            "name": "radio-delivery-window",
+            "value": "Morning",
+            "checked": true,
+            "disabled": false,
+            "id": "f3079964b",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-delivery-window",
+            "value": "Afternoon",
+            "checked": false,
+            "disabled": false,
+            "id": "f435a1e20",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-delivery-window",
+            "value": "Evening",
+            "checked": false,
+            "disabled": false,
+            "id": "f1f9ebf8b",
+            "tabIndex": 0
+          }
+        ],
+        "second": [
+          {
+            "name": "radio-contact-window",
+            "value": "Morning",
+            "checked": false,
+            "disabled": false,
+            "id": "f17c64ffa",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-contact-window",
+            "value": "Afternoon",
+            "checked": false,
+            "disabled": false,
+            "id": "f1e8ab389",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-contact-window",
+            "value": "Evening",
+            "checked": true,
+            "disabled": false,
+            "id": "f11b8e628",
+            "tabIndex": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "native radio values and initial checked states reflect Blazor model",
+      "pass": true,
+      "detail": {
+        "first": [
+          {
+            "name": "radio-delivery-window",
+            "value": "Morning",
+            "checked": true,
+            "disabled": false,
+            "id": "f3079964b",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-delivery-window",
+            "value": "Afternoon",
+            "checked": false,
+            "disabled": false,
+            "id": "f435a1e20",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-delivery-window",
+            "value": "Evening",
+            "checked": false,
+            "disabled": false,
+            "id": "f1f9ebf8b",
+            "tabIndex": 0
+          }
+        ],
+        "second": [
+          {
+            "name": "radio-contact-window",
+            "value": "Morning",
+            "checked": false,
+            "disabled": false,
+            "id": "f17c64ffa",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-contact-window",
+            "value": "Afternoon",
+            "checked": false,
+            "disabled": false,
+            "id": "f1e8ab389",
+            "tabIndex": 0
+          },
+          {
+            "name": "radio-contact-window",
+            "value": "Evening",
+            "checked": true,
+            "disabled": false,
+            "id": "f11b8e628",
+            "tabIndex": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "unlabelled visual variant has an explicit accessible group name",
+      "pass": true,
+      "detail": {
+        "tag": "FIELDSET",
+        "aria": "Quiet hours preference",
+        "legend": null
+      }
+    },
+    {
+      "name": "RTL group inherits right-to-left direction",
+      "pass": true,
+      "detail": {
+        "direction": "rtl",
+        "legend": "زبان اعلان"
+      }
+    },
+    {
+      "name": "disabled option is a native disabled radio between enabled options",
+      "pass": true,
+      "detail": [
+        {
+          "name": "radio-delivery-speed",
+          "value": "Standard",
+          "checked": true,
+          "disabled": false,
+          "id": "f7b35451e",
+          "tabIndex": 0
+        },
+        {
+          "name": "radio-delivery-speed",
+          "value": "Express",
+          "checked": false,
+          "disabled": true,
+          "id": "f5e998376",
+          "tabIndex": 0
+        },
+        {
+          "name": "radio-delivery-speed",
+          "value": "Overnight",
+          "checked": false,
+          "disabled": false,
+          "id": "f682556b6",
+          "tabIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "browser accessibility tree exposes a named native group and named radio option",
+      "pass": true,
+      "detail": {
+        "groupAx": {
+          "role": "group",
+          "name": "Delivery window"
+        },
+        "radioAx": {
+          "role": "radio",
+          "name": "Morning",
+          "checked": "true"
+        }
+      }
+    },
+    {
+      "name": "Tab enters the first radio group at its selected option",
+      "pass": true,
+      "detail": {
+        "value": "Morning",
+        "group": "radio-delivery-window",
+        "checked": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "name": "keyboard focus has a visible ring and a 24px native hit target",
+      "pass": true,
+      "detail": {
+        "focusFirst": {
+          "value": "Morning",
+          "group": "radio-delivery-window",
+          "checked": true,
+          "focusVisible": true
+        },
+        "focusRing": {
+          "width": 24,
+          "height": 24,
+          "outlineStyle": "solid",
+          "outlineWidth": "2px"
+        }
+      }
+    },
+    {
+      "name": "ArrowRight updates native selection and Blazor binding inside the current group",
+      "pass": true,
+      "detail": {
+        "delivery": [
+          "Afternoon"
+        ],
+        "contact": [
+          "Evening"
+        ]
+      }
+    },
+    {
+      "name": "ArrowRight wraps within the current group",
+      "pass": true,
+      "detail": [
+        "Morning"
+      ]
+    },
+    {
+      "name": "one Tab leaves the first group and enters the second at its selected option",
+      "pass": true,
+      "detail": {
+        "value": "Evening",
+        "group": "radio-contact-window",
+        "checked": true
+      }
+    },
+    {
+      "name": "Arrow navigation in the second group cannot change the first group",
+      "pass": true,
+      "detail": {
+        "delivery": [
+          "Morning"
+        ],
+        "contact": [
+          "Morning"
+        ]
+      }
+    },
+    {
+      "name": "Tab enters an unselected group at its first enabled option without selecting it",
+      "pass": true,
+      "detail": {
+        "group": "radio-alert-frequency",
+        "value": "Immediately",
+        "checked": false
+      }
+    },
+    {
+      "name": "Space selects the focused option when the group had no selection",
+      "pass": true,
+      "detail": {
+        "checked": [
+          "Immediately"
+        ],
+        "status": "Frequency: Immediately"
+      }
+    },
+    {
+      "name": "ArrowRight skips a disabled option inside the current group",
+      "pass": true,
+      "detail": {
+        "checked": [
+          "Overnight"
+        ],
+        "active": "Overnight"
+      }
+    },
+    {
+      "name": "disabled option ignores pointer activation",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "Available"
+        ],
+        "disabled": true
+      }
+    },
+    {
+      "name": "EditContext validation marks native radio options invalid",
+      "pass": true,
+      "detail": {
+        "message": true,
+        "invalid": [
+          "true",
+          "true"
+        ],
+        "selected": []
+      }
+    },
+    {
+      "name": "valid form submission preserves the selected value in native FormData",
+      "pass": true,
+      "detail": {
+        "status": "Saved: Morning",
+        "name": "radio-form-delivery",
+        "value": "Morning",
+        "formValue": "Morning",
+        "invalid": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "name": "hit-tested pointer activation updates the Blazor bound value",
+      "pass": true,
+      "detail": {
+        "checked": [
+          "Afternoon"
+        ],
+        "status": "Delivery: Afternoon"
+      }
+    },
+    {
+      "name": "RTL options retain native label association and responsive hit target",
+      "pass": true,
+      "detail": {
+        "direction": "rtl",
+        "inputWidth": 24,
+        "inputHeight": 24,
+        "labelWidth": 50.640625,
+        "indicatorWidth": 16
+      }
+    },
+    {
+      "name": "forced-colors browser emulation activates system-color radio indicators",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "adjust": "none",
+        "border": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "dark theme mode remains computed for the RadioGroup",
+      "pass": true,
+      "detail": {
+        "light": {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "rgb(97, 97, 97)",
+          "legendColor": "rgb(36, 36, 36)"
+        },
+        "dark": {
+          "theme": "dark",
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "rgb(173, 173, 173)",
+          "legendColor": "rgb(255, 255, 255)"
+        }
+      }
+    },
+    {
+      "name": "320px viewport reflows groups and retains 24px targets without overflow",
+      "pass": true,
+      "detail": {
+        "width": 320,
+        "document": 320,
+        "body": 320,
+        "groups": [
+          {
+            "id": "radio-delivery-window",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-contact-window",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-priority",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-delivery-speed",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-alert-frequency",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-quiet-hours",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-delivery-language",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          },
+          {
+            "id": "radio-form-delivery",
+            "x": 18,
+            "right": 287,
+            "width": 269
+          }
+        ],
+        "targets": [
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          },
+          {
+            "w": 24,
+            "h": 24
+          }
+        ],
+        "offenders": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "bui-switch label-after unchecked  ",
+            "text": "Right-to-left layout",
+            "left": 279,
+            "right": 380,
+            "width": 101,
+            "scrollWidth": 101,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "LABEL",
+            "id": "",
+            "cls": "",
+            "text": "Right-to-left layout",
+            "left": 335,
+            "right": 380,
+            "width": 45,
+            "scrollWidth": 45,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "INPUT",
+            "id": "f26f56397",
+            "cls": "",
+            "text": "",
+            "left": 279,
+            "right": 335,
+            "width": 56,
+            "scrollWidth": 56,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "SPAN",
+            "id": "",
+            "cls": "indicator",
+            "text": "",
+            "left": 287,
+            "right": 327,
+            "width": 40,
+            "scrollWidth": 38,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "page",
+            "text": "Bluent\nDark theme\nRight-to-left layout\nHome\nGetting started\nComponent ",
+            "left": 0,
+            "right": 320,
+            "width": 320,
+            "scrollWidth": 380,
+            "overflowX": "auto",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "header",
+            "text": "Bluent\nDark theme\nRight-to-left layout",
+            "left": 0,
+            "right": 320,
+            "width": 320,
+            "scrollWidth": 380,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "sidebar d-flex flex-column expanded",
+            "text": "Home\nGetting started\nComponent Lab (v3)\nCharts\nDiagrams\nENTERPRISE SCE",
+            "left": 0,
+            "right": 262,
+            "width": 262,
+            "scrollWidth": 264,
+            "overflowX": "auto",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "radio-qa-tab-anchor",
+            "cls": "",
+            "text": "QA focus anchor",
+            "left": -10000,
+            "right": -9885,
+            "width": 115,
+            "scrollWidth": 111,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          },
+          {
+            "tag": "BUTTON",
+            "id": "radio-qa-empty-anchor",
+            "cls": "",
+            "text": "",
+            "left": -10000,
+            "right": -9984,
+            "width": 16,
+            "scrollWidth": 12,
+            "overflowX": "visible",
+            "whiteSpace": "normal"
+          }
+        ]
+      }
+    },
+    {
+      "name": "no browser exceptions, console errors or application HTTP failures",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "runtimeSignals": [],
+  "profilePrefix": "bluent-v3-436-radiogroup-be2f9e015b3740debaf8eb1ab5019003-"
+}

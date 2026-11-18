@@ -529,7 +529,35 @@
       "remaining": "Current group single choice, vertical label before and disabled option only. True native radiogroup name, arrow keys, tab navigation, OS screen reader, keyboard focus, RTL, dark, forced-colors and Fluent2 Penpot parity pending #436. This Lab is not product acceptance.",
       "fourModeLocalBrowserEvidence": "2026-10-18 independent Chrome/Edge x WASM/production published InteractiveServer 148/148 each (592/592), errors=[], QA Chrome/Edge process cleanup 0",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-radio-live-rtl-chrome-wasm.png",
-      "knownAccessibilityReview": "Current RadioGroup source renders div with label and items-list, and Radio native input type radio without explicit group name; radio keyboard arrow traversal and named OS AT radiogroup not yet certified; #436 Backlog."
+      "knownAccessibilityReview": "Current RadioGroup source renders div with label and items-list, and Radio native input type radio without explicit group name; radio keyboard arrow traversal and named OS AT radiogroup not yet certified; #436 Backlog.",
+      "v3Implementation": {
+        "issue": 436,
+        "status": "in_progress",
+        "taskBranch": "v3/issue-436-radiogroup",
+        "canonicalReference": "docs/v3/components/radio-group.md",
+        "designDecision": "Native fieldset/legend, shared native name per group, native option value; typed InputBase API unchanged.",
+        "designSource": {
+          "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+          "pageId": "0125a79e-69b2-807f-8008-f726bd56fcc7",
+          "boardIds": [
+            "0125a79e-69b2-807f-8008-f726bd61b423",
+            "0125a79e-69b2-807f-8008-f726c1464f5d",
+            "0125a79e-69b2-807f-8008-f726c665a5cf"
+          ],
+          "reviewStatus": "draft_pending_maintainer_visual_review"
+        },
+        "focusedRendererTests": "9/9",
+        "localBrowserMatrix": {
+          "chromeWebAssembly": "26/26",
+          "edgeWebAssembly": "26/26",
+          "chromeInteractiveServer": "26/26",
+          "edgeInteractiveServer": "26/26",
+          "total": "104/104",
+          "runtimeSignals": 0
+        },
+        "evidenceDirectory": "docs/v3/quality/evidence/ (Chrome/Edge × WebAssembly/Server JSON and 320px/1280px PNGs)",
+        "acceptanceBoundary": "This v3 task evidence is distinct from the existing v2 Component Lab representative_only scenario above; it does not change the overall #421 pilot_incomplete status, imply native OS/AT acceptance, or approve #418 token aliases."
+      }
     },
     {
       "id": "selectfield",

@@ -2,16 +2,14 @@
 @inherits BluentInputComponentBase<TValue?>
 @typeparam TValue
 
-<div class="@GetComponentClass()" style="@Style">
-    @if (!string.IsNullOrEmpty(Label))
+<fieldset @attributes="GetGroupAdditionalAttributes()" id="@Id" class="@GetComponentClass()" style="@Style">
+    @if (!string.IsNullOrWhiteSpace(Label))
     {
-        <label>
-            @Label
-        </label>
+        <legend class="group-label">@Label</legend>
     }
     <div class="items-list">
         <CascadingValue Value="this" IsFixed>
             @ChildContent
         </CascadingValue>
     </div>
-</div>
+</fieldset>

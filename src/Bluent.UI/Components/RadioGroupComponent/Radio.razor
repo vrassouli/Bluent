@@ -3,8 +3,14 @@
 @typeparam TValue
 
 <div class="@GetComponentClass()" style="@Style">
-    <input @attributes=GetInputAdditionalAttributes() type="radio" checked="@IsChecked" id="@Id" @onchange="HandleOnChange" />
-    <label for="@Id" class="indicator"></label>
+    <input @attributes="GetInputAdditionalAttributes()"
+           type="radio"
+           name="@RadioGroup.RadioGroupName"
+           value="@GetInputValue()"
+           checked="@IsChecked"
+           id="@Id"
+           @onchange="HandleOnChange" />
+    <span class="indicator" aria-hidden="true"></span>
     @if (!string.IsNullOrEmpty(Label))
     {
         <label for="@Id">@Label</label>
