@@ -137,7 +137,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 
 pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 -Mode Server -Browser Edge
 ```
 
-The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. Switch source/API guard and negative-mutation tests passed 16/16. The four real-browser reports each show 25/25; all 100 assertions passed with zero runtime signals. Docs, Skills, and Markdown-link contracts passed (179 Markdown files). GitHub Actions must pass all 8 workflows at the exact PR head; a green run on an earlier SHA does not validate a later follow-up commit.
+The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. Switch source/API guard and negative-mutation tests passed 16/16. The four real-browser reports each show 25/25; all 100 assertions passed with zero runtime signals. Docs, Skills, and Markdown-link contracts passed (179 Markdown files). Exact-head GitHub Actions at `1b2f12fc` passed **8/8 workflows / 36/36 jobs**. The real compatibility matrix passed **20/20**, including all four Switch cells; the Native Zoom / Chrome-WASM and NumericField / Edge-Server flaky jobs passed on isolated retries.
 
 ## Acceptance and change log
 
@@ -149,7 +149,7 @@ The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build
 - [x] Focused render tests 11/11; Chrome/Edge × WASM/InteractiveServer 100/100 local browser assertions, including Light/Dark theme and forwarded attributes.
 - [x] Source/API fail-closed contract and negative mutation tests 16/16.
 - [x] Whole-solution Release build (0 warnings/errors), .NET tests 124/124, and docs/Skills/Markdown-link contracts.
-- [ ] Exact-head GitHub Actions revalidation for the stricter RTL follow-up commit: require all 8 workflows / 36 jobs to pass on this exact SHA.
+- [x] Exact-head GitHub Actions at `1b2f12fc`: 8/8 workflows, 36/36 jobs, and 20/20 compatibility browser jobs passed; all four dedicated Switch jobs passed.
 - [ ] Independent maintainer visual-parity/design acceptance and PR merge into `bluent-v3` remain pending.
 - [ ] Native OS contrast and named assistive-technology acceptance remain outstanding; no spoken output is claimed.
 
