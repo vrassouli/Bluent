@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import shutil
 import tempfile
@@ -43,6 +43,14 @@ FILES = (
     "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-INTERACTIVESERVER-1280px.png",
     "docs/v3/quality/evidence/BLUENT-SWITCH-EDGE-INTERACTIVESERVER-320px.png",
     "docs/v3/quality/evidence/BLUENT-SWITCH-EDGE-INTERACTIVESERVER-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-WASM-DARK-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-WASM-LIGHT-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-EDGE-WASM-DARK-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-EDGE-WASM-LIGHT-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-INTERACTIVESERVER-DARK-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-INTERACTIVESERVER-LIGHT-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-EDGE-INTERACTIVESERVER-DARK-THEME-1280px.png",
+    "docs/v3/quality/evidence/BLUENT-SWITCH-EDGE-INTERACTIVESERVER-LIGHT-THEME-1280px.png",
 )
 
 
@@ -133,6 +141,21 @@ class SwitchContractTests(unittest.TestCase):
         changed = report.replace('"failed": 0', '"failed": 1', 1)
         self.assertNotEqual(report, changed)
         self.paths[relative].write_text(changed, encoding="utf-8")
+        with self.assertRaises(SwitchContractError):
+            check_switch_contract(self.root)
+
+    def test_browser_evidence_must_contain_all_25_successful_assertions(self):
+        relative = "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-WASM.json"
+        path = self.paths[relative]
+        body = path.read_text(encoding="utf-8-sig")
+        self.assertIn('"passed": 25', body)
+        path.write_text(body.replace('"passed": 25', '"passed": 24', 1), encoding="utf-8")
+        with self.assertRaises(SwitchContractError):
+            check_switch_contract(self.root)
+
+    def test_browser_evidence_must_include_light_and_dark_theme_captures(self):
+        relative = "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-WASM-DARK-THEME-1280px.png"
+        self.paths[relative].unlink()
         with self.assertRaises(SwitchContractError):
             check_switch_contract(self.root)
 

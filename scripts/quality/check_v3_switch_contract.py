@@ -124,24 +124,34 @@ def check_switch_contract(root: Path = ROOT) -> None:
         need(token in switch_job, f"four-cell Switch browser CI/artifact contract is missing: {token}")
 
     for token in ('not a released v3 API', 'SwitchLabelPosition', 'role="switch"',
-                  'stable', '24 × 24', '#418', '84/84', 'M23', '2.x'):
+                  'stable', '24 × 24', '#418', '100/100', 'M23', '2.x'):
         need(token.lower() in reference.lower() + design.lower() + migration.lower(),
              f"Switch documentation/migration boundary is missing: {token}")
-    for relative in ('BLUENT-SWITCH-CHROME-WASM.json', 'BLUENT-SWITCH-EDGE-WASM.json',
-                     'BLUENT-SWITCH-CHROME-INTERACTIVESERVER.json',
-                     'BLUENT-SWITCH-EDGE-INTERACTIVESERVER.json'):
+    cases = (
+        ('BLUENT-SWITCH-CHROME-WASM.json', 'Chrome', 'WebAssembly'),
+        ('BLUENT-SWITCH-EDGE-WASM.json', 'Edge', 'WebAssembly'),
+        ('BLUENT-SWITCH-CHROME-INTERACTIVESERVER.json', 'Chrome', 'InteractiveServer'),
+        ('BLUENT-SWITCH-EDGE-INTERACTIVESERVER.json', 'Edge', 'InteractiveServer'),
+    )
+    for relative, browser_name, render_mode in cases:
         path = root / 'docs/v3/quality/evidence' / relative
         need(path.is_file(), f"Switch browser report is missing: {relative}")
         report = json.loads(path.read_text(encoding='utf-8-sig'))
-        need(report.get('passed') == 21 and report.get('failed') == 0,
-             f"Switch browser evidence does not pass 20/20: {relative}")
+        checks = report.get('checks')
+        need(report.get('browser') == browser_name and report.get('renderMode') == render_mode,
+             f"Switch browser report does not match its matrix cell: {relative}")
+        need(report.get('passed') == 25 and report.get('failed') == 0
+             and isinstance(checks, list) and len(checks) == 25
+             and all(item.get('pass') is True for item in checks),
+             f"Switch browser evidence does not pass 25/25: {relative}")
         need(not report.get('runtimeSignals'), f"Switch browser runtime signals are present: {relative}")
     for browser in ('CHROME', 'EDGE'):
         for mode in ('WASM', 'INTERACTIVESERVER'):
             prefix = f'BLUENT-SWITCH-{browser}-{mode}'
-            for viewport in ('320px', '1280px'):
-                need((root / 'docs/v3/quality/evidence' / f'{prefix}-{viewport}.png').is_file(),
-                     f"Switch screenshot evidence is missing: {prefix}-{viewport}.png")
+            for capture in ('320px', '1280px', 'DARK-THEME-1280px', 'LIGHT-THEME-1280px'):
+                filename = f'{prefix}-{capture}.png'
+                need((root / 'docs/v3/quality/evidence' / filename).is_file(),
+                     f"Switch responsive/theme screenshot evidence is missing: {filename}")
 
     for relative in ('docs/v3/components/switch.md', 'docs/v3/design/SWITCH-DESIGN-AND-API-CONTRACT.md',
                      '.agents/skills/bluent-v3-switch/SKILL.md', 'docs/v3/design/MIGRATION-IMPACT-LEDGER.md'):

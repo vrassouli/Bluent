@@ -1,4 +1,4 @@
-﻿# Switch — Bluent v3 implementation record
+# Switch — Bluent v3 implementation record
 
 > **Not a released v3 API. In Review via [PR #565](https://github.com/vrassouli/Bluent/pull/565) from `v3/issue-435-switch`; unreleased and not merged.** This record describes the v3 task-branch API only. The released 2.x API and its `UncheckedLabel`/Checkbox inheritance remain documented in [the 2.x Switch reference](../../components/switch.md). This task does not approve or complete the global #418 token foundation.
 
@@ -137,7 +137,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 
 pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 -Mode Server -Browser Edge
 ```
 
-The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. Switch source/API guard and negative-mutation tests passed 13/13. The four real-browser reports each show 25/25; all 100 assertions passed with zero runtime signals. Docs, Skills, and Markdown-link contracts passed (179 Markdown files). The exact PR-head GitHub Actions run passed all 8 workflows and every job.
+The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. Switch source/API guard and negative-mutation tests passed 15/15. The four real-browser reports each show 25/25; all 100 assertions passed with zero runtime signals. Docs, Skills, and Markdown-link contracts passed (179 Markdown files). The exact PR-head GitHub Actions run passed all 8 workflows and every job.
 
 ## Acceptance and change log
 
@@ -147,7 +147,7 @@ The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build
 - [x] Existing v3 consumers and header setting labels migrated to stable names.
 - [x] WebAssembly showcase and InteractiveServer wrapper compile.
 - [x] Focused render tests 11/11; Chrome/Edge × WASM/InteractiveServer 100/100 local browser assertions, including Light/Dark theme and forwarded attributes.
-- [x] Source/API fail-closed contract and negative mutation tests 13/13.
+- [x] Source/API fail-closed contract and negative mutation tests 15/15.
 - [x] Whole-solution Release build (0 warnings/errors), .NET tests 124/124, and docs/Skills/Markdown-link contracts.
 - [x] Exact-head GitHub Actions on the final PR head: all 8 workflows and every job passed.
 - [ ] Independent maintainer visual-parity/design acceptance and PR merge into `bluent-v3` remain pending.
