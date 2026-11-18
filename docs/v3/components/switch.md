@@ -111,7 +111,7 @@ This is intentional for the still-unreleased v3 branch and is migration-recorded
 - Focused render semantics: `tests/RegexSampleGeneratorTest/SwitchRenderSemanticsTests.cs`.
 - Browser probe/runner: `scripts/quality/probe_v3_switch.mjs`, `scripts/quality/run_v3_switch.ps1`.
 
-The local Dev01 Chrome/Edge × WebAssembly/InteractiveServer matrix passed **25/25 assertions per cell (100/100 total)**. Checks include native markup and AX role/name/checked, pointer and Space binding, Focus-visible geometry, stable naming, no-visible-label ARIA naming, all three label placements, disabled Off/On, EditForm validation, RTL thumb travel and animatable thumb transition, real Light/Dark semantic-color switching (the actual Header control in WASM and the host theme attribute in the minimal Server probe), `Class`/`Style`/`aria-describedby` forwarding, browser-emulated forced-colors and reduced-motion, 320 CSS-pixel no-overflow/hit area, and zero browser exceptions/console errors/application HTTP failures.
+The final local Dev01 Chrome/Edge × WebAssembly/InteractiveServer matrix passed **27/27 assertions per cell (108/108 total)**. In addition to native markup and AX role/name/checked, pointer and Space binding, Focus-visible geometry, stable naming, no-visible-label ARIA naming, all label positions, disabled Off/On, EditForm validation, RTL thumb travel, real Light/Dark semantic-color switching, `Class`/`Style`/`aria-describedby` forwarding, browser-emulated forced-colors/reduced-motion, and 320 CSS-pixel reflow, the matrix now checks the Above layout's exact 40×20 track, 24×24-or-larger hit target centered on the track and below the label, plus a real pointer activation. This caught and fixed two defects: the input overlay was vertically misanchored, and the inherited 40px flex basis made the track 40px high in column layout. All four final runs reported zero browser exceptions, console errors or application HTTP failures.
 
 JSON reports and 320/1280 viewport PNGs are retained under `docs/v3/quality/evidence/BLUENT-SWITCH-*`. The 320 CSS-pixel screenshots are captured at deviceScaleFactor 2 and are therefore 640 physical pixels wide; the matching JSON report records the 320 CSS-pixel viewport and no-overflow assertion.
 
@@ -137,7 +137,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 
 pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_switch.ps1 -Mode Server -Browser Edge
 ```
 
-The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. Switch source/API guard and negative-mutation tests passed 16/16. The four real-browser reports each show 25/25; all 100 assertions passed with zero runtime signals. Docs, Skills, and Markdown-link contracts passed (179 Markdown files). Exact-head GitHub Actions at `1b2f12fc` passed **8/8 workflows / 36/36 jobs**. The real compatibility matrix passed **20/20**, including all four Switch cells; the Native Zoom / Chrome-WASM and NumericField / Edge-Server flaky jobs passed on isolated retries.
+The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build passed with 0 warnings/errors and the full .NET suite passed 124/124. The Switch source/API guard and negative-mutation tests now pass **18/18**, including regressions for Above hit-target alignment and track height. The four canonical browser reports each show **27/27 (108/108 total)** and all browser runtime-signal arrays are empty. Docs, Skills and Markdown-link contracts are checked separately. Exact-head hosted CI is rerun after the final task-branch commit; the prior `1b2f12fc` checkpoint's 8/8 workflows and 36/36 jobs remain historical evidence only.
 
 ## Acceptance and change log
 
@@ -147,7 +147,7 @@ The focused HtmlRenderer suite passed 11/11. The full `Bluent.sln` Release build
 - [x] Existing v3 consumers and header setting labels migrated to stable names.
 - [x] WebAssembly showcase and InteractiveServer wrapper compile.
 - [x] Focused render tests 11/11; Chrome/Edge × WASM/InteractiveServer 100/100 local browser assertions, including Light/Dark theme and forwarded attributes.
-- [x] Source/API fail-closed contract and negative mutation tests 16/16.
+- [x] Source/API fail-closed contract and negative mutation tests 18/18, including negative mutations for both Above-layout geometry rules.
 - [x] Whole-solution Release build (0 warnings/errors), .NET tests 124/124, and docs/Skills/Markdown-link contracts.
 - [x] Exact-head GitHub Actions at `1b2f12fc`: 8/8 workflows, 36/36 jobs, and 20/20 compatibility browser jobs passed; all four dedicated Switch jobs passed.
 - [ ] Independent maintainer visual-parity/design acceptance and PR merge into `bluent-v3` remain pending.

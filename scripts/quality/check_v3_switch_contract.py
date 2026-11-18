@@ -72,7 +72,7 @@ def check_switch_contract(root: Path = ROOT) -> None:
     for token in ('min-block-size: 24px', 'block-size: 20px', 'inline-size: 40px',
                   'block-size: 14px', 'inline-size: 14px', 'inset-inline-start',
                   'margin-inline-start: calc(100% - 14px)', ':focus-visible', 'outline: 2px solid var(--colorStrokeFocus2)',
-                  'outline-offset: 2px', '@media (forced-colors: active)', 'CanvasText', 'Highlight',
+                  'outline-offset: 2px', 'inset-block-start: auto', 'inset-block-end: 2px', 'flex-basis: 20px', '@media (forced-colors: active)', 'CanvasText', 'Highlight',
                   '@media (prefers-reduced-motion: reduce)', 'transition: none'):
         need(token in css, f"Switch CSS visual/accessibility contract is missing: {token}")
     for forbidden in ('--bui-v3-', 'bluent.component.switch', 'data-bui-v3-focus-'):
@@ -142,10 +142,10 @@ def check_switch_contract(root: Path = ROOT) -> None:
         checks = report.get('checks')
         need(report.get('browser') == browser_name and report.get('renderMode') == render_mode,
              f"Switch browser report does not match its matrix cell: {relative}")
-        need(report.get('passed') == 25 and report.get('failed') == 0
-             and isinstance(checks, list) and len(checks) == 25
+        need(report.get('passed') == 27 and report.get('failed') == 0
+             and isinstance(checks, list) and len(checks) == 27
              and all(item.get('pass') is True for item in checks),
-             f"Switch browser evidence does not pass 25/25: {relative}")
+             f"Switch browser evidence does not pass 27/27: {relative}")
         need(not report.get('runtimeSignals'), f"Switch browser runtime signals are present: {relative}")
     for browser in ('CHROME', 'EDGE'):
         for mode in ('WASM', 'INTERACTIVESERVER'):

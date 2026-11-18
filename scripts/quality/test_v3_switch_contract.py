@@ -97,6 +97,14 @@ class SwitchContractTests(unittest.TestCase):
     def test_physical_left_right_css_is_rejected(self):
         self.mutate("src/Bluent.UI/Styles/Components/_switch.scss", "inset-inline-start", "left")
 
+    def test_above_label_native_input_must_be_anchored_to_the_control_row(self):
+        self.mutate("src/Bluent.UI/Styles/Components/_switch.scss",
+                    "inset-block-end: 2px;", "inset-block-end: 0;")
+
+    def test_above_label_indicator_keeps_medium_track_height_in_column_flow(self):
+        self.mutate("src/Bluent.UI/Styles/Components/_switch.scss",
+                    "flex-basis: 20px;", "flex-basis: 40px;")
+
     def test_focus_visible_style_cannot_be_removed(self):
         relative = "src/Bluent.UI/Styles/Components/_switch.scss"
         body = self.paths[relative].read_text(encoding="utf-8-sig")
@@ -144,12 +152,12 @@ class SwitchContractTests(unittest.TestCase):
         with self.assertRaises(SwitchContractError):
             check_switch_contract(self.root)
 
-    def test_browser_evidence_must_contain_all_25_successful_assertions(self):
+    def test_browser_evidence_must_contain_all_27_successful_assertions(self):
         relative = "docs/v3/quality/evidence/BLUENT-SWITCH-CHROME-WASM.json"
         path = self.paths[relative]
         body = path.read_text(encoding="utf-8-sig")
-        self.assertIn('"passed": 25', body)
-        path.write_text(body.replace('"passed": 25', '"passed": 24', 1), encoding="utf-8")
+        self.assertIn('"passed": 27', body)
+        path.write_text(body.replace('"passed": 27', '"passed": 26', 1), encoding="utf-8")
         with self.assertRaises(SwitchContractError):
             check_switch_contract(self.root)
 

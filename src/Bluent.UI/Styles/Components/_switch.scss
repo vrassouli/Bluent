@@ -140,9 +140,15 @@
 
         > input {
             inline-size: calc(40px + 2 * var(--spacingHorizontalS));
+            // The label is ordered before the track. Anchor the transparent
+            // native input to the lower control row so it never overlays label text.
+            inset-block-start: auto;
+            inset-block-end: 2px;
         }
 
         > .indicator {
+            // In column flow, the shared 40px flex-basis would become block-size.
+            flex-basis: 20px;
             margin-block: var(--spacingVerticalXS);
         }
 

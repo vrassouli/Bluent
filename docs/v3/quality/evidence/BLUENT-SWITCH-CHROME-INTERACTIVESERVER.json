@@ -2,17 +2,17 @@
   "issue": 435,
   "browser": "Chrome",
   "renderMode": "InteractiveServer",
-  "base": "http://127.0.0.1:54369",
+  "base": "http://127.0.0.1:51014",
   "route": "/compatibility/switches-server",
-  "generatedAt": "2026-11-18T12:07:35.516Z",
-  "passed": 25,
+  "generatedAt": "2026-11-18T15:02:11.718Z",
+  "passed": 27,
   "failed": 0,
   "checks": [
     {
       "name": "Switch showcase loads in Chrome/InteractiveServer",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:54369/compatibility/switches-server"
+        "url": "http://127.0.0.1:51014/compatibility/switches-server"
       }
     },
     {
@@ -204,6 +204,41 @@
       }
     },
     {
+      "name": "Above label preserves the 40x20 track and centers the 24px target below the label",
+      "pass": true,
+      "detail": {
+        "input": {
+          "x": 64.546875,
+          "y": 503.65625,
+          "w": 56,
+          "h": 24
+        },
+        "track": {
+          "x": 72.546875,
+          "y": 505.65625,
+          "w": 40,
+          "h": 20
+        },
+        "label": {
+          "x": 64.546875,
+          "y": 465.65625,
+          "w": 121.734375,
+          "h": 36
+        },
+        "trackCenterHitByNativeInput": false,
+        "trackCenterBelowLabel": true,
+        "centerDeltaY": 0
+      }
+    },
+    {
+      "name": "pointer activation toggles the Switch with Above label placement",
+      "pass": true,
+      "detail": {
+        "before": false,
+        "after": true
+      }
+    },
+    {
       "name": "both disabled values use native disabled input",
       "pass": true,
       "detail": [
@@ -243,15 +278,15 @@
       }
     },
     {
-      "name": "RTL specimen inherits RTL and thumb uses logical inline movement",
+      "name": "RTL specimen: On thumb is on logical end and Off thumb on logical start",
       "pass": true,
       "detail": {
         "direction": "rtl",
-        "marginInlineStart": "0px",
+        "midpoint": 656.453125,
+        "thumbRight": 651.453125,
+        "offThumbLeft": 661.453125,
         "trackLeft": 636.453125,
-        "thumbLeft": 661.453125,
-        "trackRight": 676.453125,
-        "thumbRight": 675.453125
+        "trackRight": 676.453125
       }
     },
     {
@@ -328,5 +363,5 @@
     }
   ],
   "runtimeSignals": [],
-  "profilePrefix": "bluent-v3-435-switch-03ca2759babd42f4ab9ed8438f9270f0-"
+  "profilePrefix": "bluent-v3-435-switch-d45b9566be204816bbc676083b2c6f53-"
 }

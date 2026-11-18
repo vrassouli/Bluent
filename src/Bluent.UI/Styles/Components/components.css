@@ -3969,8 +3969,11 @@
 }
 .bui-switch.label-above > input {
   inline-size: calc(40px + 2 * var(--spacingHorizontalS));
+  inset-block-start: auto;
+  inset-block-end: 2px;
 }
 .bui-switch.label-above > .indicator {
+  flex-basis: 20px;
   margin-block: var(--spacingVerticalXS);
 }
 .bui-switch.label-above > label {
