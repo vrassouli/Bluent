@@ -6,7 +6,7 @@
 
 1. [Canonical SelectField v3 implementation record](../../../docs/v3/components/select-field.md) — source-backed API, scalar/array behavior, demos, migration and evidence limits.
 2. [Design and API contract](../../../docs/v3/design/SELECTFIELD-DESIGN-AND-API-CONTRACT.md) — native-select decision, parameter boundaries and Penpot IDs.
-3. [Issue #437](https://github.com/vrassouli/Bluent/issues/437) and [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568), targeting `bluent-v3` only. Pushed task head: `c06b760cf68eaed5691c03156bf1464672632d7c`.
+3. [Issue #437](https://github.com/vrassouli/Bluent/issues/437) and [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568), targeting `bluent-v3` only.
 4. Owned Penpot file **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 60 (`28143240-43dc-80cc-8008-f84a2fd6a22c`); boards `28143240-43dc-80cc-8008-f84a3bd17206`, `28143240-43dc-80cc-8008-f84aa30a32ea`, `28143240-43dc-80cc-8008-f84aa52eb253`. All remain DRAFT / REVIEW REQUIRED.
 5. Source: `src/Bluent.UI/Components/SelectFieldComponent/`; shared styles: `src/Bluent.UI/Styles/Components/_field.scss`.
 6. WebAssembly showcase: `/components/select-fields`; production-published InteractiveServer fixture: `/compatibility/select-fields-server`.
@@ -30,7 +30,7 @@
 - Chrome/Edge × WebAssembly/InteractiveServer: **19/19 per cell, 76/76 total**, including single combobox and multiple listbox AX roles, bool[] selection changes, addon placement, onchange/oninput, EditForm validation, RTL and 320px reflow.
 - Four JSON reports and twelve PNG screenshots are retained under `docs/v3/quality/evidence/BLUENT-SELECTFIELD-*`.
 - Local runtime browser logs show no unexpected console errors, exceptions or application HTTP failures. The production-published SSR test emits a local HTTP→HTTPS redirect configuration warning; it is not a browser/runtime failure.
-- Draft PR #568 is open on GitHub at task head `c06b760cf68eaed5691c03156bf1464672632d7c`; exact-head hosted CI has not yet reported a run.
+- Draft PR #568 is open on GitHub; exact-head hosted CI has not yet reported a run.
 - Native Windows Contrast Themes, spoken Narrator/NVDA/VoiceOver and maintainer design acceptance remain open.
 
 ## Version and release boundary
