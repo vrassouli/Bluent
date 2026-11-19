@@ -1,6 +1,6 @@
 # RadioGroup — v3 implementation record (#436)
 
-> **Development-only, unreleased v3 task branch.** This record describes source on v3/issue-436-radiogroup; it does not change the 2.x consumer API or imply a stable NuGet release. GitHub Project #5 status: **Review**.
+> **Development-only, unreleased v3 task branch.** This record describes source on v3/issue-436-radiogroup; it does not change the 2.x consumer API or imply a stable NuGet release. GitHub Project #5 status: **Done**.
 
 ## Identity and maturity
 
@@ -127,4 +127,4 @@ See [migration impact M24](../design/MIGRATION-IMPACT-LEDGER.md) and the separat
 
 ## Acceptance boundary
 
-The component is **ready for Review** on [PR #566](https://github.com/vrassouli/Bluent/pull/566), targeting `bluent-v3`. The exact-head RadioGroup source/evidence contract and all four hosted browser cells pass. The Component Lab retry also passed all four browser/render-mode cells. Documentation, Skill, public API census and baseline quality workflows pass. The two remaining red workflow families are outside #436: TextField assertions in #432 and Button menu/Tab focus behavior in #428; they are recorded as independent blockers in the PR rather than misattributed to RadioGroup. Native High Contrast/UIA smoke evidence is recorded; spoken Narrator/NVDA/VoiceOver output remains unverified. The three Page 59 boards are AI REVIEWED following the user's explicit delegation, with the historical DRAFT transition and review scope recorded above. #418 token ownership and the broader #421 ledger remain separate. This task is not Done until PR #566 is accepted and merged into `bluent-v3`; no merge to stable Dev, no 2.x changes, package publication or deployment is included.
+Issue #436 is **Done**. [PR #566](https://github.com/vrassouli/Bluent/pull/566) was squash-merged into `bluent-v3` as `d23c17893e70efc0a1d2da95fec2c2f785e06770` on 2026-11-19; the issue is closed and GitHub Project #5 Status is Done. The exact-head RadioGroup source/evidence contract and all four hosted browser cells passed on `696eec013234881acc8f5ee5a68d2e07647a4247`; Component Lab, Release, docs and Skill gates also passed. The broader exact-head workflow had one independent failure in Button #428's menu/Tab focus restoration; no Button code is included in #436. Native High Contrast/UIA smoke evidence is recorded; spoken Narrator/NVDA/VoiceOver output remains unverified. The three Page 59 boards are AI REVIEWED following the user's explicit delegation; this is not human sign-off, WCAG certification or spoken AT acceptance. #418 token ownership and the wider #421 ledger remain separate. No merge to stable Dev/main, no 2.x changes, NuGet package publication, release or deployment is included.

@@ -532,7 +532,7 @@
       "knownAccessibilityReview": "The v3 #436 implementation now renders native fieldset/legend groups, a shared native name per group and a native value per option; it preserves InputBase binding/EditContext validation and uses browser-native keyboard traversal. The separate v3 Chrome/Edge × WebAssembly/InteractiveServer matrix passed 104/104 locally. Native Windows Contrast Themes and Narrator/other named screen-reader acceptance remain separate gates; this existing Component Lab record is still representative_only and does not certify them.",
       "v3Implementation": {
         "issue": 436,
-        "status": "review",
+        "status": "done",
         "taskBranch": "v3/issue-436-radiogroup",
         "canonicalReference": "docs/v3/components/radio-group.md",
         "designDecision": "Native fieldset/legend, shared native name per group, native option value; typed InputBase API unchanged.",
@@ -558,15 +558,22 @@
           "runtimeSignals": 0
         },
         "evidenceDirectory": "docs/v3/quality/evidence/ (Chrome/Edge × WebAssembly/Server JSON and 320px/1280px PNGs)",
-        "acceptanceBoundary": "Issue #436 is in Review. This task evidence is distinct from the existing v2 Component Lab representative_only scenario above; it does not change the overall #421 pilot_incomplete status, imply spoken AT acceptance, or approve #418 token aliases. Exact-head RadioGroup jobs pass; independent TextField #432 and Button #428 shared workflow failures remain outside this task.",
+        "acceptanceBoundary": "Issue #436 is complete and merged into bluent-v3. Native Windows High Contrast/UIA smoke evidence is retained; spoken Narrator/NVDA/VoiceOver output remains unverified and no WCAG/speech certification is claimed. #418 token foundation and #421 wider coverage ledger remain independent. One unrelated Button #428 runtime probe failed in the broad compatibility workflow; it is not part of #436.",
         "hostedCI": {
           "radioGroupSourceAndEvidenceContract": "passed",
           "radioGroupBrowserMatrix": "4/4 jobs passed",
-          "componentLabBrowserMatrixAfterRetry": "4/4 jobs passed",
-          "unrelatedSharedWorkflowFailures": [
-            "TextField #432 browser assertions",
-            "Button #428 menu/Tab focus behavior"
-          ]
+          "componentLabBrowserMatrix": "4/4 jobs passed",
+          "baselineReleaseBuildTests": "passed",
+          "documentationAndSkillContracts": "passed",
+          "unrelatedSharedWorkflowFailure": "Button #428 menu/Tab focus restoration"
+        },
+        "completion": {
+          "pullRequest": 566,
+          "mergedInto": "bluent-v3",
+          "mergeCommit": "d23c17893e70efc0a1d2da95fec2c2f785e06770",
+          "completedDate": "2026-11-19",
+          "issueClosed": true,
+          "projectStatus": "Done"
         }
       }
     },

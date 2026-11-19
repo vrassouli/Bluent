@@ -50,6 +50,6 @@ Only already-shipped source CSS roles are used. No preview-only #418 alias is co
 The user explicitly instructed the assistant to complete all remaining #436 work and perform the review. The assistant's technical review is recorded on the three editable Penpot boards (AI REVIEWED) and in this decision record, dated 2026-11-19. The boards align to current source and measured browser evidence; corrections made during review are enumerated above. This does not impersonate a human review or claim speech output that was not captured.
 
 - Exact-head RadioGroup source/evidence contract and all four hosted browser cells pass; the Component Lab retry passes all four cells.
-- The overall hosted workflow set still reports unrelated TextField (#432) assertions and a Button (#428) menu/Tab focus timeout. These failures are not RadioGroup failures and are documented in PR #566; they must be resolved by their owning tasks.
+- The exact-head hosted workflow recorded one unrelated Button (#428) menu/Tab focus timeout. This is not a RadioGroup failure and remains with the Button workstream.
 - Narrator/NVDA/VoiceOver spoken output remains unverified. The native High Contrast/UIA smoke check and Chromium accessibility-tree assertions are recorded, but no screen-reader speech certification is claimed.
-- #418 token vocabulary and the wider #421 ledger remain separate. Only shipped token roles are consumed. The task is in Review and is not Done until PR #566 is accepted and merged into `bluent-v3`.
+- PR #566 is now squash-merged into `bluent-v3` at `d23c17893e70efc0a1d2da95fec2c2f785e06770`; Issue #436 is closed and Project #5 Status is Done. #418 token vocabulary and the wider #421 ledger remain separate; only shipped token roles are consumed.
