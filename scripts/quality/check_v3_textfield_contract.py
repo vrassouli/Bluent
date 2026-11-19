@@ -271,6 +271,10 @@ def check_textfield_contract(root: Path) -> None:
         "setNativeValue",
         "Emulation.setDeviceMetricsOverride",
         "Page.captureScreenshot",
+        "isExpectedDevelopmentHotReloadMiss",
+        "response.status === 404",
+        "new URL(response.url).pathname === '/_framework/dotnet-browser-tools/hot-reload-settings.json'",
+        "response.status >= 400 && !isExpectedDevelopmentHotReloadMiss(response)",
         "QA CLEANUP browser processes remaining=",
     ), "TextField real-browser probe")
     textfield_job = browser_workflow.split("  textfield-runtime:", 1)[1].split("  numericfield-runtime:", 1)[0]
