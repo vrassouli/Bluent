@@ -2,6 +2,11 @@
 
 > **Implementation decision record · task branch `v3/issue-437-selectfield` · not a released v3 API.** This records the design and source contract for review. It does not accept the Penpot boards or imply #418 token approval.
 
+## Implementation review tracking
+
+- [Issue #437](https://github.com/vrassouli/Bluent/issues/437)
+- [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568), head `c06b760cf68eaed5691c03156bf1464672632d7c`, base `bluent-v3`
+
 ## Owned design source
 
 - File: **Bluent v3 Design System**, Penpot file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`

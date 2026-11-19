@@ -7,7 +7,7 @@
 | Field | Verified value |
 | --- | --- |
 | Family | SelectField (native HTML select) |
-| Issue / branch | [#437](https://github.com/vrassouli/Bluent/issues/437) · `v3/issue-437-selectfield` → `bluent-v3` |
+| Issue / branch | [#437](https://github.com/vrassouli/Bluent/issues/437) · `v3/issue-437-selectfield` → `bluent-v3` · [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568) |
 | Package / namespace | `Bluent.UI` · `Bluent.UI.Components` |
 | Source | `src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor` and `SelectField.razor.cs` |
 | Direct parameters | `ChildContent : RenderFragment?` only |
@@ -106,7 +106,7 @@ The showcase includes scalar string/int values, `string[]`, `int[]`, `bool[]`, `
 
 Each browser cell retains an initial, final and 320px screenshot beside its JSON report under `docs/v3/quality/evidence/`. The PowerShell runner uses a unique run-owned browser profile and verifies its cleanup.
 
-Additional build/test gates and exact-head GitHub Actions remain required for review; local browser evidence does not imply hosted CI completion.
+Draft PR #568 carries task head `c06b760cf68eaed5691c03156bf1464672632d7c`. Exact-head hosted GitHub Actions have not yet reported results; local browser evidence does not imply hosted CI completion.
 
 ## 2.x → v3 compatibility
 
