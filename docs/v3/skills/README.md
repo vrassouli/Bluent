@@ -1,4 +1,4 @@
-﻿# Bluent v3 Skills authoring and routing
+# Bluent v3 Skills authoring and routing
 
 The canonical v3 development router is [`.agents/skills/bluent-v3/SKILL.md`](../../../.agents/skills/bluent-v3/SKILL.md). It selects the correct package/version and distinguishes the already-supported 2.x consumer experience from v3 prototype work. There is **no released v3 public API** merely because this Skill exists.
 
@@ -18,3 +18,5 @@ These Skills are deliberately short retrieval guides. Detailed and versioned API
 **Design provenance:** editable Bluent v3 Design System Penpot workspace documented under [#419](../design/BLUENT-V3-PENPOT.md); not the upstream Microsoft Fluent kit. **Task:** issue [#423](https://github.com/vrassouli/Bluent/issues/423). Do not infer successful browser tests or production v3 release from a docs/Skill link check.
 
 The [RadioGroup implementation handoff](../../../.agents/skills/bluent-v3-radiogroup/SKILL.md) is the task-branch guide for #436. It routes to the source-backed [RadioGroup v3 implementation record](../components/radio-group.md), native fieldset / legend and shared-name behavior, four-cell local browser evidence, and migration M24. Its Penpot Page 59 boards remain DRAFT; native OS/assistive-technology acceptance is not claimed. The existing 2.x consumer reference remains authoritative for released packages.
+
+The [SelectField implementation handoff](../../../.agents/skills/bluent-v3-selectfield/SKILL.md) is the in-progress task-branch guide for #437. It records native scalar/multiple-select semantics, typed array conversion, inherited InputBase/BindValueEvent behavior, the four-cell local browser matrix and the DRAFT Page 60 Penpot boards; the existing 2.x consumer API remains authoritative for released packages.

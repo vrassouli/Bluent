@@ -73,6 +73,16 @@ on:
       - "src/Bluent.UI.Demo.Interactive.Client/Shared/CompatibilityProbe.razor"
       - "scripts/quality/probe_v3_button_toggle_interactive_server.mjs"
       - "src/Bluent.Core/BluentComponentBase.cs"
+      - "src/Bluent.UI/Components/SelectFieldComponent/**"
+      - "src/Bluent.UI.Demo.Pages/Pages/Components/SelectFields.razor"
+      - "src/Bluent.UI.Demo.SSR/Components/Pages/SelectFieldInteractiveServerProbe.razor"
+      - "src/Bluent.UI.Demo.Pages/Layout/Side.razor"
+      - "tests/RegexSampleGeneratorTest/SelectFieldRenderSemanticsTests.cs"
+      - "scripts/quality/check_v3_selectfield_contract.py"
+      - "scripts/quality/test_v3_selectfield_contract.py"
+      - "scripts/quality/probe_v3_selectfield.mjs"
+      - "scripts/quality/run_v3_selectfield.ps1"
+      - ".agents/skills/bluent-v3-selectfield/**"
       - "docs/v3/**"
       - "scripts/quality/check_v3_docs_contract.py"
       - "scripts/quality/test_v3_docs_contract.py"
@@ -105,6 +115,10 @@ jobs:
         run: |
           python scripts/quality/check_v3_numericfield_contract.py
           python -m unittest discover -s scripts/quality -p 'test_v3_numericfield_contract.py' -v
+      - name: Validate SelectField source/API and four-cell browser evidence contract
+        run: |
+          python scripts/quality/check_v3_selectfield_contract.py
+          python -m unittest discover -s scripts/quality -p 'test_v3_selectfield_contract.py' -v
       - name: Validate stale summary negative cases
         run: python -m unittest discover -s scripts/quality -p "test_v3_docs_contract.py" -v
       - name: Validate all repository-local Markdown links
