@@ -5,7 +5,7 @@
 ## Implementation review tracking
 
 - [Issue #437](https://github.com/vrassouli/Bluent/issues/437)
-- [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568), head `c06b760cf68eaed5691c03156bf1464672632d7c`, base `bluent-v3`
+- [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568), base `bluent-v3`
 
 ## Owned design source
 

@@ -106,7 +106,7 @@ The showcase includes scalar string/int values, `string[]`, `int[]`, `bool[]`, `
 
 Each browser cell retains an initial, final and 320px screenshot beside its JSON report under `docs/v3/quality/evidence/`. The PowerShell runner uses a unique run-owned browser profile and verifies its cleanup.
 
-Draft PR #568 carries task head `c06b760cf68eaed5691c03156bf1464672632d7c`. Exact-head hosted GitHub Actions have not yet reported results; local browser evidence does not imply hosted CI completion.
+Draft PR #568 is open against `bluent-v3`. Exact-head hosted GitHub Actions have not yet reported results; local browser evidence does not imply hosted CI completion.
 
 ## 2.x → v3 compatibility
 
