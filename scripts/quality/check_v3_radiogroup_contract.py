@@ -114,9 +114,14 @@ def check_radiogroup_contract(root: Path = ROOT) -> None:
     need(len(rows) == 1 and rows[0].get("classification") == "representative_only",
          "existing v2 Component Lab RadioGroup pilot must remain representative_only")
     v3 = rows[0].get("v3Implementation", {})
-    need(v3.get("issue") == 436 and v3.get("status") == "review"
+    need(v3.get("issue") == 436 and v3.get("status") == "done"
          and v3.get("localBrowserMatrix", {}).get("total") == "104/104",
-         "separate #436 v3 Review coverage record missing")
+         "separate #436 v3 Done coverage record missing")
+    need(v3.get("completion", {}).get("pullRequest") == 566
+         and v3.get("completion", {}).get("mergedInto") == "bluent-v3"
+         and v3.get("completion", {}).get("mergeCommit") == "d23c17893e70efc0a1d2da95fec2c2f785e06770"
+         and v3.get("completion", {}).get("projectStatus") == "Done",
+         "completed PR merge and Project Done record missing")
     need(v3.get("designSource", {}).get("reviewStatus") == "ai_reviewed_user_delegated"
          and v3.get("designSource", {}).get("reviewDate") == "2026-11-19",
          "delegated AI design/API review record missing")
