@@ -526,10 +526,49 @@
         "Chrome/Server Dev01: RadioGroup native Blazor browser 148/148; production published Server native Space and pointer, RTL punctuation, cleanup remaining=0",
         "Edge/Server Dev01: RadioGroup native Blazor browser 148/148; production published Server native Space and pointer, RTL punctuation, cleanup remaining=0"
       ],
-      "remaining": "Current group single choice, vertical label before and disabled option only. True native radiogroup name, arrow keys, tab navigation, OS screen reader, keyboard focus, RTL, dark, forced-colors and Fluent2 Penpot parity pending #436. This Lab is not product acceptance.",
+      "remaining": "This Component Lab specimen remains limited to one single-choice group, vertical label-before and a disabled option. Its classification remains representative_only: the Lab does not cover the complete v3 component API, full Fluent state matrix, maintainer-approved Penpot parity, native Windows Contrast Themes or named assistive-technology acceptance.",
       "fourModeLocalBrowserEvidence": "2026-10-18 independent Chrome/Edge x WASM/production published InteractiveServer 148/148 each (592/592), errors=[], QA Chrome/Edge process cleanup 0",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-radio-live-rtl-chrome-wasm.png",
-      "knownAccessibilityReview": "Current RadioGroup source renders div with label and items-list, and Radio native input type radio without explicit group name; radio keyboard arrow traversal and named OS AT radiogroup not yet certified; #436 Backlog."
+      "knownAccessibilityReview": "The v3 #436 implementation now renders native fieldset/legend groups, a shared native name per group and a native value per option; it preserves InputBase binding/EditContext validation and uses browser-native keyboard traversal. The separate v3 Chrome/Edge × WebAssembly/InteractiveServer matrix passed 104/104 locally. Native Windows Contrast Themes and Narrator/other named screen-reader acceptance remain separate gates; this existing Component Lab record is still representative_only and does not certify them.",
+      "v3Implementation": {
+        "issue": 436,
+        "status": "review",
+        "taskBranch": "v3/issue-436-radiogroup",
+        "canonicalReference": "docs/v3/components/radio-group.md",
+        "designDecision": "Native fieldset/legend, shared native name per group, native option value; typed InputBase API unchanged.",
+        "designSource": {
+          "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+          "pageId": "0125a79e-69b2-807f-8008-f726bd56fcc7",
+          "boardIds": [
+            "0125a79e-69b2-807f-8008-f726bd61b423",
+            "0125a79e-69b2-807f-8008-f726c1464f5d",
+            "0125a79e-69b2-807f-8008-f726c665a5cf"
+          ],
+          "reviewStatus": "ai_reviewed_user_delegated",
+          "reviewDate": "2026-11-19",
+          "reviewNote": "User explicitly delegated remaining #436 technical/design review to the assistant. Three Penpot boards were inspected against current source and exports, corrected, and visibly marked AI REVIEWED. This is not human maintainer sign-off or spoken AT certification."
+        },
+        "focusedRendererTests": "9/9",
+        "localBrowserMatrix": {
+          "chromeWebAssembly": "26/26",
+          "edgeWebAssembly": "26/26",
+          "chromeInteractiveServer": "26/26",
+          "edgeInteractiveServer": "26/26",
+          "total": "104/104",
+          "runtimeSignals": 0
+        },
+        "evidenceDirectory": "docs/v3/quality/evidence/ (Chrome/Edge × WebAssembly/Server JSON and 320px/1280px PNGs)",
+        "acceptanceBoundary": "Issue #436 is in Review. This task evidence is distinct from the existing v2 Component Lab representative_only scenario above; it does not change the overall #421 pilot_incomplete status, imply spoken AT acceptance, or approve #418 token aliases. Exact-head RadioGroup jobs pass; independent TextField #432 and Button #428 shared workflow failures remain outside this task.",
+        "hostedCI": {
+          "radioGroupSourceAndEvidenceContract": "passed",
+          "radioGroupBrowserMatrix": "4/4 jobs passed",
+          "componentLabBrowserMatrixAfterRetry": "4/4 jobs passed",
+          "unrelatedSharedWorkflowFailures": [
+            "TextField #432 browser assertions",
+            "Button #428 menu/Tab focus behavior"
+          ]
+        }
+      }
     },
     {
       "id": "selectfield",

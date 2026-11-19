@@ -351,3 +351,71 @@ jobs:
           path: ${{ runner.temp }}/switch-evidence/*
           if-no-files-found: warn
           retention-days: 7
+
+  radio-group-contract:
+    name: RadioGroup / source and evidence contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate RadioGroup source, migration, design and retained browser evidence
+        run: python scripts/quality/check_v3_radiogroup_contract.py
+      - name: Run fail-closed RadioGroup contract regressions
+        run: python -m unittest discover -s scripts/quality -p test_v3_radiogroup_contract.py -v
+
+  radio-group-runtime:
+    name: RadioGroup / ${{ matrix.browser }} / ${{ matrix.render_mode }}
+    needs: radio-group-contract
+    runs-on: windows-latest
+    timeout-minutes: 26
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        browser: [Chrome, Edge]
+        render_mode: [WebAssembly, Server]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build RadioGroup styles and validate source contracts
+        shell: pwsh
+        run: |
+          npm --prefix src/Bluent.UI ci --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm --prefix src/Bluent.UI run build:scss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check scripts/quality/probe_v3_radiogroup.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/quality/check_v3_radiogroup_contract.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s scripts/quality -p test_v3_radiogroup_contract.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Restore Bluent solution
+        run: dotnet restore Bluent.sln --nologo
+      - name: Exercise RadioGroup in the real browser matrix
+        shell: pwsh
+        env:
+          BLUENT_RADIO_EVIDENCE_DIR: ${{ runner.temp }}\radio-evidence
+        run: |
+          New-Item -ItemType Directory -Force -Path $env:BLUENT_RADIO_EVIDENCE_DIR | Out-Null
+          & pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_radiogroup.ps1 -Mode "${{ matrix.render_mode }}" -Browser "${{ matrix.browser }}"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Preserve RadioGroup JSON and viewport screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-radiogroup-${{ matrix.browser }}-${{ matrix.render_mode }}-${{ github.sha }}
+          path: ${{ runner.temp }}/radio-evidence/*
+          if-no-files-found: warn
+          retention-days: 7

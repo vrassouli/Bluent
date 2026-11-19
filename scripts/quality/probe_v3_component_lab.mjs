@@ -764,7 +764,7 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Current public RadioGroup<string> and Radio<string> only;
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Representative Component Lab choice specimen; #436 has independent full native-group acceptance.
  // does not certify future #436 accessible radiogroup/arrow navigation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'RadioGroup');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RadioGroup')"),12000);
@@ -779,14 +779,14 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
  const radioAm=await poll(()=>js("document.querySelector('.lab-radio-status')?.textContent.trim()==='Choice: Morning'&&document.getElementById('lab-radio-am')?.checked&&!document.getElementById('lab-radio-pm')?.checked"),12000);
  check('native Space selects Morning radio and changes RadioGroup Blazor string binding',radioAm);
- const radioPmHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-pm]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el?.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
- check('Afternoon real radio indicator has hit-tested native pointer geometry',radioPmHit.hit,radioPmHit);
+ const radioPmHit=await js("(()=>{const el=document.querySelector('#lab-radio-pm + .indicator');if(!el)return {found:false,hit:false};el.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,target=document.elementFromPoint(x,y);return {found:true,x,y,hit:!!target?.closest('.bui-radio-box'),target:target?.tagName||''}})()");
+ check('Afternoon real radio indicator has hit-tested native pointer geometry',radioPmHit.found&&radioPmHit.hit,radioPmHit);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioPmHit.x,y:radioPmHit.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioPmHit.x,y:radioPmHit.y,button:'left',clickCount:1});
  const radioPm=await poll(()=>js("document.querySelector('.lab-radio-status')?.textContent.trim()==='Choice: Afternoon'&&document.getElementById('lab-radio-pm')?.checked&&!document.getElementById('lab-radio-am')?.checked"),12000);
  check('native indicator pointer selects Afternoon and unchecks Morning in current RadioGroup',radioPm);
- const radioLowHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-low]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
- check('vertical RTL-ready radio indicator is a real pointer target',radioLowHit.hit,radioLowHit);
+ const radioLowHit=await js("(()=>{const el=document.querySelector('#lab-radio-low + .indicator');if(!el)return {found:false,hit:false};el.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,target=document.elementFromPoint(x,y);return {found:true,x,y,hit:!!target?.closest('.bui-radio-box'),target:target?.tagName||''}})()");
+ check('vertical RTL-ready radio indicator is a real pointer target',radioLowHit.found&&radioLowHit.hit,radioLowHit);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioLowHit.x,y:radioLowHit.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioLowHit.x,y:radioLowHit.y,button:'left',clickCount:1});
  const radioLow=await poll(()=>js("document.querySelector('.lab-radio-vertical-status')?.textContent.trim()==='Priority: Low'&&document.getElementById('lab-radio-low')?.checked&&!document.getElementById('lab-radio-high')?.checked"),12000);
@@ -794,8 +794,8 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  const radioDisabled=await js("(()=>{const e=document.getElementById('lab-radio-disabled');e?.focus();return {disabled:e?.disabled,focused:document.activeElement===e,checked:e?.checked,model:document.querySelector('.lab-radio-restricted-status')?.textContent.trim()}})()");
  check('disabled real radio refuses native focus and leaves bound group unselected',
    radioDisabled.disabled&&!radioDisabled.focused&&!radioDisabled.checked&&radioDisabled.model==='Availability:',radioDisabled);
- const radioDisabledHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-disabled]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
- check('disabled radio indicator pointer hit-test still targets the real option',radioDisabledHit.hit,radioDisabledHit);
+ const radioDisabledHit=await js("(()=>{const el=document.querySelector('#lab-radio-disabled + .indicator');if(!el)return {found:false,hit:false};el.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,target=document.elementFromPoint(x,y);return {found:true,x,y,hit:!!target?.closest('.bui-radio-box'),target:target?.tagName||''}})()");
+ check('disabled radio indicator pointer hit-test still targets the real option',radioDisabledHit.found&&radioDisabledHit.hit,radioDisabledHit);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioDisabledHit.x,y:radioDisabledHit.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioDisabledHit.x,y:radioDisabledHit.y,button:'left',clickCount:1});
  await wait(260);

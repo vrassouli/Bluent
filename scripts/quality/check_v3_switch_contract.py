@@ -119,7 +119,7 @@ def check_switch_contract(root: Path = ROOT) -> None:
         need(token.lower() in runner.lower(), f"Switch browser runner is missing matrix/cleanup/evidence behavior: {token}")
 
     need('  switch-runtime:' in workflow, "permanent Switch browser CI job is missing")
-    switch_job = workflow.split('  switch-runtime:', 1)[1]
+    switch_job = workflow.split('  switch-runtime:', 1)[1].split('\n  radio-group-contract:', 1)[0]
     for token in ('browser: [Chrome, Edge]', 'render_mode: [WebAssembly, Server]',
                   'windows-latest', 'run_v3_switch.ps1', 'BLUENT_SWITCH_EVIDENCE_DIR',
                   'if: always()', 'actions/upload-artifact@v4', 'retention-days: 7'):
