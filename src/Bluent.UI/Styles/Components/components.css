@@ -3403,7 +3403,7 @@
   transform: scale(0.625);
   background-color: currentcolor;
 }
-.bui-radio-group .bui-radio-box > input:checked + .indicator + label {
+.bui-radio-group .bui-radio-box > input:checked + .indicator + label.option-label {
   color: var(--colorNeutralForeground1);
 }
 .bui-radio-group .bui-radio-box > input:hover:not(:disabled) + .indicator {
@@ -3423,7 +3423,7 @@
   border-color: var(--colorNeutralStrokeDisabled);
   color: var(--colorNeutralForegroundDisabled);
 }
-.bui-radio-group .bui-radio-box > input:disabled + .indicator + label {
+.bui-radio-group .bui-radio-box > input:disabled + .indicator + label.option-label {
   color: var(--colorNeutralForegroundDisabled);
   cursor: default;
 }
@@ -3444,7 +3444,7 @@
   background-color: var(--bui-checkbox-indicator-backgroundColor);
   color: inherit;
 }
-.bui-radio-group .bui-radio-box > label {
+.bui-radio-group .bui-radio-box > label.option-label {
   align-self: center;
   margin-block-start: calc((16px - var(--lineHeightBase300)) / 2);
   padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
@@ -3463,7 +3463,7 @@
 .bui-radio-group .bui-radio-box.label-before > .indicator {
   order: 2;
 }
-.bui-radio-group .bui-radio-box.label-before > label {
+.bui-radio-group .bui-radio-box.label-before > label.option-label {
   order: 1;
 }
 
