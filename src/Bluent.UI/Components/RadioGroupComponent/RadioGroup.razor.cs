@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Bluent.UI.Components;
 
-public partial class RadioGroup<TValue> : IDisposable
+public partial class RadioGroup<TValue> : IComponent
 {
     private TValue? _value;
     private bool _hasExplicitValueExpression;
@@ -39,7 +39,7 @@ public partial class RadioGroup<TValue> : IDisposable
     internal bool HasValidationErrors =>
         EditContext?.GetValidationMessages(FieldIdentifier).Any() == true;
 
-    public override Task SetParametersAsync(ParameterView parameters)
+    Task IComponent.SetParametersAsync(ParameterView parameters)
     {
         _hasExplicitValueExpression =
             parameters.TryGetValue<Expression<Func<TValue?>>>(nameof(ValueExpression), out var expression) &&
@@ -80,13 +80,15 @@ public partial class RadioGroup<TValue> : IDisposable
         OnValueChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Dispose()
+    protected override void Dispose(bool disposing)
     {
-        if (_subscribedEditContext is not null)
+        if (disposing && _subscribedEditContext is not null)
         {
             _subscribedEditContext.OnValidationStateChanged -= HandleValidationStateChanged;
             _subscribedEditContext = null;
         }
+
+        base.Dispose(disposing);
     }
     protected override IEnumerable<string> GetClasses()
     {

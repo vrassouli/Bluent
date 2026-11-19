@@ -349,7 +349,7 @@ def check() -> int:
     }
     src_radio = (ROOT/"src/Bluent.UI/Components/RadioGroupComponent/Radio.razor").read_text(encoding="utf-8-sig")
     src_group = (ROOT/"src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs").read_text(encoding="utf-8-sig")
-    assert 'type="radio"' in src_radio and "SetValue(object? value)" in src_group
+    assert 'type="radio"' in src_radio and "SetValue(TValue value)" in src_group
     for marker in ('new("radio", "RadioGroup"', 'class="lab-radio-grid"',
                    'Id="lab-radio-am"', 'Id="lab-radio-pm"',
                    'Id="lab-radio-high"', 'Id="lab-radio-disabled"',

@@ -2,9 +2,9 @@
   "issue": 436,
   "browser": "Edge",
   "renderMode": "InteractiveServer",
-  "base": "http://127.0.0.1:51671",
+  "base": "http://127.0.0.1:59639",
   "route": "/compatibility/radios-server",
-  "generatedAt": "2026-11-18T19:32:00.422Z",
+  "generatedAt": "2026-11-18T20:04:25.707Z",
   "passed": 26,
   "failed": 0,
   "checks": [
@@ -12,7 +12,7 @@
       "name": "RadioGroup showcase loads in Edge/InteractiveServer",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:51671/compatibility/radios-server"
+        "url": "http://127.0.0.1:59639/compatibility/radios-server"
       }
     },
     {
@@ -81,7 +81,7 @@
             "value": "Morning",
             "checked": true,
             "disabled": false,
-            "id": "f36fd710c",
+            "id": "f498e77d1",
             "tabIndex": 0
           },
           {
@@ -89,7 +89,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f31b0c54c",
+            "id": "f299c9dba",
             "tabIndex": 0
           },
           {
@@ -97,7 +97,7 @@
             "value": "Evening",
             "checked": false,
             "disabled": false,
-            "id": "f54606d60",
+            "id": "fd9f190",
             "tabIndex": 0
           }
         ],
@@ -107,7 +107,7 @@
             "value": "Morning",
             "checked": false,
             "disabled": false,
-            "id": "f650f8422",
+            "id": "f175f1ad3",
             "tabIndex": 0
           },
           {
@@ -115,7 +115,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f3b78bff4",
+            "id": "f72196a4e",
             "tabIndex": 0
           },
           {
@@ -123,7 +123,7 @@
             "value": "Evening",
             "checked": true,
             "disabled": false,
-            "id": "f27a57ec6",
+            "id": "fbfb46ba",
             "tabIndex": 0
           }
         ]
@@ -139,7 +139,7 @@
             "value": "Morning",
             "checked": true,
             "disabled": false,
-            "id": "f36fd710c",
+            "id": "f498e77d1",
             "tabIndex": 0
           },
           {
@@ -147,7 +147,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f31b0c54c",
+            "id": "f299c9dba",
             "tabIndex": 0
           },
           {
@@ -155,7 +155,7 @@
             "value": "Evening",
             "checked": false,
             "disabled": false,
-            "id": "f54606d60",
+            "id": "fd9f190",
             "tabIndex": 0
           }
         ],
@@ -165,7 +165,7 @@
             "value": "Morning",
             "checked": false,
             "disabled": false,
-            "id": "f650f8422",
+            "id": "f175f1ad3",
             "tabIndex": 0
           },
           {
@@ -173,7 +173,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f3b78bff4",
+            "id": "f72196a4e",
             "tabIndex": 0
           },
           {
@@ -181,7 +181,7 @@
             "value": "Evening",
             "checked": true,
             "disabled": false,
-            "id": "f27a57ec6",
+            "id": "fbfb46ba",
             "tabIndex": 0
           }
         ]
@@ -213,7 +213,7 @@
           "value": "Standard",
           "checked": true,
           "disabled": false,
-          "id": "f13fc8e5a",
+          "id": "f5a712efd",
           "tabIndex": 0
         },
         {
@@ -221,7 +221,7 @@
           "value": "Express",
           "checked": false,
           "disabled": true,
-          "id": "f1709b66",
+          "id": "f22e19152",
           "tabIndex": 0
         },
         {
@@ -229,7 +229,7 @@
           "value": "Overnight",
           "checked": false,
           "disabled": false,
-          "id": "f3beeeb53",
+          "id": "f1eeb5bbf",
           "tabIndex": 0
         }
       ]
@@ -611,5 +611,5 @@
     }
   ],
   "runtimeSignals": [],
-  "profilePrefix": "bluent-v3-436-radiogroup-65e1e4bbafe245daaa5c81183aa9c3c9-"
+  "profilePrefix": "bluent-v3-436-radiogroup-602f0580f5b64965a7a4d0f7bee76448-"
 }

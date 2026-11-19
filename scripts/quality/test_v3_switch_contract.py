@@ -120,10 +120,13 @@ class SwitchContractTests(unittest.TestCase):
     def test_missing_fourth_cell_ci_job_is_rejected(self):
         relative = ".github/workflows/v3-compatibility-browsers.yml"
         body = self.paths[relative].read_text(encoding="utf-8-sig")
-        before, switch_job = body.split("  switch-runtime:", 1)
+        before, tail = body.split("  switch-runtime:", 1)
+        switch_job, after = tail.split("\n  radio-group-contract:", 1)
         self.assertIn("render_mode: [WebAssembly, Server]", switch_job)
         switch_job = switch_job.replace("render_mode: [WebAssembly, Server]", "render_mode: [WebAssembly]", 1)
-        self.paths[relative].write_text(before + "  switch-runtime:" + switch_job, encoding="utf-8")
+        self.paths[relative].write_text(
+            before + "  switch-runtime:" + switch_job + "\n  radio-group-contract:" + after,
+            encoding="utf-8")
         with self.assertRaises(SwitchContractError):
             check_switch_contract(self.root)
 
@@ -131,10 +134,12 @@ class SwitchContractTests(unittest.TestCase):
         relative = ".github/workflows/v3-compatibility-browsers.yml"
         body = self.paths[relative].read_text(encoding="utf-8-sig")
         marker = "  switch-runtime:"
-        before, switch_job = body.split(marker, 1)
+        before, tail = body.split(marker, 1)
+        switch_job, after = tail.split("\n  radio-group-contract:", 1)
         self.assertIn("if: always()", switch_job)
         self.paths[relative].write_text(
-            before + marker + switch_job.replace("if: always()", "if: success()", 1),
+            before + marker + switch_job.replace("if: always()", "if: success()", 1)
+            + "\n  radio-group-contract:" + after,
             encoding="utf-8")
         with self.assertRaises(SwitchContractError):
             check_switch_contract(self.root)

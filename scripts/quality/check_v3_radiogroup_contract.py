@@ -43,11 +43,12 @@ def check_radiogroup_contract(root: Path = ROOT) -> None:
     for token in ("<fieldset", "</fieldset>", '<legend class="group-label">', 'CascadingValue Value="this" IsFixed'):
         need(token in group, f"native group semantics missing: {token}")
     need('role="radiogroup"' not in group, "no redundant radiogroup role")
+    need("public void Dispose()" not in group_source, "RadioGroup must preserve InputBase public API and override its protected Dispose(bool) hook")
     for token in ("BluentInputComponentBase<TValue?>", "NameAttributeValue", "RadioGroupName",
                   "nameof(ValueExpression)", "return Id", "CurrentValue",
                   "OnValidationStateChanged += HandleValidationStateChanged",
                   "OnValidationStateChanged -= HandleValidationStateChanged",
-                  "SynchronizeEditContextSubscription", "public void Dispose()",
+                  "SynchronizeEditContextSubscription", "protected override void Dispose(bool disposing)", "base.Dispose(disposing)",
                   "GetValidationMessages(FieldIdentifier)"):
         need(token in group_source, f"typed/name/validation lifecycle missing: {token}")
     for token in ('type="radio"', ' name="@RadioGroup.RadioGroupName"', ' value="@GetInputValue()"',

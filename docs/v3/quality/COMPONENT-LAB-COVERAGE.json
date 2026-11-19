@@ -526,10 +526,10 @@
         "Chrome/Server Dev01: RadioGroup native Blazor browser 148/148; production published Server native Space and pointer, RTL punctuation, cleanup remaining=0",
         "Edge/Server Dev01: RadioGroup native Blazor browser 148/148; production published Server native Space and pointer, RTL punctuation, cleanup remaining=0"
       ],
-      "remaining": "Current group single choice, vertical label before and disabled option only. True native radiogroup name, arrow keys, tab navigation, OS screen reader, keyboard focus, RTL, dark, forced-colors and Fluent2 Penpot parity pending #436. This Lab is not product acceptance.",
+      "remaining": "This Component Lab specimen remains limited to one single-choice group, vertical label-before and a disabled option. Its classification remains representative_only: the Lab does not cover the complete v3 component API, full Fluent state matrix, maintainer-approved Penpot parity, native Windows Contrast Themes or named assistive-technology acceptance.",
       "fourModeLocalBrowserEvidence": "2026-10-18 independent Chrome/Edge x WASM/production published InteractiveServer 148/148 each (592/592), errors=[], QA Chrome/Edge process cleanup 0",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-radio-live-rtl-chrome-wasm.png",
-      "knownAccessibilityReview": "Current RadioGroup source renders div with label and items-list, and Radio native input type radio without explicit group name; radio keyboard arrow traversal and named OS AT radiogroup not yet certified; #436 Backlog.",
+      "knownAccessibilityReview": "The v3 #436 implementation now renders native fieldset/legend groups, a shared native name per group and a native value per option; it preserves InputBase binding/EditContext validation and uses browser-native keyboard traversal. The separate v3 Chrome/Edge × WebAssembly/InteractiveServer matrix passed 104/104 locally. Native Windows Contrast Themes and Narrator/other named screen-reader acceptance remain separate gates; this existing Component Lab record is still representative_only and does not certify them.",
       "v3Implementation": {
         "issue": 436,
         "status": "in_progress",

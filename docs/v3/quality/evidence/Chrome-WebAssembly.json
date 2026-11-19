@@ -2,9 +2,9 @@
   "issue": 436,
   "browser": "Chrome",
   "renderMode": "WebAssembly",
-  "base": "http://127.0.0.1:50635",
+  "base": "http://127.0.0.1:50221",
   "route": "/components/radios",
-  "generatedAt": "2026-11-18T19:32:16.511Z",
+  "generatedAt": "2026-11-18T20:04:36.941Z",
   "passed": 26,
   "failed": 0,
   "checks": [
@@ -12,7 +12,7 @@
       "name": "RadioGroup showcase loads in Chrome/WebAssembly",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:50635/components/radios"
+        "url": "http://127.0.0.1:50221/components/radios"
       }
     },
     {
@@ -81,7 +81,7 @@
             "value": "Morning",
             "checked": true,
             "disabled": false,
-            "id": "f3079964b",
+            "id": "f6c091795",
             "tabIndex": 0
           },
           {
@@ -89,7 +89,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f435a1e20",
+            "id": "f251604e5",
             "tabIndex": 0
           },
           {
@@ -97,7 +97,7 @@
             "value": "Evening",
             "checked": false,
             "disabled": false,
-            "id": "f1f9ebf8b",
+            "id": "f47b7f920",
             "tabIndex": 0
           }
         ],
@@ -107,7 +107,7 @@
             "value": "Morning",
             "checked": false,
             "disabled": false,
-            "id": "f17c64ffa",
+            "id": "f5d0586c1",
             "tabIndex": 0
           },
           {
@@ -115,7 +115,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f1e8ab389",
+            "id": "f35f0e430",
             "tabIndex": 0
           },
           {
@@ -123,7 +123,7 @@
             "value": "Evening",
             "checked": true,
             "disabled": false,
-            "id": "f11b8e628",
+            "id": "f13b0acb6",
             "tabIndex": 0
           }
         ]
@@ -139,7 +139,7 @@
             "value": "Morning",
             "checked": true,
             "disabled": false,
-            "id": "f3079964b",
+            "id": "f6c091795",
             "tabIndex": 0
           },
           {
@@ -147,7 +147,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f435a1e20",
+            "id": "f251604e5",
             "tabIndex": 0
           },
           {
@@ -155,7 +155,7 @@
             "value": "Evening",
             "checked": false,
             "disabled": false,
-            "id": "f1f9ebf8b",
+            "id": "f47b7f920",
             "tabIndex": 0
           }
         ],
@@ -165,7 +165,7 @@
             "value": "Morning",
             "checked": false,
             "disabled": false,
-            "id": "f17c64ffa",
+            "id": "f5d0586c1",
             "tabIndex": 0
           },
           {
@@ -173,7 +173,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f1e8ab389",
+            "id": "f35f0e430",
             "tabIndex": 0
           },
           {
@@ -181,7 +181,7 @@
             "value": "Evening",
             "checked": true,
             "disabled": false,
-            "id": "f11b8e628",
+            "id": "f13b0acb6",
             "tabIndex": 0
           }
         ]
@@ -213,7 +213,7 @@
           "value": "Standard",
           "checked": true,
           "disabled": false,
-          "id": "f7b35451e",
+          "id": "f608fd7bb",
           "tabIndex": 0
         },
         {
@@ -221,7 +221,7 @@
           "value": "Express",
           "checked": false,
           "disabled": true,
-          "id": "f5e998376",
+          "id": "f7302a77",
           "tabIndex": 0
         },
         {
@@ -229,7 +229,7 @@
           "value": "Overnight",
           "checked": false,
           "disabled": false,
-          "id": "f682556b6",
+          "id": "f1d329d0d",
           "tabIndex": 0
         }
       ]
@@ -603,7 +603,7 @@
           },
           {
             "tag": "INPUT",
-            "id": "f26f56397",
+            "id": "f2df8f45a",
             "cls": "",
             "text": "",
             "left": 279,
@@ -695,5 +695,5 @@
     }
   ],
   "runtimeSignals": [],
-  "profilePrefix": "bluent-v3-436-radiogroup-be2f9e015b3740debaf8eb1ab5019003-"
+  "profilePrefix": "bluent-v3-436-radiogroup-2e1c316d764948abafb8fc37cf7255c5-"
 }
