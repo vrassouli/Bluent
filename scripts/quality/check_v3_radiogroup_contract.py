@@ -55,6 +55,10 @@ def check_radiogroup_contract(root: Path = ROOT) -> None:
                   ' value="@GetInputValue()"', 'checked="@IsChecked"', 'id="@Id"',
                   '@onchange="HandleOnChange"'):
         need(token in radio, f"native radio markup missing: {token}")
+    need('<label class="indicator" for="@Id" aria-hidden="true"></label>' in radio,
+         "radio indicator must be a native associated label so its visual hit target activates the input")
+    need('<label class="option-label" for="@Id">@Label</label>' in radio,
+         "radio option text must remain the accessible native label")
     for token in ("EditorRequired", "CultureInfo.InvariantCulture",
                   "OnValueChanged += OnValueChanged", "OnValueChanged -= OnValueChanged",
                   'attributes["aria-invalid"] = "true"'):

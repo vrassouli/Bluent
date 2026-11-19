@@ -2,9 +2,9 @@
   "issue": 436,
   "browser": "Edge",
   "renderMode": "InteractiveServer",
-  "base": "http://127.0.0.1:59639",
+  "base": "http://127.0.0.1:61985",
   "route": "/compatibility/radios-server",
-  "generatedAt": "2026-11-18T20:04:25.707Z",
+  "generatedAt": "2026-11-19T05:37:42.935Z",
   "passed": 26,
   "failed": 0,
   "checks": [
@@ -12,7 +12,7 @@
       "name": "RadioGroup showcase loads in Edge/InteractiveServer",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:59639/compatibility/radios-server"
+        "url": "http://127.0.0.1:61985/compatibility/radios-server"
       }
     },
     {
@@ -81,7 +81,7 @@
             "value": "Morning",
             "checked": true,
             "disabled": false,
-            "id": "f498e77d1",
+            "id": "f4521d950",
             "tabIndex": 0
           },
           {
@@ -89,7 +89,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f299c9dba",
+            "id": "f4493f295",
             "tabIndex": 0
           },
           {
@@ -97,7 +97,7 @@
             "value": "Evening",
             "checked": false,
             "disabled": false,
-            "id": "fd9f190",
+            "id": "f6cb2f929",
             "tabIndex": 0
           }
         ],
@@ -107,7 +107,7 @@
             "value": "Morning",
             "checked": false,
             "disabled": false,
-            "id": "f175f1ad3",
+            "id": "f7cbc553d",
             "tabIndex": 0
           },
           {
@@ -115,7 +115,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f72196a4e",
+            "id": "f21e0cb4d",
             "tabIndex": 0
           },
           {
@@ -123,7 +123,7 @@
             "value": "Evening",
             "checked": true,
             "disabled": false,
-            "id": "fbfb46ba",
+            "id": "f64eb0caa",
             "tabIndex": 0
           }
         ]
@@ -139,7 +139,7 @@
             "value": "Morning",
             "checked": true,
             "disabled": false,
-            "id": "f498e77d1",
+            "id": "f4521d950",
             "tabIndex": 0
           },
           {
@@ -147,7 +147,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f299c9dba",
+            "id": "f4493f295",
             "tabIndex": 0
           },
           {
@@ -155,7 +155,7 @@
             "value": "Evening",
             "checked": false,
             "disabled": false,
-            "id": "fd9f190",
+            "id": "f6cb2f929",
             "tabIndex": 0
           }
         ],
@@ -165,7 +165,7 @@
             "value": "Morning",
             "checked": false,
             "disabled": false,
-            "id": "f175f1ad3",
+            "id": "f7cbc553d",
             "tabIndex": 0
           },
           {
@@ -173,7 +173,7 @@
             "value": "Afternoon",
             "checked": false,
             "disabled": false,
-            "id": "f72196a4e",
+            "id": "f21e0cb4d",
             "tabIndex": 0
           },
           {
@@ -181,7 +181,7 @@
             "value": "Evening",
             "checked": true,
             "disabled": false,
-            "id": "fbfb46ba",
+            "id": "f64eb0caa",
             "tabIndex": 0
           }
         ]
@@ -213,7 +213,7 @@
           "value": "Standard",
           "checked": true,
           "disabled": false,
-          "id": "f5a712efd",
+          "id": "f2b65e680",
           "tabIndex": 0
         },
         {
@@ -221,7 +221,7 @@
           "value": "Express",
           "checked": false,
           "disabled": true,
-          "id": "f22e19152",
+          "id": "f1b45aed7",
           "tabIndex": 0
         },
         {
@@ -229,7 +229,7 @@
           "value": "Overnight",
           "checked": false,
           "disabled": false,
-          "id": "f1eeb5bbf",
+          "id": "f3a4fa049",
           "tabIndex": 0
         }
       ]
@@ -399,7 +399,7 @@
         "direction": "rtl",
         "inputWidth": 24,
         "inputHeight": 24,
-        "labelWidth": 43.078125,
+        "labelWidth": 16,
         "indicatorWidth": 16
       }
     },
@@ -611,5 +611,5 @@
     }
   ],
   "runtimeSignals": [],
-  "profilePrefix": "bluent-v3-436-radiogroup-602f0580f5b64965a7a4d0f7bee76448-"
+  "profilePrefix": "bluent-v3-436-radiogroup-23afae93b82641b8b0133db2d5b913e1-"
 }

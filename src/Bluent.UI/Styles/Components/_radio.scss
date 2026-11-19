@@ -68,7 +68,7 @@
                         background-color: currentcolor;
                     }
 
-                    + label {
+                    + label.option-label {
                         color: var(--colorNeutralForeground1);
                     }
                 }
@@ -100,7 +100,7 @@
                     border-color: var(--colorNeutralStrokeDisabled);
                     color: var(--colorNeutralForegroundDisabled);
 
-                    + label {
+                    + label.option-label {
                         color: var(--colorNeutralForegroundDisabled);
                         cursor: default;
                     }
@@ -126,7 +126,7 @@
             color: inherit;
         }
 
-        > label {
+        > label.option-label {
             align-self: center;
             margin-block-start: calc((16px - var(--lineHeightBase300)) / 2);
             padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
@@ -149,7 +149,7 @@
                 order: 2;
             }
 
-            > label {
+            > label.option-label {
                 order: 1;
             }
         }

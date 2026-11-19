@@ -23,6 +23,7 @@
 - Native type, name, value, checked, generated id and tabindex are component-owned. Preserve other non-conflicting attributes, including disabled, aria-*, data-* and title.
 - EditContext.OnValidationStateChanged subscription is synchronized as context changes and removed on disposal. Children rerender aria-invalid when validation messages change.
 - Keep browser-owned keyboard behavior. Do not add custom JavaScript unless a real browser test demonstrates a required native behavior that fails.
+- The visual indicator is itself a second native `label.indicator[for]` with `aria-hidden="true"`; the readable caption is a separate `.option-label[for]`. Preserve this association so the visible circle activates the native radio in both Before and After layouts.
 - Do not invent Size, Appearance, HelperText, ErrorMessage, Required, public Name, keyboard-mode or ARIA-role parameters. Do not consume preview-only #418 token aliases.
 
 ## Verification
@@ -36,7 +37,7 @@ dotnet build src/Bluent.UI.Demo/Bluent.UI.Demo.csproj -c Debug --no-restore -war
 dotnet build src/Bluent.UI.Demo.SSR/Bluent.UI.Demo.SSR.csproj -c Release --no-restore -warnaserror
 ~~~
 
-The current four-cell local real-browser baseline is **26/26 per cell (104/104 total)**. This covers browser AX, native Tab/Arrow/Space, disabled skipping, pointer binding, EditContext and native form submission, RTL, forced-colors emulation and 320px reflow. Forced-colors emulation is not native Windows Contrast Themes; Chromium AX is not spoken screen-reader acceptance. See JSON/PNG reports under docs/v3/quality/evidence/.
+The current four-cell local real-browser baseline is **26/26 per cell (104/104 total)**. This covers browser AX, native Tab/Arrow/Space, disabled skipping, pointer binding, EditContext and native form submission, RTL, forced-colors emulation and 320px reflow. Forced-colors emulation is not native Windows Contrast Themes. A native Windows 11 Pro 28000 High Contrast White smoke check and Windows UIA tree inspection are now recorded in `docs/v3/quality/evidence/BLUENT-RADIOGROUP-WINDOWS-NATIVE.md` with PNG evidence; original OS flags were restored. Narrator was launched, but spoken output was not independently verified. Chromium AX/UIA tree semantics are not spoken screen-reader acceptance. See JSON/PNG reports under docs/v3/quality/evidence/.
 
 ## Ownership and finish rule
 

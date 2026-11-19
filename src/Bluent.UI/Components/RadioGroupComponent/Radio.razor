@@ -10,9 +10,9 @@
            checked="@IsChecked"
            id="@Id"
            @onchange="HandleOnChange" />
-    <span class="indicator" aria-hidden="true"></span>
+    <label class="indicator" for="@Id" aria-hidden="true"></label>
     @if (!string.IsNullOrEmpty(Label))
     {
-        <label for="@Id">@Label</label>
+        <label class="option-label" for="@Id">@Label</label>
     }
 </div>

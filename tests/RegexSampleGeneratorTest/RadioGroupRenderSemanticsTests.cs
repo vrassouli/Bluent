@@ -52,7 +52,9 @@ public class RadioGroupRenderSemanticsTests
             Assert.That(markup, Does.Contain("aria-describedby=\"delivery-help\""));
             Assert.That(markup, Does.Contain("data-qa=\"delivery-group\""));
             Assert.That(markup, Does.Not.Contain("<fieldset name="));
-            Assert.That(markup, Does.Contain("<span class=\"indicator\" aria-hidden=\"true\"></span>"));
+            Assert.That(markup, Does.Contain("<label class=\"indicator\" for=\""));
+            Assert.That(markup, Does.Contain("aria-hidden=\"true\"></label>"));
+            Assert.That(markup, Does.Contain("<label class=\"option-label\" for=\""));
         });
     }
 
@@ -150,7 +152,7 @@ public class RadioGroupRenderSemanticsTests
             Assert.That(markup, Does.Contain("aria-label=\"Preferred contact method\""));
             Assert.That(markup, Does.Not.Contain("<legend"));
             Assert.That(GetAttribute(GetInputTags(markup).Single(), "aria-label"), Is.Null);
-            Assert.That(markup, Does.Contain("<label for="));
+            Assert.That(markup, Does.Contain("<label class=\"option-label\" for="));
         });
     }
 

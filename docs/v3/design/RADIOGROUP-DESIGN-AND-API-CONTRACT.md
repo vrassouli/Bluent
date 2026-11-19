@@ -13,7 +13,7 @@
 
 | Board | Penpot ID | Design intent | Implementation relation |
 |---|---|---|---|
-| Anatomy, visual states and API | 0125a79e-69b2-807f-8008-f726bd61b423 | fieldset / legend, native option label/input anatomy, horizontal and vertical composition, rest/selected/focus/disabled states and API boundary | Source uses native fieldset / legend; group/option inputs remain native; existing orientation and label-position API is preserved |
+| Anatomy, visual states and API | 0125a79e-69b2-807f-8008-f726bd61b423 | fieldset / legend, native indicator-label and text-label/input anatomy, horizontal and vertical composition, rest/selected/focus/disabled states and API boundary | Source uses native fieldset / legend; group/option inputs remain native; existing orientation and label-position API is preserved |
 | Keyboard and accessibility | 0125a79e-69b2-807f-8008-f726c1464f5d | Tab entry, arrow traversal, Space, disabled skipping, independent group names, accessible name, EditContext and attribute ownership | Actual CDP tests exercise all listed keyboard behavior, two-group isolation, Chromium accessibility tree and live validation |
 | RTL, responsive and state matrix | 0125a79e-69b2-807f-8008-f726c665a5cf | Persian/RTL ordering, 1440/768/320/390 viewport concepts, Light/Dark/High Contrast and Rest/Selected/Hover/Pressed/Focus/Disabled/Invalid states | RTL and 320px/1280px browser checks are retained; theme/forced-colors checks are browser-emulated and do not approve design colors or native OS contrast |
 
@@ -24,6 +24,8 @@ The anatomy proposal calls for a shared native name, an actual native option val
 The design uses the semantic HTML fieldset / legend pattern instead of a custom div[role=radiogroup]. This is intentional: the child controls remain native radio inputs, the browser owns grouping through the shared name, and the component keeps its existing typed InputBase binding. No extra ARIA radiogroup role or custom JavaScript keyboard system is required for this implementation.
 
 When Label is non-empty, it becomes the visible legend. When the visual legend is omitted, the consumer must pass aria-label or aria-labelledby to the group. Each option needs its own accessible name via Radio.Label or a supported native accessible-name attribute.
+
+Each Radio uses two labels associated with the same native input: the 16px visual indicator is a second `label.indicator[for]` with `aria-hidden="true"` (so the decorative circle remains a real pointer hit target), while the separate `.option-label[for]` carries the visible/readable caption. This preserves native label activation for both `ItemsLabelPosition.Before` and `After`; the indicator itself is not announced as a duplicate option name.
 
 ## API preservation and attribute precedence
 
@@ -37,7 +39,7 @@ The local real-browser test matrix is four separate cells: Chrome/WebAssembly, E
 
 The first server 320px run caught overflow from the demo's unwrapped copyable pre/code specimen, not from RadioGroup. The showcase now has scoped pre wrapping, and the original full-page no-overflow assertion remains enabled.
 
-These browser assertions do not provide native Windows Contrast Themes, physical screen-reader speech, VoiceOver/NVDA/Narrator acceptance, or final Penpot visual approval.
+A native Windows High Contrast smoke check was also performed on Dev01 (Windows 11 Pro build 28000): the OS `High Contrast White` scheme was toggled on via Win32, the live component was captured, and the Windows UI Automation tree exposed named groups and named radio buttons with correct selected/disabled state. See `docs/v3/quality/evidence/BLUENT-RADIOGROUP-WINDOWS-NATIVE.md` and the retained PNG. The original High Contrast flags (126, disabled) were restored after the capture. Narrator was launched, but spoken speech could not be independently audited; spoken Narrator/NVDA/VoiceOver acceptance is still open. The three Penpot boards remain DRAFT and have no maintainer sign-off.
 
 ## Token and foundation boundary
 
@@ -47,5 +49,5 @@ Only already-shipped source CSS roles are used. No preview-only #418 alias is co
 
 - Maintainer visual review/sign-off on the three editable DRAFT Penpot boards.
 - Exact-head GitHub Actions for the implementation PR.
-- Native OS high-contrast and named assistive-technology review.
+- Spoken screen-reader acceptance (Narrator/NVDA/VoiceOver); native High Contrast and Windows UIA semantics have a recorded smoke check, not full conformance sign-off.
 - Full public component-family acceptance and the wider #421 ledger remain separate from this task's own four-cell browser evidence.

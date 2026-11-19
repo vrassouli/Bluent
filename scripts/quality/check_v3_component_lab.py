@@ -361,6 +361,11 @@ def check() -> int:
         assert f'class="{label}" role="status" lang="en" dir="ltr"' in source
     assert '.lab-canvas[dir="rtl"] .lab-radio-card p { text-align:right; }' in css
     assert "RTL Radio English statuses keep LTR punctuation and align right within spaced cards" in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    radio_probe = (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    for selector in ("#lab-radio-pm + .indicator", "#lab-radio-low + .indicator",
+                     "#lab-radio-disabled + .indicator"):
+        assert selector in radio_probe, f"RadioGroup pointer probe must target the current native indicator: {selector}"
+    assert "label.indicator[for=lab-radio-pm]" not in radio_probe, "stale pre-native RadioGroup indicator selector must not return"
     radio_queue=next(e for e in json.loads(QUEUE.read_text(encoding="utf-8-sig"))["families"]
                      if e["family"]=="RadioGroup")
     assert radio_queue["scenarioId"] == "radio-group-choice-orientation-disabled"

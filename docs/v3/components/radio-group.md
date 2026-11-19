@@ -54,7 +54,9 @@ With a non-empty Label, the group renders a native fieldset with an associated l
 Every nested option renders a native input[type=radio] with:
 - the same name as its sibling options;
 - its own native value;
-- a stable generated id and associated label;
+- a stable generated id and associated labels;
+- a 16px visual indicator implemented as a second native `<label for="…">` hit target with `aria-hidden="true"`, so clicking the indicator activates the input even when the text caption is positioned before it;
+- a separate `.option-label` native label that supplies the visible/readable option name;
 - native disabled state when disabled at group or option level.
 
 No custom JavaScript keyboard layer is used. The real-browser matrix verifies that the browser keeps the selected radio as the single Tab stop, enters an unselected group at its first enabled option, moves with Arrow keys, wraps within that group, skips disabled options, and selects with Space. Two adjacent groups that repeat the same values remain independent because their names differ.
@@ -113,7 +115,7 @@ This is a runnable v3 task-branch example, not an instruction to install an unre
 
 Aggregate local browser evidence: **104/104 assertions**. Each browser cell also captured initial/320px/1280px PNGs and a JSON report under docs/v3/quality/evidence/. Assertions include the actual Chromium accessibility tree, native Tab/Arrow/Space/pointer input, independent group names, native form FormData, EditContext invalidation, RTL, dark-theme CSS computation, forced-colors emulation and 320px no-overflow/hit-target checks.
 
-Evidence boundaries: forced-colors is browser emulation, not native Windows Contrast Themes. Dark mode was checked through the host theme attribute and computed styles, not every brand/mode. Native Narrator/NVDA/VoiceOver speech, native OS contrast, and an independent Penpot reviewer sign-off have **not** been completed. Screenshots are retained evidence, not a claim of approved pixel parity.
+Native Windows evidence (Dev01, Windows 11 Pro build 28000): the real `High Contrast White` scheme was enabled through `SystemParametersInfo(SPI_SETHIGHCONTRAST)`, the live RadioGroup page was captured in that OS mode, and the Windows UI Automation tree exposed named `group` and `radiobutton` controls with option names, selected state and disabled state. The screenshot is retained at `docs/v3/quality/evidence/BLUENT-RADIOGROUP-WINDOWS-HIGH-CONTRAST.png`; the native setting was restored to its original disabled state (flags 126) immediately after capture. This is a native OS visual/UIA smoke check, not complete Windows High Contrast Themes conformance certification. Narrator was launched, but spoken output could not be independently audited; Narrator/NVDA/VoiceOver spoken acceptance remains open. The three Penpot boards also remain DRAFT pending independent visual sign-off. Screenshots are retained evidence, not a claim of approved pixel parity.
 
 ## 2.x → v3 migration boundary
 
@@ -123,4 +125,4 @@ See [migration impact M24](../design/MIGRATION-IMPACT-LEDGER.md) and the separat
 
 ## Acceptance boundary
 
-The component is still **In progress**. The three editable Penpot Page 59 boards — anatomy/API (0125a79e-69b2-807f-8008-f726bd61b423), keyboard/accessibility (0125a79e-69b2-807f-8008-f726c1464f5d), and RTL/responsive coverage (0125a79e-69b2-807f-8008-f726c665a5cf) — remain DRAFT pending maintainer visual review. Exact-head hosted CI, native OS contrast and assistive-technology acceptance remain separate gates. This task does not close #418 or #421, approve preview tokens, merge into stable Dev, publish NuGet or deploy.
+The component is still **In progress**. The three editable Penpot Page 59 boards — anatomy/API (0125a79e-69b2-807f-8008-f726bd61b423), keyboard/accessibility (0125a79e-69b2-807f-8008-f726c1464f5d), and RTL/responsive coverage (0125a79e-69b2-807f-8008-f726c665a5cf) — remain DRAFT pending maintainer visual review. Exact-head hosted CI for the latest pointer-label patch and spoken assistive-technology acceptance remain open; native High Contrast and Windows UIA semantics have been exercised and recorded separately. This task does not close #418 or #421, approve preview tokens, merge into stable Dev, publish NuGet or deploy.
