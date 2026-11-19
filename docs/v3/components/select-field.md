@@ -106,7 +106,7 @@ The showcase includes scalar string/int values, `string[]`, `int[]`, `bool[]`, `
 
 Each browser cell retains an initial, final and 320px screenshot beside its JSON report under `docs/v3/quality/evidence/`. The PowerShell runner uses a unique run-owned browser profile and verifies its cleanup.
 
-Draft PR #568 is open against `bluent-v3`. Exact-head hosted GitHub Actions have not yet reported results; local browser evidence does not imply hosted CI completion.
+Draft PR #568 is open against bluent-v3. On the previously tested head f1451607404cc4064e7192890f3f23888b116207, hosted CI confirmed the SelectField source/evidence contract and all four Chrome/Edge × WebAssembly/InteractiveServer jobs (76/76 assertions). The wider compatibility workflow was still non-green because the RadioGroup contract tests scoped their job at end-of-file and the Component Lab checker still asserted SelectField's retired event-handler markup. Both shared guards are corrected in the current task branch; exact-head hosted CI must be rerun after this correction. A pass of the SelectField-specific jobs does not imply that every shared workflow was green.
 
 ## 2.x → v3 compatibility
 

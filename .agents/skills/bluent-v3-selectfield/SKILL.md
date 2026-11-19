@@ -30,7 +30,7 @@
 - Chrome/Edge × WebAssembly/InteractiveServer: **19/19 per cell, 76/76 total**, including single combobox and multiple listbox AX roles, bool[] selection changes, addon placement, onchange/oninput, EditForm validation, RTL and 320px reflow.
 - Four JSON reports and twelve PNG screenshots are retained under `docs/v3/quality/evidence/BLUENT-SELECTFIELD-*`.
 - Local runtime browser logs show no unexpected console errors, exceptions or application HTTP failures. The production-published SSR test emits a local HTTP→HTTPS redirect configuration warning; it is not a browser/runtime failure.
-- Draft PR #568 is open on GitHub; exact-head hosted CI has not yet reported a run.
+- Draft PR #568 is open on GitHub. At head f1451607404cc4064e7192890f3f23888b116207, the SelectField source/evidence job and all four hosted browser cells passed (76/76). The wider shared workflow had two independent guard failures (RadioGroup job scoping and a retired SelectField markup assertion in Component Lab); both are fixed on the current branch and require exact-new-head CI rerun.
 - Native Windows Contrast Themes, spoken Narrator/NVDA/VoiceOver and maintainer design acceptance remain open.
 
 ## Version and release boundary

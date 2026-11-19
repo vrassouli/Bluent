@@ -70,5 +70,6 @@ The shared field styles own the closed select control, size and states. No Selec
 - The matrix verifies native combobox/listbox roles, keyboard binding events, multi-option Ctrl+Click, bool[] conversion, form validation/submission, RTL and 320px no-overflow.
 - Native Windows Contrast Themes and spoken screen-reader acceptance remain separate and unclaimed.
 - Penpot boards remain DRAFT; browser results are not design approval.
+- Hosted CI at head f1451607404cc4064e7192890f3f23888b116207 passed the SelectField source/evidence job and all four SelectField browser cells (76/76); shared RadioGroup/Component Lab source-guard failures were corrected afterward and need exact-new-head CI confirmation.
 
 See [the canonical SelectField v3 implementation record](../components/select-field.md) for the complete source/API, demo, migration and evidence ledger.
