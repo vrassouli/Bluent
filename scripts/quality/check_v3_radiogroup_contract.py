@@ -114,11 +114,14 @@ def check_radiogroup_contract(root: Path = ROOT) -> None:
     need(len(rows) == 1 and rows[0].get("classification") == "representative_only",
          "existing v2 Component Lab RadioGroup pilot must remain representative_only")
     v3 = rows[0].get("v3Implementation", {})
-    need(v3.get("issue") == 436 and v3.get("status") == "in_progress"
+    need(v3.get("issue") == 436 and v3.get("status") == "review"
          and v3.get("localBrowserMatrix", {}).get("total") == "104/104",
-         "separate #436 v3 coverage record missing")
-    need(v3.get("designSource", {}).get("reviewStatus") == "draft_pending_maintainer_visual_review",
-         "Penpot DRAFT state must remain explicit")
+         "separate #436 v3 Review coverage record missing")
+    need(v3.get("designSource", {}).get("reviewStatus") == "ai_reviewed_user_delegated"
+         and v3.get("designSource", {}).get("reviewDate") == "2026-11-19",
+         "delegated AI design/API review record missing")
+    need("AI REVIEWED" in reference and "AI REVIEWED" in design and "originally DRAFT" in design,
+         "delegated review status and historical DRAFT provenance must stay explicit")
     evidence = root / "docs/v3/quality/evidence"
     for browser, mode, render_mode in (("Chrome","WebAssembly","WebAssembly"),
                                        ("Edge","WebAssembly","WebAssembly"),

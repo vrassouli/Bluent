@@ -532,7 +532,7 @@
       "knownAccessibilityReview": "The v3 #436 implementation now renders native fieldset/legend groups, a shared native name per group and a native value per option; it preserves InputBase binding/EditContext validation and uses browser-native keyboard traversal. The separate v3 Chrome/Edge × WebAssembly/InteractiveServer matrix passed 104/104 locally. Native Windows Contrast Themes and Narrator/other named screen-reader acceptance remain separate gates; this existing Component Lab record is still representative_only and does not certify them.",
       "v3Implementation": {
         "issue": 436,
-        "status": "in_progress",
+        "status": "review",
         "taskBranch": "v3/issue-436-radiogroup",
         "canonicalReference": "docs/v3/components/radio-group.md",
         "designDecision": "Native fieldset/legend, shared native name per group, native option value; typed InputBase API unchanged.",
@@ -544,7 +544,9 @@
             "0125a79e-69b2-807f-8008-f726c1464f5d",
             "0125a79e-69b2-807f-8008-f726c665a5cf"
           ],
-          "reviewStatus": "draft_pending_maintainer_visual_review"
+          "reviewStatus": "ai_reviewed_user_delegated",
+          "reviewDate": "2026-11-19",
+          "reviewNote": "User explicitly delegated remaining #436 technical/design review to the assistant. Three Penpot boards were inspected against current source and exports, corrected, and visibly marked AI REVIEWED. This is not human maintainer sign-off or spoken AT certification."
         },
         "focusedRendererTests": "9/9",
         "localBrowserMatrix": {
@@ -556,7 +558,16 @@
           "runtimeSignals": 0
         },
         "evidenceDirectory": "docs/v3/quality/evidence/ (Chrome/Edge × WebAssembly/Server JSON and 320px/1280px PNGs)",
-        "acceptanceBoundary": "This v3 task evidence is distinct from the existing v2 Component Lab representative_only scenario above; it does not change the overall #421 pilot_incomplete status, imply native OS/AT acceptance, or approve #418 token aliases."
+        "acceptanceBoundary": "Issue #436 is in Review. This task evidence is distinct from the existing v2 Component Lab representative_only scenario above; it does not change the overall #421 pilot_incomplete status, imply spoken AT acceptance, or approve #418 token aliases. Exact-head RadioGroup jobs pass; independent TextField #432 and Button #428 shared workflow failures remain outside this task.",
+        "hostedCI": {
+          "radioGroupSourceAndEvidenceContract": "passed",
+          "radioGroupBrowserMatrix": "4/4 jobs passed",
+          "componentLabBrowserMatrixAfterRetry": "4/4 jobs passed",
+          "unrelatedSharedWorkflowFailures": [
+            "TextField #432 browser assertions",
+            "Button #428 menu/Tab focus behavior"
+          ]
+        }
       }
     },
     {

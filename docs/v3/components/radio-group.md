@@ -1,6 +1,6 @@
 # RadioGroup — v3 implementation record (#436)
 
-> **Development-only, unreleased v3 task branch.** This record describes source on v3/issue-436-radiogroup; it does not change the 2.x consumer API or imply a stable NuGet release. GitHub Project #5 status: **In progress**.
+> **Development-only, unreleased v3 task branch.** This record describes source on v3/issue-436-radiogroup; it does not change the 2.x consumer API or imply a stable NuGet release. GitHub Project #5 status: **Review**.
 
 ## Identity and maturity
 
@@ -12,7 +12,7 @@
 | Source | src/Bluent.UI/Components/RadioGroupComponent/ |
 | Demo | /components/radios; published InteractiveServer QA route /compatibility/radios-server |
 | Design | Owned Penpot file b64f6665-c9ab-80b5-8008-c4ac99d9d000, Page 59 |
-| Design review | Three editable boards exist but remain visibly DRAFT. No maintainer visual sign-off is claimed. |
+| Design review | Three editable Page 59 boards received delegated AI technical review on 2026-11-19 and are visibly marked AI REVIEWED. This records the user's explicit delegation; it is not represented as a human maintainer review. |
 | Public API maturity | Source-backed task-branch implementation; not released |
 
 ## Source and public API
@@ -43,7 +43,7 @@ The native group name follows this precedence:
 | Value | TValue | required | Typed option value; rendered as the native input value |
 | Label | string? | null | Visible option label, associated with the native input |
 
-Radio<TValue> still requires a cascading RadioGroup<TValue> parent. It inherits common component identity/styling and unmatched input attributes. Component-owned native attributes (type, name, value, checked, generated id and tabindex) cannot be overridden by conflicting unmatched attributes. Non-conflicting aria-*, data-*, title and disabled attributes are preserved.
+Radio<TValue> still requires a cascading RadioGroup<TValue> parent. It inherits common component identity/styling and unmatched input attributes. Component-owned native attributes (type, name, value, checked and generated id) cannot be overridden by conflicting unmatched attributes. Per-option tabindex overrides are rejected so native radio keyboard behavior remains intact. Non-conflicting aria-*, data-*, title and disabled attributes are preserved.
 
 ## Deliberate semantics and Fluent boundary
 
@@ -113,9 +113,11 @@ This is a runnable v3 task-branch example, not an instruction to install an unre
 | Chrome / published InteractiveServer | scripts/quality/run_v3_radiogroup.ps1 -Mode Server -Browser Chrome | 26/26; zero runtime signals |
 | Edge / published InteractiveServer | scripts/quality/run_v3_radiogroup.ps1 -Mode Server -Browser Edge | 26/26; zero runtime signals |
 
-Aggregate local browser evidence: **104/104 assertions**. Each browser cell also captured initial/320px/1280px PNGs and a JSON report under docs/v3/quality/evidence/. Assertions include the actual Chromium accessibility tree, native Tab/Arrow/Space/pointer input, independent group names, native form FormData, EditContext invalidation, RTL, dark-theme CSS computation, forced-colors emulation and 320px no-overflow/hit-target checks.
+Aggregate local browser evidence: **104/104 assertions**. Each browser cell captured initial/320px/1280px PNGs and a JSON report under docs/v3/quality/evidence/. Assertions include the actual Chromium accessibility tree, native Tab/Arrow/Space/pointer input, independent group names, native form FormData, EditContext invalidation, RTL, dark-theme CSS computation, forced-colors emulation and 320px no-overflow/hit-target checks. The retained browser viewport evidence is 320px and 1280px; 390px, 768px and 1440px remain Penpot planning targets, not claims of measured browser coverage.
 
-Native Windows evidence (Dev01, Windows 11 Pro build 28000): the real `High Contrast White` scheme was enabled through `SystemParametersInfo(SPI_SETHIGHCONTRAST)`, the live RadioGroup page was captured in that OS mode, and the Windows UI Automation tree exposed named `group` and `radiobutton` controls with option names, selected state and disabled state. The screenshot is retained at `docs/v3/quality/evidence/BLUENT-RADIOGROUP-WINDOWS-HIGH-CONTRAST.png`; the native setting was restored to its original disabled state (flags 126) immediately after capture. This is a native OS visual/UIA smoke check, not complete Windows High Contrast Themes conformance certification. Narrator was launched, but spoken output could not be independently audited; Narrator/NVDA/VoiceOver spoken acceptance remains open. The three Penpot boards also remain DRAFT pending independent visual sign-off. Screenshots are retained evidence, not a claim of approved pixel parity.
+Native Windows evidence (Dev01, Windows 11 Pro build 28000): the real `High Contrast White` scheme was enabled through `SystemParametersInfo(SPI_SETHIGHCONTRAST)`, the live RadioGroup page was captured in that OS mode, and the Windows UI Automation tree exposed named `group` and `radiobutton` controls with option names, selected state and disabled state. The screenshot is retained at `docs/v3/quality/evidence/BLUENT-RADIOGROUP-WINDOWS-HIGH-CONTRAST.png`; the native setting was restored to its original disabled state (flags 126) immediately after capture. This is a native OS visual/UIA smoke check, not complete Windows High Contrast Themes conformance certification. Narrator was launched, but spoken output could not be independently audited; Narrator/NVDA/VoiceOver spoken acceptance remains unverified and is not claimed.
+
+On 2026-11-19 the user explicitly delegated the remaining visual/API review to the assistant. The three editable Penpot boards were reviewed against source, exported and visually inspected, their inaccurate label/attribute/viewport annotations were corrected, and their status badges were changed from the historical DRAFT state to **AI REVIEWED**. The review verifies the documented anatomy, keyboard contract, native-name precedence, attribute ownership, RTL coverage and the actual 320px/1280px evidence. It does not claim a human maintainer review, complete pixel-parity certification, full WCAG certification or spoken-screen-reader acceptance.
 
 ## 2.x → v3 migration boundary
 
@@ -125,4 +127,4 @@ See [migration impact M24](../design/MIGRATION-IMPACT-LEDGER.md) and the separat
 
 ## Acceptance boundary
 
-The component is still **In progress**. The three editable Penpot Page 59 boards — anatomy/API (0125a79e-69b2-807f-8008-f726bd61b423), keyboard/accessibility (0125a79e-69b2-807f-8008-f726c1464f5d), and RTL/responsive coverage (0125a79e-69b2-807f-8008-f726c665a5cf) — remain DRAFT pending maintainer visual review. Exact-head hosted CI for the latest pointer-label patch and spoken assistive-technology acceptance remain open; native High Contrast and Windows UIA semantics have been exercised and recorded separately. This task does not close #418 or #421, approve preview tokens, merge into stable Dev, publish NuGet or deploy.
+The component is **ready for Review** on [PR #566](https://github.com/vrassouli/Bluent/pull/566), targeting `bluent-v3`. The exact-head RadioGroup source/evidence contract and all four hosted browser cells pass. The Component Lab retry also passed all four browser/render-mode cells. Documentation, Skill, public API census and baseline quality workflows pass. The two remaining red workflow families are outside #436: TextField assertions in #432 and Button menu/Tab focus behavior in #428; they are recorded as independent blockers in the PR rather than misattributed to RadioGroup. Native High Contrast/UIA smoke evidence is recorded; spoken Narrator/NVDA/VoiceOver output remains unverified. The three Page 59 boards are AI REVIEWED following the user's explicit delegation, with the historical DRAFT transition and review scope recorded above. #418 token ownership and the broader #421 ledger remain separate. This task is not Done until PR #566 is accepted and merged into `bluent-v3`; no merge to stable Dev, no 2.x changes, package publication or deployment is included.

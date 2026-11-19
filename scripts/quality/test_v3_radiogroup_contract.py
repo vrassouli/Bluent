@@ -115,8 +115,8 @@ class RadioGroupContractTests(unittest.TestCase):
         p.write_text(json.dumps(data),encoding="utf-8")
         with self.assertRaises(RadioGroupContractError):
             check_radiogroup_contract(self.root)
-    def test_penpot_draft_boundary_is_required(self):
-        self.mutate("docs/v3/design/RADIOGROUP-DESIGN-AND-API-CONTRACT.md","DRAFT","approved")
+    def test_penpot_ai_review_record_is_required(self):
+        self.mutate("docs/v3/design/RADIOGROUP-DESIGN-AND-API-CONTRACT.md","AI REVIEWED","unreviewed")
     def test_migration_row_is_required(self):
         self.mutate("docs/v3/design/MIGRATION-IMPACT-LEDGER.md","M24","Mxx")
     def test_ci_must_keep_server_mode(self):
