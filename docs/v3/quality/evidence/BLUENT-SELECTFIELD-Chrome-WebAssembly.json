@@ -3,15 +3,16 @@
   "issue": 437,
   "browser": "Chrome",
   "renderMode": "WebAssembly",
-  "route": "/components/select-fields",
-  "base": "http://127.0.0.1:65303",
-  "timestamp": "2026-11-19T15:25:19.079Z",
+  "culture": "en-US",
+  "route": "/components/select-fields?culture=en-US&ui-culture=en-US",
+  "base": "http://127.0.0.1:56222",
+  "timestamp": "2026-11-19T19:52:17.564Z",
   "checks": [
     {
       "name": "SelectField showcase loads in Chrome/WebAssembly",
       "pass": true,
       "detail": {
-        "url": "http://127.0.0.1:65303/components/select-fields"
+        "url": "http://127.0.0.1:56222/components/select-fields?culture=en-US&ui-culture=en-US"
       }
     },
     {
@@ -97,6 +98,35 @@
         "selected": [
           "true"
         ]
+      }
+    },
+    {
+      "name": "nullable boolean array initializes null and true native options",
+      "pass": true,
+      "detail": {
+        "multiple": true,
+        "selected": [
+          "",
+          "true"
+        ],
+        "status": "Selected nullable values: null, true"
+      }
+    },
+    {
+      "name": "decimal array options and initial value use the requested .NET culture",
+      "pass": true,
+      "detail": {
+        "culture": "en-US",
+        "decimals": {
+          "multiple": true,
+          "selected": [
+            "1.5"
+          ],
+          "optionOne": "1.5",
+          "optionTwo": "2.5",
+          "culture": "en-US",
+          "status": "Selected decimal values: 1.5"
+        }
       }
     },
     {
@@ -219,6 +249,51 @@
       }
     },
     {
+      "name": "native multiple selection round-trips null, true and false into bool?[]",
+      "pass": true,
+      "detail": {
+        "nullableBox": {
+          "x": 310,
+          "y": 227,
+          "w": 56.34375,
+          "h": 18
+        },
+        "nullableAfter": {
+          "selected": [
+            "",
+            "true",
+            "false"
+          ],
+          "status": "Selected nullable values: null, true, false"
+        },
+        "nullableClickError": null
+      }
+    },
+    {
+      "name": "native multiple selection parses decimal[] using the current culture",
+      "pass": true,
+      "detail": {
+        "culture": "en-US",
+        "decimalBox": {
+          "x": 310,
+          "y": 209.421875,
+          "w": 90.75,
+          "h": 18
+        },
+        "decimalsAfter": {
+          "selected": [
+            "1.5",
+            "2.5"
+          ],
+          "one": "1.5",
+          "two": "2.5",
+          "culture": "en-US",
+          "status": "Selected decimal values: 1.5, 2.5"
+        },
+        "decimalClickError": null
+      }
+    },
+    {
       "name": "EditForm validation marks the native select invalid and shows the message",
       "pass": true,
       "detail": {
@@ -262,7 +337,7 @@
   ],
   "signals": [],
   "summary": {
-    "passed": 19,
+    "passed": 23,
     "failed": 0
   }
 }

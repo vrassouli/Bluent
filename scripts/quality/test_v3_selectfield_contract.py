@@ -5,8 +5,10 @@ import unittest
 from check_v3_selectfield_contract import (
     validate_demo_contract,
     validate_evidence_report,
+    validate_culture_evidence_report,
     validate_reference_contract,
     validate_source_contract,
+    validate_ci_contract,
 )
 
 
@@ -73,6 +75,9 @@ class SelectFieldDemoContractTests(unittest.TestCase):
         <SelectField TValue="string[]" />
         <SelectField TValue="int[]" />
         <SelectField TValue="bool[]" />
+        <SelectField TValue="bool?[]" id="select-nullable-flags" />
+        <SelectField TValue="decimal[]" id="select-decimals" />
+        <p>CultureInfo.CurrentCulture</p><span id="select-decimals-culture"></span>
         <SelectField BindValueEvent="oninput" />
         <EditForm><DataAnnotationsValidator /></EditForm>
         <section dir="rtl"></section>
@@ -80,6 +85,43 @@ class SelectFieldDemoContractTests(unittest.TestCase):
         server = '@page "/compatibility/select-fields-server" @rendermode InteractiveServer <SelectFields />'
         nav = '<Tab Href="components/select-fields" />'
         self.assertEqual(validate_demo_contract(demo, server, nav), [])
+
+    def test_demo_must_keep_nullable_boolean_and_culture_aware_decimal_arrays(self) -> None:
+        demo = """
+        @page "/components/select-fields"
+        <SelectField TValue="string" />
+        <SelectField TValue="int" />
+        <SelectField TValue="string[]" />
+        <SelectField TValue="int[]" />
+        <SelectField TValue="bool[]" />
+        <SelectField TValue="decimal[]" id="select-decimals" />
+        <p>CultureInfo.CurrentCulture</p><span id="select-decimals-culture"></span>
+        <SelectField BindValueEvent="oninput" />
+        <EditForm><DataAnnotationsValidator /></EditForm>
+        <section dir="rtl"></section>
+        """
+        server = '@page "/compatibility/select-fields-server" @rendermode InteractiveServer <SelectFields />'
+        nav = '<Tab Href="components/select-fields" />'
+        errors = validate_demo_contract(demo, server, nav)
+        self.assertTrue(any("bool?[]" in error for error in errors))
+
+    def test_demo_cannot_omit_culture_aware_decimal_example(self) -> None:
+        demo = """
+        @page "/components/select-fields"
+        <SelectField TValue="string" />
+        <SelectField TValue="int" />
+        <SelectField TValue="string[]" />
+        <SelectField TValue="int[]" />
+        <SelectField TValue="bool[]" />
+        <SelectField TValue="bool?[]" id="select-nullable-flags" />
+        <SelectField BindValueEvent="oninput" />
+        <EditForm><DataAnnotationsValidator /></EditForm>
+        <section dir="rtl"></section>
+        """
+        server = '@page "/compatibility/select-fields-server" @rendermode InteractiveServer <SelectFields />'
+        nav = '<Tab Href="components/select-fields" />'
+        errors = validate_demo_contract(demo, server, nav)
+        self.assertTrue(any("decimal[]" in error for error in errors))
 
     def test_demo_cannot_omit_boolean_array_example(self) -> None:
         demo = '''
@@ -104,18 +146,19 @@ class SelectFieldEvidenceContractTests(unittest.TestCase):
             "issue": 437,
             "browser": "Chrome",
             "renderMode": "WebAssembly",
-            "checks": [{"name": f"assertion {index}", "pass": True} for index in range(19)],
-            "summary": {"passed": 19, "failed": 0},
+            "culture": "en-US",
+            "checks": [{"name": f"assertion {index}", "pass": True} for index in range(23)],
+            "summary": {"passed": 23, "failed": 0},
             "signals": [],
         }
 
-    def test_exact_nineteen_pass_report_is_accepted(self) -> None:
+    def test_exact_twenty_three_pass_report_is_accepted(self) -> None:
         self.assertEqual(validate_evidence_report(self._report(), "Chrome", "WebAssembly"), [])
 
     def test_failed_browser_assertion_is_rejected(self) -> None:
         report = self._report()
         report["checks"][7]["pass"] = False
-        report["summary"] = {"passed": 18, "failed": 1}
+        report["summary"] = {"passed": 22, "failed": 1}
         errors = validate_evidence_report(report, "Chrome", "WebAssembly")
         self.assertTrue(any("failed" in error.lower() for error in errors))
 
@@ -124,14 +167,106 @@ class SelectFieldEvidenceContractTests(unittest.TestCase):
         report["signals"] = [{"type": "console", "text": "error"}]
         self.assertTrue(validate_evidence_report(report, "Chrome", "WebAssembly"))
 
+    def test_core_evidence_requires_explicit_en_us_culture(self) -> None:
+        report = self._report()
+        report["culture"] = "fa-IR"
+        errors = validate_evidence_report(report, "Chrome", "WebAssembly")
+        self.assertTrue(any("en-US" in error for error in errors))
+
     def test_render_mode_mismatch_is_rejected(self) -> None:
         report = self._report()
         self.assertTrue(validate_evidence_report(report, "Chrome", "Server"))
 
 
+class SelectFieldCultureEvidenceTests(unittest.TestCase):
+    def _report(self) -> dict:
+        return {
+            "component": "SelectField",
+            "issue": 437,
+            "browser": "Chrome",
+            "renderMode": "InteractiveServer",
+            "culture": "fa-IR",
+            "checks": [{"name": f"assertion {index}", "pass": True} for index in range(23)],
+            "summary": {"passed": 23, "failed": 0},
+            "signals": [],
+        }
+
+    def test_complete_fa_ir_interactive_server_evidence_is_accepted(self) -> None:
+        self.assertEqual(validate_culture_evidence_report(self._report(), "fa-IR"), [])
+
+    def test_culture_report_cannot_claim_another_culture(self) -> None:
+        report = self._report()
+        report["culture"] = "en-US"
+        self.assertTrue(validate_culture_evidence_report(report, "fa-IR"))
+
+    def test_culture_report_must_keep_all_twenty_three_assertions(self) -> None:
+        report = self._report()
+        report["checks"].pop()
+        report["summary"] = {"passed": 22, "failed": 0}
+        self.assertTrue(validate_culture_evidence_report(report, "fa-IR"))
+
+    def test_culture_report_rejects_runtime_signals(self) -> None:
+        report = self._report()
+        report["signals"] = [{"type": "http", "status": 500}]
+        self.assertTrue(validate_culture_evidence_report(report, "fa-IR"))
+
+
+class SelectFieldCiContractTests(unittest.TestCase):
+    def test_culture_runtime_job_is_required_and_retains_browser_evidence(self) -> None:
+        workflow = """
+  selectfield-contract:
+    name: SelectField / source and evidence contract
+    run: scripts/quality/check_v3_selectfield_contract.py
+    test: test_v3_selectfield_contract.py
+  selectfield-runtime:
+    needs: selectfield-contract
+    browser: [Chrome, Edge]
+    render_mode: [WebAssembly, Server]
+    run_v3_selectfield.ps1
+    probe_v3_selectfield.mjs
+    selectfield-evidence
+    actions/upload-artifact@v4
+  selectfield-culture-runtime:
+    name: SelectField / Chrome / Server / culture
+    needs: selectfield-runtime
+    strategy:
+      matrix:
+        culture: [de-DE, fa-IR]
+    steps:
+      - run: run_v3_selectfield.ps1 -Mode Server -Browser Chrome -Culture "culture"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: selectfield-culture-evidence
+"""
+        docs = "scripts/quality/check_v3_selectfield_contract.py test_v3_selectfield_contract.py"
+        self.assertEqual(validate_ci_contract(workflow, docs), [])
+
+    def test_ci_cannot_drop_fa_ir_culture_cell(self) -> None:
+        workflow = """
+  selectfield-contract:
+  selectfield-runtime:
+    needs: selectfield-contract
+    browser: [Chrome, Edge]
+    render_mode: [WebAssembly, Server]
+    run_v3_selectfield.ps1
+    probe_v3_selectfield.mjs
+    selectfield-evidence
+    actions/upload-artifact@v4
+  selectfield-culture-runtime:
+    matrix:
+      culture: [de-DE]
+    -Culture
+    Server
+    selectfield-culture-evidence
+    actions/upload-artifact@v4
+"""
+        docs = "scripts/quality/check_v3_selectfield_contract.py test_v3_selectfield_contract.py"
+        errors = validate_ci_contract(workflow, docs)
+        self.assertTrue(any("fa-IR" in error for error in errors))
+
 class SelectFieldReferenceContractTests(unittest.TestCase):
     def _content(self) -> tuple[str, str, str, str]:
-        reference = "not a released ChildContent BindValueEvent string[] int[] bool[] combobox listbox 76/76 DRAFT Windows Contrast Themes Narrator"
+        reference = "not a released ChildContent BindValueEvent string[] int[] bool[] bool?[] decimal[] de-DE fa-IR 23/23 138/138 combobox listbox 76/76 DRAFT Windows Contrast Themes Narrator"
         design = "DRAFT native HTML select BindValueEvent bool[] b64f6665-c9ab-80b5-8008-c4ac99d9d000 28143240-43dc-80cc-8008-f84a2fd6a22c"
         migration = "## M25 — SelectField"
         skill = "not merged or released bluent-v3 76/76 DRAFT check_v3_selectfield_contract.py"

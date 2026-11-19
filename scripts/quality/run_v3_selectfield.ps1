@@ -3,7 +3,9 @@ param(
     [ValidateSet("WebAssembly", "Server")]
     [string]$Mode = "WebAssembly",
     [ValidateSet("Chrome", "Edge")]
-    [string]$Browser = "Chrome"
+    [string]$Browser = "Chrome",
+    [ValidateSet("en-US", "de-DE", "fa-IR", "ar-EG")]
+    [string]$Culture = "en-US"
 )
 $ErrorActionPreference = "Stop"
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
@@ -54,13 +56,14 @@ try {
     $env:BLUENT_BROWSER_LABEL = $Browser
     $env:BLUENT_SELECT_RENDER_MODE = if ($Mode -eq 'Server') { 'InteractiveServer' } else { 'WebAssembly' }
     $env:BLUENT_SELECT_EVIDENCE_PATH = $evidenceFile
+    $env:BLUENT_SELECT_CULTURE = $Culture
     $env:BLUENT_SELECT_PROFILE_PREFIX = $profilePrefix
     Push-Location $repo
     try { & node 'scripts/quality/probe_v3_selectfield.mjs' $base; if ($LASTEXITCODE -ne 0) { throw 'SelectField browser probe failed' } }
     finally { Pop-Location }
 }
 finally {
-    Remove-Item Env:BROWSER_PATH,Env:BLUENT_BROWSER_LABEL,Env:BLUENT_SELECT_RENDER_MODE,Env:BLUENT_SELECT_EVIDENCE_PATH,Env:BLUENT_SELECT_PROFILE_PREFIX -ErrorAction SilentlyContinue
+    Remove-Item Env:BROWSER_PATH,Env:BLUENT_BROWSER_LABEL,Env:BLUENT_SELECT_RENDER_MODE,Env:BLUENT_SELECT_EVIDENCE_PATH,Env:BLUENT_SELECT_PROFILE_PREFIX,Env:BLUENT_SELECT_CULTURE -ErrorAction SilentlyContinue
     $env:ASPNETCORE_ENVIRONMENT = $oldEnvironment
     if ($demoProcess) { & taskkill.exe /PID $demoProcess.Id /T /F 2>$null | Out-Null }
     if ($published -and (Test-Path $published)) { Remove-Item $published -Recurse -Force -ErrorAction SilentlyContinue }

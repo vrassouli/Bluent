@@ -18,7 +18,7 @@
 - The only direct parameter is `ChildContent : RenderFragment?`; nested content is native `<option>` / `<optgroup>`.
 - Inherit value callbacks, expression, EditContext, validation and NameAttributeValue from `InputBase<TValue>`; inherit `StartAddon`, `EndAddon`, `FieldSize`, `BindValueEvent`, `Class` and `Style` from the Bluent field base.
 - Scalar `TValue` uses the native single-select. Array `TValue` renders `multiple` and receives the native selected `string[]` payload.
-- Runtime-verified arrays: `string[]`, `int[]`, `bool[]`. Boolean option text is lowercase `true` / `false`; the bool-array parser is element-wise.
+- Runtime-verified arrays: `string[]`, `int[]`, `bool[]`, `bool?[]` and `decimal[]`. Boolean option text is lowercase `true` / `false`; bool-array parsing is element-wise and empty option values map to `null` for `bool?[]`. Decimal arrays use `CultureInfo.CurrentCulture`; de-DE/fa-IR are included in the published InteractiveServer matrix.
 - Default `BindValueEvent` is `onchange`; the component now actually registers the inherited event on both scalar and array paths. `oninput` is also tested.
 - The browser/OS owns the popup, keyboard and native listbox interaction. Do not add a custom popup, chips, search/filter or JavaScript keyboard layer.
 - Consumers own associated Label, readable help/error content and `aria-describedby`; EditContext supplies native `aria-invalid`. Do not infer spoken AT acceptance from Chromium AX roles.
@@ -27,10 +27,10 @@
 ## Current local evidence checkpoint
 
 - Focused HtmlRenderer contract tests: **12/12**.
-- Chrome/Edge × WebAssembly/InteractiveServer: **19/19 per cell, 76/76 total**, including single combobox and multiple listbox AX roles, bool[] selection changes, addon placement, onchange/oninput, EditForm validation, RTL and 320px reflow.
-- Four JSON reports and twelve PNG screenshots are retained under `docs/v3/quality/evidence/BLUENT-SELECTFIELD-*`.
+- Chrome/Edge × WebAssembly/InteractiveServer: **23/23 per core cell, 92/92 core total; plus de-DE/fa-IR Server 46/46, 138/138 across six sessions**, including single combobox and multiple listbox AX roles, bool[]/bool?[] selection changes, culture-sensitive decimal[] selection, addon placement, onchange/oninput, EditForm validation, RTL and 320px reflow.
+- Four core JSON reports/twelve PNGs plus two culture-specific JSON reports/six PNGs are retained under `docs/v3/quality/evidence/BLUENT-SELECTFIELD-*`.
 - Local runtime browser logs show no unexpected console errors, exceptions or application HTTP failures. The production-published SSR test emits a local HTTP→HTTPS redirect configuration warning; it is not a browser/runtime failure.
-- Draft PR #568 is open on GitHub. At head f1451607404cc4064e7192890f3f23888b116207, the SelectField source/evidence job and all four hosted browser cells passed (76/76). The wider shared workflow had two independent guard failures (RadioGroup job scoping and a retired SelectField markup assertion in Component Lab); both are fixed on the current branch and require exact-new-head CI rerun.
+- Draft PR #568 remains open/Draft at predecessor hosted head fc96090d71a673c6c2c02d65457b1f3287afdc77. That run passed the earlier SelectField source/evidence and four 19-assertion browser cells (76/76); Component Lab and RadioGroup each passed 4/4. The current working tree expands core cells to 23 assertions each and adds de-DE/fa-IR culture cells (138/138 local total); exact-head hosted CI for this expanded matrix is pending the next commit/push. The predecessor shared run also had unrelated Button menu/Tab focus-restoration and NumericField Chrome/Server Forced Colors failures.
 - Native Windows Contrast Themes, spoken Narrator/NVDA/VoiceOver and maintainer design acceptance remain open.
 
 ## Version and release boundary

@@ -62,10 +62,12 @@ The shape of `TValue` selects the native control model:
 | `string[]` | Native `<select multiple>` listbox | Framework array binder |
 | `int[]` | Native `<select multiple>` listbox | Framework array binder under current culture |
 | `bool[]` | Native `<select multiple>` listbox | Element-wise boolean parsing; option values are lowercase `true` / `false` |
+| `bool?[]` | Native <select multiple> listbox | Empty option maps to `null`; lowercase true/false map to nullable booleans |
+| `decimal[]` | Native <select multiple> listbox | Framework array binder using `CultureInfo.CurrentCulture` |
 
 An array `TValue` renders the native `multiple` attribute. Its change handler receives the selected option strings and converts them to the typed array before assigning `CurrentValue`. Boolean arrays use an explicit typed path because the framework's general array conversion path does not correctly convert the native string-array payload to `bool[]`. Scalar `bool` and `bool?` values retain lowercase native option formatting.
 
-The source selects multiple mode for array `TValue`; however, #437's runtime evidence specifically covers `string[]`, `int[]` and `bool[]`. Do not infer that every arbitrary array element type has been runtime-verified.
+The source selects multiple mode for array `TValue`; #437's runtime evidence covers `string[]`, `int[]`, `bool[]`, `bool?[]` and `decimal[]`. The nullable boolean path preserves empty option values as `null`; decimal arrays use `CultureInfo.CurrentCulture`. Do not infer that every arbitrary array element type has been runtime-verified.
 
 ## Events, forms and accessibility
 
@@ -91,22 +93,24 @@ The implementation uses existing integrated field/theme roles only. It does not 
 | Blazor WebAssembly | `/components/select-fields` | `src/Bluent.UI.Demo.Pages/Pages/Components/SelectFields.razor` |
 | Production-published InteractiveServer | `/compatibility/select-fields-server` | `src/Bluent.UI.Demo.SSR/Components/Pages/SelectFieldInteractiveServerProbe.razor` |
 
-The showcase includes scalar string/int values, `string[]`, `int[]`, `bool[]`, `onchange`, `oninput`, all three field sizes, addons, native disabled behavior, EditForm validation, RTL and consumer markup.
+The showcase includes scalar string/int values, `string[]`, `int[]`, `bool[]`, `bool?[]`, culture-sensitive `decimal[]`, `onchange`, `oninput`, all three field sizes, addons, native disabled behavior, EditForm validation, RTL and consumer markup.
 
 ## Validation ledger
 
 | Gate | Reproducible command / evidence | Result |
 | --- | --- | --- |
 | Focused HtmlRenderer tests | `dotnet test tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj -c Release --no-restore --filter FullyQualifiedName~SelectFieldRenderSemanticsTests` | 12/12 passed |
-| Chrome / WebAssembly | `BLUENT-SELECTFIELD-Chrome-WebAssembly.json` | 19/19 passed |
-| Edge / WebAssembly | `BLUENT-SELECTFIELD-Edge-WebAssembly.json` | 19/19 passed |
-| Chrome / InteractiveServer | `BLUENT-SELECTFIELD-Chrome-Server.json` | 19/19 passed |
-| Edge / InteractiveServer | `BLUENT-SELECTFIELD-Edge-Server.json` | 19/19 passed |
-| Four-cell browser total | Chrome/Edge × WebAssembly/InteractiveServer | **76/76 passed**, no recorded browser console errors, exceptions or unexpected HTTP failures |
+| Chrome / WebAssembly | `BLUENT-SELECTFIELD-Chrome-WebAssembly.json` | 23/23 passed |
+| Edge / WebAssembly | `BLUENT-SELECTFIELD-Edge-WebAssembly.json` | 23/23 passed |
+| Chrome / InteractiveServer | `BLUENT-SELECTFIELD-Chrome-Server.json` | 23/23 passed |
+| Edge / InteractiveServer | `BLUENT-SELECTFIELD-Edge-Server.json` | 23/23 passed |
+| Four-cell browser total | Chrome/Edge × WebAssembly/InteractiveServer | **92/92 passed**, no recorded browser console errors, exceptions or unexpected HTTP failures |
 
 Each browser cell retains an initial, final and 320px screenshot beside its JSON report under `docs/v3/quality/evidence/`. The PowerShell runner uses a unique run-owned browser profile and verifies its cleanup.
 
-Draft PR #568 is open against bluent-v3. On the previously tested head f1451607404cc4064e7192890f3f23888b116207, hosted CI confirmed the SelectField source/evidence contract and all four Chrome/Edge × WebAssembly/InteractiveServer jobs (76/76 assertions). The wider compatibility workflow was still non-green because the RadioGroup contract tests scoped their job at end-of-file and the Component Lab checker still asserted SelectField's retired event-handler markup. Both shared guards are corrected in the current task branch; exact-head hosted CI must be rerun after this correction. A pass of the SelectField-specific jobs does not imply that every shared workflow was green.
+Additional culture-specific published InteractiveServer runs: Chrome/de-DE and Chrome/fa-IR each pass **23/23** (46/46 total). Their JSON reports and screenshots are retained as BLUENT-SELECTFIELD-Chrome-Server-de-DE-* and BLUENT-SELECTFIELD-Chrome-Server-fa-IR-*. The probe sets the ASP.NET Core culture cookie before connecting to the circuit and asserts the actual culture rendered inside InteractiveServer. Combined local browser evidence is **138/138 assertions across six sessions**.
+
+Draft PR #568 remains open/Draft against bluent-v3. The last completed hosted run is on predecessor head fc96090d71a673c6c2c02d65457b1f3287afdc77: it passed the SelectField source/evidence contract and its then-current four 19-assertion browser cells (4/4, 76/76), Component Lab 4/4, RadioGroup 4/4, TextField Edge Server/WASM, Baseline Quality, Docs, Skills, Public Census and Interaction Source. The current working tree expands SelectField to 23 assertions per core cell and adds de-DE/fa-IR InteractiveServer jobs (138/138 local assertions across six sessions); hosted CI for that expanded exact head is pending after commit/push. The predecessor shared run was not fully green: unrelated Button menu/Tab focus restoration and NumericField Chrome/Server Forced Colors failed. NumericField's en-US/de-DE/fa-IR/ar-EG culture checks passed; TextField's optional Development Hot Reload 404 is narrowly excluded, while other HTTP 4xx/5xx remain fatal.
 
 ## 2.x → v3 compatibility
 

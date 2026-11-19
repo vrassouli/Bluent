@@ -69,6 +69,11 @@ def validate_demo_contract(demo: str, server_fixture: str, navigation: str) -> l
         'TValue="string[]"',
         'TValue="int[]"',
         'TValue="bool[]"',
+        'TValue="bool?[]"',
+        'TValue="decimal[]"',
+        "CultureInfo.CurrentCulture",
+        'id="select-nullable-flags"',
+        'id="select-decimals-culture"',
         'BindValueEvent="oninput"',
         "<EditForm",
         "DataAnnotationsValidator",
@@ -94,6 +99,12 @@ def validate_reference_contract(reference: str, design: str, migration: str, ski
         "string[]",
         "int[]",
         "bool[]",
+        "bool?[]",
+        "decimal[]",
+        "de-DE",
+        "fa-IR",
+        "23/23",
+        "138/138",
         "combobox",
         "listbox",
         "76/76",
@@ -136,19 +147,66 @@ def validate_evidence_report(report: dict[str, Any], browser: str, mode: str) ->
     expected_mode = "InteractiveServer" if mode == "Server" else "WebAssembly"
     if report.get("renderMode") != expected_mode:
         problems.append(f"Evidence render mode mismatch: expected {expected_mode}, found {report.get('renderMode')}")
+    if report.get("culture") != "en-US":
+        problems.append(f"Core browser evidence must use en-US; found {report.get('culture')!r}")
     checks = report.get("checks")
-    if not isinstance(checks, list) or len(checks) != 19:
-        problems.append(f"Evidence must contain exactly 19 assertions; found {len(checks) if isinstance(checks, list) else 'no list'}")
+    if not isinstance(checks, list) or len(checks) != 23:
+        problems.append(f"Evidence must contain exactly 23 assertions; found {len(checks) if isinstance(checks, list) else 'no list'}")
         checks = checks if isinstance(checks, list) else []
     failed = [item.get("name", "unnamed") for item in checks if not item.get("pass")]
     if failed:
         problems.append(f"Browser assertions failed: {failed}")
     summary = report.get("summary", {})
-    if summary.get("passed") != 19 or summary.get("failed") != 0:
-        problems.append(f"Browser summary must be 19 passed / 0 failed; found {summary}")
+    if summary.get("passed") != 23 or summary.get("failed") != 0:
+        problems.append(f"Browser summary must be 23 passed / 0 failed; found {summary}")
     signals = report.get("signals")
     if not isinstance(signals, list) or signals:
         problems.append(f"Unexpected browser runtime signals: {signals}")
+    return problems
+
+
+def validate_culture_evidence_report(report: dict[str, Any], culture: str) -> list[str]:
+    problems: list[str] = []
+    if report.get("component") != "SelectField" or report.get("issue") != 437:
+        problems.append("culture evidence identity is not SelectField #437")
+    if report.get("browser") != "Chrome" or report.get("renderMode") != "InteractiveServer":
+        problems.append("culture evidence must be Chrome / InteractiveServer")
+    if report.get("culture") != culture:
+        problems.append(f"culture evidence must report {culture}; found {report.get('culture')!r}")
+    checks = report.get("checks")
+    if not isinstance(checks, list) or len(checks) != 23:
+        problems.append(f"culture evidence must contain exactly 23 assertions; found {len(checks) if isinstance(checks, list) else 'no list'}")
+        checks = checks if isinstance(checks, list) else []
+    failed = [item.get("name", "unnamed") for item in checks if not item.get("pass")]
+    if failed:
+        problems.append(f"culture browser assertions failed: {failed}")
+    summary = report.get("summary", {})
+    if summary.get("passed") != 23 or summary.get("failed") != 0:
+        problems.append(f"culture evidence summary must be 23 passed / 0 failed; found {summary}")
+    if not isinstance(report.get("signals"), list) or report["signals"]:
+        problems.append(f"culture browser runtime signals are unexpected: {report.get('signals')}")
+    return problems
+
+
+def validate_culture_evidence_files(root: Path = ROOT) -> list[str]:
+    problems: list[str] = []
+    evidence_dir = root / "docs/v3/quality/evidence"
+    for culture in ("de-DE", "fa-IR"):
+        stem = f"BLUENT-SELECTFIELD-Chrome-Server-{culture}"
+        report_path = evidence_dir / f"{stem}.json"
+        if not report_path.is_file():
+            problems.append(f"Missing culture browser evidence JSON: {report_path.relative_to(root)}")
+            continue
+        try:
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            problems.append(f"Invalid culture evidence JSON {report_path.name}: {error}")
+            continue
+        problems.extend(f"{report_path.name}: {problem}" for problem in validate_culture_evidence_report(report, culture))
+        for suffix in ("initial", "final", "narrow-320px"):
+            image_path = evidence_dir / f"{stem}-{suffix}.png"
+            if not image_path.is_file() or image_path.stat().st_size < 1024:
+                problems.append(f"Missing or implausibly small culture screenshot evidence: {image_path.name}")
     return problems
 
 
@@ -198,6 +256,14 @@ def validate_ci_contract(browser_workflow: str, docs_workflow: str) -> list[str]
         ):
             if token not in section:
                 problems.append(f"selectfield-runtime CI job is missing: {token}")
+    culture_marker = "  selectfield-culture-runtime:"
+    if culture_marker not in browser_workflow:
+        problems.append("Real compatibility workflow is missing selectfield-culture-runtime job")
+    else:
+        culture_section = browser_workflow.split(culture_marker, 1)[1]
+        for token in ("matrix:", "culture: [de-DE, fa-IR]", "-Culture", "Server", "selectfield-culture-evidence", "actions/upload-artifact@v4"):
+            if token not in culture_section:
+                problems.append(f"selectfield-culture-runtime CI job is missing: {token}")
     for token in (
         "scripts/quality/check_v3_selectfield_contract.py",
         "test_v3_selectfield_contract.py",
@@ -249,6 +315,8 @@ def validate_repository(root: Path = ROOT) -> list[str]:
         read(".github/workflows/v3-docs-contract.yml"),
     )
     problems += validate_evidence_files(root)
+    problems += validate_culture_evidence_files(root)
+    problems += validate_culture_evidence_files(root)
     return problems
 
 

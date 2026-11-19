@@ -491,3 +491,42 @@ jobs:
           path: ${{ runner.temp }}/selectfield-evidence/*
           if-no-files-found: error
           retention-days: 7
+
+  selectfield-culture-runtime:
+    name: SelectField / Chrome / Server / ${{ matrix.culture }}
+    needs: selectfield-runtime
+    runs-on: windows-latest
+    timeout-minutes: 26
+    strategy:
+      fail-fast: false
+      matrix:
+        culture: [de-DE, fa-IR]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Restore solution
+        shell: pwsh
+        run: |
+          dotnet restore Bluent.sln --nologo
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run culture-specific decimal[] and nullable-bool[] browser contract
+        shell: pwsh
+        env:
+          BLUENT_SELECT_EVIDENCE_DIR: '${{ runner.temp }}/selectfield-culture-evidence'
+        run: |
+          New-Item -ItemType Directory -Force -Path $env:BLUENT_SELECT_EVIDENCE_DIR | Out-Null
+          & pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/quality/run_v3_selectfield.ps1 -Mode Server -Browser Chrome -Culture "${{ matrix.culture }}"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Preserve culture-specific SelectField evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-selectfield-culture-${{ matrix.culture }}-${{ github.sha }}
+          path: ${{ runner.temp }}/selectfield-culture-evidence/*
+          if-no-files-found: error
+          retention-days: 7

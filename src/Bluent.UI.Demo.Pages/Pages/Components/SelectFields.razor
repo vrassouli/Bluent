@@ -1,6 +1,7 @@
 @page "/components/select-fields"
 @namespace Bluent.UI.Demo.Pages.Components
 @using System.ComponentModel.DataAnnotations
+@using System.Globalization
 @using Microsoft.AspNetCore.Components.Forms
 
 <div class="p-5 py-md-10 px-md-12">
@@ -79,6 +80,30 @@
                 Selected boolean values: @string.Join(", ", _featureFlags.Select(value => value ? "true" : "false"))
             </p>
         </section>
+        <h2 class="h4 mt-5">Multiple selection · bool?[]</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Nullable feature flags" for="select-nullable-flags" Class="d-block mb-1" />
+            <SelectField TValue="bool?[]" @bind-Value="_nullableFeatureFlags" id="select-nullable-flags">
+                <option value="">Not set</option>
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+            </SelectField>
+            <p id="select-nullable-flags-value" role="status" class="small mt-2 mb-0">
+                Selected nullable values: @string.Join(", ", _nullableFeatureFlags.Select(value => value?.ToString().ToLowerInvariant() ?? "null"))
+            </p>
+        </section>
+
+        <h2 class="h4 mt-5">Multiple selection · decimal[] and current culture</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Decimal values" for="select-decimals" Class="d-block mb-1" />
+            <SelectField TValue="decimal[]" @bind-Value="_decimalValues" id="select-decimals">
+                <option id="select-decimal-one" value="@DecimalOptionOne">One point five</option>
+                <option id="select-decimal-two" value="@DecimalOptionTwo">Two point five</option>
+            </SelectField>
+            <p id="select-decimals-culture" class="small mt-2 mb-0">Culture: @CultureInfo.CurrentCulture.Name</p>
+            <p id="select-decimals-value" role="status" class="small mt-2 mb-0">Selected decimal values: @string.Join(", ", _decimalValues)</p>
+        </section>
+
         <h2 class="h4 mt-5">BindValueEvent · onchange and oninput</h2>
         <section class="p-4 rounded-4 shadow-2">
             <Label Text="Default onchange" for="select-onchange" Class="d-block mb-1" />
@@ -175,6 +200,10 @@
     private string[] _teams = ["ENG", "PRD"];
     private int[] _codes = [10, 30];
     private bool[] _featureFlags = [true];
+    private bool?[] _nullableFeatureFlags = [null, true];
+    private decimal[] _decimalValues = [1.5m];
+    private static string DecimalOptionOne => 1.5m.ToString(CultureInfo.CurrentCulture);
+    private static string DecimalOptionTwo => 2.5m.ToString(CultureInfo.CurrentCulture);
     private string _changeValue = "Blue";
     private string _inputValue = "Green";
     private string _rtlDepartment = "فناوری اطلاعات";

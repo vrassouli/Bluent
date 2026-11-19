@@ -7,7 +7,9 @@ import { setTimeout as wait } from "node:timers/promises";
 const base = (process.argv[2] || "http://127.0.0.1:5080").replace(/\/$/, "");
 const browserLabel = process.env.BLUENT_BROWSER_LABEL || "Chrome";
 const renderMode = process.env.BLUENT_SELECT_RENDER_MODE || "WebAssembly";
-const route = renderMode === "InteractiveServer" ? "/compatibility/select-fields-server" : "/components/select-fields";
+const routeBase = renderMode === "InteractiveServer" ? "/compatibility/select-fields-server" : "/components/select-fields";
+const culture = process.env.BLUENT_SELECT_CULTURE || "en-US";
+const route = routeBase + "?culture=" + encodeURIComponent(culture) + "&ui-culture=" + encodeURIComponent(culture);
 const executable = process.env.BROWSER_PATH;
 const evidencePath = process.env.BLUENT_SELECT_EVIDENCE_PATH;
 const profilePrefix = process.env.BLUENT_SELECT_PROFILE_PREFIX || "bluent-v3-437-select-";
@@ -77,7 +79,7 @@ try {
         "--headless=new", "--no-sandbox", "--disable-gpu", "--no-first-run",
         "--disable-extensions", "--disable-crash-reporter", "--disable-breakpad",
         "--remote-debugging-port=0", "--remote-allow-origins=*",
-        "--user-data-dir=" + profile, "about:blank"
+        "--user-data-dir=" + profile, "--lang=" + culture, "about:blank"
     ], { stdio: "ignore", windowsHide: true });
 
     const port = await poll(async () => {
@@ -112,6 +114,18 @@ try {
 
     await send("Page.enable"); await send("Runtime.enable"); await send("Network.enable");
     await send("DOM.enable"); await send("Accessibility.enable");
+    if (renderMode === "InteractiveServer" && culture !== "en-US") {
+        const accepted = await send("Network.setCookie", {
+            name: ".AspNetCore.Culture",
+            value: "c=" + culture + "|uic=" + culture,
+            url: base + "/",
+            path: "/",
+            httpOnly: false,
+            secure: false,
+            sameSite: "Lax"
+        });
+        if (accepted.success === false) throw new Error("Could not set ASP.NET Core culture cookie");
+    }
     await send("Page.navigate", { url: base + route });
     await poll(() => evaluate("document.readyState !== 'loading' && !!document.querySelector('#select-department')"));
     if (renderMode === "InteractiveServer")
@@ -120,10 +134,12 @@ try {
     check("SelectField showcase loads in " + browserLabel + "/" + renderMode, true, { url: base + route });
     await snapshot("initial");
 
-    const initial = await evaluate("(() => { const get=id=>document.querySelector('#'+id); const selected=id=>[...get(id).selectedOptions].map(o=>o.value); return {single:{tag:get('select-department').tagName,multiple:get('select-department').multiple,value:get('select-department').value,id:get('select-department').id},integer:{value:get('select-priority').value},teams:{multiple:get('select-teams').multiple,selected:selected('select-teams'),options:[...get('select-teams').options].map(o=>{const r=o.getBoundingClientRect();return{value:o.value,x:r.x,y:r.y,w:r.width,h:r.height}}),box:(()=>{const r=get('select-teams').getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height}})()},codes:{multiple:get('select-codes').multiple,selected:selected('select-codes')},flags:{multiple:get('select-flags').multiple,selected:selected('select-flags')},onchange:{value:get('select-onchange').value,status:get('select-onchange-status').textContent.trim()},oninput:{value:get('select-oninput').value,status:get('select-oninput-status').textContent.trim()},rtl:{direction:getComputedStyle(get('select-rtl')).direction},disabled:get('select-disabled').disabled}; })()");
+    const initial = await evaluate("(() => { const get=id=>document.querySelector('#'+id); const selected=id=>[...get(id).selectedOptions].map(o=>o.value); return {single:{tag:get('select-department').tagName,multiple:get('select-department').multiple,value:get('select-department').value,id:get('select-department').id},integer:{value:get('select-priority').value},teams:{multiple:get('select-teams').multiple,selected:selected('select-teams'),options:[...get('select-teams').options].map(o=>{const r=o.getBoundingClientRect();return{value:o.value,x:r.x,y:r.y,w:r.width,h:r.height}}),box:(()=>{const r=get('select-teams').getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height}})()},codes:{multiple:get('select-codes').multiple,selected:selected('select-codes')},flags:{multiple:get('select-flags').multiple,selected:selected('select-flags')},nullableFlags:{multiple:get('select-nullable-flags').multiple,selected:selected('select-nullable-flags'),status:get('select-nullable-flags-value').textContent.trim()},decimals:{multiple:get('select-decimals').multiple,selected:selected('select-decimals'),optionOne:get('select-decimal-one').value,optionTwo:get('select-decimal-two').value,culture:get('select-decimals-culture').textContent.trim().replace(/^Culture:\s*/, '').trim(),status:get('select-decimals-value').textContent.trim()},onchange:{value:get('select-onchange').value,status:get('select-onchange-status').textContent.trim()},oninput:{value:get('select-oninput').value,status:get('select-oninput-status').textContent.trim()},rtl:{direction:getComputedStyle(get('select-rtl')).direction},disabled:get('select-disabled').disabled}; })()");
     check("single selection remains a native, named select", initial.single.tag === "SELECT" && !initial.single.multiple && initial.single.id === "select-department", initial.single);
     check("string array initializes native multiple selected options", initial.teams.multiple && initial.teams.selected.join(",") === "ENG,PRD", initial.teams);
     check("integer array initializes the native multiple selected options", initial.codes.multiple && initial.codes.selected.join(",") === "10,30", initial.codes);    check("boolean array uses lowercase HTML option values and initializes true selection", initial.flags.multiple && initial.flags.selected.join(",") === "true", initial.flags);
+    check("nullable boolean array initializes null and true native options", initial.nullableFlags.multiple && initial.nullableFlags.selected.length === 2 && initial.nullableFlags.selected[0] === "" && initial.nullableFlags.selected[1] === "true" && initial.nullableFlags.status.includes("null"), initial.nullableFlags);
+    check("decimal array options and initial value use the requested .NET culture", initial.decimals.multiple && initial.decimals.culture === culture && initial.decimals.selected.length === 1 && initial.decimals.selected[0] === initial.decimals.optionOne && initial.decimals.status.includes(initial.decimals.optionOne), { culture, decimals: initial.decimals });
     check("typed scalar, disabled and RTL examples initialize", initial.integer.value === "2" && initial.disabled && initial.rtl.direction === "rtl", { integer: initial.integer, disabled: initial.disabled, rtl: initial.rtl });
     const selectAx = await axFor("#select-department");
     check("single select has a named native combobox in the browser accessibility tree", selectAx?.role === "combobox" && selectAx?.name === "Department", selectAx);
@@ -166,6 +182,22 @@ try {
     const flagsAfter = await evaluate("({selected:[...document.querySelector('#select-flags').selectedOptions].map(o=>o.value),status:document.querySelector('#select-flags-value').textContent.trim()})");
     check("native multiple selection parses lowercase boolean options back into bool[]", flagsAfter.selected.includes("true") && flagsAfter.selected.includes("false") && flagsAfter.status.includes("true, false"), { flagBox, flagsAfter, flagClickError });
 
+    const nullableBox = await evaluate("(() => { const s=document.querySelector('#select-nullable-flags'); s.scrollIntoView({block:'center'}); const o=[...s.options].find(x=>x.value==='false'),r=o.getBoundingClientRect(); return {x:r.x,y:r.y,w:r.width,h:r.height}; })()");
+    let nullableClickError = null;
+    try { await clickAt(nullableBox.x + Math.min(30, Math.max(10, nullableBox.w / 4)), nullableBox.y + nullableBox.h / 2, 2); }
+    catch (error) { nullableClickError = error.message; }
+    await poll(() => evaluate("document.querySelector('#select-nullable-flags-value').textContent.includes('false')"), 10000).catch(() => {});
+    const nullableAfter = await evaluate("({selected:[...document.querySelector('#select-nullable-flags').selectedOptions].map(o=>o.value),status:document.querySelector('#select-nullable-flags-value').textContent.trim()})");
+    check("native multiple selection round-trips null, true and false into bool?[]", nullableAfter.selected.length === 3 && nullableAfter.selected[0] === "" && nullableAfter.selected.includes("true") && nullableAfter.selected.includes("false") && nullableAfter.status.includes("null, true, false"), { nullableBox, nullableAfter, nullableClickError });
+
+    const decimalBox = await evaluate("(() => { const s=document.querySelector('#select-decimals'); s.scrollIntoView({block:'center'}); const o=document.querySelector('#select-decimal-two'),r=o.getBoundingClientRect(); return {x:r.x,y:r.y,w:r.width,h:r.height}; })()");
+    let decimalClickError = null;
+    try { await clickAt(decimalBox.x + Math.min(30, Math.max(10, decimalBox.w / 4)), decimalBox.y + decimalBox.h / 2, 2); }
+    catch (error) { decimalClickError = error.message; }
+    await poll(() => evaluate("document.querySelector('#select-decimals-value').textContent.includes(document.querySelector('#select-decimal-two').value)"), 10000).catch(() => {});
+    const decimalsAfter = await evaluate("({selected:[...document.querySelector('#select-decimals').selectedOptions].map(o=>o.value),one:document.querySelector('#select-decimal-one').value,two:document.querySelector('#select-decimal-two').value,culture:document.querySelector('#select-decimals-culture').textContent.trim().replace(/^Culture:\s*/, '').trim(),status:document.querySelector('#select-decimals-value').textContent.trim()})");
+    check("native multiple selection parses decimal[] using the current culture", decimalsAfter.selected.length === 2 && decimalsAfter.selected.includes(decimalsAfter.one) && decimalsAfter.selected.includes(decimalsAfter.two) && decimalsAfter.culture === culture && decimalsAfter.status.includes(decimalsAfter.one) && decimalsAfter.status.includes(decimalsAfter.two), { culture, decimalBox, decimalsAfter, decimalClickError });
+
     await click("#select-form-submit");
     await poll(() => evaluate("document.querySelector('#select-preference-form')?.textContent.includes('Choose a delivery window.')"));
     const invalid = await evaluate("({invalid:document.querySelector('#select-delivery-window')?.getAttribute('aria-invalid'),message:document.querySelector('#select-preference-form')?.textContent.includes('Choose a delivery window.')})");
@@ -195,6 +227,7 @@ try {
         issue: 437,
         browser: browserLabel,
         renderMode,
+        culture,
         route,
         base,
         timestamp: new Date().toISOString(),

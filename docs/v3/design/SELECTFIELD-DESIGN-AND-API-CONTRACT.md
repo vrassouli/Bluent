@@ -38,7 +38,7 @@ The upstream Microsoft Fluent 2 material remains a read-only reference. The edit
 | Scalar | `<select>` | `CurrentValueAsString` and selectable-value parsing |
 | Array | `<select multiple>` | `CurrentValueAsStringArray` receives the selected strings, then converts to typed `TValue` |
 
-The implementation and browser evidence specifically cover `string`, `int`, `string[]`, `int[]` and `bool[]`. The boolean array path parses each selected native string because the framework's generic array conversion path throws for the native string-array payload in this case. The formatting of boolean option values is lowercase to match native option values and scalar bool formatting.
+The implementation and browser evidence specifically cover `string`, `int`, `string[]`, `int[]`, `bool[]`, `bool?[]` and `decimal[]`. Boolean array paths parse each selected native string because the framework's generic array conversion path throws for the native string-array payload in this case; nullable empty options map to `null`. Decimal arrays use `CultureInfo.CurrentCulture`, including published InteractiveServer runs under `de-DE` and `fa-IR`. Boolean option values remain lowercase to match native option values and scalar bool formatting.
 
 ## Decision 3 — no new public parameters
 
@@ -66,10 +66,10 @@ The shared field styles own the closed select control, size and states. No Selec
 
 - Source/API regression guard and negative mutation tests are required.
 - HtmlRenderer tests cover scalar, typed numeric, string/int/boolean arrays, option/optgroup composition, addons, native attributes, size/class/style and EditContext invalid state.
-- Local real browser matrix: Chrome/Edge × WebAssembly/InteractiveServer, 19 assertions per cell (76 total).
-- The matrix verifies native combobox/listbox roles, keyboard binding events, multi-option Ctrl+Click, bool[] conversion, form validation/submission, RTL and 320px no-overflow.
+- Local real browser matrix: Chrome/Edge × WebAssembly/InteractiveServer, 23 assertions per cell (92 total), plus de-DE/fa-IR Chrome/InteractiveServer (46 more; 138/138 combined).
+- The matrix verifies native combobox/listbox roles, keyboard binding events, multi-option Ctrl+Click, bool[]/bool?[] conversion, culture-aware decimal[] parsing, form validation/submission, RTL and 320px no-overflow.
 - Native Windows Contrast Themes and spoken screen-reader acceptance remain separate and unclaimed.
 - Penpot boards remain DRAFT; browser results are not design approval.
-- Hosted CI at head f1451607404cc4064e7192890f3f23888b116207 passed the SelectField source/evidence job and all four SelectField browser cells (76/76); shared RadioGroup/Component Lab source-guard failures were corrected afterward and need exact-new-head CI confirmation.
+- Last completed hosted CI was on predecessor head fc96090d71a673c6c2c02d65457b1f3287afdc77: SelectField source/evidence plus its earlier four browser cells passed (4/4, 76/76); Component Lab 4/4, RadioGroup 4/4, TextField Edge/WASM + Edge/Server, Baseline, Docs, Skills, Public Census and Interaction Source also passed. The expanded 23-assertion core cells and de-DE/fa-IR culture matrix have 138/138 local assertions and require exact-head hosted CI after the next commit/push. The predecessor shared run also had unrelated Button menu/Tab focus-restoration and NumericField Chrome/Server Forced Colors failures; these do not indicate a SelectField failure.
 
 See [the canonical SelectField v3 implementation record](../components/select-field.md) for the complete source/API, demo, migration and evidence ledger.
