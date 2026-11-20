@@ -42,7 +42,7 @@ class CompiledContractTests(unittest.TestCase):
             result = self.run_check(snapshot)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
-    def test_switch_435_declared_api_migration_is_recorded(self):
+    def test_switch_435_and_issue_418_additive_api_contract_is_recorded(self):
         payload = json.loads(ORIGINAL.read_text(encoding="utf-8"))
         switch = payload["Components"]["Bluent.UI::Bluent.UI.Components.Switch"]
         self.assertEqual(
@@ -54,9 +54,38 @@ class CompiledContractTests(unittest.TestCase):
             "LabelPosition": "Bluent.UI.Components.SwitchLabelPosition | get=True set=True | ParameterAttribute",
             "Required": "String | get=True set=True | ParameterAttribute",
         })
+        # #435 contributes the reviewed Switch inheritance/parameter migration.
+        # #418 contributes a separate, audited Dialog/Popover overlay: 9 properties
+        # and 2 Dialog methods. Pin those names/signatures so the combined count
+        # cannot drift while leaving either issue's reviewed delta intact.
+        dialog = payload["Components"]["Bluent.UI::Bluent.UI.Components.Dialog"]
+        expected_dialog_properties = {
+            "AccessibleName": "String | get=True set=True | ParameterAttribute",
+            "AccessibleDescription": "String | get=True set=True | ParameterAttribute",
+            "CloseButtonLabel": "String | get=True set=True | ParameterAttribute",
+            "IsModal": "Boolean | get=True set=True | ParameterAttribute",
+            "EnableModalKeyboard": "Boolean | get=True set=True | ParameterAttribute",
+            "InitialFocusTargetId": "String | get=True set=True | ParameterAttribute",
+            "UseStandardTitleHeading": "Boolean | get=True set=True | ParameterAttribute",
+        }
+        self.assertEqual(
+            {key: dialog["Properties"].get(key) for key in expected_dialog_properties},
+            expected_dialog_properties,
+        )
+        self.assertIn("DismissOnEscape():Void | generic=0", dialog["Methods"])
+        self.assertIn(
+            "DisposeAsync():System.Threading.Tasks.ValueTask | generic=0",
+            dialog["Methods"],
+        )
+        popover = payload["Components"]["Bluent.UI::Bluent.UI.Components.Popover"]
+        self.assertEqual(popover["Properties"]["AccessibleTriggerState"],
+                         "Boolean | get=True set=True | ParameterAttribute")
+        self.assertEqual(popover["Properties"]["ThemeScope"],
+                         "Bluent.UI.Components.PortalThemeScope | get=True set=True | CascadingParameterAttribute")
         self.assertEqual(len(payload["Components"]), 140)
         self.assertEqual(len(payload["SharedBaseContracts"]), 8)
-        self.assertEqual(sum(len(c["Properties"]) for c in payload["Components"].values()), 783)
+        self.assertEqual(sum(len(c["Properties"]) for c in payload["Components"].values()), 792)
+        self.assertEqual(sum(len(c.get("Methods", [])) for c in payload["Components"].values()), 196)
 
     def test_switch_checkbox_inheritance_reversion_fails(self):
         payload = json.loads(ORIGINAL.read_text(encoding="utf-8"))
