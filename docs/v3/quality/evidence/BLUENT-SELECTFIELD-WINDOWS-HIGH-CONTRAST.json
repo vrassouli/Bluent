@@ -70,7 +70,10 @@
       "role": "list",
       "name": "Teams",
       "itemsExposeListItemRole": true,
-      "selectedItems": ["Engineering", "Product"]
+      "selectedItems": [
+        "Engineering",
+        "Product"
+      ]
     },
     "disabledSelect": {
       "automationId": "select-disabled",
@@ -109,7 +112,7 @@
       "The exact original Windows High Contrast state was restored and verified."
     ],
     "notCertified": [
-      "A stable screenshot of the focus indicator during an active InteractiveServer session was not obtained because the SignalR connection entered its reconnect overlay during the final focus capture; focus-visible styling therefore remains unverified.",
+      "A stable focus-indicator screenshot under active High Contrast was not obtained because the InteractiveServer circuit entered its reconnect overlay during that High Contrast capture. A separate normal-theme keyboard-focus screenshot is retained in BLUENT-SELECTFIELD-WINDOWS-FOCUS-EDGE.json / .png; it does not certify focus-visible styling while forced-colors is active.",
       "No spoken Narrator, NVDA or VoiceOver output was audited. UI Automation tree inspection is not a substitute for a screen-reader acceptance run."
     ]
   },
@@ -119,5 +122,11 @@
     "temporaryEdgeWindowClosed": true,
     "narratorStarted": false,
     "repositorySourceChangedDuringNativeTest": false
+  },
+  "standardThemeFocusEvidence": {
+    "record": "BLUENT-SELECTFIELD-WINDOWS-FOCUS-EDGE.json",
+    "screenshot": "BLUENT-SELECTFIELD-WINDOWS-FOCUS-EDGE.png",
+    "status": "pass-standard-windows-keyboard-focus",
+    "limitation": "Captured with High Contrast disabled; does not close the forced-colors focus indicator gate."
   }
 }

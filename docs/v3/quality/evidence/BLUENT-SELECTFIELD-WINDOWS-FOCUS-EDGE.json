@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "issue": 437,
+  "component": "SelectField",
+  "testedCommit": "fd45f8dccaef3ad26291945052d3e7fecb7cff93",
+  "date": "2026-11-20",
+  "environment": {
+    "host": "Dev01",
+    "browser": "Microsoft Edge",
+    "renderMode": "Published InteractiveServer",
+    "route": "/compatibility/select-fields-server",
+    "url": "http://127.0.0.1:5100/compatibility/select-fields-server",
+    "windowsHighContrast": "disabled; unchanged during this focus run"
+  },
+  "procedure": [
+    "Open the published InteractiveServer SelectField fixture in a visible Edge window without DevTools.",
+    "Use Windows UI Automation to focus the View this runnable demo source link.",
+    "Press Tab once to move keyboard focus to the Department select.",
+    "Query the UI Automation tree and capture the visible Edge window."
+  ],
+  "uiAutomation": {
+    "sourceLinkFocusedBeforeTab": true,
+    "tabPressed": true,
+    "target": {
+      "automationId": "select-department",
+      "role": "combobox",
+      "name": "Department",
+      "value": "Engineering",
+      "focused": true,
+      "enabled": true
+    }
+  },
+  "visualEvidence": {
+    "screenshot": "BLUENT-SELECTFIELD-WINDOWS-FOCUS-EDGE.png",
+    "size": {
+      "width": 850,
+      "height": 180
+    },
+    "capture": "Visible Edge window crop around the focused Department select",
+    "observed": "A visible blue focus indicator/underline is rendered on the native select after keyboard Tab navigation."
+  },
+  "result": {
+    "status": "pass-standard-windows-keyboard-focus",
+    "passed": [
+      "The Department combobox was reported focused by Windows UI Automation after a real keyboard Tab action.",
+      "A visible focus underline was present in the captured Edge screenshot.",
+      "The test ran on the published InteractiveServer fixture without DevTools and without a reconnect overlay."
+    ],
+    "notCertified": [
+      "This capture used the standard Windows theme with High Contrast disabled; it does not establish focus-visible styling while forced-colors is active.",
+      "No spoken Narrator, NVDA or VoiceOver output was audited."
+    ]
+  },
+  "cleanup": {
+    "serverPort": 5100,
+    "serverProcess": "owned test host; stopped after capture",
+    "edgeWindow": "owned test window; closed after capture",
+    "highContrastSettingsChanged": false
+  }
+}
