@@ -1,0 +1,343 @@
+{
+  "component": "SelectField",
+  "issue": 437,
+  "browser": "Chrome",
+  "renderMode": "InteractiveServer",
+  "culture": "en-US",
+  "route": "/compatibility/select-fields-server?culture=en-US&ui-culture=en-US",
+  "base": "http://127.0.0.1:65348",
+  "timestamp": "2026-11-19T19:54:18.387Z",
+  "checks": [
+    {
+      "name": "SelectField showcase loads in Chrome/InteractiveServer",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:65348/compatibility/select-fields-server?culture=en-US&ui-culture=en-US"
+      }
+    },
+    {
+      "name": "single selection remains a native, named select",
+      "pass": true,
+      "detail": {
+        "tag": "SELECT",
+        "multiple": false,
+        "value": "Engineering",
+        "id": "select-department"
+      }
+    },
+    {
+      "name": "string array initializes native multiple selected options",
+      "pass": true,
+      "detail": {
+        "multiple": true,
+        "selected": [
+          "ENG",
+          "PRD"
+        ],
+        "options": [
+          {
+            "value": "ENG",
+            "x": 69.546875,
+            "y": 973.6875,
+            "w": 115.703125,
+            "h": 20
+          },
+          {
+            "value": "OPS",
+            "x": 69.546875,
+            "y": 993.6875,
+            "w": 115.703125,
+            "h": 20
+          },
+          {
+            "value": "PRD",
+            "x": 69.546875,
+            "y": 1013.6875,
+            "w": 115.703125,
+            "h": 20
+          },
+          {
+            "value": "FIN",
+            "x": 69.546875,
+            "y": 1033.6875,
+            "w": 115.703125,
+            "h": 20
+          },
+          {
+            "value": "CS",
+            "x": 69.546875,
+            "y": 1053.6875,
+            "w": 115.703125,
+            "h": 20
+          }
+        ],
+        "box": {
+          "x": 57.546875,
+          "y": 973.6875,
+          "w": 154.703125,
+          "h": 80
+        }
+      }
+    },
+    {
+      "name": "integer array initializes the native multiple selected options",
+      "pass": true,
+      "detail": {
+        "multiple": true,
+        "selected": [
+          "10",
+          "30"
+        ]
+      }
+    },
+    {
+      "name": "boolean array uses lowercase HTML option values and initializes true selection",
+      "pass": true,
+      "detail": {
+        "multiple": true,
+        "selected": [
+          "true"
+        ]
+      }
+    },
+    {
+      "name": "nullable boolean array initializes null and true native options",
+      "pass": true,
+      "detail": {
+        "multiple": true,
+        "selected": [
+          "",
+          "true"
+        ],
+        "status": "Selected nullable values: null, true"
+      }
+    },
+    {
+      "name": "decimal array options and initial value use the requested .NET culture",
+      "pass": true,
+      "detail": {
+        "culture": "en-US",
+        "decimals": {
+          "multiple": true,
+          "selected": [
+            "1.5"
+          ],
+          "optionOne": "1.5",
+          "optionTwo": "2.5",
+          "culture": "en-US",
+          "status": "Selected decimal values: 1.5"
+        }
+      }
+    },
+    {
+      "name": "typed scalar, disabled and RTL examples initialize",
+      "pass": true,
+      "detail": {
+        "integer": {
+          "value": "2"
+        },
+        "disabled": true,
+        "rtl": {
+          "direction": "rtl"
+        }
+      }
+    },
+    {
+      "name": "single select has a named native combobox in the browser accessibility tree",
+      "pass": true,
+      "detail": {
+        "role": "combobox",
+        "name": "Department",
+        "invalid": "false"
+      }
+    },
+    {
+      "name": "native multiple select is exposed as a listbox",
+      "pass": true,
+      "detail": {
+        "role": "listbox",
+        "name": "Teams",
+        "invalid": "false"
+      }
+    },
+    {
+      "name": "start/end addons remain direct siblings outside the native select",
+      "pass": true,
+      "detail": {
+        "start": true,
+        "end": true,
+        "startBefore": true,
+        "endAfter": true
+      }
+    },
+    {
+      "name": "default onchange updates the typed Blazor value using native keyboard input",
+      "pass": true,
+      "detail": {
+        "value": "Green",
+        "status": "Value: Green"
+      }
+    },
+    {
+      "name": "explicit oninput updates the typed Blazor value using native keyboard input",
+      "pass": true,
+      "detail": {
+        "value": "Red",
+        "status": "Value: Red"
+      }
+    },
+    {
+      "name": "native multiple selection toggles an additional string value and updates the bound array",
+      "pass": true,
+      "detail": {
+        "optionBox": {
+          "x": 69.546875,
+          "y": 194.6875,
+          "w": 115.703125,
+          "h": 20
+        },
+        "multiAfter": {
+          "selected": [
+            "ENG",
+            "OPS",
+            "PRD"
+          ],
+          "status": "Selected values: ENG, OPS, PRD"
+        },
+        "multiClickError": null
+      }
+    },
+    {
+      "name": "native multiple selection parses selected values back into int[]",
+      "pass": true,
+      "detail": {
+        "codeBox": {
+          "x": 69.546875,
+          "y": 194.109375,
+          "w": 47.453125,
+          "h": 20
+        },
+        "codesAfter": {
+          "selected": [
+            "10",
+            "20",
+            "30"
+          ],
+          "status": "Selected integer values: 10, 20, 30"
+        },
+        "codeClickError": null
+      }
+    },
+    {
+      "name": "native multiple selection parses lowercase boolean options back into bool[]",
+      "pass": true,
+      "detail": {
+        "flagBox": {
+          "x": 69.546875,
+          "y": 194.53125,
+          "w": 57.46875,
+          "h": 20
+        },
+        "flagsAfter": {
+          "selected": [
+            "true",
+            "false"
+          ],
+          "status": "Selected boolean values: true, false"
+        },
+        "flagClickError": null
+      }
+    },
+    {
+      "name": "native multiple selection round-trips null, true and false into bool?[]",
+      "pass": true,
+      "detail": {
+        "nullableBox": {
+          "x": 69.546875,
+          "y": 214.953125,
+          "w": 57.46875,
+          "h": 20
+        },
+        "nullableAfter": {
+          "selected": [
+            "",
+            "true",
+            "false"
+          ],
+          "status": "Selected nullable values: null, true, false"
+        },
+        "nullableClickError": null
+      }
+    },
+    {
+      "name": "native multiple selection parses decimal[] using the current culture",
+      "pass": true,
+      "detail": {
+        "culture": "en-US",
+        "decimalBox": {
+          "x": 69.546875,
+          "y": 194.375,
+          "w": 91.765625,
+          "h": 20
+        },
+        "decimalsAfter": {
+          "selected": [
+            "1.5",
+            "2.5"
+          ],
+          "one": "1.5",
+          "two": "2.5",
+          "culture": "en-US",
+          "status": "Selected decimal values: 1.5, 2.5"
+        },
+        "decimalClickError": null
+      }
+    },
+    {
+      "name": "EditForm validation marks the native select invalid and shows the message",
+      "pass": true,
+      "detail": {
+        "invalid": "true",
+        "message": true
+      }
+    },
+    {
+      "name": "valid native form selection submits the typed value and clears validation",
+      "pass": true,
+      "detail": {
+        "status": "Saved: Morning",
+        "value": "Morning",
+        "invalid": null
+      }
+    },
+    {
+      "name": "select is natively keyboard-focusable and disabled select remains disabled",
+      "pass": true,
+      "detail": {
+        "active": "select-department",
+        "visible": true,
+        "disabled": true
+      }
+    },
+    {
+      "name": "320px narrow viewport retains RTL and avoids horizontal document overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 499,
+        "document": 499,
+        "body": 491,
+        "direction": "rtl"
+      }
+    },
+    {
+      "name": "no unexpected browser console errors, exceptions or HTTP failures",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "signals": [],
+  "summary": {
+    "passed": 23,
+    "failed": 0
+  }
+}

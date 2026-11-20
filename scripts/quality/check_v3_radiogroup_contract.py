@@ -1,6 +1,7 @@
 """Fail-closed source/API, demo, docs and real-browser contract for RadioGroup #436."""
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
 import sys
 ROOT = Path(__file__).resolve().parents[2]
@@ -152,7 +153,9 @@ def check_radiogroup_contract(root: Path = ROOT) -> None:
     contract_job = workflow.split("  radio-group-contract:",1)[1].split("  radio-group-runtime:",1)[0]
     for token in ("check_v3_radiogroup_contract.py","test_v3_radiogroup_contract.py"):
         need(token in contract_job, f"contract CI missing: {token}")
-    runtime_job = workflow.split("  radio-group-runtime:",1)[1]
+    runtime_tail = workflow.split("  radio-group-runtime:", 1)[1]
+    next_job = re.search(r"(?m)^  [a-z0-9][a-z0-9_-]*:", runtime_tail)
+    runtime_job = runtime_tail[:next_job.start()] if next_job else runtime_tail
     for token in ("browser: [Chrome, Edge]", "render_mode: [WebAssembly, Server]",
                   "windows-latest", "run_v3_radiogroup.ps1", "BLUENT_RADIO_EVIDENCE_DIR",
                   "if: always()", "actions/upload-artifact@v4", "retention-days: 7"):

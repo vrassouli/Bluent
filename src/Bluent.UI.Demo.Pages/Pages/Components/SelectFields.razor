@@ -1,0 +1,221 @@
+@page "/components/select-fields"
+@namespace Bluent.UI.Demo.Pages.Components
+@using System.ComponentModel.DataAnnotations
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="p-5 py-md-10 px-md-12">
+    <div class="w-100 w-lg-75 m-auto">
+        <ShowcaseHeader Title="SelectField"
+                        Purpose="Choose one typed value or several values with the browser-native select control."
+                        Package="Bluent.UI"
+                        Namespace="Bluent.UI.Components"
+                        ApiSummary="InputBase<TValue> binding and validation, scalar and array values, ChildContent options, native attributes, FieldSize, BindValueEvent and field addons."
+                        SourcePath="SelectFieldComponent/SelectField.razor"
+                        Notes="The browser / operating system owns the native option popup and multi-select keyboard conventions. Use DropdownList or Combobox when a custom popup, tags or filtering are needed." />
+
+        <h2 class="h4 mt-5">Single selection · string</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Department" for="select-department" Class="d-block mb-1" />
+            <SelectField TValue="string" @bind-Value="_department" id="select-department" aria-describedby="select-department-help">
+                <option value="">Choose a department</option>
+                <optgroup label="Business">
+                    <option value="Operations">Operations</option>
+                    <option value="Finance">Finance</option>
+                </optgroup>
+                <optgroup label="Technology">
+                    <option value="Engineering">Engineering</option>
+                    <option value="Product">Product</option>
+                </optgroup>
+            </SelectField>
+            <p id="select-department-help" class="text-secondary small mt-2 mb-0">Native option and optgroup content stays in the browser control.</p>
+            <p id="select-department-value" role="status" class="small mt-2 mb-0">Selected department: @(_department ?? "(none)")</p>
+        </section>
+
+        <h2 class="h4 mt-5">Single selection · numeric TValue</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Priority" for="select-priority" Class="d-block mb-1" />
+            <SelectField TValue="int" @bind-Value="_priority" id="select-priority">
+                <option value="1">Low</option>
+                <option value="2">Normal</option>
+                <option value="3">High</option>
+            </SelectField>
+            <p id="select-priority-value" role="status" class="small mt-2 mb-0">Typed integer value: @_priority</p>
+        </section>
+
+        <h2 class="h4 mt-5">Multiple selection · string[]</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Teams" for="select-teams" Class="d-block mb-1" />
+            <SelectField TValue="string[]" @bind-Value="_teams" id="select-teams" aria-describedby="select-teams-help">
+                <option value="ENG">Engineering</option>
+                <option value="OPS">Operations</option>
+                <option value="PRD">Product</option>
+                <option value="FIN">Finance</option>
+                <option value="CS">Customer support</option>
+            </SelectField>
+            <p id="select-teams-help" class="text-secondary small mt-2 mb-0">Native listbox; use the platform's modifier keys to select more than one item.</p>
+            <p id="select-teams-value" role="status" class="small mt-2 mb-0">Selected values: @string.Join(", ", _teams)</p>
+        </section>
+
+        <h2 class="h4 mt-5">Multiple selection · int[]</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Numeric codes" for="select-codes" Class="d-block mb-1" />
+            <SelectField TValue="int[]" @bind-Value="_codes" id="select-codes">
+                <option value="10">Ten</option>
+                <option value="20">Twenty</option>
+                <option value="30">Thirty</option>
+                <option value="40">Forty</option>
+            </SelectField>
+            <p id="select-codes-value" role="status" class="small mt-2 mb-0">Selected integer values: @string.Join(", ", _codes)</p>
+        </section>
+
+        <h2 class="h4 mt-5">Multiple selection · bool[]</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Feature flags" for="select-flags" Class="d-block mb-1" />
+            <SelectField TValue="bool[]" @bind-Value="_featureFlags" id="select-flags">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+            </SelectField>
+            <p id="select-flags-value" role="status" class="small mt-2 mb-0">
+                Selected boolean values: @string.Join(", ", _featureFlags.Select(value => value ? "true" : "false"))
+            </p>
+        </section>
+        <h2 class="h4 mt-5">Multiple selection · bool?[]</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Nullable feature flags" for="select-nullable-flags" Class="d-block mb-1" />
+            <SelectField TValue="bool?[]" @bind-Value="_nullableFeatureFlags" id="select-nullable-flags">
+                <option value="">Not set</option>
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+            </SelectField>
+            <p id="select-nullable-flags-value" role="status" class="small mt-2 mb-0">
+                Selected nullable values: @string.Join(", ", _nullableFeatureFlags.Select(value => value?.ToString().ToLowerInvariant() ?? "null"))
+            </p>
+        </section>
+
+        <h2 class="h4 mt-5">Multiple selection · decimal[] and current culture</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Decimal values" for="select-decimals" Class="d-block mb-1" />
+            <SelectField TValue="decimal[]" @bind-Value="_decimalValues" id="select-decimals">
+                <option id="select-decimal-one" value="@DecimalOptionOne">One point five</option>
+                <option id="select-decimal-two" value="@DecimalOptionTwo">Two point five</option>
+            </SelectField>
+            <p id="select-decimals-culture" class="small mt-2 mb-0">Culture: @CultureInfo.CurrentCulture.Name</p>
+            <p id="select-decimals-value" role="status" class="small mt-2 mb-0">Selected decimal values: @string.Join(", ", _decimalValues)</p>
+        </section>
+
+        <h2 class="h4 mt-5">BindValueEvent · onchange and oninput</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Default onchange" for="select-onchange" Class="d-block mb-1" />
+            <SelectField TValue="string" @bind-Value="_changeValue" id="select-onchange">
+                <option value="Blue">Blue</option><option value="Green">Green</option><option value="Red">Red</option>
+            </SelectField>
+            <p id="select-onchange-status" role="status" class="small mt-2 mb-0">Value: @_changeValue</p>
+
+            <Label Text="Explicit oninput" for="select-oninput" Class="d-block mb-1 mt-4" />
+            <SelectField TValue="string" @bind-Value="_inputValue" BindValueEvent="oninput" id="select-oninput">
+                <option value="Blue">Blue</option><option value="Green">Green</option><option value="Red">Red</option>
+            </SelectField>
+            <p id="select-oninput-status" role="status" class="small mt-2 mb-0">Value: @_inputValue</p>
+        </section>
+
+        <h2 class="h4 mt-5">Sizes, disabled state and addons</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <Label Text="Small" for="select-small" Class="d-block mb-1" />
+            <SelectField TValue="string" @bind-Value="_department" id="select-small" Size="FieldSize.Small">
+                <option value="Operations">Operations</option><option value="Engineering">Engineering</option>
+            </SelectField>
+            <Label Text="Medium" for="select-medium" Class="d-block mb-1 mt-4" />
+            <SelectField TValue="string" @bind-Value="_department" id="select-medium" Size="FieldSize.Medium">
+                <option value="Operations">Operations</option><option value="Engineering">Engineering</option>
+            </SelectField>
+            <Label Text="Large" for="select-large" Class="d-block mb-1 mt-4" />
+            <SelectField TValue="string" @bind-Value="_department" id="select-large" Size="FieldSize.Large">
+                <option value="Operations">Operations</option><option value="Engineering">Engineering</option>
+            </SelectField>
+            <Label Text="With addons" for="select-addons" Class="d-block mb-1 mt-4" />
+            <SelectField TValue="string" @bind-Value="_department" id="select-addons">
+                <StartAddon><span aria-hidden="true">↳</span></StartAddon>
+                <EndAddon><span aria-hidden="true">ORG</span></EndAddon>
+                <ChildContent>
+                    <option value="Operations">Operations</option>
+                    <option value="Engineering">Engineering</option>
+                </ChildContent>
+            </SelectField>
+            <Label Text="Disabled" for="select-disabled" Class="d-block mb-1 mt-4" />
+            <SelectField TValue="string" Value="@_lockedValue" id="select-disabled" disabled>
+                <option value="Locked">Locked</option><option value="Open">Open</option>
+            </SelectField>
+        </section>
+
+        <h2 class="h4 mt-5">EditForm validation and submission</h2>
+        <section class="p-4 rounded-4 shadow-2">
+            <EditForm id="select-preference-form" Model="_formModel" OnValidSubmit="SubmitForm">
+                <DataAnnotationsValidator />
+                <Label Text="Delivery window" for="select-delivery-window" Class="d-block mb-1" />
+                <SelectField TValue="string" @bind-Value="_formModel.DeliveryWindow" id="select-delivery-window" aria-describedby="select-delivery-help">
+                    <option value="">Choose a delivery window</option>
+                    <option value="Morning">Morning</option><option value="Afternoon">Afternoon</option><option value="Evening">Evening</option>
+                </SelectField>
+                <p id="select-delivery-help" class="text-secondary small mt-2 mb-1">Choose a value before submitting.</p>
+                <ValidationMessage For="@(() => _formModel.DeliveryWindow)" />
+                <div class="mt-3 d-flex align-items-center gap-3 flex-wrap">
+                    <button id="select-form-submit" type="submit" class="btn btn-primary">Save preference</button>
+                    <span id="select-form-status" class="small" role="status">@_formStatus</span>
+                </div>
+            </EditForm>
+        </section>
+
+        <h2 class="h4 mt-5">RTL layout</h2>
+        <section class="p-4 rounded-4 shadow-2" dir="rtl" lang="fa">
+            <Label Text="واحد سازمانی" for="select-rtl" Class="d-block mb-1" />
+            <SelectField TValue="string" @bind-Value="_rtlDepartment" id="select-rtl">
+                <option value="فناوری اطلاعات">فناوری اطلاعات</option>
+                <option value="مالی">مالی</option>
+                <option value="عملیات">عملیات</option>
+            </SelectField>
+            <p class="small mt-2 mb-0" role="status">واحد انتخاب‌شده: @_rtlDepartment</p>
+        </section>
+
+        <h2 class="h4 mt-5">Consumer usage</h2>
+        <pre class="p-3 rounded-3 bg-body-tertiary"><code>&lt;SelectField TValue="string" @@bind-Value="Model.Department"&gt;
+    &lt;option value=""&gt;Choose a department&lt;/option&gt;
+    &lt;option value="Engineering"&gt;Engineering&lt;/option&gt;
+&lt;/SelectField&gt;
+
+&lt;SelectField TValue="string[]" @@bind-Value="Model.Teams"&gt;
+    &lt;option value="ENG"&gt;Engineering&lt;/option&gt;
+    &lt;option value="OPS"&gt;Operations&lt;/option&gt;
+&lt;/SelectField&gt;</code></pre>
+        <p class="text-secondary small mt-3">
+            Package: <code>Bluent.UI</code> · Namespace: <code>Bluent.UI.Components</code>.
+            Use SelectField for native selection; use DropdownList or Combobox for custom interaction.
+        </p>
+    </div>
+</div>
+
+@code {
+    private string _department = "Engineering";
+    private int _priority = 2;
+    private string[] _teams = ["ENG", "PRD"];
+    private int[] _codes = [10, 30];
+    private bool[] _featureFlags = [true];
+    private bool?[] _nullableFeatureFlags = [null, true];
+    private decimal[] _decimalValues = [1.5m];
+    private static string DecimalOptionOne => 1.5m.ToString(CultureInfo.CurrentCulture);
+    private static string DecimalOptionTwo => 2.5m.ToString(CultureInfo.CurrentCulture);
+    private string _changeValue = "Blue";
+    private string _inputValue = "Green";
+    private string _rtlDepartment = "فناوری اطلاعات";
+    private string _lockedValue = "Locked";
+    private string _formStatus = string.Empty;
+    private readonly DeliveryPreferenceModel _formModel = new();
+
+    private void SubmitForm() => _formStatus = $"Saved: {_formModel.DeliveryWindow}";
+
+    private sealed class DeliveryPreferenceModel
+    {
+        [Required(ErrorMessage = "Choose a delivery window.")]
+        public string DeliveryWindow { get; set; } = string.Empty;
+    }
+}

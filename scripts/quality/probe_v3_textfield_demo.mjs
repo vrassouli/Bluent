@@ -20,6 +20,19 @@ const errors = [];
 const pending = new Map();
 const runtimeSignals = [];
 const requestUrls = new Map();
+
+// The optional .NET browser-tools endpoint may be absent in a Development host.
+// It is not an application resource; keep every other HTTP 4xx/5xx fatal.
+const isExpectedDevelopmentHotReloadMiss = response => {
+  try {
+    return response.status === 404 &&
+      new URL(response.url).pathname === '/_framework/dotnet-browser-tools/hot-reload-settings.json';
+  } catch {
+    return false;
+  }
+};
+const isUnexpectedHttpFailure = response =>
+  response.status >= 400 && !isExpectedDevelopmentHotReloadMiss(response);
 let browser;
 let ws;
 let sequence = 0;
@@ -124,7 +137,7 @@ try {
         text: String(message.params?.args?.map(arg => arg.value || arg.description || '').join(' ') || '').slice(0, 300)
       });
     }
-    if (message.method === 'Network.responseReceived' && message.params?.response?.status >= 400) {
+    if (message.method === 'Network.responseReceived' && isUnexpectedHttpFailure(message.params?.response || {})) {
       runtimeSignals.push({ type: 'http', status: message.params.response.status, url: message.params.response.url });
     }
     if (message.method === 'Network.loadingFailed') {

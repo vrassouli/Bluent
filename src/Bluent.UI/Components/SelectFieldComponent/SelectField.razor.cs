@@ -7,14 +7,9 @@ namespace Bluent.UI.Components;
 
 public partial class SelectField<TValue>
 {
-    [Parameter] public RenderFragment? ChildContent { get;set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    private readonly bool _isMultipleSelect;
-
-    public SelectField()
-    {
-        _isMultipleSelect = typeof(TValue).IsArray;
-    }
+    private readonly bool _isMultipleSelect = typeof(TValue).IsArray;
 
     protected override IEnumerable<string> GetClasses()
     {
@@ -24,53 +19,91 @@ public partial class SelectField<TValue>
         yield return "bui-select-field";
     }
 
-    private string? GetValue()
+    // HTML multiple-select events provide the selected values as string[] even
+    // when TValue is an array of another supported scalar type (for example int[]).
+    // This mirrors InputSelect's typed array conversion without widening our API.
+    private string?[]? CurrentValueAsStringArray
     {
-        if (_isMultipleSelect)
+        get
         {
-            BindConverter.FormatValue(CurrentValue)?.ToString();
+            if (CurrentValue is not Array values)
+                return [];
+
+            return values
+                .Cast<object?>()
+                .Select(FormatValueAsStringForArray)
+                .ToArray();
         }
-
-        return CurrentValueAsString;
-    }
-
-    private void OnValueChanged(ChangeEventArgs args)
-    {
-        if (_isMultipleSelect)
+        set
         {
-            CurrentValue = BindConverter.TryConvertTo<TValue>(args.Value, CultureInfo.CurrentCulture, out var result)
-                ? result
+            if (typeof(TValue) == typeof(bool[]))
+            {
+                var parsedValues = new bool[value?.Length ?? 0];
+                for (var index = 0; index < parsedValues.Length; index++)
+                {
+                    if (!bool.TryParse(value![index], out parsedValues[index]))
+                    {
+                        CurrentValue = default;
+                        return;
+                    }
+                }
+
+                CurrentValue = (TValue)(object)parsedValues;
+                return;
+            }
+
+            if (typeof(TValue) == typeof(bool?[]))
+            {
+                var parsedValues = new bool?[value?.Length ?? 0];
+                for (var index = 0; index < parsedValues.Length; index++)
+                {
+                    var item = value![index];
+                    if (string.IsNullOrEmpty(item))
+                        continue;
+
+                    if (!bool.TryParse(item, out var parsed))
+                    {
+                        CurrentValue = default;
+                        return;
+                    }
+
+                    parsedValues[index] = parsed;
+                }
+
+                CurrentValue = (TValue)(object)parsedValues;
+                return;
+            }
+
+            CurrentValue = BindConverter.TryConvertTo<TValue>(
+                value, CultureInfo.CurrentCulture, out var parsedValue)
+                ? parsedValue
                 : default;
         }
-        else
-        {
-            CurrentValueAsString = args.Value?.ToString();
-        }
     }
-    /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+
+    private static string? FormatValueAsStringForArray(object? value)
+    {
+        // BindConverter treats bool as a conditional attribute; keep the option
+        // string representation identical to the scalar InputSelect contract.
+        if (value is bool boolean)
+            return boolean ? "true" : "false";
+
+        return value is null ? null : Convert.ToString(value, CultureInfo.CurrentCulture);
+    }
+    protected override bool TryParseValueFromString(
+        string? value,
+        [MaybeNullWhen(false)] out TValue result,
+        [NotNullWhen(false)] out string? validationErrorMessage)
         => this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
 
-    /// <inheritdoc />
     protected override string? FormatValueAsString(TValue? value)
     {
-        // We special-case bool values because BindConverter reserves bool conversion for conditional attributes.
         if (typeof(TValue) == typeof(bool))
-        {
             return (bool)(object)value! ? "true" : "false";
-        }
-        else if (typeof(TValue) == typeof(bool?))
-        {
+
+        if (typeof(TValue) == typeof(bool?))
             return value is not null && (bool)(object)value ? "true" : "false";
-        }
 
         return base.FormatValueAsString(value);
-    }
-
-    private void SetCurrentValueAsStringArray(string?[]? value)
-    {
-        CurrentValue = BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var result)
-            ? result
-            : default;
     }
 }

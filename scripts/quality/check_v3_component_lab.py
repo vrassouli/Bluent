@@ -14,6 +14,42 @@ LEDGER = ROOT / "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
 QUEUE = ROOT / "docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
 
 
+def validate_selectfield_source_contract(sel_source: str) -> None:
+    """Guard the current native scalar/array binding paths, not a retired event handler."""
+    paths = re.search(
+        r"@if\s*\(_isMultipleSelect\)\s*\{(?P<multiple>.*?)\}\s*else\s*\{(?P<scalar>.*?)\}",
+        sel_source,
+        re.DOTALL,
+    )
+    assert paths is not None, "SelectField must keep distinct native single and multiple select paths"
+    multiple = paths.group("multiple")
+    scalar = paths.group("scalar")
+    for name, markup in (("multiple", multiple), ("scalar", scalar)):
+        assert "<select" in markup, f"SelectField {name} path must remain a native select"
+        assert '@attributes="GetInputAdditionalAttributes()"' in markup, (
+            f"SelectField {name} path must preserve inherited native attributes"
+        )
+        assert 'id="@GetInputId()"' in markup and 'name="@NameAttributeValue"' in markup, (
+            f"SelectField {name} path must preserve InputBase identity and name"
+        )
+    assert re.search(r"(?m)^\s*multiple\s*$", multiple), "array TValue must use native multiple selection"
+    assert '@bind="CurrentValueAsStringArray"' in multiple, (
+        "native selected string[] payload must bind through the typed array adapter"
+    )
+    assert '@bind:event="@BindValueEvent"' in multiple, (
+        "multiple selection must honor inherited BindValueEvent"
+    )
+    assert '@bind-value="CurrentValueAsString"' in scalar, (
+        "scalar selection must bind through InputBase CurrentValueAsString"
+    )
+    assert '@bind-value:event="@BindValueEvent"' in scalar, (
+        "single selection must honor inherited BindValueEvent"
+    )
+    assert "@onchange=" not in sel_source, (
+        "SelectField must not hard-wire onchange around its inherited BindValueEvent contract"
+    )
+
+
 def validate_platform_gate(data: dict, queue: dict) -> None:
     """Keep shared Lab platform evidence separate from per-family acceptance."""
     gate = data.get("platformGate")
@@ -315,8 +351,7 @@ def check() -> int:
         "Value", "ValueChanged", "ChildContent", "disabled"
     }
     sel_source=(ROOT/"src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor").read_text(encoding="utf-8-sig")
-    assert "<select @attributes=GetInputAdditionalAttributes()" in sel_source
-    assert '@onchange="OnValueChanged"' in sel_source
+    validate_selectfield_source_contract(sel_source)
     for tag in ('new("selectfield", "SelectField"', 'class="lab-select-grid"',
                 'id="lab-select-color"', 'id="lab-select-priority"', 'id="lab-select-disabled"',
                 'SelectedSelectFieldRazor', 'role="status" lang="en" dir="ltr"'):

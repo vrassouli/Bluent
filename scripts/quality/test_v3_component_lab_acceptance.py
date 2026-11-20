@@ -5,7 +5,7 @@ import json
 import unittest
 from pathlib import Path
 
-from check_v3_component_lab import validate_platform_gate
+from check_v3_component_lab import validate_platform_gate, validate_selectfield_source_contract
 
 ROOT = Path(__file__).resolve().parents[2]
 LEDGER = ROOT / "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
@@ -17,6 +17,38 @@ class ComponentLabPlatformAcceptanceTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.ledger = json.loads(LEDGER.read_text(encoding="utf-8"))
         cls.queue = json.loads(QUEUE.read_text(encoding="utf-8"))
+        cls.selectfield_source = (
+            ROOT / "src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor"
+        ).read_text(encoding="utf-8-sig")
+
+    def test_selectfield_keeps_native_scalar_and_array_bindings(self) -> None:
+        validate_selectfield_source_contract(self.selectfield_source)
+
+    def test_selectfield_array_binding_must_keep_inherited_event(self) -> None:
+        mutated = self.selectfield_source.replace(
+            '@bind:event="@BindValueEvent"', '@bind:event="onchange"', 1
+        )
+        self.assertNotEqual(mutated, self.selectfield_source)
+        with self.assertRaises(AssertionError):
+            validate_selectfield_source_contract(mutated)
+
+    def test_selectfield_scalar_binding_must_keep_inherited_event(self) -> None:
+        mutated = self.selectfield_source.replace(
+            '@bind-value:event="@BindValueEvent"', '@bind-value:event="onchange"', 1
+        )
+        self.assertNotEqual(mutated, self.selectfield_source)
+        with self.assertRaises(AssertionError):
+            validate_selectfield_source_contract(mutated)
+
+    def test_selectfield_must_not_reintroduce_fixed_change_handler(self) -> None:
+        mutated = self.selectfield_source.replace(
+            '@bind-value:event="@BindValueEvent"',
+            '@bind-value:event="@BindValueEvent" @onchange="OnValueChanged"',
+            1
+        )
+        self.assertNotEqual(mutated, self.selectfield_source)
+        with self.assertRaises(AssertionError):
+            validate_selectfield_source_contract(mutated)
 
     def test_integrated_platform_and_pending_family_acceptance_are_distinct(self) -> None:
         validate_platform_gate(copy.deepcopy(self.ledger), copy.deepcopy(self.queue))
