@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "issue": 437,
   "component": "SelectField",
-  "testedCommit": "58bd0dc27c98ba390297be83c4b570c2fc3ccb13",
+  "testedCommit": "23278778c088dcf5169758fa4560afc7ef377356",
   "date": "2026-11-20",
   "environment": {
     "host": "Dev01",
@@ -109,11 +109,12 @@
       "Native single-select, multiple listbox, disabled state and selected option semantics were exposed through Windows UI Automation.",
       "The native select popup used the Windows Highlight/HighlightText palette.",
       "Tab traversal moved from the source link to Department and then Priority.",
-      "The exact original Windows High Contrast state was restored and verified."
+      "The exact original Windows High Contrast state was restored and verified.",
+      "With High Contrast enabled before loading Edge, a real Tab action moved focus from the demo source link to Department; Windows UI Automation reported select-department focused=true and a visible orange focus outline was captured."
     ],
     "notCertified": [
-      "A stable focus-indicator screenshot under active High Contrast was not obtained because the InteractiveServer circuit entered its reconnect overlay during that High Contrast capture. A separate normal-theme keyboard-focus screenshot is retained in BLUENT-SELECTFIELD-WINDOWS-FOCUS-EDGE.json / .png; it does not certify focus-visible styling while forced-colors is active.",
-      "No spoken Narrator, NVDA or VoiceOver output was audited. UI Automation tree inspection is not a substitute for a screen-reader acceptance run."
+      "No spoken Narrator, NVDA or VoiceOver output was audited. UI Automation tree inspection is not a substitute for a screen-reader acceptance run.",
+      "The new native High Contrast focus screenshot is visual-presence evidence; the focus outline RGB/contrast ratio was not separately sampled."
     ]
   },
   "cleanup": {
@@ -128,5 +129,57 @@
     "screenshot": "BLUENT-SELECTFIELD-WINDOWS-FOCUS-EDGE.png",
     "status": "pass-standard-windows-keyboard-focus",
     "limitation": "Captured with High Contrast disabled; does not close the forced-colors focus indicator gate."
+  },
+  "highContrastKeyboardFocusFollowUp": {
+    "testedCommit": "23278778c088dcf5169758fa4560afc7ef377356",
+    "date": "2026-11-20",
+    "environment": {
+      "host": "Dev01",
+      "browser": "Microsoft Edge",
+      "browserProfile": "MateMCP-owned temporary Edge profile",
+      "renderMode": "Production-published InteractiveServer",
+      "route": "/compatibility/select-fields-server",
+      "url": "http://127.0.0.1:5217/compatibility/select-fields-server",
+      "windowsContrastScheme": "High Contrast White",
+      "highContrastFlagsDuringTest": 127
+    },
+    "procedure": [
+      "Start the standalone SSR host and verify its route returns HTTP 200 before enabling High Contrast.",
+      "Enable the actual Windows High Contrast White mode through SystemParametersInfoW; reload the demo in the dedicated Edge profile only after the OS mode is active.",
+      "Use Windows UI Automation to focus the View this runnable demo source link, press a real Tab key, then inspect the native control tree.",
+      "Capture the dedicated Edge window immediately after the focus transition."
+    ],
+    "windowsUiAutomation": {
+      "sourceLinkFocusedBeforeTab": true,
+      "tabPressed": true,
+      "target": {
+        "automationId": "select-department",
+        "role": "combobox",
+        "name": "Department",
+        "value": "Engineering",
+        "focused": true,
+        "enabled": true
+      }
+    },
+    "visualEvidence": {
+      "screenshot": "BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST-FOCUS-EDGE.png",
+      "width": 1050,
+      "height": 881,
+      "capture": "Visible Edge window captured immediately after Tab while native Windows High Contrast White was active.",
+      "observed": "A visible orange focus outline is rendered around the Department native select. The screenshot is retained in this evidence directory.",
+      "pixelContrastMeasurement": "Not separately sampled; this is visual presence evidence, not a numeric contrast-ratio claim."
+    },
+    "cleanup": {
+      "originalFlags": 126,
+      "restoreSucceeded": true,
+      "verifiedAfterTest": {
+        "enabled": false,
+        "flags": 126,
+        "scheme": "High Contrast White"
+      },
+      "temporaryServerStopped": true,
+      "temporaryEdgeProfileClosed": true,
+      "repositorySourceChangedDuringNativeTest": false
+    }
   }
 }

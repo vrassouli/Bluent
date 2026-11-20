@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
 from check_v3_selectfield_contract import (
     validate_demo_contract,
@@ -9,6 +12,7 @@ from check_v3_selectfield_contract import (
     validate_reference_contract,
     validate_source_contract,
     validate_ci_contract,
+    validate_native_windows_focus_evidence,
 )
 
 
@@ -290,6 +294,75 @@ class SelectFieldReferenceContractTests(unittest.TestCase):
             reference, design.replace("fluent-select", "missing-select"), migration, skill
         )
         self.assertTrue(any("fluent-select" in error for error in errors))
+
+
+class SelectFieldNativeWindowsFocusEvidenceTests(unittest.TestCase):
+    def _write_fixture(self, root: Path) -> None:
+        evidence = root / "docs/v3/quality/evidence"
+        evidence.mkdir(parents=True)
+        report = {
+            "highContrastKeyboardFocusFollowUp": {
+                "environment": {"highContrastFlagsDuringTest": 127},
+                "windowsUiAutomation": {
+                    "target": {
+                        "automationId": "select-department",
+                        "role": "combobox",
+                        "focused": True
+                    }
+                },
+                "visualEvidence": {
+                    "screenshot": "BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST-FOCUS-EDGE.png"
+                },
+                "cleanup": {
+                    "restoreSucceeded": True,
+                    "originalFlags": 126,
+                    "verifiedAfterTest": {"enabled": False, "flags": 126}
+                }
+            }
+        }
+        (evidence / "BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST.json").write_text(
+            json.dumps(report), encoding="utf-8"
+        )
+        (evidence / "BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST-FOCUS-EDGE.png").write_bytes(
+            b"\x89PNG\r\n\x1a\n" + (b"\x00" * 2048)
+        )
+
+    def test_complete_native_high_contrast_focus_evidence_is_accepted(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            self.assertEqual(validate_native_windows_focus_evidence(root), [])
+
+    def test_native_high_contrast_focus_evidence_requires_real_png(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            screenshot = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST-FOCUS-EDGE.png"
+            screenshot.write_bytes(b"not a PNG")
+            errors = validate_native_windows_focus_evidence(root)
+            self.assertTrue(any("valid, substantive PNG" in error for error in errors))
+
+    def test_native_high_contrast_focus_evidence_requires_focused_department(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            report_path = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST.json"
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            report["highContrastKeyboardFocusFollowUp"]["windowsUiAutomation"]["target"]["focused"] = False
+            report_path.write_text(json.dumps(report), encoding="utf-8")
+            errors = validate_native_windows_focus_evidence(root)
+            self.assertTrue(any("focused=true" in error for error in errors))
+
+    def test_native_high_contrast_focus_evidence_requires_os_restore(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            report_path = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST.json"
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            report["highContrastKeyboardFocusFollowUp"]["cleanup"]["restoreSucceeded"] = False
+            report_path.write_text(json.dumps(report), encoding="utf-8")
+            errors = validate_native_windows_focus_evidence(root)
+            self.assertTrue(any("restoration" in error for error in errors))
 
 
 if __name__ == "__main__":

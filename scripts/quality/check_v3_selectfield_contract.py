@@ -249,6 +249,60 @@ def validate_evidence_files(root: Path = ROOT) -> list[str]:
     return problems
 
 
+
+def validate_native_windows_focus_evidence(root: Path = ROOT) -> list[str]:
+    problems: list[str] = []
+    evidence_dir = root / "docs/v3/quality/evidence"
+    report_path = evidence_dir / "BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST.json"
+    screenshot_name = "BLUENT-SELECTFIELD-WINDOWS-HIGH-CONTRAST-FOCUS-EDGE.png"
+    screenshot_path = evidence_dir / screenshot_name
+
+    if not report_path.is_file():
+        return [f"Missing native Windows High Contrast evidence JSON: {report_path.relative_to(root)}"]
+
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return [f"Invalid native Windows High Contrast evidence JSON: {error}"]
+
+    follow_up = report.get("highContrastKeyboardFocusFollowUp")
+    if not isinstance(follow_up, dict):
+        return ["Native Windows evidence is missing highContrastKeyboardFocusFollowUp"]
+
+    if follow_up.get("environment", {}).get("highContrastFlagsDuringTest") != 127:
+        problems.append("Native Windows focus evidence must record High Contrast enabled (flags 127)")
+
+    target = follow_up.get("windowsUiAutomation", {}).get("target", {})
+    if target.get("automationId") != "select-department" or target.get("role") != "combobox":
+        problems.append("Native Windows focus evidence must target the Department combobox")
+    if target.get("focused") is not True:
+        problems.append("Native Windows UI Automation must prove Department focused=true after Tab")
+
+    visual = follow_up.get("visualEvidence", {})
+    if visual.get("screenshot") != screenshot_name:
+        problems.append(f"Native Windows focus evidence must reference {screenshot_name}")
+
+    if not screenshot_path.is_file():
+        problems.append(f"Missing native Windows High Contrast focus screenshot: {screenshot_name}")
+    else:
+        try:
+            png_header = screenshot_path.read_bytes()[:8]
+            if png_header != b"\x89PNG\r\n\x1a\n" or screenshot_path.stat().st_size < 1024:
+                problems.append(f"Native Windows focus screenshot is not a valid, substantive PNG: {screenshot_name}")
+        except OSError as error:
+            problems.append(f"Could not read native Windows focus screenshot {screenshot_name}: {error}")
+
+    cleanup = follow_up.get("cleanup", {})
+    if cleanup.get("restoreSucceeded") is not True:
+        problems.append("Native Windows focus test must confirm successful OS setting restoration")
+    if cleanup.get("originalFlags") != 126:
+        problems.append("Native Windows focus test must retain the original High Contrast flags (126)")
+    restored = cleanup.get("verifiedAfterTest", {})
+    if restored.get("enabled") is not False or restored.get("flags") != 126:
+        problems.append("Native Windows focus test must verify High Contrast was disabled and restored to flags 126")
+
+    return problems
+
 def validate_ci_contract(browser_workflow: str, docs_workflow: str) -> list[str]:
     problems: list[str] = []
     if "  selectfield-contract:" not in browser_workflow:
@@ -329,6 +383,7 @@ def validate_repository(root: Path = ROOT) -> list[str]:
     )
     problems += validate_evidence_files(root)
     problems += validate_culture_evidence_files(root)
+    problems += validate_native_windows_focus_evidence(root)
     return problems
 
 
