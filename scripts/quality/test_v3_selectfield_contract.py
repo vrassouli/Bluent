@@ -266,10 +266,10 @@ class SelectFieldCiContractTests(unittest.TestCase):
 
 class SelectFieldReferenceContractTests(unittest.TestCase):
     def _content(self) -> tuple[str, str, str, str]:
-        reference = "not a released ChildContent BindValueEvent string[] int[] bool[] bool?[] decimal[] de-DE fa-IR 23/23 138/138 combobox listbox 76/76 DRAFT Windows Contrast Themes Narrator"
-        design = "DRAFT native HTML select BindValueEvent bool[] b64f6665-c9ab-80b5-8008-c4ac99d9d000 28143240-43dc-80cc-8008-f84a2fd6a22c"
+        reference = "not a released ChildContent BindValueEvent string[] int[] bool[] bool?[] decimal[] de-DE fa-IR 23/23 138/138 combobox listbox native listbox 76/76 DRAFT Windows Contrast Themes Narrator Fluent 2 fluent-select"
+        design = "DRAFT native HTML select BindValueEvent bool[] b64f6665-c9ab-80b5-8008-c4ac99d9d000 28143240-43dc-80cc-8008-f84a2fd6a22c Fluent 2 React Select native styling Dropdown Combobox fluent-select fluent-option fast-select first option native multiple"
         migration = "## M25 — SelectField"
-        skill = "not merged or released bluent-v3 76/76 DRAFT check_v3_selectfield_contract.py"
+        skill = "not merged or released bluent-v3 76/76 DRAFT check_v3_selectfield_contract.py Fluent React/Web Components crosswalk"
         return reference, design, migration, skill
 
     def test_complete_reference_and_design_contract_is_accepted(self) -> None:
@@ -283,6 +283,13 @@ class SelectFieldReferenceContractTests(unittest.TestCase):
     def test_migration_record_is_required(self) -> None:
         reference, design, _, skill = self._content()
         self.assertTrue(validate_reference_contract(reference, design, "M24 — RadioGroup", skill))
+
+    def test_design_contract_cannot_omit_fluent_web_components_crosswalk(self) -> None:
+        reference, design, migration, skill = self._content()
+        errors = validate_reference_contract(
+            reference, design.replace("fluent-select", "missing-select"), migration, skill
+        )
+        self.assertTrue(any("fluent-select" in error for error in errors))
 
 
 if __name__ == "__main__":

@@ -18,6 +18,20 @@
 
 The upstream Microsoft Fluent 2 material remains a read-only reference. The editable source of truth for this task is the owned Bluent Penpot file. Exported boards were inspected, but this is not maintainer approval or final pixel-parity signoff.
 
+## Fluent reference crosswalk — React and Web Components
+
+The upstream references describe related but not identical layers; this implementation follows the native-select interaction contract without claiming API or pixel parity.
+
+| Reference | Verified upstream guidance | Bluent decision |
+| --- | --- | --- |
+| [Fluent 2 React — Select](https://fluent2.microsoft.design/components/web/react/core/select/usage) | Single choice from a list of at least four options; the options use browser-native styling. The guidance points to Dropdown for custom option styling/formatting, Combobox for editable or filterable input, and Select Field for a standardized form field with helper and validation styles. With no explicit selection, the first option is the default. | Keep SelectField as a native single-select for scalar TValue. Labels, help and validation content are composed by the consumer rather than exposed as new SelectField parameters. |
+| [Fluent Web Components — Select](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/select) | fluent-select is documented as a form-connected implementation of HTML select, registered with fluent-option; the indicator can be customized. The [Web Components v2→v3 migration mapping](https://github.com/microsoft/fluentui/issues/32958) maps fast-select to fluent-select and fast-option / fast-listbox-option to fluent-option. | Bluent does not wrap/register a Fluent custom element. It renders the native select through Blazor InputBase and the Bluent field base, preserving typed binding, EditContext, Razor composition and native attributes without a JavaScript custom-element dependency. A custom Fluent indicator is therefore not part of this API. |
+| Bluent-specific typed extension | The Fluent 2 React Select guidance describes single selection. | Array TValue deliberately enables the native multiple listbox and typed array conversion. This is an explicit Bluent extension, not a claim that the React Select API is multi-select. The popup and modifier-key interaction remain browser/OS-owned. |
+
+For a deliberate initially empty state, provide an empty-valued option through ChildContent and bind an appropriate empty model value. Without an explicit empty option/selection, native select default-selection behavior can choose the first option. There is no separate Placeholder parameter.
+
+This crosswalk was checked against the linked Microsoft documentation and migration material on 2026-11-20. It records upstream comparison, not design approval for the DRAFT Penpot boards.
+
 ## Decision 1 — retain the native HTML select
 
 **Decision:** The interactive primitive remains the browser's native `<select>`. Bluent styles the closed control through the shared field shell; the option popup, option selection, keyboard behavior and form integration remain browser/OS-owned.

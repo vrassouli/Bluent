@@ -111,6 +111,9 @@ def validate_reference_contract(reference: str, design: str, migration: str, ski
         "DRAFT",
         "Windows Contrast Themes",
         "Narrator",
+        "Fluent 2",
+        "fluent-select",
+        "native listbox",
     ):
         if token.lower() not in reference.lower():
             problems.append(f"Canonical SelectField reference is missing: {token}")
@@ -121,6 +124,15 @@ def validate_reference_contract(reference: str, design: str, migration: str, ski
         "bool[]",
         "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
         "28143240-43dc-80cc-8008-f84a2fd6a22c",
+        "Fluent 2 React",
+        "native styling",
+        "Dropdown",
+        "Combobox",
+        "fluent-select",
+        "fluent-option",
+        "fast-select",
+        "first option",
+        "native multiple",
     ):
         if token.lower() not in design.lower():
             problems.append(f"SelectField design/API record is missing: {token}")
@@ -132,6 +144,7 @@ def validate_reference_contract(reference: str, design: str, migration: str, ski
         "76/76",
         "DRAFT",
         "check_v3_selectfield_contract.py",
+        "Fluent React/Web Components crosswalk",
     ):
         if token.lower() not in skill.lower():
             problems.append(f"SelectField task Skill is missing: {token}")
@@ -315,7 +328,6 @@ def validate_repository(root: Path = ROOT) -> list[str]:
         read(".github/workflows/v3-docs-contract.yml"),
     )
     problems += validate_evidence_files(root)
-    problems += validate_culture_evidence_files(root)
     problems += validate_culture_evidence_files(root)
     return problems
 

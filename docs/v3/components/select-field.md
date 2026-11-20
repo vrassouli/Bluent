@@ -86,6 +86,14 @@ SelectField uses the shared `bui-field` shell and the existing field styles in `
 
 The implementation uses existing integrated field/theme roles only. It does not consume preview-only #418 aliases or treat the open #418 proposal as production token approval. Direction follows the consumer's actual `dir` context; the browser probe verifies RTL rendering and no horizontal document overflow at a 320px viewport.
 
+## Fluent alignment and intentional differences
+
+The [Fluent 2 React Select guidance](https://fluent2.microsoft.design/components/web/react/core/select/usage) describes a native-styled, single-choice control and distinguishes it from Dropdown (custom option presentation), Combobox (editable/filterable input) and the Select Field composition (helper/validation presentation). Bluent keeps the same native single-select model for scalar values; consumers compose the accessible label and supporting text.
+
+The [Fluent Web Components Select](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/select) is a form-connected HTML-select web component (fluent-select / fluent-option) with an optional custom indicator. Bluent instead renders a native select inside its Blazor InputBase field contract; it does not register a Fluent custom element, add a JavaScript dependency or expose an indicator slot.
+
+Bluent's array-TValue multiple listbox is a deliberate typed extension to the Fluent 2 React Select single-selection guidance. It remains a native listbox, not a custom dropdown, chip picker or checkbox menu. The full source crosswalk and migration mapping are recorded in the [design/API decision record](../design/SELECTFIELD-DESIGN-AND-API-CONTRACT.md). For an initially empty value, supply an explicit empty-valued option through ChildContent; no Placeholder parameter is provided.
+
 ## Runnable demos
 
 | Render mode | Route | Source |
@@ -123,6 +131,10 @@ The closed control remains a native select; the array case intentionally appears
 ## Exact-head hosted verification
 
 On PR head `58bd0dc27c98ba390297be83c4b570c2fc3ccb13`, browser workflow [#191](https://github.com/vrassouli/Bluent/actions/runs/44611913086) passed all **7/7 SelectField jobs**: source/evidence 0 findings, four Chrome/Edge × WebAssembly/InteractiveServer cells **23/23 each (92/92)**, and Chrome/InteractiveServer `de-DE` + `fa-IR` **23/23 each (46/46)**. Hosted total **138/138**. The workflow as a whole was 31/32: its only failure was the unrelated NumericField Chrome/Server Forced Colors assertion (39/40). Latest-head Baseline, Docs, Skills, Public Census, Component Lab, Button Runtime and Interaction Source workflows passed.
+
+## Latest exact-head verification — 2026-11-20
+
+The PR branch head 361e8e43649d5db3ea63b69583f1118227388099 was independently checked through GitHub Actions. All **8/8 workflow runs** associated with this commit completed successfully. The real compatibility-browser workflow [run #44687710091](https://github.com/vrassouli/Bluent/actions/runs/44687710091) included all seven SelectField jobs: one source/evidence contract job and six browser sessions (Chrome/Edge × WebAssembly/InteractiveServer plus Chrome/InteractiveServer de-DE and fa-IR). All passed; the six sessions retain **138/138 assertions** and six JSON/PNG artifacts. This is exact-head evidence for the implementation at that commit; later documentation/contract changes require their own CI run.
 
 ## Acceptance boundary and known gaps
 

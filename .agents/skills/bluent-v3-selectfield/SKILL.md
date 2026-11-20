@@ -5,7 +5,7 @@
 ## Source of truth
 
 1. [Canonical SelectField v3 implementation record](../../../docs/v3/components/select-field.md) — source-backed API, scalar/array behavior, demos, migration and evidence limits.
-2. [Design and API contract](../../../docs/v3/design/SELECTFIELD-DESIGN-AND-API-CONTRACT.md) — native-select decision, parameter boundaries and Penpot IDs.
+2. [Design and API contract](../../../docs/v3/design/SELECTFIELD-DESIGN-AND-API-CONTRACT.md) — native-select decision, parameter boundaries, Fluent React/Web Components crosswalk and Penpot IDs.
 3. [Issue #437](https://github.com/vrassouli/Bluent/issues/437) and [Draft PR #568](https://github.com/vrassouli/Bluent/pull/568), targeting `bluent-v3` only.
 4. Owned Penpot file **Bluent v3 Design System**, file `b64f6665-c9ab-80b5-8008-c4ac99d9d000`, page 60 (`28143240-43dc-80cc-8008-f84a2fd6a22c`); boards `28143240-43dc-80cc-8008-f84a3bd17206`, `28143240-43dc-80cc-8008-f84aa30a32ea`, `28143240-43dc-80cc-8008-f84aa52eb253`. All remain DRAFT / REVIEW REQUIRED.
 5. Source: `src/Bluent.UI/Components/SelectFieldComponent/`; shared styles: `src/Bluent.UI/Styles/Components/_field.scss`.
@@ -23,6 +23,7 @@
 - The browser/OS owns the popup, keyboard and native listbox interaction. Do not add a custom popup, chips, search/filter or JavaScript keyboard layer.
 - Consumers own associated Label, readable help/error content and `aria-describedby`; EditContext supplies native `aria-invalid`. Do not infer spoken AT acceptance from Chromium AX roles.
 - Use existing shared field/theme styles only. #418 owns global token names/aliases; do not consume draft aliases.
+- The Fluent React/Web Components comparison and deliberate API differences are recorded in the design/API contract and canonical reference; do not claim custom-element, popup-pixel or React multi-select parity.
 
 ## Current local evidence checkpoint
 
