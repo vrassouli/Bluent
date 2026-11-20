@@ -169,14 +169,17 @@ try {
  const darkBrandForegroundResults=[];
  // Keep the theme under Blazor's ownership in both WASM and InteractiveServer.
  // Directly mutating data-bui-theme can be undone by a delayed Server render.
- const readLabTheme = () => cdp.js("(() => { const label = document.querySelector('#v3-lab-switch-theme')?.textContent?.trim() ?? ''; return label.includes('Switch to light') ? 'dark' : 'light'; })()");
+ const readLabTheme = () => cdp.js("document.querySelector('.v3-lab-surface')?.dataset.buiTheme ?? null");
  const ensureLabTheme = async mode => {
    const current = await readLabTheme();
    if (current !== mode) {
-     await cdp.js("document.querySelector('#v3-lab-switch-theme')?.click()");
-     await until(async () => await readLabTheme() === mode, "Blazor theme callback " + mode, 12000);
+     if (current !== "light" && current !== "dark") throw Error("Unable to read Blazor-owned lab theme: " + JSON.stringify(current));
+     const actionLabel = current === "dark" ? "Switch to light" : "Switch to dark";
+     const click = await cdp.js("(() => { const expected = " + JSON.stringify(actionLabel) + "; const button = [...document.querySelectorAll('button')].find(b => b.textContent?.includes(expected)); if (!button) return { found: false, expected, buttons: [...document.querySelectorAll('button')].map(b => b.textContent?.trim()).slice(0, 12) }; button.click(); return { found: true, expected, text: button.textContent?.trim() }; })()");
+     if (!click?.found) throw Error("Blazor theme control not found: " + JSON.stringify(click));
+     await until(async () => await readLabTheme() === mode, "Blazor theme DOM callback " + mode, 16000);
    }
-   await until(() => cdp.js("document.querySelector('.v3-lab-surface')?.dataset.buiTheme === " + JSON.stringify(mode)), "Blazor theme DOM " + mode, 12000);
+   await until(async () => await readLabTheme() === mode, "Blazor theme DOM " + mode, 12000);
  };
  for(const [brand,modes] of Object.entries(matrix)) {
    const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");

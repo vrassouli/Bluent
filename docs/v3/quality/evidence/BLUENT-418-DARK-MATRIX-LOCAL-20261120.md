@@ -3,14 +3,15 @@
 - **Date:** 2026-11-20
 - **Repository:** vrassouli/Bluent
 - **Branch:** v3/issue-418-design-tokens
-- **Starting HEAD:** 092fc75b56a6e5aa0f09ca07a307298945bbd8e0
+- **Baseline HEAD:** 092fc75b56a6e5aa0f09ca07a307298945bbd8e0
+- **Current pushed base before this follow-up:** 2119544e56a5cacdc3e76d9351bd5317342251fd
 - **Evidence category:** local build, automated tests, and real-browser runtime
 
 ## Why this rerun exists
 
 The hosted Chrome / InteractiveServer Real Browser Lab on the starting HEAD sampled the Light neutral surface during a Dark brand-foreground assertion. The probe had changed data-bui-theme directly in the DOM, while the Blazor page owned that state in _dark. A later InteractiveServer render could therefore overwrite the test's DOM-only change. A fixed sleep did not guarantee that the final Dark state had been rendered.
 
-The probe now changes theme through the real Blazor #v3-lab-switch-theme control, waits for the control label and the rendered data-bui-theme to agree, and waits for the requested brand, direction, and computed Dark neutral surface before reading foreground colors. The nested Word sample is checked against its intentional opposite AlternateScope mode, and the probe restores Light through the same Blazor-owned control before subsequent interaction checks.
+The first pushed correction still failed once in hosted Chrome / InteractiveServer with a Blazor theme callback timeout. Its click targeted the component id rather than the native button. The follow-up now reads the Blazor-owned surface theme attribute, finds the actual native button by the action label (Switch to dark / Switch to light), clicks it, and waits for the rendered theme attribute to change. It fails closed with the visible button labels if the control cannot be found. The probe also waits for the requested brand, direction, and computed Dark neutral surface before reading foreground colors. The nested Word sample is checked against its intentional opposite AlternateScope mode, and the probe restores Light through the same native button interaction before subsequent checks.
 
 ## Local verification
 
@@ -31,7 +32,7 @@ The following checks ran on Dev01 against the working tree containing the above 
 | Node syntax check for the probe | **Passed** |
 | Git whitespace check | **Passed** |
 
-The three browser runs each covered the 20 brand × mode combinations and 80 Dark foreground samples. Each reported zero browser assertion failures; the minimum sampled Dark foreground contrast was **4.600125:1** against the opaque Dark NeutralBackground1 candidate. Focus zoom, narrow viewport, and double-ring viewport probes also reported zero failures in those runs.
+All four browser runs covered the 20 brand × mode combinations and 80 Dark foreground samples. Each reported zero browser assertion failures; the minimum sampled Dark foreground contrast was **4.600125:1** against the opaque Dark NeutralBackground1 candidate. Focus zoom, narrow viewport, and double-ring viewport probes also reported zero failures in those runs.
 
 Commands used (with the installed browser executable supplied through CHROME_PATH):
 
@@ -55,7 +56,7 @@ Commands used (with the installed browser executable supplied through CHROME_PAT
 
 ## Scope and limitations
 
-- These are local Dev01 results from the working tree based on 092fc75; they are not GitHub Actions results for the eventual pushed commit.
+- These are local Dev01 results from the current working tree layered on pushed HEAD 2119544e; the native-button follow-up is not yet committed/pushed and hosted exact-head CI for it is still pending.
 - Chrome and Edge were both exercised in both local render modes: InteractiveServer and WebAssembly. These remain local runs, not hosted exact-head CI.
 - The minimum ratio is a measurement of these preview candidates on the specified opaque Dark surface; it is not blanket WCAG conformance.
 - Browser forced-colors emulation, Chromium accessibility-tree inspection, and these runtime probes do not certify native Windows Contrast Themes or spoken Narrator/NVDA/VoiceOver behavior.
