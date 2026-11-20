@@ -1,28 +1,39 @@
-# TextField placeholder consumer decision — Issue #432
+# TextField placeholder token decision — 2026-11-14
 
-> **Status:** accepted for the TextField consumer by delegated design review on 2026-11-14. This is not approval of the complete #418 foundation or a released public token contract.
+## Selected source-backed mapping
 
-## Source mapping
+| Use | Bluent role | CSS alias | Fluent source |
+|---|---|---|---|
+| Ordinary placeholder | bluent.semantic.text.placeholder | --bui-v3-text-placeholder | --colorNeutralForeground4 |
+| Disabled placeholder | bluent.semantic.text.disabled (existing shared role) | --bui-v3-text-disabled | --colorNeutralForegroundDisabled |
+| Entered value | bluent.semantic.text.primary (existing shared role) | --bui-v3-text-primary | --colorNeutralForeground1 |
 
-The pinned upstream package is @fluentui/web-components@3.1.3. Its compiled dist/esm/text-input/text-input.styles.css sets ordinary .control::placeholder to colorNeutralForeground4, disabled placeholder to colorNeutralForegroundDisabled, and the Filled darker surface to colorNeutralBackground3.
+Source chain for the new role:
 
-| TextField state | Source role | Current stylesheet behavior |
-|---|---|---|
-| Enabled placeholder | colorNeutralForeground4 | Read --colorNeutralForeground4 directly |
-| Disabled placeholder | shared disabled foreground | Reuse --bui-v3-text-disabled with --colorNeutralForegroundDisabled fallback |
+bluent.color.foreground4 → bluent.semantic.text.placeholder → --bui-v3-text-placeholder
 
-The proposed #418 semantic alias bluent.semantic.text.placeholder / --bui-v3-text-placeholder is not consumed until #418 integrates and approves that bridge. Do not create a TextField-specific disabled alias. Placeholder is supplementary hint text, never an accessible name.
+Do not add a TextField-specific disabled role or component alias. Placeholder text is a low-emphasis hint and is never an accessible name; consumers still need a visible/programmatic Label and a description for help/validation.
 
-## Contrast arithmetic
+## Upstream basis
 
-| Mode | FG4 | BG3 | Contrast |
+The primary parity target is Fluent Web Components fluent-text-field, not a React-only visual extension. The exact pinned @fluentui/web-components@3.1.3 stylesheet uses var(--colorNeutralForeground4) for the ordinary native placeholder and var(--colorNeutralForegroundDisabled) for the disabled placeholder. The official Text Field component documents Outline and Filled appearances; the four-appearance Bluent matrix remains a clearly labelled cross-platform visual reference.
+
+## Contrast acceptance
+
+Use the actual Filled-darker surface BG3 rather than the generic input surface BG1:
+
+| Mode | Foreground | Surface | Contrast |
 |---|---|---|---:|
-| Light | #707070 | #F5F5F5 | 4.5423:1 |
-| Dark | #999999 | #141414 | 6.4663:1 |
+| Light | #707070 | #F5F5F5 | **4.5423:1** |
+| Dark | #999999 | #141414 | **6.4663:1** |
 
-FG4 narrowly exceeds the 4.5:1 normal-text threshold in Light (0.0423:1 headroom) and has comfortable Dark-mode headroom. FG3 gives more contrast but departs from the exact pinned Fluent Web Components source role. Therefore FG4 is the selected TextField consumer role. Preserve the numeric regression and investigate any rendered consumer failure instead of silently switching roles.
+The #418 contrast audit checks the FG4/BG3 pair in every existing brand/mode CSS bundle (10 brands × Light/Dark). Any pair below 4.5:1 fails. The light-mode headroom is deliberately small, so the exact source values and rendered consumer test must remain guarded. FG3 is not selected because the pinned Fluent Web Components implementation uses FG4 and no FG4 failure is measured for these source pairs; a higher-contrast role would be an upstream departure requiring separate evidence and review.
 
-This arithmetic evaluates placeholder text against the immediate BG3 surface. It does not certify the outer field boundary against every consumer host surface, native Windows Contrast Themes, forced-colors runtime behavior, or assistive technology.
+WCAG 2.2 SC 1.4.3 applies the 4.5:1 requirement to normal text. Inactive UI components such as disabled controls are exempt from this requirement; this mapping reuses Bluent's established disabled semantic for consistency, not to claim a separate disabled-state contrast certification.
+
+## Release boundary
+
+This selected TextField consumer contract is represented in the #418 opt-in token preview only. It does not approve the full #418 public token vocabulary, brand candidate values, Penpot design, Windows native Contrast Themes, or spoken assistive-technology acceptance. Generated preview CSS remains outside published bundles. The TextField implementation may use the semantic variable with the exact Fluent source token as its fallback; no public Razor parameter or TextField-only disabled token is introduced.
 
 ## Authority boundary
 

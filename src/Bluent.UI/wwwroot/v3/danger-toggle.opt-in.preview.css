@@ -1,0 +1,31 @@
+/*
+ * Bluent v3 / #418: design-backed, opt-in Danger.Toggled contrast prototype.
+ * Load AFTER bluent.ui.components.min.css and opt in on a containing element:
+ *   <section data-bui-v3-danger-toggle> ... <Button Appearance="Danger" ... />
+ *
+ * Source-backed Penpot board:
+ *   Bluent v3 Design System, page 07,
+ *   94a03b1b-8cb6-8091-8008-c986fd01b85f
+ * No global Button override; intentionally NOT imported in v2/legacy CSS.
+ */
+[data-bui-v3-danger-toggle] .bui-button.danger.toggled {
+    background-color: var(--colorPaletteRedBackground1);
+    color: var(--colorPaletteRedForeground2);
+}
+[data-bui-v3-danger-toggle] .bui-button.danger.toggled:hover {
+    background-color: var(--colorPaletteRedBackground2);
+    color: var(--colorPaletteRedForeground2);
+}
+[data-bui-v3-danger-toggle] .bui-button.danger.toggled:hover:active {
+    background-color: var(--colorPaletteRedBackground3);
+    color: var(--colorNeutralForegroundOnBrand);
+}
+@media (forced-colors: active) {
+    [data-bui-v3-danger-toggle] .bui-button.danger.toggled,
+    [data-bui-v3-danger-toggle] .bui-button.danger.toggled:hover,
+    [data-bui-v3-danger-toggle] .bui-button.danger.toggled:hover:active {
+        background-color: ButtonFace;
+        color: ButtonText;
+        border-color: ButtonText;
+    }
+}

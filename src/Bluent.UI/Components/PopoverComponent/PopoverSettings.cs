@@ -1,4 +1,4 @@
-﻿using Bluent.UI.Common.Json;
+using Bluent.UI.Common.Json;
 using System.Text.Json.Serialization;
 
 namespace Bluent.UI.Components;
@@ -29,4 +29,6 @@ public record PopoverSettings
     public int Offset { get; set; } = 6;
     public int Padding { get; set; } = 5;
     public bool SameWidth { get; set; }
+    /// <summary>Only the opted-in v3 button trigger receives authoritative JS visibility callbacks.</summary>
+    public bool AccessibleTriggerState { get; set; }
 }

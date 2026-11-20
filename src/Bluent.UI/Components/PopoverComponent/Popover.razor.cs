@@ -1,4 +1,4 @@
-﻿using Bluent.Core;
+using Bluent.Core;
 using Bluent.UI.Extensions;
 using Bluent.UI.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
@@ -9,6 +9,7 @@ public partial class Popover : IDisposable
 {
     private bool _triggerAlreadySet;
     private PopoverSettings? _settings;
+    private PopoverConfiguration? _configuration;
 
     [Parameter, EditorRequired] public RenderFragment Trigger { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment Surface { get; set; } = default!;
@@ -17,11 +18,14 @@ public partial class Popover : IDisposable
     [Parameter] public int Padding { get; set; } = 5;
     [Parameter] public bool DisplayArrow { get; set; } = true;
     [Parameter] public bool KeepSurface { get; set; }
+    /// <summary>Experimental #418 opt-in button-triggered aria-expanded/aria-controls support.</summary>
+    [Parameter] public bool AccessibleTriggerState { get; set; }
     [Parameter] public string? TriggerEvents { get; set; } = "click";
     [Parameter] public string? HideEvents { get; set; }
     [Parameter] public bool SameWidth { get; set; }
     [Parameter] public PopoverAppearance Appearance { get; set; } = PopoverAppearance.Default;
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
+    [CascadingParameter] public PortalThemeScope? ThemeScope { get; set; }
 
     protected override void OnInitialized()
     {
@@ -46,14 +50,28 @@ public partial class Popover : IDisposable
         {
             TriggerEvents = TriggerEvents?.Split([',', ' ', ';'], StringSplitOptions.TrimEntries),
             HideEvents = HideEvents?.Split([',', ' ', ';'], StringSplitOptions.TrimEntries),
-            SameWidth = SameWidth
+            SameWidth = SameWidth,
+            AccessibleTriggerState = AccessibleTriggerState
         };
 
-        PopoverService.SetTrigger(GetSurfaceFragment(), new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface));
+        _configuration = new PopoverConfiguration(_settings, DisplayArrow, Appearance, KeepSurface, ThemeScope);
+        PopoverService.SetTrigger(GetSurfaceFragment(), _configuration);
 
         _triggerAlreadySet = true;
     }
 
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // Existing trigger/interops stay registered. Only refresh this one
+        // detached surface when its nearest theme host changes.
+        if (_configuration != null && !Equals(_configuration.ThemeScope, ThemeScope))
+        {
+            _configuration.ThemeScope = ThemeScope;
+            PopoverService.RefreshSurface(_configuration.Settings.TriggerId);
+        }
+    }
     public void Show()
     {
         if (_settings is null)

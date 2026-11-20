@@ -1,0 +1,60 @@
+name: Bluent v3 Local Package Boundary
+
+# Only proposed v3 work. No NuGet.org publication or stable Dev run.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-local-pack-boundary.yml"
+      - "scripts/quality/check_v3_nuget_boundary.py"
+      - "scripts/quality/test_v3_nuget_boundary.py"
+      - "src/Bluent.UI/**"
+      - "src/Bluent.Core/**"
+      - "tests/RegexSampleGeneratorTest/**"
+      - "docs/v3/tokens/NUGET-PACK-BOUNDARY-AUDIT.md"
+
+permissions:
+  contents: read
+
+jobs:
+  local-pack-boundary:
+    name: local-pack-boundary
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout isolated v3 PR
+        uses: actions/checkout@v4
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify package boundary negative controls
+        run: python -m unittest discover -s scripts/quality -p test_v3_nuget_boundary.py -v
+      - name: Verify legacy Dialog opt-out and v3 service compatibility
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet restore tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Restore test project failed" }
+          dotnet test tests/RegexSampleGeneratorTest/RegexSampleGeneratorTest.csproj --configuration Release --no-restore --nologo --logger "console;verbosity=minimal"
+          if ($LASTEXITCODE -ne 0) { throw "Legacy/Dialog opt-in compatibility unit tests failed" }
+      - name: Build the package locally without publishing
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet restore src/Bluent.UI/Bluent.UI.csproj --nologo
+          if ($LASTEXITCODE -ne 0) { throw "Restore failed" }
+          $out = Join-Path $env:RUNNER_TEMP "bluent-v3-pack-boundary"
+          New-Item -Path $out -ItemType Directory -Force | Out-Null
+          dotnet pack src/Bluent.UI/Bluent.UI.csproj --configuration Release --no-restore --nologo --output $out
+          if ($LASTEXITCODE -ne 0) { throw "Local-only pack failed" }
+          $packages = @(Get-ChildItem -Path $out -Filter "Bluent.UI.*.nupkg" -File)
+          if ($packages.Count -ne 1) { throw "Expected exactly one local Bluent.UI nupkg" }
+          python scripts/quality/check_v3_nuget_boundary.py $packages[0].FullName
+          if ($LASTEXITCODE -ne 0) { throw "NuGet package asset boundary check failed" }
+          Write-Host "Package inspected locally; no push, publish, signing, or artifact upload."

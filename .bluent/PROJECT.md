@@ -2,6 +2,28 @@
 
 This file is the current project-state entry point. Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
 
+## 2026-11-20 current v3 task and foundation status
+
+**#418 Design Tokens — In progress.** Active branch `v3/issue-418-design-tokens`; PR [#500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, is open and unmerged, and has no formal approving review. Current exact-head: `9c5ec655f60e5d31a8553635527aed21b36750fa`; base head: `6ad979ddda0b5a4da33f9cd1531f362e9d19a37a`; exact-head GitHub Actions **13/13 successful**. Real Browser Lab 4/4, Compatibility 30/30, Component Lab 4/4, Popover 4/4, Firefox 34/34 and Playwright WebKit 34/34. Dev01 local verification: Release build 0 warnings / 0 errors; solution tests 188/188; #418 review contract 19/19; focused regressions 65/65; docs 0 findings; Skills 0 errors; Markdown links 238 files. Penpot TokenSet audit at revision 883 passed 1,285/1,285. Page 45 remains REVIEW REQUIRED; page 55 remains DRAFT. Native HCM is off despite the High Contrast White scheme being selected; NVDA 2026.3 is present and running but spoken output has not been captured. Native Safari and Persian OS IME/caret/selection remain unverified. Current detailed record: [#418 acceptance checkpoint 2026-11-20](../docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-20.md). No production CSS/API activation, stable Dev/main change, NuGet publication, release or deployment has occurred.
+
+The maintainer delegated the remaining design choices, and the selected directions are recorded in `docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md` and the schema `reviewPolicy.selectedDecisions`: **Option B** public vocabulary (`bluent.color.*` plus individually approved `bluent.semantic.*`; source/component namespaces remain internal/private); **Option A** same-host Focus metadata; **Option A** Dialog owner context through the existing configuration builder; 40 generated Dark foreground values as preview-only targets for four roles on opaque Dark NeutralBackground1; and the narrow existing Danger boundary. These choices resolve the direction questions, not design sign-off or production approval.
+
+Penpot page 45 and pages 52–55 remain DRAFT / REVIEW REQUIRED where recorded. Do not promote the board states by inference. Public API spelling/signatures, production `--bui-v3-*` aliases, native Dialog/Popover Contrast Themes and spoken AT, unsupported Focus hosts, engine/lifecycle and visual acceptance remain open. No production CSS or stable asset changed.
+
+Local verification recorded for the delegated-decision checkpoint: full Python quality suite 405/405; token preview generator `--check` PASS; scoped-brand generator `--check` PASS; v3 docs contract 0 findings; Skills contract 0 errors; Markdown links checked in 226 files; `git diff --check` clean. The latest pushed commit is independently covered by exact-head GitHub Actions at 12/12 success. The 360-item contrast audit intentionally retains source gaps; it is not blanket WCAG/AT certification. Engineering checks do not substitute for editable design review. This temporary Penpot-access Blocked state is historical and was superseded on 2026-11-17 when the source-owned Penpot file became accessible again; #418 is currently In progress.
+
+**#418 Dark-matrix and hosted CI — 2026-11-20:** the probe now changes theme through the actual Blazor native button and waits for rendered state. Chrome/Server, Chrome/WASM, Edge/Server and Edge/WASM passed locally (1178/1178, 1179/1179, 1178/1178, 1179/1179), and the same four hosted Real Browser Lab cells passed on exact head 9c5ec655. Exact-head GitHub Actions are 13/13 green, including Compatibility 30/30, Component Lab 4/4, Popover 4/4 and Firefox/WebKit. The full detail and native-environment limits are in the [2026-11-20 acceptance checkpoint](../docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-20.md).
+
+**#421 Component Lab:** the reusable platform contract was explicitly accepted by the maintainer and PR #557 merged into `bluent-v3` at `c9ccbfc74f9bdb8130e1dcd2a895a0ff177912a1`. Project #5 still shows #421 In progress only because the wider 66-family coverage ledger remains open; that ledger is not a blocker to an individual component task.
+
+**#433 NumericField — Done:** PR #563 merged into `bluent-v3` on 2026-11-16 (merge commit `f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6`), Issue #433 closed completed and Project #5 set to Done. Final evidence: Release build 0 warnings / 0 errors; .NET 97/97; focused value pipeline 27/27; browser 160/160; all 8 exact-head workflows passed. It remains unreleased; no stable Dev/main, NuGet publication or deployment occurred.
+
+**#434 Checkbox — Done:** Project #5 now records Done; its v3 implementation, reference, demo/QA artifacts and task Skill are present on `bluent-v3`. The earlier 2.x mixed-state and 30-vs-12 Fluent audit below is historical input to the accepted component work, not its current status.
+**#435 Switch — Done; #436 RadioGroup — Done; #437 SelectField — Done:** all three are recorded Done in Project #5 and their v3 implementation/evidence now exists on the current `bluent-v3` base. Their family-specific acceptance does not approve the global #418 production token/API decisions.
+**#438 DateField — Backlog:** source audit has identified DateClass propagation, typed Min/Max enforcement, YearSelect parsing/mask consistency and calendar-trigger accessible naming gaps. No DateField v3 implementation has started; it remains gated by #418 and its own Ready/design acceptance.
+**#421 Component Lab:** platform slice accepted/merged; Project #5 remains In Progress for the wider 66-family ledger. Its 18 representative Lab specimens are not a count of final accepted families and must not be used to infer per-family completion.
+
+No v3 work in this checkpoint changes stable `Dev`, `main`, released 2.x assets, NuGet packages or deployments.
 ## Parallel v3 foundation (isolated development)
 
 **Epic:** [#416](https://github.com/vrassouli/Bluent/issues/416), all work in the protected `bluent-v3` integration branch and issue-specific task branches. **Stable `Dev`, NuGet and deployments remain untouched.**
@@ -10,11 +32,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 **#419 editable design library:** [Review PR #499](https://github.com/vrassouli/Bluent/pull/499) contains an independent project-owned `Bluent v3 Design System` Penpot file and verifiable linked Fluent source/library research. The imported `Microsoft Fluent 2 Web (Community)` remains read-only. [Working Penpot manifest](../docs/v3/design/penpot-workspace.manifest.json): 27 editable pages, 65 core native variants + 16 research fixtures and alignment/RTL/size stress evidence. Issue #419 remains **Review**, not Done; accept/merge only to `bluent-v3` following review.
 
-**#418 token system:** Next foundation task after acceptance of D1–D5. Must enter Ready only after design-first, source-to-token mapping and 10-brand Light/Dark/RTL/high-contrast acceptance goals are traceable. Token/brand decisions and implementation require a dedicated `v3/issue-418-...` branch and PR.
-
-**#434 Checkbox:** Maintainer-delegated design direction is recorded in Issue #434 and Penpot pages 56–57; implementation is on `v3/issue-434-checkbox` and retains the current public API. Dev01 local verification: focused .NET tests 112/112; Release `Bluent.UI` and SSR builds plus Debug WASM build all pass with 0 warnings/errors; Chrome/Edge × WebAssembly/InteractiveServer pass 22/22 per cell (88/88 total). Four JSON reports and eight viewport screenshots are retained under `docs/v3/quality/evidence/`. Hosted exact-head CI, final maintainer review, native OS contrast and spoken AT remain open; stable `Dev`/2.x/NuGet are unchanged.
-
-**#435 Switch:** Dedicated Boolean Switch implementation is on `v3/issue-435-switch`; [PR #565](https://github.com/vrassouli/Bluent/pull/565) targets `bluent-v3`. Final Dev01 local evidence: focused HtmlRenderer 11/11; Switch source/API mutation guards 18/18; full Release solution build 0 warnings/errors; .NET tests 124/124; real Chrome/Edge × WebAssembly/InteractiveServer matrix 27/27 per cell (108/108), including Light/Dark semantic-color checks, `Class`/`Style`/`aria-describedby` forwarding, and Above-placement 40×20 geometry, centered 24px hit-target and pointer activation. The two previously uncovered Above-layout defects are fixed; all four updated reports and responsive/theme screenshots are checked into the canonical evidence folder. Penpot page 58 links the 40-case matrix, anatomy/accessibility contract and Medium-first board. The task-local existing-CSS exception is documented in [Issue #435](https://github.com/vrassouli/Bluent/issues/435#issuecomment-6970538466); it does not approve or complete global #418 tokens. Project #5 Status is **Review** (verified after exact-head CI passed on `1b2f12fc`: 8/8 workflows and 36/36 jobs). The preceding hosted 20/20 browser compatibility matrix, including four Switch cells, was green; Native Zoom / Chrome-WASM and NumericField / Edge-Server passed on isolated retries. New exact-head CI is required for the final 27-assertion Switch evidence update. Independent visual-parity and native OS/AT acceptance remain open. Independent visual-parity review and native OS/spoken AT remain explicit limitations; no WCAG certification is claimed. Stable `Dev`/2.x/NuGet/deployments remain untouched.
+**#418 token system:** The isolated task branch and PR remain active. Penpot access is restored and the source-owned decision boards are available. The selected Option B / Option A / Option A directions are recorded in `docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md` and aligned with pages 52–54; this does not approve production aliases or public API signatures. Native spoken AT/OS/IME acceptance, page-45 final review and exact public-token/API allow-list remain open. See the current checkpoint at the top of this file and the dated handoff below.
 
 **Design rule:** use [Penpot first / Figma authorized fallback](../docs/v3/PENPOT-WORKFLOW.md), record real design file/page/variant IDs in relevant issue/PR. The original [Microsoft Fluent 2 Web Figma reference](https://www.figma.com/design/UxJ11V0c8TI8aaSVpdKeQD) must not be edited. Independent editable [Bluent v3 architecture Figma research](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=14-3) is supplementary, not final font/token/browser design sign-off.
 
@@ -767,7 +785,210 @@ Evidence is under docs/v3/quality/evidence/BLUENT-TEXTFIELD-WINDOWS-*. The next 
 PR #562 was accepted by delegated technical review and squash-merged into bluent-v3 after exact task head 5d0aef5d7b15c7511b55570cf3090dab75dafcc7 passed 8/8 workflows and 28/28 checks. All four TextField browser cells passed (Chrome/Edge × WASM/InteractiveServer). Local Release build completed with zero warnings/errors, .NET tests 70/70, TextField contract tests 48/48, docs contract zero findings, and Markdown links checked in 174 files.
 
 Native Windows High Contrast and direct Persian keyboard-layout input/caret restoration were verified; original Windows settings and English keyboard layout were restored. Composition-based OS IME lifecycle and spoken Narrator output remain unverified. Penpot pages 17–20 retain DRAFT labels, while task-specific design decisions were accepted under delegated review. #418 global token ownership remains separate. The current TextField has no public Appearance parameter; the Filled visual samples remain non-API references and host-boundary contrast is a future appearance follow-up. No stable Dev/main/v2 merge, NuGet publication, release or deployment occurred.
+
+
+## 2026-11-10 #418 — downstream label contract and acceptance evidence reconciliation
+
+The #418 token preview now has an explicit regression contract for the three shared Label consumer roles approved by the maintainer on #430. `text.primary`, visual-only `text.disabled`, and decorative `text.dangerAccessible` are asserted against their exact existing source CSS variables and semantic aliases across all 10 brands × Light/Dark. The test also asserts that no `component.label.*` token family is introduced. This records #430's consumer approval without promoting the aliases to released/public tokens.
+
+The token README now leads with the actual Project #5 state (**In progress**) and current PR/evidence snapshot. The High Contrast / Reduced Motion design note now incorporates the 2026-11-01 real Windows 11 Desert Contrast Theme run and the separate 126/126 WASM + 126/126 Production InteractiveServer opt-in portal probes. It explicitly preserves the limitations: no spoken Narrator/NVDA acceptance, no public portal API acceptance, and the legacy/global Overlay reduced-motion compatibility question remains separate. The Link #431 approval is also distinguished from approval of #418 draft token values.
+
+Local validation before this base sync: Label/contrast tests **12/12**; contrast audit **340 checks, zero issues**; foundation tests **12/12**; v3 docs tests **22/22**; docs contract **0 findings**; local Markdown links checked in **214 files**; both color and foundation preview generators passed `--check`; `git diff --check` passed. These focused checks are being rerun after the Label/Link base synchronization. No stable `Dev`, v2.x asset, NuGet package or deployment is changed.
+
+The issue remains **In progress** in Project #5. PR #500 remains open and non-draft against `bluent-v3`. This update does not replace final maintainer approval of the complete public token vocabulary/values and Penpot page-45 semantics, nor waive remaining design/runtime/accessibility acceptance. Do not merge or mark #418 Done on this evidence alone.
+
+## 2026-11-11 #418 — exact-head acceptance evidence complete; ready for maintainer review
+
+The synchronized #418 branch now includes accepted #430 Label and #431 Link changes and is based on the current `bluent-v3` head. PR #500 head is merge commit `fe991e92cfe50f995d67e54fd0a857e2bb0035b9`; GitHub reports it open, non-draft and mergeable. All **11/11 exact-head workflows succeeded**, with zero failures and zero pending: Token Contract, Documentation Contract, Public Component Census, Local Package Boundary, Baseline Release/build/test/five-package validation, Button Focus, Button Runtime, Component Lab Pilot, Interaction Source Contract, Real Compatibility Browsers and Real Browser Lab.
+
+The browser workflows completed every required cell: Chrome/Edge × WebAssembly/Published InteractiveServer; compatibility adds Label Info in Chrome/Edge × `en-US`/`fa-IR`; Popover interaction passes Chrome/Edge × WASM/Server. Artifacts are retained for the four Popover cells and eight compatibility/Label cells. The local synchronized-tree Release build is **0 warnings / 0 errors**, .NET tests **87/87**, and focused token/foundation/label/interaction/Popover contracts **12/12, 12/12, 10/10, 35/35, 5/5 and 26/26** respectively. Docs/Skills contracts report zero findings/errors; local Markdown links check 216 files.
+
+Penpot page 45's main decision board (`d0bcea67-3af4-8071-8008-d8e4c3d426d0`) and per-brand Dark candidate board (`fce13529-02e2-80e4-8008-df6f76b3b4ac`) were freshly PNG-exported and visually inspected. The decision board still says REVIEW REQUIRED and the companion candidate board remains DRAFT. The source boards' names, statuses, values and shapes were not changed in this pass; a copy-only evidence refresh was not saved because the Penpot plugin tab suspended before the edit. Do not infer approval from the visual export.
+
+The real GitHub Project #5 Status is advanced from **In progress** to **Review** because the PR, exact-head checks, demo/docs/skills, design references, parity evidence and known limitations are ready for maintainer acceptance. #418 is not Done: the maintainer must still approve the page-45 semantic choice and the complete public token vocabulary/roles/values, decide remaining foundation design parity and accessibility/runtime gates, then accept and merge PR #500 into `bluent-v3`. Candidate Dark values remain opt-in, not production. No stable `Dev`, 2.x assets, NuGet publication or deployment changed.
+
+
+## #418 — TextField placeholder source role selected and regression added — 2026-11-14
+
+Resolved the downstream #432 decision from the exact pinned Fluent Web Components 3.1.3 stylesheet and Bluent's existing semantic contract. Ordinary placeholder uses source role bluent.color.foreground4 / --colorNeutralForeground4 and shared semantic bluent.semantic.text.placeholder / --bui-v3-text-placeholder. Disabled placeholder reuses the existing bluent.semantic.text.disabled / --bui-v3-text-disabled role, sourced from --colorNeutralForegroundDisabled. No TextField-specific disabled alias or component alias is added; placeholder remains supplementary hint text, never the accessible name. FG3 is not selected because the pinned Web Components source uses FG4 and all measured Filled-darker BG3 pairs pass the normal-text threshold.
+
+The preview schema/generator now contains **16 source + 17 semantic + 13 component = 46 logical tokens**. The generated semantic alias remains opt-in and excluded from published bundles. The deterministic contrast audit checks the actual BG3 pair for all 10 brands × Light/Dark: **20/20 pass, 0 below 4.5:1** (minimum Light **4.5423:1**, Dark **6.4663:1**). Total diagnostics are **360**: 300 existing source checks, 20 TextField Placeholder/BG3 checks and 40 Dark foreground candidates. The focused token contrast suite passes **13/13** and foundation suite **12/12**; generator --check and git diff --check pass.
+
+The selected consumer mapping has been recorded in #418 and PR #500, and cross-referenced from #432 / PR #562. It resolves the FG4-vs-FG3 component decision only; the full #418 public vocabulary, remaining candidate values, Penpot decision board, and foundation acceptance are not inferred as approved. PR #500 remains open/unmerged; token preview stays outside release bundles. Penpot writes timed out and were not verified; page 45 remains REVIEW REQUIRED and TextField pages 17–20 remain DRAFT.
+
+
+## #418 CI asset-sync correction — 2026-11-14
+
+The first exact-head Token Contract run after the placeholder alias failed only at the existing demo-asset freshness step: src/Bluent.UI.Demo.Pages/wwwroot/v3/issue-418.opt-in.preview.css had not yet been regenerated from the four canonical preview sources. Ran scripts/quality/sync_v3_token_demo_asset.py; its subsequent --check passes. This file is demo-only/opt-in. The shipped Bluent.UI CSS and legacy variables remain untouched. Generator drift check passes, the FG4/BG3 audit still reports 360 checks / 20 placeholder pairs / zero below 4.5:1, and TextField placeholder contract tests remain 13/13.
+
+
+## #418 CI Release-gate dependency remediation — 2026-11-14
+
+The first #418 Release Gate exposed existing NU1903 for Microsoft.AspNetCore.WebUtilities 10.0.7 (GHSA-x33c-w48q-qrgc). This was the same existing #425 security finding already remediated on the isolated #432 task branch. To keep this v3 token PR buildable without suppressing the advisory, aligned the direct ASP.NET Core / Extensions package references in the same ten library/demo/sample project files to patched 10.0.15. Scope remains the isolated v3 task branch only; no stable/2.x release assets were touched. The exact #432 remediation diff is the source of this targeted consistency update. Full restore, warning-as-error Release build and solution tests must pass before treating this gate as closed.
+
+
+## #418 Token Contract legacy inventory assertion updated — 2026-11-14
+
+The exact-head Token Contract identified one remaining hard-coded inventory assertion in test_v3_approved_focus_host_token_bridge.py that still expected 15 source / 16 semantic entries. Updated it to 16 / 17 and added explicit source/semantic/CSS assertions for bluent.color.foreground4 and bluent.semantic.text.placeholder. This preserves the focus preview contract and proves the new TextField role is present without widening the public Button rule. Local Focus bridge tests pass **7/7**, TextField token contrast tests **13/13**, generator/sync checks pass, and the 360-case audit still reports all 20 Placeholder/BG3 pairs passing.
+
+
+## #418 Release Gate security mutation tests aligned to patched dependency — 2026-11-14
+
+The exact-head Evidence Policy job reported two stale negative-control assertions that expected the pre-remediation 10.0.14 reference in SSR and WASM DevServer projects. The product project references are now correctly pinned to patched 10.0.15, so updated the mutation tests to verify 10.0.15 is present and that deliberately downgrading to vulnerable 10.0.7 is rejected by the fail-closed contract. The release/security guard remains enabled; no NU1903 warning suppression was introduced. Local quality-gate suite passes **50/50**, including both downgrade mutation controls; docs contract is 0 findings and Markdown links checked in 217 files.
+
+
+## #418 Penpot restored and Danger consumer boundary clarified — 2026-11-15
+
+The source-owned `Bluent v3 Design System` Penpot file is connected again. The #418 Danger contrast comparison on page 30 was updated at observed revision 808: the approved text consumer is only Label's decorative required marker; Badge / Alert / Toast / Button Danger text remain unapproved; `semantic.status.danger` is limited to non-text indicators on the tested neutral surface. The board remains **DRAFT** and no design/API acceptance is claimed.
+
+The schema and fail-closed review tests now record both Badge preview aliases as unapproved: `component.badge.dangerForeground` may only represent a non-text accent on its studied neutral surface, while `component.badge.dangerTextAccessible` cannot inherit Label's approval. No runtime consumer or production CSS is enabled by this change. #418 remains In progress; PR #500 remains open against `bluent-v3`; #433 remains Backlog.
+
+
+## #418 D2/D5 Penpot evidence refreshed — 2026-11-15
+
+The source-owned Penpot page 33 / D2 ownership board (`acf5f619-7d81-80da-8008-c5fec09d9837` / `acf5f619-7d81-80da-8008-c5fec0b7ec61`) was updated and exported at observed revision **809**. It remains **DRAFT**. The board now records D2 Chrome WASM 126/126 and published InteractiveServer 126/126; D5's latest runtime commit `cf008b6d` evidence is Chrome Debug WASM 1179/1179, published InteractiveServer 1178/1178 and focused NUnit 45/45. Earlier D5 176/176 and 190/190 proof packs are labeled historical. Native spoken AT, current Safari/Firefox, third-party popup arbitration, route/unmount/iframe edge coverage and final public API/design approval remain open.
+
+These updates are traceability corrections only; they do not promote the D2/D5 board from DRAFT or approve public APIs. #418 remains In progress; PR #500 is open against `bluent-v3`; #433 remains Backlog.
+
+
+## #418 semantic decision board aligned — 2026-11-15
+
+Penpot page 45 / semantic contrast decision board (`d0bcea67-3af4-8071-8008-d8e442b90ed1` / `d0bcea67-3af4-8071-8008-d8e4c3d426d0`) was exported and visually rechecked at observed revision **810**. Its Danger caveat now matches the page-30 comparison: `text.dangerAccessible` is Label's decorative required-marker-only role; `status.danger` is non-text-only on the tested neutral surface; Badge / Alert / Toast / Button Danger text remain unapproved. The board remains **DRAFT / REVIEW REQUIRED**; dark per-brand candidates and public production alias policy remain open.
+
+
+## #418 public token vocabulary proposal prepared — 2026-11-15
+
+Created `docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md` from the current 16 source / 17 semantic / 13 component preview schema. Recommendation: public `bluent.color.*` reusable globals plus individually approved `bluent.semantic.*`; keep context-specific `bluent.source.*` and component-private `bluent.component.*` internal. It includes two alternatives, CSS alias scope/publication rules and compatibility/versioning proposals. The schema and fail-closed test mark this as **proposal pending maintainer decision**, not approval. No token naming, production alias, package or runtime behavior was changed.
+
+## #418 Firefox InteractiveServer D2/D5 regression lane added — 2026-11-15
+
+Added a separate, read-only CI workflow at .github/workflows/v3-firefox-portal-lab.yml and a Playwright Firefox probe at scripts/quality/probe_v3_firefox_portal.mjs. It starts the actual Published ASP.NET Core 10 InteractiveServer demo and exercises the existing /v3/interactive-portal-lab page: detached/nested Popover owner inheritance and live updates, concurrent immutable Dialog snapshots, modal-owned Popover interactivity, Escape dismissal ordering, nested modal focus restoration, and route-local Dialog teardown. The new lane is isolated from the existing Chrome/Edge CDP matrix and emits a Playwright trace plus failure screenshot/server log artifacts.
+
+Local checks passed: Node syntax, YAML parse, Release dotnet publish for the SSR host, and git diff --check. Firefox itself is not installed on Dev01, so the browser probe has not been run locally; its first real Firefox result is pending the new GitHub Actions lane. This is regression infrastructure, not native assistive-technology, Windows Contrast Themes, Safari/WebKit, public API, or design acceptance. No Bluent runtime component, public API, shipped CSS, NuGet, or deployment changed. #418 remains In progress, PR #500 remains open against bluent-v3, and #433 remains Backlog.
+
+Firefox lane follow-up: the first CI attempt stopped before browser execution because the PowerShell step wrote bare paths to GITHUB_ENV rather than NAME=VALUE entries. The workflow now writes named variables via Add-Content; the YAML parse and guard against the old malformed form pass locally. A fresh Firefox execution is required before claiming browser coverage.
+
+The first real Firefox attempt passed the D2 owner setup and live propagation checks, then failed on a probe-only assumption: it expected a second trigger click to dismiss a KeepSurface Popover. Existing source and Chromium regression evidence establish outside-click dismissal as the intended behavior. The probe now clicks the static page heading outside the Popover; no component behavior was changed.
+
+The second Firefox attempt passed the corrected outside-click dismissal for the outer Popover and the nested Word Light/LTR ownership assertions, then found the same test-only trigger-toggle assumption on the nested KeepSurface Popover. The nested case now uses the same outside-click dismissal contract; no product code changed.
+
+## Exact-head verification summary — 2026-11-15 (commit 54285d38)
+
+GitHub Actions finished all 12 workflows for exact head 54285d38ba1a8479e3041b40b107ebe8e03ed1a8: 11 workflows succeeded; 1 workflow failed on an out-of-scope #486 native-zoom condition.
+
+Successful workflows:
+- Token Contract and Documentation Contract
+- Local Package Boundary and Public Component Census
+- Baseline Quality Gate (Release build, full Solution tests, consumer examples and published-host Chrome/Edge verification)
+- Button Focus Design Contract and Button Runtime Contract
+- Firefox Portal Lab: 32/32 assertions on real Published InteractiveServer / Firefox 159
+- Real Component Lab: 4/4 Chrome/Edge × Server/WebAssembly cells
+- Interaction Source Contract: compile plus 4/4 real Popover Chrome/Edge × Server/WebAssembly cells
+- Real Browser Lab: 4/4 Chrome/Edge × Server/WebAssembly cells
+
+The single failed workflow is Real Compatibility Browsers. 11/12 cells succeeded; the only failure is Chrome/WebAssembly's separate native Chromium per-site zoom test at 400%. Its artifact records viewport 316 CSS px, document scrollWidth 320px (4px overflow), and a 300px intrinsic Chart.js CANVAS at x=20.637px / right=320.637px. The same run passes at 200% with zero overflow; all other 400% zoom interactions pass (label pointer/focus, Tab/focus-visible, Enter callback, root font 16px and PNG capture). The native zoom helper waits for Blazor hydration and then 1.8s + 0.6s stable measurement (plus another 1.2s if scrollWidth changes); in this WebAssembly run the 4px overflow persisted. This is recorded on Issue #486 as a new Chart.js / native zoom finding; no Chart/CSS workaround or product change was made in #418. Artifact: https://github.com/vrassouli/Bluent/actions/runs/43715759701/artifacts/14162437698
+
+Firefox artifact: https://github.com/vrassouli/Bluent/actions/runs/43715759724/artifacts/14162737020
+
+Real Browser Lab's Edge/Server cell passed overall; its transparent Focus host CSS audit and independent fresh-browser forced-colors step were skipped, so those two scopes are not certified there. Firefox Published InteractiveServer success likewise does not certify native spoken AT, Windows Contrast Themes/forced-colors, or Safari/WebKit.
+
+PR #500 remains OPEN against bluent-v3 with no independent APPROVED review. #418 remains In progress; #433 remains Backlog. Public token vocabulary/alias policy, final Dark semantic mappings, public Focus host and D2/D5 API decisions, Penpot review states, native accessibility and remaining lifecycle/third-party portal arbitration gates remain open. No runtime component, public API, shipped CSS, NuGet, production build/publish or stable branch was changed by this verification work.
+
+#### Real Browser Lab cleanup hardening — 2026-11-15
+
+The docs-only HEAD 993dbd84 CI rerun reported a Chrome/WASM Real Browser Lab failure during the temporary browser-profile cleanup, after the transparent Focus2 computed-CSS audit had already collected all 80/80 samples successfully (minimum source contrast 8.511; zero samples below 3). The cleanup helper's WMI verification command had only a 19-second timeout and discarded stderr/exit details in its JSON error record. It now allows 45 seconds and preserves exitCode, signal and stderr so a future runner failure is diagnosable.
+
+Local Dev01 rerun with installed Chrome: 80/80, min contrast 8.511, zero below 3, cleanup verified as remaining=0, errors empty. This is computed CSS research evidence only, not raster-pixel, native OS, AT or WCAG certification. No runtime CSS/component/API changed; the exact-head GitHub Windows runner rerun is still required.
+
+## Final verification — 2026-11-15, exact head 88d37a25
+
+GitHub Actions completed 12/12 workflows successfully on 88d37a252fde704c7401b83e1814056dff3446c0.
+
+- Firefox Portal Lab: 32/32 assertions on Firefox 159 / real Published InteractiveServer; covers D2 detached + nested owner cascade (Excel/Dark/RTL vs Word/Light/LTR), live owner updates, concurrent immutable Dialog snapshots, D5 modal-owned Popover with inert/aria-hidden background, Escape ordering, nested Dialog focus restoration and route teardown; zero uncaught browser page errors. Run 43717665687.
+- Real Component Lab: 4/4 Chrome/Edge × Server/WebAssembly.
+- Interaction Source Contract: compile plus 4/4 real Popover Chrome/Edge × Server/WebAssembly.
+- Real Compatibility Browsers: 12/12 jobs/cells successful, including Chrome/Edge site zoom and TextField/Label Info coverage. On this run Chrome/WASM zoom was 10/10 at both 200% and 400%, with 0px overflow; the earlier 4px Chart.js canvas overflow was not reproduced, so #486 retains both observations as intermittent evidence rather than a claimed fix.
+- Real Browser Lab: 4/4 Chrome/Edge × Server/WebAssembly. On both WASM cells the real installed browser focus-host audit passed 80/80 computed CSS samples (minimum source contrast 8.511, zero samples below 3), the owned-browser cleanup verified remaining=0 with no errors, the fail-closed diagnostics and CDP interaction steps passed, and the independent fresh-browser forced-colors step passed. The Chrome/WASM and Edge/WASM deep interaction suites each reported 1179 passed / 0 failed.
+- Both Server cells completed their CDP/diagnostic interaction steps successfully, but their transparent Focus host CSS audit and independent fresh-browser forced-colors steps were explicitly skipped. Do not infer native contrast or forced-colors coverage for Server from the successful overall job.
+- Baseline Quality Gate, Release build with warnings as errors, full solution tests, five-package inspect (no publishing), package boundary, compiled CLR export baseline, Button Runtime, Button Focus, Token, Documentation and Public Component Census all succeeded. Button runtime unit tests: 113/113; published-host button matrix: 208/208.
+
+The cleanup hardening from this task is confirmed by Windows CI, not just local Dev01: Chrome and Edge WASM both report ALPHA_CHROMIUM_CDP 80/80, cleanup remaining=0, errors empty. This is real computed-CSS/browser evidence, not native OS Contrast Themes, raster equivalence, spoken assistive technology or a general WCAG certification.
+
+The preceding provisional note that GitHub confirmation was pending is superseded by this final result. Product runtime/API/shipped CSS were not changed; no NuGet package was published and no stable/2.x branch was touched. #418 remains In progress, #433 Backlog, PR #500 remains OPEN against bluent-v3 with no independent APPROVED review or merge. The public token vocabulary/production alias policy, Dark semantic values, public Focus host/D2/D5 API choices, Penpot DRAFT/REVIEW REQUIRED states, native AT, Safari/WebKit, and third-party/lifecycle arbitration gates remain open.
+
+## Final verification — 2026-11-15, exact head 88d37a25
+
+GitHub Actions completed 12/12 workflows successfully on commit 88d37a252fde704c7401b83e1814056dff3446c0.
+
+- Firefox Portal Lab: 32/32 assertions on Firefox 159 and the real Published InteractiveServer host. Coverage includes D2 detached and nested owner cascade (Excel/Dark/RTL versus Word/Light/LTR), live owner updates, concurrent immutable Dialog snapshots, D5 modal-owned Popover with inert and aria-hidden background, Escape ordering, nested Dialog focus restoration and route teardown. No uncaught page errors.
+- Real Component Lab: 4/4 Chrome/Edge by Server/WebAssembly.
+- Interaction Source Contract: source and consumer compile plus 4/4 real Popover Chrome/Edge by Server/WebAssembly.
+- Real Compatibility Browsers: 12/12 jobs/cells successful, including Chrome/Edge site zoom and TextField/Label Info coverage. Chrome/WASM zoom was 10/10 at both 200% and 400%, with 0px overflow on this run. The earlier 4px Chart.js canvas overflow was not reproduced, so #486 retains both observations as intermittent evidence rather than a claimed fix.
+- Real Browser Lab: 4/4 Chrome/Edge by Server/WebAssembly. On both WASM cells, the real installed browser focus-host audit passed 80/80 computed CSS samples (minimum source contrast 8.511, zero samples below 3), owned-browser cleanup verified remaining=0 with no errors, fail-closed diagnostics and CDP interactions passed, and the independent fresh-browser forced-colors step passed. Each WASM deep interaction suite reported 1179 passed and 0 failed.
+- Both Server cells completed their CDP and diagnostic interaction steps successfully, but their transparent Focus host CSS audit and independent fresh-browser forced-colors steps were explicitly skipped. Do not infer native contrast or forced-colors coverage for Server from the successful overall job.
+- Baseline Quality Gate, Release build with warnings as errors, full Solution tests, five-package inspect without publishing, package boundary, compiled CLR export baseline, Button Runtime, Button Focus, Token, Documentation and Public Component Census all succeeded. Button runtime unit tests: 113/113; published-host Button matrix: 208/208.
+
+The cleanup hardening from this task is confirmed by Windows CI, not just local Dev01: Chrome and Edge WASM both report ALPHA_CHROMIUM_CDP 80/80, cleanup remaining=0 and errors empty. This is real computed-CSS/browser evidence, not native OS Contrast Themes, raster equivalence, spoken assistive technology or general WCAG certification.
+
+This final result supersedes the earlier provisional note that GitHub confirmation was pending. Product runtime/API/shipped CSS were not changed; no NuGet package was published and no stable/2.x branch was touched. #418 remains In progress, #433 remains Backlog, PR #500 remains OPEN against bluent-v3 with no independent APPROVED review or merge. Public token vocabulary/production alias policy, Dark semantic values, public Focus host/D2/D5 API choices, Penpot DRAFT/REVIEW REQUIRED states, native AT, Safari/WebKit, and third-party/lifecycle arbitration gates remain open.
+
+## Penpot vocabulary decision board added — 2026-11-15
+
+Added an editable three-option Public Token Vocabulary / CSS Alias decision board to the source-owned Penpot file Bluent v3 Design System:
+- Page 52: 388782f1-b766-8073-8008-f3299e62827a
+- Board: 388782f1-b766-8073-8008-f3299e849141
+- File revision after save: 812
+
+The page compares A (all layers public), B (global palette + approved semantic only, recommended), and C (semantic only), and visualizes the proposed stable --bui-v3-* serialization rule. It explicitly shows DRAFT / MAINTAINER DECISION REQUIRED and separate acceptance gates. The PNG export was inspected after fixing the board coordinate offset. This adds design traceability; it does not approve Option B, any public aliases, or production CSS. Existing page 45 remains DRAFT / REVIEW REQUIRED; page 33 and D5 boards remain DRAFT.
+
+## Focus host public-contract proposal and Penpot board — 2026-11-15
+
+Added docs/v3/tokens/FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md and a native editable Penpot comparison:
+- Page 53: 388782f1-b766-8073-8008-f32b0b243fc9
+- Board: 388782f1-b766-8073-8008-f32b0b39e88b
+- Penpot file revision observed: 815
+
+The accepted visual ring and the accepted opaque 10-brand × Light/Dark × five-host mapping are preserved; the open question is the consumer contract only. The board/document compare explicit same-host attributes (recommended proposal), a new scoped wrapper component, and no custom-host declaration. Unsupported alpha/image/gradient/nested hosts remain out of scope. Unknown host fallback explicitly preserves existing visible keyboard focus behavior but makes no v3 host contrast guarantee. Both the doc and board are DRAFT; no public API, attribute or production CSS was approved.
+
+## D2/D5 public Portal and Dialog API decision board — 2026-11-15
+
+Created and visually inspected a native editable Penpot board in the source-owned Bluent v3 Design System file:
+- Page 54: 388782f1-b766-8073-8008-f32c913ab071
+- Board: 388782f1-b766-8073-8008-f32c9154ed0d
+- File revision observed: 815
+
+The board separates owner lifecycle (Popover live cascade vs service Dialog immutable ShowAsync snapshot) from D5 modal accessibility. It compares reuse of the existing Dialog configuration builder, typed scope/accessibility options, and a scoped launcher component. It explicitly exposes current prototype gaps: unique OwnerId is described in the design proposal but absent from PortalThemeScope; simultaneous scoped brand CSS needs its own crosswalk; no-scope calls retain legacy behavior; native AT/OS and WebKit/lifecycle arbitration remain open. The board is DRAFT / PUBLIC API / ACCESSIBILITY CONTRACT REQUIRED. No public API was approved or runtime changed.
+
+## Dark semantic foreground exact-value matrix added — 2026-11-15
+
+Created a native editable Penpot page 55 for the 40 Dark Action/Link candidates:
+- Page: 388782f1-b766-8073-8008-f32e8223fd29
+- Board: 388782f1-b766-8073-8008-f32e823c8580
+- Penpot revision after layout correction: 817
+
+The board contains all ten brands × four source-derived roles, candidate hex, individual contrast ratio and minimum; all cells are labelled PASS only for the numerical 4.6:1 preview target. The final footer is visible after a board-height correction. State remains DRAFT / exact values not approved.
+
+Added docs/v3/tokens/DARK-SEMANTIC-FOREGROUND-PROPOSAL.md, which records source mappings, exact 40-value table, 48-step white-mix algorithm, source contrast gaps and evidence limitations. It explicitly preserves the already approved brand-preserving direction while keeping exact values and token names in review. No schema, preview CSS, runtime or production token values changed.
+
+## Dark semantic foreground exact-value matrix added — 2026-11-15
+
+Created a native editable Penpot page 55 for the 40 Dark Action/Link candidates:
+- Page: 388782f1-b766-8073-8008-f32e8223fd29
+- Board: 388782f1-b766-8073-8008-f32e823c8580
+- Penpot revision after layout correction: 817
+
+The board contains all ten brands × four source-derived roles, candidate hex, individual contrast ratio and minimum; all cells are labelled PASS only for the numerical 4.6:1 preview target. The final footer is visible after a board-height correction. State remains DRAFT / exact values not approved.
+
+Added docs/v3/tokens/DARK-SEMANTIC-FOREGROUND-PROPOSAL.md, which records source mappings, exact 40-value table, 48-step white-mix algorithm, source contrast gaps and evidence limitations. It explicitly preserves the already approved brand-preserving direction while keeping exact values and token names in review. No schema, preview CSS, runtime or production token values changed.
+
 **#433 NumericField — Done:** PR #563 was accepted and squash-merged into bluent-v3 on 2026-11-16 from v3/issue-433-numeric-field. Final Release solution build: 0 warnings/errors; full .NET tests 97/97; focused NumericField pipeline tests 27/27; NumericField contract mutation tests 14/14; docs contract 0 findings; Skills contract 0 errors; TextField regression contract passed; public inventory 20/20; Markdown links checked in 176 files. Post-fix Chrome/Edge × WebAssembly/InteractiveServer browser matrix: 160/160 (40 per cell, zero runtime signals), with machine-readable evidence retained. Exact-head GitHub Actions passed all 8 workflows and every job. Native Windows High Contrast, Persian OS keyboard-layout event/caret, component unmount, truthful ARIA and UIA OnFocus/OnBlur callbacks are documented. Spoken Narrator/NVDA output and physical/composition-based OS IME input remain explicit unclaimed follow-up boundaries. Six ENGINEERING BASELINE boards were accepted for #433; the Theme board remains DRAFT under #418, which stays In progress. No stable 2.x/Dev/main source, NuGet package, release or deployment changed.
+## #418 nested modal keyboard hand-off fix — 2026-11-17
+
+A visible topmost modal now owns the keyboard barrier before its asynchronous JS registry registration completes. Escape and Tab are canceled while that modal is unregistered or closing, rather than falling back to a registered parent. The Published InteractiveServer browser probe now includes a deterministic unregistered-topmost-modal regression.
+
+Exact PR worktree on Windows 11 Pro / .NET 10: Release build with warnings as errors — 0 warnings / 0 errors; solution tests 140/140; #418 review contract 15/15; additive API ledger 8/8; Firefox 35/35 and WebKit 35/35 D2/D5 assertions. The regression explicitly verifies that a pending topmost modal cannot redirect Tab into its parent.
+
+This closes the identified modal keyboard ownership race in the opt-in prototype only. Native Narrator/NVDA/VoiceOver speech, native Windows Contrast Themes coverage for the Dialog/Popover hosts, Safari.app, OS IME, and final Penpot/public API acceptance remain open. No stable branch, production CSS, NuGet package or release was changed.
 
 ## RadioGroup #436 — completed (2026-11-19)
 

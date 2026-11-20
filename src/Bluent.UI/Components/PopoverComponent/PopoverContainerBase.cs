@@ -188,6 +188,8 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
     private void PopoverOnDestroy(object? sender, DestroyPopoverEventArgs args)
     {
         var context = Contexts.FirstOrDefault(x => x.Config.Settings.TriggerId == args.TriggerId);
+        // DestroyPopoverAsync removes this trigger's handlers and releases the
+        // shared document Escape listener when the final open surface is destroyed.
         if (context != null)
         {
             Contexts.Remove(context);
