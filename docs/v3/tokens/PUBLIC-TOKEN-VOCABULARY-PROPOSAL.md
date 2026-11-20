@@ -1,6 +1,6 @@
 # #418 — Public token vocabulary and production alias policy proposal
 
-**Status: PROPOSAL — maintainer decision required.** This document does not approve a public Bluent v3 API, change the token schema, publish CSS, or promote the Penpot decision boards. It makes the remaining naming and compatibility decision explicit so it can be reviewed without conflating implementation consistency with public API approval.
+**Status: Option B architecture selected by the maintainer-delegated decision (2026-11-16); final semantic allow-list and production promotion remain pending.** This document does not approve a public Bluent v3 API, change the token schema, publish CSS, or promote the Penpot decision boards. It makes the remaining naming and compatibility decision explicit so it can be reviewed without conflating implementation consistency with public API approval.
 
 ## Current preview facts
 
@@ -34,14 +34,15 @@ This boundary fits the current source → semantic → component layering and th
 
 ## Required maintainer decisions
 
-| Decision | Proposed default | Approval state |
+| Decision | Selected direction / remaining question | State |
 |---|---|---|
-| Public logical layers | `bluent.color.*` + accepted `bluent.semantic.*` | Pending |
-| Source namespace | Internal implementation mapping | Pending |
-| Component namespace | Private implementation aliases; no consumer override promise | Pending |
-| CSS serialization | Stable `--bui-v3-*` aliases for approved public logical tokens only | Pending |
-| Compatibility | Never repurpose a shipped alias; semantic changes get a new name and migration; removals require breaking-release treatment | Pending |
-| Production publication | Only after design, consumer, compatibility and runtime review; preview excluded until then | Pending |
+| Public logical layers | Option B: bluent.color.* plus individually accepted bluent.semantic.* | **Selected 2026-11-16**; exact semantic allow-list remains open |
+| Source namespace | bluent.source.* stays internal as the context-constrained source mapping layer | **Selected — Option B** |
+| Component namespace | bluent.component.* stays private; no consumer override promise | **Selected — Option B** |
+| CSS serialization | --bui-v3-* serializes only individually approved public logical tokens inside the explicit v3 opt-in scope | **Direction selected**; no production aliases approved |
+| Compatibility | Never repurpose a shipped alias; semantic changes need a new name and migration; removals require breaking-release treatment | **Direction selected**; no package approval implied |
+| First-wave semantic candidates | text.primary, text.disabled and text.placeholder recommended for maintainer review based on consumer-specific evidence | **Review proposal only** |
+| Production publication | Only after design, consumer, compatibility and runtime review; preview remains excluded | **Pending** |
 
 ## Deliberately not decided by this proposal
 
@@ -65,3 +66,37 @@ The PNG export was visually inspected after correcting the board's page-coordina
 The maintainer delegated this choice to the engineering/design review. **Option B is selected**: public global palette names `bluent.color.*` and individually accepted `bluent.semantic.*`; `bluent.source.*` remains internal and `bluent.component.*` remains private. `--bui-v3-*` serializes approved logical tokens only under the explicit v3 opt-in scope. Existing `--color*` variables and 2.x assets are preserved, and shipped aliases must never be repurposed.
 
 This selects the vocabulary architecture, not the final semantic allow-list or production publication. The current design board remains in its recorded DRAFT state; preview CSS and aliases are not shipping assets.
+
+## 2026-11-20 semantic role inventory — review only
+
+This inventory makes the Option B per-role boundary explicit against the 17 semantic aliases in the current preview schema. It records existing consumer decisions; it does not convert a component-specific decision into a global/public token approval.
+
+**Recommended first-wave candidates for maintainer review:** bluent.semantic.text.primary, bluent.semantic.text.disabled and bluent.semantic.text.placeholder. These remain preview aliases until the global allow-list and production gates are accepted. The evidence scope shown below is the maximum currently established scope, not blanket approval for other components.
+
+| Semantic role | Source alias | Existing consumer evidence | Proposed disposition |
+|---|---|---|---|
+| bluent.semantic.surface.default | bluent.color.background1 | Present as a private TextField background mapping in the preview; no separate consumer-level approval for this semantic alias was found. | Defer; obtain representative surface consumers and brand/mode review. |
+| bluent.semantic.text.primary | bluent.color.foreground1 | Maintainer explicitly approved this semantic mapping for Label #430. That establishes the Label consumer scope, not a blanket approval for every component or production publication. | FIRST-WAVE CANDIDATE; retain the Label evidence boundary until broader consumer parity is accepted. |
+| bluent.semantic.text.placeholder | bluent.color.foreground4 | TextField #432 selected Fluent colorNeutralForeground4 for normal placeholder. The source-role choice is accepted for TextField; this semantic alias remains unconsumed until #418 integration. | FIRST-WAVE CANDIDATE; TextField scope only until integration and wider acceptance. |
+| bluent.semantic.action.background | bluent.color.brandBackground | Button, Checkbox and Switch have private preview component mappings; no public semantic consumer contract was accepted by those mappings alone. | Defer; complete action/background state and component-surface review. |
+| bluent.semantic.action.foreground | bluent.color.brandForeground1 | The Dark Action Rest role is represented in the 40-value page-55 candidate matrix, but exact values and public aliases remain unapproved. | Defer until page 55 and exact per-brand values are accepted. |
+| bluent.semantic.action.onBrand | bluent.source.onBrand | Context-constrained on-brand foreground; Button's preview component mapping does not make the source role a public consumer contract. | Keep source role internal; defer semantic promotion. |
+| bluent.semantic.border.default | bluent.color.stroke1 | Reusable source primitive exists; no independently accepted consumer mapping for this semantic alias was found. | Defer pending representative border/surface states. |
+| bluent.semantic.border.strong | bluent.source.strokeAccessible | Maps to an accessible-stroke source role; TextField's private preview mapping does not approve a universal border role. | Keep context evidence attached; defer. |
+| bluent.semantic.status.danger | bluent.source.dangerForeground | Dark neutral pair measured 4.164:1; policy restricts it to non-text status indicators/icons/accents on the studied neutral surface, not ordinary or small text. | RESTRICTED; do not expose as a generic text foreground. Dedicated status-consumer review remains open. |
+| bluent.semantic.text.disabled | bluent.source.foregroundDisabled | Maintainer explicitly approved this mapping for Label #430 with a visual-only disabled scope. | FIRST-WAVE CANDIDATE; document disabled-state scope and do not imply normal-text WCAG conformance. |
+| bluent.semantic.surface.disabled | bluent.source.backgroundDisabled | Source candidate exists; no specific accepted consumer scope was found in the reviewed component decisions. | Defer pending disabled-surface and contrast review. |
+| bluent.semantic.border.focus | bluent.color.brandBackground | Focus Option A requires explicit same-painted-host metadata; its consumer attribute/API contract is not approved for production. | Defer; not a universal border token. |
+| bluent.semantic.text.dangerAccessible | bluent.source.paletteRedForeground1 | Maintainer approval is Label required marker only. Badge, Alert, Toast, Button Danger and generic/body text remain unapproved. The broad text.* name would invite consumers beyond that narrow marker scope. | KEEP OUT OF THE FIRST-WAVE PUBLIC LIST; preserve Label-only preview mapping and do not generalize it. |
+| bluent.semantic.focusRing.strongCandidate | bluent.source.focusStroke2 | Explicitly a candidate; Focus host metadata and public Focus API are not approved for production. | Keep internal/deferred until host contract and native acceptance are complete. |
+| bluent.semantic.link.foregroundRest | bluent.color.brandForegroundLink | Link #431 was accepted using existing published Fluent-compatible CSS variables; that does not approve this new semantic alias. Page-55 exact Dark values also remain draft. | Defer until the exact Link Rest mapping and public alias are accepted. |
+| bluent.semantic.link.foregroundHover | bluent.color.brandForegroundLinkHover | Existing Link #431 component acceptance uses the current published CSS variables; the hover-specific page-55 candidate value remains unapproved. | Defer until Link Hover values and consumer states are accepted. |
+| bluent.semantic.link.foregroundPressed | bluent.color.brandForegroundLinkPressed | Existing Link #431 component acceptance uses the current published CSS variables; the pressed-specific page-55 candidate value remains unapproved. | Defer until Link Pressed values and consumer states are accepted. |
+
+### Decision boundary
+
+- The Label #430 approvals are real component-consumer approvals for three Label mappings. They do not, by themselves, approve the complete global semantic-token API.
+- TextField #432 accepted the placeholder source-role choice; it explicitly deferred consumption of the new semantic alias until #418 integration.
+- Link #431 is accepted, but it uses existing CSS variables. It did not approve the new semantic Link aliases.
+- Page 55's 40/40 opaque-pair preview pass is evidence for the four named Dark roles on the studied neutral surface only. It is not exact-value approval, component-state approval, or native OS/AT certification.
+- This review inventory recommends a small candidate set; it does not update reviewPolicy.selectedDecisions.publicTokenVocabulary.productionApproval, ship aliases, or change CSS/API. The final allow-list and production promotion remain open.

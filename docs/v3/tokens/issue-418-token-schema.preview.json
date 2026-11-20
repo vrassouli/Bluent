@@ -789,8 +789,8 @@
       "publicationBoundary": "No production CSS, stable branch, stable package, NuGet publication or deployment is authorized by these decisions. Keep design boards in their actual DRAFT/REVIEW REQUIRED states until reviewed in Penpot."
     },
     "latestValidation": {
-      "date": "2026-11-17",
-      "exactHead": "ecce36cc52ae9903114c4c104c9b0a029e09c220",
+      "date": "2026-11-20",
+      "exactHead": "9c5ec655f60e5d31a8553635527aed21b36750fa",
       "baseBranch": "bluent-v3",
       "githubActions": {
         "workflows": 13,
@@ -839,7 +839,7 @@
       "penpot": {
         "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
         "fileName": "Bluent v3 Design System",
-        "currentRevision": 843,
+        "currentRevision": 883,
         "inspectedPages": [
           27,
           31,
@@ -862,7 +862,7 @@
         ]
       },
       "remainingAcceptance": [
-        "Native spoken NVDA/Narrator/VoiceOver and keyboard navigation acceptance, including Persian Dialog description, localized Close activation and focus return.",
+        "Native spoken NVDA/Narrator/VoiceOver and keyboard navigation acceptance, including Persian Dialog description, localized Close activation and focus return. NVDA 2026.3 is installed and running in the current Dev01 interactive session, but no Speech Viewer/log or spoken output was captured; process presence is not spoken acceptance.",
         "Native Windows Contrast Themes for Dialog/Popover and unrecognized/translucent Focus host surfaces; browser CDP media emulation is not native OS evidence.",
         "Native Safari.app/SafariDriver plus VoiceOver acceptance; Playwright WebKit is not Safari.app or spoken AT.",
         "Composition-based Persian OS IME/caret/selection and cross-platform font metrics; platform glyph observation is not an IME/typing test.",
@@ -902,6 +902,12 @@
           "purpose": "latest #418 probe harness and Windows acceptance evidence",
           "githubActions": "13/13 SUCCESS",
           "note": "Windows Release solution build 0 warnings/errors, 140/140 solution tests; Chrome/Edge WASM 1,179/1,179 each; Chrome/Edge forced-colors 299/299 each; Firefox/WebKit Published InteractiveServer D2/D5 34/34 each."
+        },
+        {
+          "head": "9c5ec655f60e5d31a8553635527aed21b36750fa",
+          "purpose": "Dark matrix probe stabilization, complete browser/compatibility rerun, semantic review inventory and current native-environment discovery",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Chrome/Edge x InteractiveServer/WebAssembly Real Browser Lab 4/4; Compatibility 30/30 after retry of Chrome CDP startup timeouts; Component Lab 4/4; Popover 4/4; Firefox and Playwright WebKit 34/34 each. Playwright WebKit is not Safari.app. Native Windows Contrast Themes and spoken NVDA remain open."
         }
       ],
       "nativePenpotTokenAudit": {
@@ -1100,6 +1106,80 @@
           "jawsInstalled": false,
           "settingsChanged": false,
           "acceptance": "Open. Browser CDP forced-colors media emulation is not native Windows Contrast Themes or spoken screen-reader acceptance."
+        }
+      },
+      "currentDev01Verification": {
+        "date": "2026-11-20",
+        "basedOnHead": "9c5ec655f60e5d31a8553635527aed21b36750fa",
+        "branch": "v3/issue-418-design-tokens",
+        "environment": {
+          "os": "Windows 11 Pro",
+          "build": "28000",
+          "dotnetSdk": "11.0.100"
+        },
+        "releaseBuildWarningsAsErrors": "PASS; 0 warnings; 0 errors",
+        "solutionTests": "188/188",
+        "focusedIssue418ReviewContract": "19/19",
+        "focusedRegressionSuites": {
+          "tokenPreviewContrast": "13/13",
+          "issue418ReviewContract": "19/19",
+          "approvedFocusHostTokenBridge": "7/7",
+          "focusAlphaHost": "22/22",
+          "runtimeFailureDiagnostics": "4/4",
+          "total": "65/65"
+        },
+        "docsContract": "0 findings",
+        "skillsContract": "0 errors",
+        "markdownLinks": "238 files checked",
+        "browserRuntimeLocal": {
+          "chromeInteractiveServer": "1178/1178",
+          "chromeWebAssembly": "1179/1179",
+          "edgeInteractiveServer": "1178/1178",
+          "edgeWebAssembly": "1179/1179"
+        },
+        "scope": "Local Dev01 working-tree verification; exact-head GitHub Actions is recorded separately."
+      },
+      "currentNativeEnvironment": {
+        "date": "2026-11-20",
+        "windows": {
+          "systemParametersInfoQuery": "SPI_GETHIGHCONTRAST",
+          "querySucceeded": true,
+          "dwFlags": 126,
+          "highContrastOn": false,
+          "selectedScheme": "High Contrast White",
+          "registryFlags": 126,
+          "settingsChanged": false,
+          "acceptance": "OPEN; the selected scheme is not active native High Contrast. Browser media emulation is not native OS acceptance."
+        },
+        "nvda": {
+          "installed": true,
+          "running": true,
+          "version": "2026.3",
+          "fileVersion": "2026.3.0.58174",
+          "executable": "C:\\Program Files\\NVDA\\nvda.exe",
+          "sessionId": 1,
+          "synth": "oneCore",
+          "voiceToken": "MSTTS_V110_enUS_DavidM",
+          "speechViewerConfirmed": false,
+          "speechLogFound": false,
+          "spokenOutputCaptured": false,
+          "acceptance": "OPEN; NVDA process/config discovery is not spoken output or keyboard acceptance."
+        },
+        "narrator": {
+          "running": false,
+          "acceptance": "OPEN; not started and no settings were changed."
+        },
+        "jaws": {
+          "status": "not checked in this read-only snapshot"
+        },
+        "safari": {
+          "nativeSafariAppRun": false,
+          "remoteAutomationSettingChanged": false,
+          "acceptance": "OPEN; Playwright WebKit evidence is not Safari.app/SafariDriver or VoiceOver."
+        },
+        "persianIme": {
+          "compositionCaretSelectionTested": false,
+          "acceptance": "OPEN; no OS IME composition test was run."
         }
       }
     },

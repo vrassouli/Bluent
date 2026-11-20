@@ -1,6 +1,6 @@
 # #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
-**Status:** In progress · **current checkpoint 2026-11-17** · **engineering checks green; native/design approval and production promotion remain gated**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+**Status:** In progress · **current checkpoint 2026-11-20** · **engineering checks green; native/design approval and production promotion remain gated**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
 
 ## Historical checkpoint — 2026-11-10
 
@@ -383,7 +383,7 @@ The source-owned Penpot #418 Danger comparison (page 30, revision 808) and prima
 
 ## Public vocabulary decision proposal (2026-11-15)
 
-See [PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md) for the three public-layer options and recommended production alias policy. The recommendation is intentionally **pending maintainer decision**; current aliases remain opt-in preview-only and are not a released consumer contract.
+See [PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md) for the three public-layer options and recommended production alias policy. Option B was selected on 2026-11-16. The final semantic allow-list and production alias approval remain pending; current aliases remain opt-in preview-only and are not a released consumer contract.
 
 ## 2026-11-15 — Public API decision proposals and editable Penpot boards
 
@@ -466,3 +466,13 @@ Real browser evidence on the same PR source:
 - Firefox 159 and Playwright WebKit 1.65.1 Published InteractiveServer D2/D5 probes: **34/34 each**.
 
 These are browser/runtime checks. Windows Contrast Themes remained off and unchanged; Narrator was not running; NVDA/JAWS were not installed. No spoken screen-reader acceptance or native OS Contrast Themes acceptance is claimed. Safari.app/VoiceOver and Persian OS IME/caret/selection are still open. Page 45 remains REVIEW REQUIRED, page 55 DRAFT, and final public API/token promotion needs maintainer approval. See ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-17.md.
+
+### 2026-11-20 — current exact-head and semantic review checkpoint
+
+PR #500 head 9c5ec655f60e5d31a8553635527aed21b36750fa has 13/13 exact-head GitHub workflows successful. The four-cell Real Browser Lab, 30-job Compatibility matrix, Component Lab 4/4 and Popover interaction matrix 4/4 are green. Firefox and Playwright WebKit Published InteractiveServer each pass 34/34; WebKit remains distinct from native Safari.app. CDP startup-only failures on the first Label/Popover attempts passed on retry.
+
+Dev01 local verification on the current working tree: Release solution build 0 warnings / 0 errors; .NET tests 188/188; focused #418 review tests 19/19; focused regression aggregate 65/65; docs contract 0 findings; Skills contract 0 errors; Markdown links 238 files. Exact browser counts and current native-environment observations are recorded in [the 2026-11-20 acceptance checkpoint](ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-20.md).
+
+The 17-role semantic inventory in [PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md) distinguishes selected Option B architecture from the still-pending per-role public allow-list. Suggested first-wave candidates are text.primary, text.disabled and text.placeholder; this is a review proposal, not an approved production API. Danger remains narrowly scoped and Link component acceptance does not promote new semantic Link aliases.
+
+Native Dev01 discovery: High Contrast White is selected but native HCF_HIGHCONTRASTON is false; NVDA 2026.3 is running, but no speech output was captured. Native Windows Contrast Themes, spoken screen-reader output, Safari.app and Persian OS IME/caret/selection remain open. Penpot TokenSet audit is current at revision 883 (1,285/1,285), but page 45 remains REVIEW REQUIRED and page 55 remains DRAFT. No production CSS/API, NuGet package, stable branch or deployment changed.

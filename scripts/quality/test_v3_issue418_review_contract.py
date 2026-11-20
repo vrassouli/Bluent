@@ -120,7 +120,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(audit["nativeBrandThemes"], 20)
         self.assertEqual(audit["brandPaletteTokenCountPerTheme"], 8)
         self.assertEqual(audit["revision"], 883)
-        self.assertEqual(self.policy["latestValidation"]["penpot"]["currentRevision"], 843)
+        self.assertEqual(self.policy["latestValidation"]["penpot"]["currentRevision"], 883)
         self.assertEqual(audit["totalNativeTokenSets"], 45)
         self.assertEqual(audit["totalNativeTokenEntries"], 492)
         self.assertEqual(audit["activeModeTokenSets"], 17)
@@ -143,9 +143,10 @@ class Issue418ReviewContractTests(unittest.TestCase):
             self.assertIn(token, source)
         self.assertIn("finally", source)
         self.assertIn("initialThemes", source)
-    def test_latest_windows_release_and_browser_acceptance_is_recorded(self):
+    def test_historical_windows_release_and_browser_acceptance_is_preserved(self):
         windows = self.policy["latestValidation"]["windowsAcceptance"]
-        self.assertEqual(windows["head"], self.policy["latestValidation"]["exactHead"])
+        self.assertEqual(windows["head"], "ecce36cc52ae9903114c4c104c9b0a029e09c220")
+        self.assertEqual(windows["date"], "2026-11-17")
         self.assertEqual(windows["releaseValidation"]["releaseBuildWarningsAsErrors"], "PASS; 0 warnings; 0 errors")
         self.assertEqual(windows["releaseValidation"]["solutionTests"], "140/140")
         self.assertEqual(windows["releaseValidation"]["issue418Review"], "13/13")
@@ -160,7 +161,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertFalse(windows["nativeWindows"]["narratorRunning"])
         self.assertFalse(windows["nativeWindows"]["nvdaInstalled"])
         self.assertEqual(self.policy["latestValidation"]["githubActions"]["success"], 13)
-        self.assertEqual(self.policy["latestValidation"]["exactHead"], "ecce36cc52ae9903114c4c104c9b0a029e09c220")
+        self.assertEqual(self.policy["latestValidation"]["exactHead"], "9c5ec655f60e5d31a8553635527aed21b36750fa")
 
     def test_native_os_and_screen_reader_acceptance_remains_open(self):
         windows = self.policy["latestValidation"]["windowsAcceptance"]["nativeWindows"]
@@ -172,14 +173,32 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn("Persian OS IME", remaining)
     def test_latest_exact_head_validation_is_recorded_without_claiming_native_acceptance(self):
         current = self.policy["latestValidation"]
-        self.assertEqual(current["exactHead"], "ecce36cc52ae9903114c4c104c9b0a029e09c220")
+        self.assertEqual(current["exactHead"], "9c5ec655f60e5d31a8553635527aed21b36750fa")
         self.assertEqual(current["githubActions"], {
             "workflows": 13, "success": 13, "failure": 0, "pending": 0, "allExactHead": True,
             "includes": current["githubActions"]["includes"]
         })
         self.assertEqual(current["localRelease"]["solutionTests"], "140/140")
+        self.assertEqual(current["currentDev01Verification"]["solutionTests"], "188/188")
+        self.assertEqual(current["currentDev01Verification"]["focusedIssue418ReviewContract"], "19/19")
+        self.assertEqual(current["currentDev01Verification"]["focusedRegressionSuites"]["total"], "65/65")
+        self.assertEqual(current["currentDev01Verification"]["browserRuntimeLocal"]["edgeInteractiveServer"], "1178/1178")
+        self.assertEqual(current["penpot"]["currentRevision"], 883)
         self.assertIn("Native spoken NVDA/Narrator/VoiceOver", current["remainingAcceptance"][0])
         self.assertIn("Safari.app/SafariDriver", current["remainingAcceptance"][2])
+        native = current["currentNativeEnvironment"]
+        self.assertFalse(native["windows"]["highContrastOn"])
+        self.assertEqual(native["windows"]["dwFlags"], 126)
+        self.assertFalse(native["windows"]["settingsChanged"])
+        self.assertTrue(native["nvda"]["installed"])
+        self.assertTrue(native["nvda"]["running"])
+        self.assertEqual(native["nvda"]["version"], "2026.3")
+        self.assertFalse(native["nvda"]["spokenOutputCaptured"])
+        self.assertFalse(native["nvda"]["speechLogFound"])
+        self.assertFalse(native["safari"]["nativeSafariAppRun"])
+        self.assertFalse(native["persianIme"]["compositionCaretSelectionTested"])
+        self.assertEqual(current["githubActions"]["workflows"], 13)
+        self.assertEqual(current["githubActions"]["success"], 13)
 
     def test_public_vocabulary_selected_but_aliases_not_shipped(self):
         proposal = self.policy["publicVocabularyProposal"]
@@ -229,6 +248,64 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn("Label decorative required marker only", decisions["danger"]["semanticTextDangerAccessible"])
         self.assertIn("DRAFT/REVIEW REQUIRED", decisions["publicationBoundary"])
         self.assertEqual(self.data["darkBrandForegroundPreview"]["selection"]["status"], "Selected opt-in preview target; exact public token names and production CSS remain unapproved.")
+
+
+    def test_semantic_role_review_inventory_is_complete_and_review_only(self):
+        document = (ROOT / "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md").read_text(encoding="utf-8")
+        marker = "## 2026-11-20 semantic role inventory — review only"
+        self.assertEqual(document.count(marker), 1)
+        section = marker + document.split(marker, 1)[1]
+        role_rows = [line for line in section.splitlines() if line.startswith("| bluent.semantic.")]
+        documented = [line.split("|", 2)[1].strip() for line in role_rows]
+        expected = {item["name"] for item in self.layers["semantic"]}
+        self.assertEqual(len(documented), 17)
+        self.assertEqual(len(set(documented)), 17)
+        self.assertEqual(set(documented), expected)
+        self.assertIn("review only", section.lower())
+        self.assertIn("does not update", section)
+        self.assertIn("final allow-list and production promotion remain open", section.lower())
+
+    def test_first_wave_semantic_candidates_are_narrow_and_traceable(self):
+        document = (ROOT / "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md").read_text(encoding="utf-8")
+        section = document.split("## 2026-11-20 semantic role inventory \u2014 review only", 1)[1]
+        rows = [line for line in section.splitlines() if line.startswith("| bluent.semantic.")]
+        first_wave = {
+            line.split("|", 2)[1].strip()
+            for line in rows if "FIRST-WAVE CANDIDATE" in line
+        }
+        self.assertEqual(first_wave, {
+            "bluent.semantic.text.primary",
+            "bluent.semantic.text.disabled",
+            "bluent.semantic.text.placeholder",
+        })
+        danger = next(line for line in rows if line.startswith("| bluent.semantic.text.dangerAccessible"))
+        self.assertIn("Label required marker only", danger)
+        self.assertIn("KEEP OUT OF THE FIRST-WAVE PUBLIC LIST", danger)
+        status_danger = next(line for line in rows if line.startswith("| bluent.semantic.status.danger"))
+        self.assertIn("4.164:1", status_danger)
+        self.assertIn("non-text", status_danger)
+
+    def test_link_component_acceptance_does_not_promote_semantic_link_aliases(self):
+        document = (ROOT / "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md").read_text(encoding="utf-8")
+        section = document.split("## 2026-11-20 semantic role inventory \u2014 review only", 1)[1]
+        for name in (
+            "bluent.semantic.link.foregroundRest",
+            "bluent.semantic.link.foregroundHover",
+            "bluent.semantic.link.foregroundPressed",
+        ):
+            row = next(line for line in section.splitlines() if line.startswith(f"| {name}"))
+            self.assertIn("Link #431", row)
+            self.assertIn("existing", row.lower())
+            self.assertIn("Defer", row)
+
+    def test_option_b_decision_table_no_longer_marks_selected_direction_pending(self):
+        document = (ROOT / "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md").read_text(encoding="utf-8")
+        table = document.split("## Required maintainer decisions", 1)[1].split("## Deliberately not decided by this proposal", 1)[0]
+        self.assertIn("**Selected 2026-11-16**", table)
+        self.assertIn("**Selected — Option B**", table)
+        self.assertIn("First-wave semantic candidates", table)
+        self.assertIn("**Pending**", table)
+        self.assertNotIn("| Source namespace | Internal implementation mapping | Pending |", table)
 
 
 if __name__ == "__main__":
