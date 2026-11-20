@@ -450,9 +450,9 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     const tabClosed = await poll(async () => {
       const state = await evaluate(managedDropdownExpression);
       const focus = await evaluate("(() => { const active = document.activeElement; const selector = 'a[href],area[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),iframe,[tabindex]:not([tabindex=\"-1\"]),[contenteditable=\"true\"]'; const owner = active?.closest(selector); return { tagName: active?.tagName ?? null, tabIndex: active?.tabIndex ?? null, focused: !!active && active.matches(':focus'), focusOwnerTag: owner?.tagName ?? null, focusOwnerId: owner?.id ?? null, focusOwnerTestId: owner?.getAttribute('data-testid') ?? null }; })()");
-      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu && focus.focused && !!focus.focusOwnerTag ? { ...state, nextFocus: focus } : null;
-    }, 15000, "Tab closes menu and moves focus to a focusable control");
-    check("Tab closes menu and moves focus to a real keyboard-focusable element without trapping or restoring trigger focus", tabClosed.hidden && !tabClosed.triggerFocused && !tabClosed.focusWithinMenu && !!tabClosed.nextFocus?.focusOwnerTag, tabClosed);
+      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu && focus.focused && focus.focusOwnerTestId === "overlay-focus-after-sentinel" ? { ...state, nextFocus: focus } : null;
+    }, 15000, "Tab closes menu and moves focus after the detached overlay host");
+    check("Tab closes menu and moves focus to the real control immediately after the detached overlay host", tabClosed.hidden && !tabClosed.triggerFocused && !tabClosed.focusWithinMenu && tabClosed.nextFocus?.focusOwnerTestId === "overlay-focus-after-sentinel", tabClosed);
 
     await evaluate("document.querySelector('[data-testid=\"button-managed-dropdown-trigger\"]').focus()");
     await dispatchKey("ArrowDown", "ArrowDown", 40);
@@ -464,9 +464,9 @@ console.log("[probe:" + engine + "] initial state=" + JSON.stringify(initial));
     const shiftTabClosed = await poll(async () => {
       const state = await evaluate(managedDropdownExpression);
       const focus = await evaluate("(() => { const active = document.activeElement; const selector = 'a[href],area[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),iframe,[tabindex]:not([tabindex=\"-1\"]),[contenteditable=\"true\"]'; const owner = active?.closest(selector); return { tagName: active?.tagName ?? null, tabIndex: active?.tabIndex ?? null, focused: !!active && active.matches(':focus'), focusOwnerTag: owner?.tagName ?? null, focusOwnerId: owner?.id ?? null, focusOwnerTestId: owner?.getAttribute('data-testid') ?? null }; })()");
-      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu && focus.focused && !!focus.focusOwnerTag ? { ...state, previousFocus: focus } : null;
-    }, 15000, "Shift+Tab closes menu and moves focus to the previous focusable control");
-    check("Shift+Tab closes menu and moves focus to a real previous keyboard-focusable element without trapping or restoring trigger focus", shiftTabClosed.hidden && !shiftTabClosed.triggerFocused && !shiftTabClosed.focusWithinMenu && !!shiftTabClosed.previousFocus?.focusOwnerTag, shiftTabClosed);
+      return state?.hidden && state.expanded === "false" && !state.triggerFocused && !state.focusWithinMenu && focus.focused && focus.focusOwnerTestId === "overlay-focus-before-sentinel" ? { ...state, previousFocus: focus } : null;
+    }, 15000, "Shift+Tab closes menu and moves focus before the detached overlay host");
+    check("Shift+Tab closes menu and moves focus to the real control immediately before the detached overlay host", shiftTabClosed.hidden && !shiftTabClosed.triggerFocused && !shiftTabClosed.focusWithinMenu && shiftTabClosed.previousFocus?.focusOwnerTestId === "overlay-focus-before-sentinel", shiftTabClosed);
 
     console.log("[probe:" + engine + "] reading the initial computed accessibility-tree pressed state");
     const initialAx = await readAxPressed();

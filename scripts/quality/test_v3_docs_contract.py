@@ -266,8 +266,23 @@ class V3DocsContractTests(unittest.TestCase):
         for key in ('ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape', 'aria-disabled', 'typeahead'):
             self.assertIn(key, popover.lower() if key == 'typeahead' else popover, key)
 
-        for selector in ('button-managed-dropdown-disabled', 'button-managed-dropdown-submenu', 'button-managed-dropdown-archive'):
+        for selector in (
+            'button-managed-dropdown-disabled',
+            'button-managed-dropdown-submenu',
+            'button-managed-dropdown-archive',
+            'overlay-focus-before-sentinel',
+            'overlay-focus-after-sentinel',
+        ):
             self.assertIn(f'data-testid="{selector}"', fixture, selector)
+
+        # Detached overlay surfaces are rendered by Containers. Keep a real
+        # focusable control immediately before and after that portal host so
+        # native Tab / Shift+Tab have deterministic, valid destinations.
+        before_sentinel = fixture.index('data-testid="overlay-focus-before-sentinel"')
+        overlay_host = fixture.index('<Containers />')
+        after_sentinel = fixture.index('data-testid="overlay-focus-after-sentinel"')
+        self.assertLess(before_sentinel, overlay_host)
+        self.assertLess(overlay_host, after_sentinel)
 
         for assertion in (
             "parent and nested submenu surfaces are registered before initial ARIA checks",
@@ -285,8 +300,8 @@ class V3DocsContractTests(unittest.TestCase):
             "ArrowLeft opens RTL submenu and focuses its first enabled menuitem",
             "ArrowLeft leaves an open RTL submenu active",
             "ArrowRight closes RTL submenu and restores focus to its parent item",
-            "Tab closes menu and moves focus to a real keyboard-focusable element without trapping or restoring trigger focus",
-            "Shift+Tab closes menu and moves focus to a real previous keyboard-focusable element without trapping or restoring trigger focus",
+            "Tab closes menu and moves focus to the real control immediately after the detached overlay host",
+            "Shift+Tab closes menu and moves focus to the real control immediately before the detached overlay host",
         ):
             self.assertIn(assertion, probe, assertion)
 

@@ -136,7 +136,15 @@
     </div>
 </section>
 
+<button type="button" data-testid="overlay-focus-before-sentinel">
+    Focus boundary before detached overlays
+</button>
+
 <Containers />
+
+<button type="button" data-testid="overlay-focus-after-sentinel">
+    Focus boundary after detached overlays
+</button>
 
 @code {
     [Parameter, EditorRequired] public string Mode { get; set; } = string.Empty;
