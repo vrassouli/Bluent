@@ -5,25 +5,35 @@
 <div class="@GetComponentClass()" style="@Style">
     @if (StartAddon != null)
     {
-        <div class="start-addon">
-            @StartAddon
-        </div>
+        <div class="start-addon">@StartAddon</div>
     }
 
-    <select @attributes=GetInputAdditionalAttributes()
-            @ref=Element
-            id="@GetInputId()"
-            name="@NameAttributeValue"
-            multiple="@_isMultipleSelect"
-            value="@GetValue()"
-            @onchange="OnValueChanged">
-        @ChildContent
-    </select>
+    @if (_isMultipleSelect)
+    {
+        <select @attributes="GetInputAdditionalAttributes()"
+                @ref="Element"
+                id="@GetInputId()"
+                name="@NameAttributeValue"
+                multiple
+                @bind="CurrentValueAsStringArray"
+                @bind:event="@BindValueEvent">
+            @ChildContent
+        </select>
+    }
+    else
+    {
+        <select @attributes="GetInputAdditionalAttributes()"
+                @ref="Element"
+                id="@GetInputId()"
+                name="@NameAttributeValue"
+                @bind-value="CurrentValueAsString"
+                @bind-value:event="@BindValueEvent">
+            @ChildContent
+        </select>
+    }
 
     @if (EndAddon != null)
     {
-        <div class="end-addon">
-            @EndAddon
-        </div>
+        <div class="end-addon">@EndAddon</div>
     }
 </div>

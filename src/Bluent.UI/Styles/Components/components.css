@@ -1364,151 +1364,214 @@
   }
 }
 .bui-checkbox {
-  color: var(--colorNeutralForeground3);
-  position: relative;
-  display: inline-flex;
+  --bui-checkbox-indicator-size: 16px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  color: var(--colorNeutralForeground1);
   cursor: pointer;
+  display: inline-flex;
+  min-block-size: 24px;
+  position: relative;
   vertical-align: middle;
 }
 .bui-checkbox > input {
-  box-sizing: border-box;
+  appearance: none;
+  block-size: 100%;
   cursor: inherit;
-  height: 100%;
+  inline-size: calc(var(--bui-checkbox-indicator-size) + 2 * var(--spacingHorizontalS));
+  inset-block: 0;
+  inset-inline-start: 0;
   margin: 0;
   opacity: 0;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(16px + 2 * var(--spacingHorizontalS));
-  order: 1;
+  z-index: 1;
 }
-.bui-checkbox > input:checked + .indicator {
-  --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-  --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-  --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-  color: var(--colorNeutralForegroundInverted);
+.bui-checkbox > input:disabled {
+  cursor: default;
 }
-.bui-checkbox > input:checked + .indicator > .checked-state {
-  display: block !important;
-}
-.bui-checkbox > input:checked + .indicator + label {
-  --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-  --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-  --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-  color: var(--colorNeutralForeground1);
+.bui-checkbox > input:focus-visible + .indicator {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
 }
 .bui-checkbox > .indicator {
-  align-self: flex-start;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  color: var(--bui-checkbox-indicator-color);
-  background-color: var(--bui-checkbox-indicator-backgroundColor);
-  border-color: var(--bui-checkbox-indicator-borderColor, var(--colorNeutralStrokeAccessible));
-  border-style: solid;
-  border-width: var(--strokeWidthThin);
+  align-self: flex-start;
+  background-color: var(--colorNeutralBackground1);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStrokeAccessible);
   border-radius: var(--borderRadiusSmall);
+  box-sizing: border-box;
+  color: var(--colorNeutralForeground1);
+  display: inline-flex;
+  flex: 0 0 var(--bui-checkbox-indicator-size);
+  block-size: var(--bui-checkbox-indicator-size);
+  inline-size: var(--bui-checkbox-indicator-size);
+  justify-content: center;
   margin: var(--spacingVerticalS) var(--spacingHorizontalS);
-  fill: currentcolor;
   pointer-events: none;
-  font-size: 12px;
-  height: 16px;
-  width: 16px;
-  order: 1;
 }
-.bui-checkbox > .indicator > .indeterminate-state, .bui-checkbox > .indicator .checked-state {
+.bui-checkbox > .indicator > svg {
+  display: none;
+  flex: none;
+  block-size: 12px;
+  inline-size: 12px;
+}
+.bui-checkbox > .indicator > .indeterminate-state.circular {
   display: none;
 }
 .bui-checkbox > label {
-  cursor: inherit;
-  color: inherit;
-  /*margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);*/
-  margin-top: calc((16px - var(--lineHeightBase300)) / 2);
   align-self: center;
-  padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
-  font-size: var(--fontSizeBase300);
+  color: inherit;
+  cursor: inherit;
+  flex: 0 1 auto;
   font-family: var(--fontFamilyBase);
-  order: 2;
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  margin: 0;
+  min-inline-size: 0;
+  padding-block: var(--spacingVerticalS);
+  padding-inline: var(--spacingHorizontalXS);
+  user-select: none;
 }
 .bui-checkbox > label > .required {
-  padding-inline-start: var(--spacingHorizontalXS);
   color: var(--colorPaletteRedForeground3);
+  padding-inline-start: var(--spacingHorizontalXS);
 }
-.bui-checkbox.large > input {
-  width: calc(20px + 2 * var(--spacingHorizontalS));
+.bui-checkbox.checked > .indicator {
+  background-color: var(--colorCompoundBrandBackground);
+  border-color: var(--colorCompoundBrandBackground);
+  color: var(--colorNeutralForegroundInverted);
 }
-.bui-checkbox.large > .indicator {
-  width: 20px;
-  height: 20px;
-  font-size: 16px;
+.bui-checkbox.checked > .indicator > .checked-state {
+  display: block;
 }
-.bui-checkbox.large > label {
-  margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
-  margin-top: calc((20px - var(--lineHeightBase300)) / 2);
-  line-height: var(--lineHeightBase300);
+.bui-checkbox.checked:hover:not(.disabled) > .indicator {
+  background-color: var(--colorCompoundBrandBackgroundHover);
+  border-color: var(--colorCompoundBrandBackgroundHover);
 }
-.bui-checkbox.label-before > input {
-  order: 2;
-  left: unset;
-  right: 0;
+.bui-checkbox.checked:active:not(.disabled) > .indicator,
+.bui-checkbox.checked > input:active:not(:disabled) + .indicator {
+  background-color: var(--colorCompoundBrandBackgroundPressed);
+  border-color: var(--colorCompoundBrandBackgroundPressed);
 }
-.bui-checkbox.label-before > .indicator {
-  order: 2;
+.bui-checkbox.unchecked:hover:not(.disabled) > .indicator {
+  background-color: var(--colorNeutralBackground3);
+  border-color: var(--colorNeutralStrokeAccessibleHover);
 }
-.bui-checkbox.label-before > label {
-  order: 1;
+.bui-checkbox.unchecked:active:not(.disabled) > .indicator,
+.bui-checkbox.unchecked > input:active:not(:disabled) + .indicator {
+  background-color: var(--colorNeutralBackground3Pressed);
+  border-color: var(--colorNeutralStrokeAccessiblePressed);
+}
+.bui-checkbox.indeterminate > .indicator {
+  background-color: var(--colorNeutralBackground1);
+  border-color: var(--colorCompoundBrandStroke);
+  color: var(--colorCompoundBrandForeground1);
+}
+.bui-checkbox.indeterminate > .indicator > .indeterminate-state.standard {
+  display: block;
+}
+.bui-checkbox.indeterminate:hover:not(.disabled) > .indicator {
+  background-color: var(--colorNeutralBackground3);
+  border-color: var(--colorCompoundBrandStrokeHover);
+  color: var(--colorCompoundBrandForeground1Hover);
+}
+.bui-checkbox.indeterminate:active:not(.disabled) > .indicator,
+.bui-checkbox.indeterminate > input:active:not(:disabled) + .indicator {
+  background-color: var(--colorNeutralBackground3Pressed);
+  border-color: var(--colorCompoundBrandStrokeHover);
 }
 .bui-checkbox.circular > .indicator {
   border-radius: var(--borderRadiusCircular);
 }
-.bui-checkbox.indeterminate {
-  --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStroke);
-  --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1);
-  --bui-checkbox-indicator-backgroundColor: unset;
-  color: var(--colorNeutralForeground1);
+.bui-checkbox.circular > .indicator > .indeterminate-state.standard,
+.bui-checkbox.circular > .indicator > .indeterminate-state.circular {
+  display: none;
 }
-.bui-checkbox.indeterminate:hover {
-  --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandStrokeHover);
-  --bui-checkbox-indicator-color: var(--colorCompoundBrandForeground1Hover);
-  --bui-checkbox-indicator-backgroundColor: unset;
+.bui-checkbox.circular.indeterminate > .indicator > .indeterminate-state.circular {
+  display: block;
 }
-.bui-checkbox.indeterminate > .indicator > .indeterminate-state {
-  display: block !important;
+.bui-checkbox.large {
+  --bui-checkbox-indicator-size: 20px;
 }
-.bui-checkbox.checked {
-  --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackground);
-  --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-  --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackground);
-  color: var(--colorNeutralForegroundInverted);
+.bui-checkbox.large > .indicator {
+  border-radius: var(--borderRadiusSmall);
 }
-.bui-checkbox.checked:hover {
-  --bui-checkbox-indicator-borderColor: var(--colorCompoundBrandBackgroundHover);
-  --bui-checkbox-indicator-color: var(--colorNeutralForegroundInverted);
-  --bui-checkbox-indicator-backgroundColor: var(--colorCompoundBrandBackgroundHover);
+.bui-checkbox.large.circular > .indicator {
+  border-radius: var(--borderRadiusCircular);
 }
-.bui-checkbox.checked > .indicator > .checked-state {
-  display: block !important;
+.bui-checkbox.label-before {
+  flex-direction: row-reverse;
 }
-.bui-checkbox.unchecked {
-  --bui-checkbox-indicator-borderColor: unset;
-  --bui-checkbox-indicator-color: unset;
-  --bui-checkbox-indicator-backgroundColor: unset;
+.bui-checkbox.label-before > input {
+  inset-inline-end: 0;
+  inset-inline-start: auto;
+}
+.bui-checkbox.invalid > .indicator {
+  border-color: var(--colorStatusDangerBorderActive);
 }
 .bui-checkbox.disabled {
-  --bui-checkbox-indicator-borderColor: var(--colorNeutralStrokeDisabled) !important;
-  --bui-checkbox-indicator-color: var(--colorNeutralForegroundDisabled) !important;
-  --bui-checkbox-indicator-backgroundColor: unset !important;
+  color: var(--colorNeutralForegroundDisabled);
+  cursor: default;
+}
+.bui-checkbox.disabled > .indicator {
+  background-color: var(--colorNeutralBackground1);
+  border-color: var(--colorNeutralStrokeDisabled);
+  color: var(--colorNeutralForegroundDisabled);
+}
+.bui-checkbox.disabled.checked > .indicator {
+  background-color: var(--colorNeutralBackgroundDisabled);
+  border-color: var(--colorNeutralStrokeDisabled);
+}
+.bui-checkbox.disabled > label,
+.bui-checkbox.disabled > label > .required {
+  color: var(--colorNeutralForegroundDisabled);
   cursor: default;
 }
 
-.rtl .bui-checkbox > input, [dir=rtl] .bui-checkbox > input {
-  left: unset;
-  right: 0px;
+@media (forced-colors: active) {
+  .bui-checkbox > input:focus-visible + .indicator {
+    outline-color: Highlight;
+  }
+  .bui-checkbox > .indicator {
+    background-color: Canvas;
+    border-color: CanvasText;
+    color: CanvasText;
+    forced-color-adjust: none;
+  }
+  .bui-checkbox.checked > .indicator {
+    background-color: Highlight;
+    border-color: Highlight;
+    color: HighlightText;
+  }
+  .bui-checkbox.indeterminate > .indicator {
+    background-color: Canvas;
+    border-color: Highlight;
+    color: Highlight;
+  }
+  .bui-checkbox.disabled {
+    color: GrayText;
+  }
+  .bui-checkbox.disabled > .indicator {
+    background-color: Canvas;
+    border-color: GrayText;
+    color: GrayText;
+  }
+  .bui-checkbox.disabled.checked > .indicator {
+    background-color: Canvas;
+    border-color: GrayText;
+  }
+  .bui-checkbox.invalid > .indicator {
+    border-color: Mark;
+  }
 }
-
+@media (prefers-reduced-motion: reduce) {
+  .bui-checkbox,
+  .bui-checkbox > .indicator,
+  .bui-checkbox > .indicator > svg {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 .bui-data-grid {
   display: flex;
   flex-direction: column;
@@ -3277,24 +3340,55 @@
   border-radius: var(--bs-border-radius);
 }
 
+.bui-radio-group {
+  box-sizing: border-box;
+  display: block;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.bui-radio-group > .group-label {
+  margin: 0 0 var(--spacingVerticalS);
+  padding: 0;
+  color: var(--colorNeutralForeground1);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase300);
+}
+.bui-radio-group > .items-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+.bui-radio-group.vertical > .items-list {
+  flex-direction: column;
+  align-items: stretch;
+}
 .bui-radio-group .bui-radio-box {
-  color: var(--colorNeutralForeground3);
   position: relative;
   display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-block-size: 24px;
+  min-inline-size: 24px;
+  color: var(--colorNeutralForeground3);
   cursor: pointer;
   vertical-align: middle;
 }
 .bui-radio-group .bui-radio-box > input {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline-start: 0;
   box-sizing: border-box;
-  cursor: inherit;
-  height: 100%;
+  inline-size: 24px;
+  block-size: 24px;
   margin: 0;
   opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(16px + 2 * var(--spacingHorizontalS));
-  order: 1;
+  cursor: inherit;
 }
 .bui-radio-group .bui-radio-box > input:checked + .indicator {
   border-color: var(--colorCompoundBrandStroke);
@@ -3303,70 +3397,95 @@
 .bui-radio-group .bui-radio-box > input:checked + .indicator::after {
   content: "";
   position: absolute;
-  width: 16px;
-  height: 16px;
+  inline-size: 16px;
+  block-size: 16px;
   border-radius: var(--borderRadiusCircular);
   transform: scale(0.625);
   background-color: currentcolor;
 }
-.bui-radio-group .bui-radio-box > input:checked + .indicator + label {
+.bui-radio-group .bui-radio-box > input:checked + .indicator + label.option-label {
   color: var(--colorNeutralForeground1);
+}
+.bui-radio-group .bui-radio-box > input:hover:not(:disabled) + .indicator {
+  border-color: var(--colorNeutralStrokeAccessibleHover);
+}
+.bui-radio-group .bui-radio-box > input:active:not(:disabled) + .indicator {
+  border-color: var(--colorNeutralStrokeAccessiblePressed);
+}
+.bui-radio-group .bui-radio-box > input:focus-visible + .indicator {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+.bui-radio-group .bui-radio-box > input:disabled {
+  cursor: default;
 }
 .bui-radio-group .bui-radio-box > input:disabled + .indicator {
   border-color: var(--colorNeutralStrokeDisabled);
   color: var(--colorNeutralForegroundDisabled);
 }
-.bui-radio-group .bui-radio-box > input:disabled + .indicator + label {
+.bui-radio-group .bui-radio-box > input:disabled + .indicator + label.option-label {
   color: var(--colorNeutralForegroundDisabled);
   cursor: default;
 }
 .bui-radio-group .bui-radio-box > .indicator {
-  border-color: var(--colorNeutralStrokeAccessible);
-  border: var(--strokeWidthThin) solid;
-  border-radius: var(--borderRadiusCircular);
-  margin: var(--spacingVerticalS) var(--spacingHorizontalS);
-  background-color: var(--bui-checkbox-indicator-backgroundColor);
   position: relative;
-  width: 16px;
-  height: 16px;
-  font-size: 12px;
-  box-sizing: border-box;
-  flex-shrink: 0;
   display: flex;
+  flex: 0 0 16px;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  fill: currentcolor;
-  /*pointer-events: none;*/
+  box-sizing: border-box;
+  inline-size: 16px;
+  block-size: 16px;
+  margin: var(--spacingVerticalS) var(--spacingHorizontalS);
   padding: 0;
-}
-.bui-radio-group .bui-radio-box > label {
-  cursor: inherit;
+  overflow: hidden;
+  border: var(--strokeWidthThin) solid var(--colorNeutralStrokeAccessible);
+  border-radius: var(--borderRadiusCircular);
+  background-color: var(--bui-checkbox-indicator-backgroundColor);
   color: inherit;
-  /*margin-bottom: calc((16px - var(--lineHeightBase300)) / 2);*/
-  margin-top: calc((16px - var(--lineHeightBase300)) / 2);
-  align-self: center;
-  padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
-  font-size: var(--fontSizeBase300);
-  font-family: var(--fontFamilyBase);
-  order: 2;
 }
-.bui-radio-group .bui-radio-box > label > .required {
-  padding-inline-start: var(--spacingHorizontalXS);
-  color: var(--colorPaletteRedForeground3);
+.bui-radio-group .bui-radio-box > label.option-label {
+  align-self: center;
+  margin-block-start: calc((16px - var(--lineHeightBase300)) / 2);
+  padding: var(--spacingVerticalS) var(--spacingHorizontalXS);
+  color: inherit;
+  cursor: inherit;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  order: 2;
 }
 .bui-radio-group .bui-radio-box.label-before > input {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
   order: 2;
-  left: unset;
-  right: 0;
 }
 .bui-radio-group .bui-radio-box.label-before > .indicator {
   order: 2;
 }
-.bui-radio-group .bui-radio-box.label-before > label {
+.bui-radio-group .bui-radio-box.label-before > label.option-label {
   order: 1;
 }
 
+@media (forced-colors: active) {
+  .bui-radio-group .bui-radio-box > .indicator {
+    border-color: ButtonText;
+    background-color: Canvas;
+    color: ButtonText;
+    forced-color-adjust: none;
+  }
+  .bui-radio-group .bui-radio-box > input:checked + .indicator {
+    border-color: Highlight;
+    color: Highlight;
+  }
+  .bui-radio-group .bui-radio-box > input:disabled + .indicator {
+    border-color: GrayText;
+    color: GrayText;
+  }
+  .bui-radio-group .bui-radio-box > input:focus-visible + .indicator {
+    outline-color: Highlight;
+  }
+}
 .bui-radio-group > .items-list {
   display: flex;
 }
@@ -3791,94 +3910,108 @@
 }
 
 .bui-switch {
-  align-items: flex-start;
+  align-items: center;
   box-sizing: border-box;
-  display: inline-flex;
-  position: relative;
+  color: var(--colorNeutralForeground1);
   cursor: pointer;
+  display: inline-flex;
+  min-block-size: 24px;
+  position: relative;
+  vertical-align: middle;
 }
 .bui-switch > input {
-  top: 0px;
-  left: 0px;
-  box-sizing: border-box;
-  height: 100%;
-  margin: 0px;
+  appearance: none;
+  block-size: 24px;
+  cursor: inherit;
+  inline-size: calc(40px + 2 * var(--spacingHorizontalS));
+  inset-block: 0;
+  inset-inline-start: 0;
+  margin: 0;
   opacity: 0;
   position: absolute;
-  width: calc(40px + 2 * var(--spacingHorizontalS));
-  cursor: pointer;
-}
-.bui-switch > input:enabled:not(:checked) ~ .indicator {
-  color: var(--colorNeutralStrokeAccessible);
-  border-color: var(--colorNeutralStrokeAccessible);
-}
-.bui-switch > input:enabled:not(:checked) ~ label {
-  color: var(--colorNeutralForeground1);
-}
-.bui-switch > input:enabled:checked ~ .indicator {
-  background-color: var(--colorCompoundBrandBackground);
-  color: var(--colorNeutralForegroundInverted);
-  border-color: var(--colorTransparentStroke);
-}
-.bui-switch > input:disabled:not(:checked) ~ .indicator {
-  border-color: var(--colorNeutralStrokeDisabled);
-}
-.bui-switch > input:disabled:checked ~ .indicator {
-  background-color: var(--colorNeutralBackgroundDisabled);
-  border-color: var(--colorTransparentStrokeDisabled);
-}
-.bui-switch > input:checked ~ .indicator > * {
-  transform: translateX(20px);
+  z-index: 1;
 }
 .bui-switch > input:disabled {
   cursor: default;
 }
-.bui-switch > input:disabled ~ .indicator {
-  color: var(--colorNeutralForegroundDisabled);
-  cursor: default;
-}
-.bui-switch > input:disabled ~ label {
-  color: var(--colorNeutralForegroundDisabled);
-  cursor: default;
+.bui-switch > input:focus-visible + .indicator {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
 }
 .bui-switch > .indicator {
+  align-items: center;
+  background-color: var(--colorNeutralBackground1);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStrokeAccessible);
   border-radius: var(--borderRadiusCircular);
-  border: 1px solid;
-  line-height: 0;
   box-sizing: border-box;
-  fill: currentcolor;
-  flex-shrink: 0;
-  font-size: 18px;
-  height: 20px;
-  margin: var(--spacingVerticalS) var(--spacingHorizontalS);
+  display: inline-flex;
+  flex: 0 0 40px;
+  block-size: 20px;
+  inline-size: 40px;
+  margin: 0 var(--spacingHorizontalS);
   pointer-events: none;
-  transition-duration: var(--durationNormal);
-  transition-timing-function: var(--curveEasyEase);
-  transition-property: background, border, color;
-  width: 40px;
-  cursor: inherit;
 }
-.bui-switch > .indicator > svg {
-  display: inline;
-  line-height: 0;
+.bui-switch > .indicator > .thumb {
+  background-color: var(--colorNeutralStrokeAccessible);
+  border-radius: 50%;
+  block-size: 14px;
+  inline-size: 14px;
+  margin-inline-start: 0;
   transition-duration: var(--durationNormal);
+  transition-property: margin-inline-start, background-color;
   transition-timing-function: var(--curveEasyEase);
-  transition-property: transform;
 }
 .bui-switch > label {
-  padding: var(--spacingVerticalS) 0;
-  padding-inline: var(--spacingHorizontalXS) var(--spacingHorizontalS);
-  margin-top: calc((20px - var(--lineHeightBase300)) / 2);
-  margin-bottom: calc((20px - var(--lineHeightBase300)) / 2);
-  line-height: var(--lineHeightBase300);
-  font-size: var(--fontSizeBase300);
-  font-family: var(--fontFamilyBase);
+  align-self: center;
+  color: inherit;
   cursor: inherit;
+  flex: 0 1 auto;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  margin: 0;
+  min-inline-size: 0;
+  padding-block: var(--spacingVerticalS);
+  padding-inline: var(--spacingHorizontalXS);
+  user-select: none;
+}
+.bui-switch > label > .required {
+  color: var(--colorPaletteRedForeground3);
+  padding-inline-start: var(--spacingHorizontalXS);
+}
+.bui-switch.checked > .indicator {
+  background-color: var(--colorCompoundBrandBackground);
+  border-color: var(--colorCompoundBrandBackground);
+}
+.bui-switch.checked > .indicator > .thumb {
+  background-color: var(--colorNeutralForegroundInverted);
+  margin-inline-start: calc(100% - 14px);
+}
+.bui-switch:not(.disabled).unchecked:hover > .indicator {
+  background-color: var(--colorNeutralBackground3);
+  border-color: var(--colorNeutralStrokeAccessibleHover);
+}
+.bui-switch:not(.disabled).unchecked:hover > .indicator > .thumb {
+  background-color: var(--colorNeutralStrokeAccessibleHover);
+}
+.bui-switch:not(.disabled).unchecked:active > .indicator {
+  background-color: var(--colorNeutralBackground3Pressed);
+  border-color: var(--colorNeutralStrokeAccessiblePressed);
+}
+.bui-switch:not(.disabled).unchecked:active > .indicator > .thumb {
+  background-color: var(--colorNeutralStrokeAccessiblePressed);
+}
+.bui-switch:not(.disabled).checked:hover > .indicator {
+  background-color: var(--colorCompoundBrandBackgroundHover);
+  border-color: var(--colorCompoundBrandBackgroundHover);
+}
+.bui-switch:not(.disabled).checked:active > .indicator {
+  background-color: var(--colorCompoundBrandBackgroundPressed);
+  border-color: var(--colorCompoundBrandBackgroundPressed);
 }
 .bui-switch.label-before > input {
-  order: 2;
-  left: unset;
-  right: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
 }
 .bui-switch.label-before > .indicator {
   order: 2;
@@ -3886,15 +4019,88 @@
 .bui-switch.label-before > label {
   order: 1;
 }
-
-.rtl .bui-switch > input, [dir=rtl] .bui-switch > input {
-  left: unset;
-  right: 0px;
+.bui-switch.label-above {
+  align-items: flex-start;
+  flex-direction: column;
 }
-.rtl .bui-switch > input:checked ~ .indicator > *, [dir=rtl] .bui-switch > input:checked ~ .indicator > * {
-  transform: translateX(-20px);
+.bui-switch.label-above > input {
+  inline-size: calc(40px + 2 * var(--spacingHorizontalS));
+  inset-block-start: auto;
+  inset-block-end: 2px;
+}
+.bui-switch.label-above > .indicator {
+  flex-basis: 20px;
+  margin-block: var(--spacingVerticalXS);
+}
+.bui-switch.label-above > label {
+  order: -1;
+  inline-size: 100%;
+  padding-inline: var(--spacingHorizontalS);
+}
+.bui-switch.invalid > .indicator {
+  border-color: var(--colorStatusDangerBorderActive);
+}
+.bui-switch.disabled {
+  color: var(--colorNeutralForegroundDisabled);
+  cursor: default;
+}
+.bui-switch.disabled > .indicator {
+  background-color: var(--colorNeutralBackground1);
+  border-color: var(--colorNeutralStrokeDisabled);
+}
+.bui-switch.disabled > .indicator > .thumb {
+  background-color: var(--colorNeutralForegroundDisabled);
+  transition: none;
+}
+.bui-switch.disabled.checked > .indicator {
+  background-color: var(--colorNeutralBackgroundDisabled);
+  border-color: var(--colorNeutralStrokeDisabled);
+}
+.bui-switch.disabled > label,
+.bui-switch.disabled > label > .required {
+  color: var(--colorNeutralForegroundDisabled);
+  cursor: default;
 }
 
+@media (forced-colors: active) {
+  .bui-switch > input:focus-visible + .indicator {
+    outline-color: Highlight;
+  }
+  .bui-switch > .indicator {
+    background-color: Canvas;
+    border-color: CanvasText;
+    forced-color-adjust: none;
+  }
+  .bui-switch > .indicator > .thumb {
+    background-color: CanvasText;
+  }
+  .bui-switch.checked > .indicator {
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+  .bui-switch.checked > .indicator > .thumb {
+    background-color: HighlightText;
+  }
+  .bui-switch.disabled {
+    color: GrayText;
+  }
+  .bui-switch.disabled > .indicator {
+    background-color: Canvas;
+    border-color: GrayText;
+  }
+  .bui-switch.disabled > .indicator > .thumb {
+    background-color: GrayText;
+  }
+  .bui-switch.disabled.checked > .indicator {
+    background-color: Canvas;
+    border-color: GrayText;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bui-switch > .indicator > .thumb {
+    transition: none;
+  }
+}
 .bui-tab-list {
   display: flex;
 }

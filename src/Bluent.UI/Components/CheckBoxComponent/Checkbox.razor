@@ -3,49 +3,32 @@
 @typeparam TValue
 
 <div class="@GetComponentClass()" style="@Style">
-    <input @attributes=GetInputAdditionalAttributes()
-           @ref=Element
+    <input @attributes="GetCheckboxAttributes()"
+           @ref="Element"
            type="checkbox"
-           id="@GetInputId()"
+           id="@InputId"
            name="@NameAttributeValue"
-           checked="@BindConverter.FormatValue(CurrentValue)"
+           checked="@IsChecked"
            value="@bool.TrueString"
            @onchange="ChangeHandler" />
-    <div class="indicator" @onclick=Toggle>
-        <svg class="indeterminate-state" fill="currentColor" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="currentColor"></path>
+    <span class="indicator" aria-hidden="true">
+        <svg class="indeterminate-state standard" fill="currentColor" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="6" height="6" rx="0.5" fill="currentColor" />
         </svg>
-        <svg class="checked-state" fill="currentColor" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9.76 3.2c.3.29.32.76.04 1.06l-4.25 4.5a.75.75 0 0 1-1.08.02L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.7 1.7L8.7 3.24a.75.75 0 0 1 1.06-.04Z" fill="currentColor"></path>
+        <svg class="indeterminate-state circular" fill="currentColor" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6" cy="6" r="3" fill="currentColor" />
         </svg>
-    </div>
-    @if (ValueAsBool == true && !string.IsNullOrEmpty(Label))
+        <svg class="checked-state" fill="currentColor" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.76 3.2c.3.29.32.76.04 1.06l-4.25 4.5a.75.75 0 0 1-1.08.02L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.7 1.7L8.7 3.24a.75.75 0 0 1 1.06-.04Z" fill="currentColor" />
+        </svg>
+    </span>
+    @if (!string.IsNullOrEmpty(CurrentLabel))
     {
-        <label for="@GetInputId()">
-            @Label
+        <label for="@InputId">
+            <span id="@AccessibleLabelId">@CurrentLabel</span>
             @if (!string.IsNullOrEmpty(Required))
             {
-                <span class="required">@Required</span>
-            }
-        </label>
-    }
-    else if (ValueAsBool == false && (!string.IsNullOrEmpty(UncheckedLabel) || !string.IsNullOrEmpty(Label)))
-    {
-        <label for="@GetInputId()">
-            @(UncheckedLabel ?? Label)
-            @if (!string.IsNullOrEmpty(Required))
-            {
-                <span class="required">@Required</span>
-            }
-        </label>
-    }
-    else if (ValueAsBool == null && (!string.IsNullOrEmpty(IndeterminateLabel) || !string.IsNullOrEmpty(Label)))
-    {
-        <label for="@GetInputId()">
-            @(IndeterminateLabel ?? Label)
-            @if (!string.IsNullOrEmpty(Required))
-            {
-                <span class="required">@Required</span>
+                <span class="required" aria-hidden="true">@Required</span>
             }
         </label>
     }

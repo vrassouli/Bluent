@@ -1,37 +1,26 @@
-﻿@namespace Bluent.UI.Components
-@inherits Checkbox<bool>
+@namespace Bluent.UI.Components
+@inherits BluentInputComponentBase<bool>
 
 <div class="@GetComponentClass()" style="@Style">
-    <input @attributes=GetInputAdditionalAttributes()
-           @ref=Element
+    <input @attributes="GetSwitchAttributes()"
+           @ref="Element"
            type="checkbox"
-           id="@GetInputId()"
+           id="@InputId"
            name="@NameAttributeValue"
-           checked="@BindConverter.FormatValue(CurrentValue)"
+           role="switch"
+           checked="@CurrentValue"
            value="@bool.TrueString"
            @onchange="ChangeHandler" />
-    <div class="indicator" @onclick=Toggle>
-        <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" fill="currentColor"></path>
-        </svg>
-    </div>
-    @if (CurrentValue == true && !string.IsNullOrEmpty(Label))
+    <span class="indicator" aria-hidden="true">
+        <span class="thumb"></span>
+    </span>
+    @if (!string.IsNullOrWhiteSpace(Label))
     {
-        <label for="@GetInputId()">
+        <label for="@InputId">
             @Label
             @if (!string.IsNullOrEmpty(Required))
             {
-                <span class="required">@Required</span>
-            }
-        </label>
-    }
-    else if (CurrentValue == false && (!string.IsNullOrEmpty(UncheckedLabel) || !string.IsNullOrEmpty(Label)))
-    {
-        <label for="@GetInputId()">
-            @(UncheckedLabel ?? Label)
-            @if (!string.IsNullOrEmpty(Required))
-            {
-                <span class="required">@Required</span>
+                <span class="required" aria-hidden="true">@Required</span>
             }
         </label>
     }

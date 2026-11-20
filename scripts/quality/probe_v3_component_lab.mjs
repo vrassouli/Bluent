@@ -67,8 +67,14 @@ try {
       m.params?.args?.map(x=>x.value||x.description||'').join(' ');
     runtimeSignals.push({type:m.method,text:String(text).slice(0,320)});
   }
-  if(m.method==='Network.responseReceived'&&m.params?.response?.status>=400)
-    runtimeSignals.push({type:'HTTP',status:m.params.response.status,url:m.params.response.url});
+  if(m.method==='Network.responseReceived'&&m.params?.response?.status>=400) {
+    const response=m.params.response;
+    const responsePath=new URL(response.url).pathname;
+    const optionalDevHotReloadSettings=response.status===404 &&
+      responsePath==='/_framework/dotnet-browser-tools/hot-reload-settings.json';
+    if(!optionalDevHotReloadSettings)
+      runtimeSignals.push({type:'HTTP',status:response.status,url:response.url});
+  }
   if(m.method==='Network.loadingFailed')runtimeSignals.push({type:'Network',detail:m.params?.errorText});
   if(m.method==='Network.webSocketCreated')
     webSocketUrls.set(m.params.requestId,m.params.url);
@@ -690,9 +696,9 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  check('Checkbox generated Razor contains true bool nullable indeterminate and disabled API',
   cbCopy?.includes('@bind-Value="_labChecked"')&&cbCopy?.includes('@bind-Value="_labNullableChecked"')&&cbCopy?.includes('IndeterminateLabel="Not decided"')&&cbCopy?.includes('disabled />')&&cbCopy?.includes('bool? _labNullableChecked'),cbCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Eighth current API pilot: Switch inherits public Checkbox<bool>,
- // but the future #435 semantic switch role and Windows AT are NOT
- // implemented or certified by the #421 source-owned demo.
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Eighth current API pilot: Switch is a dedicated binary setting input with role=switch,
+ // Stable setting names and current v3 API are exercised here; this remains a representative pilot,
+ // not native Windows AT certification or full family acceptance.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'Switch');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('Switch')"),12000);
  await js("document.querySelector('button.lab-family')?.click()");
@@ -700,15 +706,15 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  check('eighth Switch pilot renders actual Bluent input family through interactive catalog',switchReady);
  const switchInitial=await js("(()=>{const a=document.getElementById('lab-switch-primary'),b=document.getElementById('lab-switch-before'),d=document.getElementById('lab-switch-disabled'),wrap=x=>x?.closest('.bui-switch');return {native:a?.type==='checkbox'&&b?.type==='checkbox'&&d?.type==='checkbox',off:!a?.checked,offLabel:wrap(a)?.querySelector('label')?.textContent.trim(),labelBefore:wrap(b)?.classList.contains('label-before'),beforeLabel:wrap(b)?.querySelector('label')?.textContent.trim(),disabled:d?.disabled,disabledChecked:d?.checked,cards:document.querySelector('.lab-switch-grid')?.children.length}})()");
  check('Switch current native off label-before and disabled true states render',
-  switchInitial.native&&switchInitial.off&&switchInitial.offLabel==='Notifications off'&&switchInitial.labelBefore&&switchInitial.beforeLabel==='Feature inactive'&&switchInitial.disabled&&switchInitial.disabledChecked&&switchInitial.cards===3,switchInitial);
+  switchInitial.native&&switchInitial.off&&switchInitial.offLabel==='Notifications'&&switchInitial.labelBefore&&switchInitial.beforeLabel==='Feature access'&&switchInitial.disabled&&switchInitial.disabledChecked&&switchInitial.cards===3,switchInitial);
  await js("document.getElementById('lab-switch-primary')?.focus()");
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
- const switchOn=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: True'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications on'})()"),12000);
+ const switchOn=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: True'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications'})()"),12000);
  check('native Space on current Switch toggles true and updates label plus Blazor model',switchOn);
  await send('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',text:' ',unmodifiedText:' ',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
- const switchOff=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return !x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: False'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications off'})()"),12000);
+ const switchOff=await poll(()=>js("(()=>{const x=document.getElementById('lab-switch-primary');return !x?.checked&&document.querySelector('.lab-switch-status')?.textContent.trim()==='Enabled: False'&&x.closest('.bui-switch')?.querySelector('label')?.textContent.trim()==='Notifications'})()"),12000);
  check('second native Space returns Switch to off without stale label or value',switchOff);
  const switchDisabled=await js("(()=>{const d=document.getElementById('lab-switch-disabled');d?.focus();return {disabled:d?.disabled,checked:d?.checked,focusDenied:document.activeElement!==d}})()");
  check('current disabled Switch rejects native focus and remains checked',
@@ -722,7 +728,7 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  check('hit-tested native pointer cannot toggle disabled public Switch',switchPointer.disabled&&switchPointer.checked,switchPointer);
  const switchCopy=await js("document.querySelector('.lab-source pre code')?.textContent");
  check('generated Switch Razor contains two bind Value models before-label and disabled',
-  switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="LabelPosition.Before"')&&switchCopy?.includes('UncheckedLabel="Notifications off"')&&switchCopy?.includes('disabled />'),switchCopy);
+  switchCopy?.includes('@bind-Value="_labSwitchOn"')&&switchCopy?.includes('@bind-Value="_labSwitchBefore"')&&switchCopy?.includes('LabelPosition="SwitchLabelPosition.Before"')&&switchCopy?.includes('Label="Feature access"')&&switchCopy?.includes('disabled />'),switchCopy);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Ninth existing NumericField<T> API pilot from public source: real
  // native text entry and Blazor int binding, callbacks and a separate
@@ -758,7 +764,7 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const el=document.getElementById(id);el.value=v;el.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
- await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Current public RadioGroup<string> and Radio<string> only;
+ await poll(()=>js("document.querySelectorAll('button.lab-family').length===18"),12000); // Representative Component Lab choice specimen; #436 has independent full native-group acceptance.
  // does not certify future #436 accessible radiogroup/arrow navigation.
  await js("(()=>{const x=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(x,'RadioGroup');x.dispatchEvent(new Event('input',{bubbles:true}))})()");
  await poll(()=>js("document.querySelectorAll('button.lab-family').length===1&&document.querySelector('button.lab-family')?.textContent.includes('RadioGroup')"),12000);
@@ -773,14 +779,14 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  await send('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32,nativeVirtualKeyCode:32});
  const radioAm=await poll(()=>js("document.querySelector('.lab-radio-status')?.textContent.trim()==='Choice: Morning'&&document.getElementById('lab-radio-am')?.checked&&!document.getElementById('lab-radio-pm')?.checked"),12000);
  check('native Space selects Morning radio and changes RadioGroup Blazor string binding',radioAm);
- const radioPmHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-pm]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el?.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
- check('Afternoon real radio indicator has hit-tested native pointer geometry',radioPmHit.hit,radioPmHit);
+ const radioPmHit=await js("(()=>{const el=document.querySelector('#lab-radio-pm + .indicator');if(!el)return {found:false,hit:false};el.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,target=document.elementFromPoint(x,y);return {found:true,x,y,hit:!!target?.closest('.bui-radio-box'),target:target?.tagName||''}})()");
+ check('Afternoon real radio indicator has hit-tested native pointer geometry',radioPmHit.found&&radioPmHit.hit,radioPmHit);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioPmHit.x,y:radioPmHit.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioPmHit.x,y:radioPmHit.y,button:'left',clickCount:1});
  const radioPm=await poll(()=>js("document.querySelector('.lab-radio-status')?.textContent.trim()==='Choice: Afternoon'&&document.getElementById('lab-radio-pm')?.checked&&!document.getElementById('lab-radio-am')?.checked"),12000);
  check('native indicator pointer selects Afternoon and unchecks Morning in current RadioGroup',radioPm);
- const radioLowHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-low]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
- check('vertical RTL-ready radio indicator is a real pointer target',radioLowHit.hit,radioLowHit);
+ const radioLowHit=await js("(()=>{const el=document.querySelector('#lab-radio-low + .indicator');if(!el)return {found:false,hit:false};el.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,target=document.elementFromPoint(x,y);return {found:true,x,y,hit:!!target?.closest('.bui-radio-box'),target:target?.tagName||''}})()");
+ check('vertical RTL-ready radio indicator is a real pointer target',radioLowHit.found&&radioLowHit.hit,radioLowHit);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioLowHit.x,y:radioLowHit.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioLowHit.x,y:radioLowHit.y,button:'left',clickCount:1});
  const radioLow=await poll(()=>js("document.querySelector('.lab-radio-vertical-status')?.textContent.trim()==='Priority: Low'&&document.getElementById('lab-radio-low')?.checked&&!document.getElementById('lab-radio-high')?.checked"),12000);
@@ -788,8 +794,8 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  const radioDisabled=await js("(()=>{const e=document.getElementById('lab-radio-disabled');e?.focus();return {disabled:e?.disabled,focused:document.activeElement===e,checked:e?.checked,model:document.querySelector('.lab-radio-restricted-status')?.textContent.trim()}})()");
  check('disabled real radio refuses native focus and leaves bound group unselected',
    radioDisabled.disabled&&!radioDisabled.focused&&!radioDisabled.checked&&radioDisabled.model==='Availability:',radioDisabled);
- const radioDisabledHit=await js("(()=>{const el=document.querySelector('label.indicator[for=lab-radio-disabled]');el?.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return {x,y,hit:!!document.elementFromPoint(x,y)?.closest('.bui-radio-box')}})()");
- check('disabled radio indicator pointer hit-test still targets the real option',radioDisabledHit.hit,radioDisabledHit);
+ const radioDisabledHit=await js("(()=>{const el=document.querySelector('#lab-radio-disabled + .indicator');if(!el)return {found:false,hit:false};el.scrollIntoView({block:'center',behavior:'instant'});const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,target=document.elementFromPoint(x,y);return {found:true,x,y,hit:!!target?.closest('.bui-radio-box'),target:target?.tagName||''}})()");
+ check('disabled radio indicator pointer hit-test still targets the real option',radioDisabledHit.found&&radioDisabledHit.hit,radioDisabledHit);
  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:radioDisabledHit.x,y:radioDisabledHit.y,button:'left',clickCount:1});
  await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:radioDisabledHit.x,y:radioDisabledHit.y,button:'left',clickCount:1});
  await wait(260);

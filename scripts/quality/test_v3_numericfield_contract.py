@@ -1,4 +1,5 @@
-from __future__ import annotations
+﻿from __future__ import annotations
+import re
 import shutil
 import tempfile
 import unittest
@@ -42,6 +43,23 @@ class NumericFieldContractTests(unittest.TestCase):
         with self.assertRaises(NumericFieldContractError):
             check_numericfield_contract(self.root)
 
+    def mutate_numericfield_workflow_job(self, old: str, new: str):
+        path = self.paths[".github/workflows/v3-compatibility-browsers.yml"]
+        body = path.read_text(encoding="utf-8-sig")
+        match = re.search(
+            r"(?m)^  numericfield-runtime:\r?\n(?P<job>.*?)(?=^  [A-Za-z0-9_-]+:|\Z)",
+            body,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(match, "NumericField workflow job is missing")
+        job = match.group("job")
+        self.assertIn(old, job, f"NumericField job mutation anchor missing: {old}")
+        changed_job = job.replace(old, new, 1)
+        changed = body[:match.start("job")] + changed_job + body[match.end("job"):]
+        path.write_text(changed, encoding="utf-8")
+        with self.assertRaises(NumericFieldContractError):
+            check_numericfield_contract(self.root)
+
     def test_current_source_and_ci_contract(self):
         check_numericfield_contract(self.root)
 
@@ -74,18 +92,12 @@ class NumericFieldContractTests(unittest.TestCase):
                     'role="spinbutton"', 'role="textbox"')
 
     def test_missing_four_cell_browser_matrix_is_rejected(self):
-        self.mutate(".github/workflows/v3-compatibility-browsers.yml",
-                    "render_mode: [WebAssembly, Server]", "render_mode: [WebAssembly]")
+        self.mutate_numericfield_workflow_job(
+            "render_mode: [WebAssembly, Server]", "render_mode: [WebAssembly]"
+        )
 
     def test_missing_failure_artifact_preservation_is_rejected(self):
-        relative = ".github/workflows/v3-compatibility-browsers.yml"
-        body = self.paths[relative].read_text(encoding="utf-8-sig")
-        before, numeric_job = body.split("  numericfield-runtime:", 1)
-        self.assertIn("if: always()", numeric_job)
-        changed = before + "  numericfield-runtime:" + numeric_job.replace("if: always()", "if: success()", 1)
-        self.paths[relative].write_text(changed, encoding="utf-8")
-        with self.assertRaises(NumericFieldContractError):
-            check_numericfield_contract(self.root)
+        self.mutate_numericfield_workflow_job("if: always()", "if: success()")
 
     def test_missing_live_culture_matrix_is_rejected(self):
         relative = "scripts/quality/probe_v3_numericfield.mjs"

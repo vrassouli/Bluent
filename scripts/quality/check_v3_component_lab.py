@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Source-backed pilot coverage contract. Does not claim complete component validation."""
 import json
 import re
@@ -12,6 +12,42 @@ STYLE = LAB.with_suffix(".razor.css")
 MENU = ROOT / "src/Bluent.UI.Demo.Pages/Layout/Side.razor"
 LEDGER = ROOT / "docs/v3/quality/COMPONENT-LAB-COVERAGE.json"
 QUEUE = ROOT / "docs/v3/quality/COMPONENT-LAB-FAMILY-QUEUE.json"
+
+
+def validate_selectfield_source_contract(sel_source: str) -> None:
+    """Guard the current native scalar/array binding paths, not a retired event handler."""
+    paths = re.search(
+        r"@if\s*\(_isMultipleSelect\)\s*\{(?P<multiple>.*?)\}\s*else\s*\{(?P<scalar>.*?)\}",
+        sel_source,
+        re.DOTALL,
+    )
+    assert paths is not None, "SelectField must keep distinct native single and multiple select paths"
+    multiple = paths.group("multiple")
+    scalar = paths.group("scalar")
+    for name, markup in (("multiple", multiple), ("scalar", scalar)):
+        assert "<select" in markup, f"SelectField {name} path must remain a native select"
+        assert '@attributes="GetInputAdditionalAttributes()"' in markup, (
+            f"SelectField {name} path must preserve inherited native attributes"
+        )
+        assert 'id="@GetInputId()"' in markup and 'name="@NameAttributeValue"' in markup, (
+            f"SelectField {name} path must preserve InputBase identity and name"
+        )
+    assert re.search(r"(?m)^\s*multiple\s*$", multiple), "array TValue must use native multiple selection"
+    assert '@bind="CurrentValueAsStringArray"' in multiple, (
+        "native selected string[] payload must bind through the typed array adapter"
+    )
+    assert '@bind:event="@BindValueEvent"' in multiple, (
+        "multiple selection must honor inherited BindValueEvent"
+    )
+    assert '@bind-value="CurrentValueAsString"' in scalar, (
+        "scalar selection must bind through InputBase CurrentValueAsString"
+    )
+    assert '@bind-value:event="@BindValueEvent"' in scalar, (
+        "single selection must honor inherited BindValueEvent"
+    )
+    assert "@onchange=" not in sel_source, (
+        "SelectField must not hard-wire onchange around its inherited BindValueEvent contract"
+    )
 
 
 def validate_platform_gate(data: dict, queue: dict) -> None:
@@ -315,8 +351,7 @@ def check() -> int:
         "Value", "ValueChanged", "ChildContent", "disabled"
     }
     sel_source=(ROOT/"src/Bluent.UI/Components/SelectFieldComponent/SelectField.razor").read_text(encoding="utf-8-sig")
-    assert "<select @attributes=GetInputAdditionalAttributes()" in sel_source
-    assert '@onchange="OnValueChanged"' in sel_source
+    validate_selectfield_source_contract(sel_source)
     for tag in ('new("selectfield", "SelectField"', 'class="lab-select-grid"',
                 'id="lab-select-color"', 'id="lab-select-priority"', 'id="lab-select-disabled"',
                 'SelectedSelectFieldRazor', 'role="status" lang="en" dir="ltr"'):
@@ -349,7 +384,7 @@ def check() -> int:
     }
     src_radio = (ROOT/"src/Bluent.UI/Components/RadioGroupComponent/Radio.razor").read_text(encoding="utf-8-sig")
     src_group = (ROOT/"src/Bluent.UI/Components/RadioGroupComponent/RadioGroup.razor.cs").read_text(encoding="utf-8-sig")
-    assert 'type="radio"' in src_radio and "SetValue(object? value)" in src_group
+    assert 'type="radio"' in src_radio and "SetValue(TValue value)" in src_group
     for marker in ('new("radio", "RadioGroup"', 'class="lab-radio-grid"',
                    'Id="lab-radio-am"', 'Id="lab-radio-pm"',
                    'Id="lab-radio-high"', 'Id="lab-radio-disabled"',
@@ -361,6 +396,11 @@ def check() -> int:
         assert f'class="{label}" role="status" lang="en" dir="ltr"' in source
     assert '.lab-canvas[dir="rtl"] .lab-radio-card p { text-align:right; }' in css
     assert "RTL Radio English statuses keep LTR punctuation and align right within spaced cards" in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    radio_probe = (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")
+    for selector in ("#lab-radio-pm + .indicator", "#lab-radio-low + .indicator",
+                     "#lab-radio-disabled + .indicator"):
+        assert selector in radio_probe, f"RadioGroup pointer probe must target the current native indicator: {selector}"
+    assert "label.indicator[for=lab-radio-pm]" not in radio_probe, "stale pre-native RadioGroup indicator selector must not return"
     radio_queue=next(e for e in json.loads(QUEUE.read_text(encoding="utf-8-sig"))["families"]
                      if e["family"]=="RadioGroup")
     assert radio_queue["scenarioId"] == "radio-group-choice-orientation-disabled"
@@ -420,13 +460,15 @@ def check() -> int:
     assert data["families"][7]["classification"] == "representative_only"
     assert data["families"][7]["existingDemoRoute"] == "/components/fields"
     assert set(data["families"][7]["propertiesDemonstrated"]) == {
-        "Value", "ValueChanged", "Label", "UncheckedLabel", "LabelPosition", "disabled"
+        "Value", "ValueChanged", "Label", "SwitchLabelPosition", "disabled"
     }
     switch_source = (ROOT/"src/Bluent.UI/Components/SwitchComponent/Switch.razor").read_text(encoding="utf-8-sig")
-    assert "@inherits Checkbox<bool>" in switch_source
+    assert "@inherits BluentInputComponentBase<bool>" in switch_source
+    assert 'role="switch"' in switch_source
+    assert "UncheckedLabel" not in switch_source
     for x in ('new("switch", "Switch"', 'class="lab-switch-grid"',
               'id="lab-switch-primary"', 'id="lab-switch-before"',
-              'id="lab-switch-disabled"', 'LabelPosition="LabelPosition.Before"',
+              'id="lab-switch-disabled"', 'LabelPosition="SwitchLabelPosition.Before"',
               'SelectedSwitchRazor'):
         assert x in source, "Source-backed Switch preview missing: "+x
     assert '.lab-canvas.narrow .lab-switch-grid' in css

@@ -302,6 +302,31 @@ class TextFieldContractTests(unittest.TestCase):
             "process.env.BLUENT_TEXTFIELD_RENDER_MODE_REMOVED",
         )
 
+    def test_browser_probe_only_whitelists_the_exact_optional_hot_reload_404(self):
+        self.assertIn("response.status === 404", self.original["browser_probe"])
+        self.assertIn(
+            "new URL(response.url).pathname === '/_framework/dotnet-browser-tools/hot-reload-settings.json'",
+            self.original["browser_probe"],
+        )
+        self.assertIn(
+            "response.status >= 400 && !isExpectedDevelopmentHotReloadMiss(response)",
+            self.original["browser_probe"],
+        )
+
+    def test_browser_probe_cannot_whitelist_other_404_paths(self):
+        self._check_mutation(
+            "browser_probe",
+            "new URL(response.url).pathname === '/_framework/dotnet-browser-tools/hot-reload-settings.json'",
+            "new URL(response.url).pathname === '/api/data'",
+        )
+
+    def test_browser_probe_must_not_ignore_all_http_errors_on_the_hot_reload_path(self):
+        self._check_mutation(
+            "browser_probe",
+            "response.status === 404",
+            "response.status >= 400",
+        )
+
     def test_browser_ci_keeps_all_four_browser_render_mode_pairs(self):
         self._check_mutation(
             "browser_workflow",

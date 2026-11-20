@@ -1,0 +1,10 @@
+.radio-group-showcase {
+    min-inline-size: 0;
+    pre,
+    pre code {
+        max-inline-size: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+}

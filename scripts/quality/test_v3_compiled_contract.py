@@ -1,4 +1,4 @@
-"""Regression controls for compiled Bluent CLR component parameter signatures.
+﻿"""Regression controls for compiled Bluent CLR component parameter signatures.
 
 Run only after building 4 shipped libraries and V3CompiledInventory (CI compiled-clr job).
 Edits temporary snapshots only; canonical contract is never modified.
@@ -41,6 +41,36 @@ class CompiledContractTests(unittest.TestCase):
             snapshot.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
             result = self.run_check(snapshot)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_switch_435_declared_api_migration_is_recorded(self):
+        payload = json.loads(ORIGINAL.read_text(encoding="utf-8"))
+        switch = payload["Components"]["Bluent.UI::Bluent.UI.Components.Switch"]
+        self.assertEqual(
+            switch["BaseType"],
+            "Bluent.UI.Components.BluentInputComponentBase`1<Boolean>",
+        )
+        self.assertEqual(switch["Properties"], {
+            "Label": "String | get=True set=True | ParameterAttribute",
+            "LabelPosition": "Bluent.UI.Components.SwitchLabelPosition | get=True set=True | ParameterAttribute",
+            "Required": "String | get=True set=True | ParameterAttribute",
+        })
+        self.assertEqual(len(payload["Components"]), 140)
+        self.assertEqual(len(payload["SharedBaseContracts"]), 8)
+        self.assertEqual(sum(len(c["Properties"]) for c in payload["Components"].values()), 783)
+
+    def test_switch_checkbox_inheritance_reversion_fails(self):
+        payload = json.loads(ORIGINAL.read_text(encoding="utf-8"))
+        key = "Bluent.UI::Bluent.UI.Components.Switch"
+        switch = payload["Components"][key]
+        switch["BaseType"] = "Bluent.UI.Components.Checkbox`1<Boolean>"
+        switch["Properties"] = {}
+        with tempfile.TemporaryDirectory() as d:
+            snapshot = Path(d) / "switch-checkbox-reversion.json"
+            snapshot.write_text(json.dumps(payload), encoding="utf-8")
+            result = self.run_check(snapshot)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("CHANGED", result.stderr)
+        self.assertIn("Switch", result.stderr)
 
     def test_public_parameter_type_mutation_fails(self):
         payload = json.loads(ORIGINAL.read_text(encoding="utf-8"))
