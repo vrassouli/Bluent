@@ -106,15 +106,20 @@ class Issue418ReviewContractTests(unittest.TestCase):
     def test_native_penpot_schema_audit_is_recorded_and_green(self):
         audit = self.policy["latestValidation"]["nativePenpotTokenAudit"]
         self.assertEqual(audit["fileId"], "b64f6665-c9ab-80b5-8008-c4ac99d9d000")
-        self.assertEqual(audit["revision"], 842)
+        self.assertEqual(audit["date"], "2026-11-20")
+        self.assertEqual(audit["revision"], 883)
         self.assertEqual(audit["result"], "PASS")
         self.assertEqual(audit["assertions"], 1285)
         self.assertEqual(audit["passed"], 1285)
         self.assertEqual(audit["failed"], 0)
+        self.assertEqual(audit["restoredActiveThemes"], [
+            {"group": "Bluent v3 / Mode", "name": "Light · Draft"},
+            {"group": "Bluent v3 / Brand×Mode (Preview)", "name": "default / light"},
+        ])
         self.assertEqual(audit["logicalTokenCounts"], {"source": 16, "semantic": 17, "component": 13, "total": 46})
         self.assertEqual(audit["nativeBrandThemes"], 20)
         self.assertEqual(audit["brandPaletteTokenCountPerTheme"], 8)
-        self.assertEqual(audit["revision"], 842)
+        self.assertEqual(audit["revision"], 883)
         self.assertEqual(self.policy["latestValidation"]["penpot"]["currentRevision"], 843)
         self.assertEqual(audit["totalNativeTokenSets"], 45)
         self.assertEqual(audit["totalNativeTokenEntries"], 492)

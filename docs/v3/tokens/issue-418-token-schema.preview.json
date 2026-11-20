@@ -905,10 +905,10 @@
         }
       ],
       "nativePenpotTokenAudit": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
         "fileName": "Bluent v3 Design System",
-        "revision": 842,
+        "revision": 883,
         "auditScript": "scripts/quality/penpot_v3_issue418_token_schema_audit.js",
         "result": "PASS",
         "assertions": 1285,

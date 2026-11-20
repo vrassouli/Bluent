@@ -450,6 +450,12 @@ This proves native design-library/schema parity only. It does not approve produc
 
 At file revision **842**, the source-owned file contains **45 TokenSets / 492 token entries**. Each Light/Dark mode theme activates 17 sets / 262 entries. These physical counts include the separate foundation, focus, accessibility and preview sets; the #418 logical color contract remains **16 source + 17 semantic + 13 component = 46 roles per mode**.
 
+### 2026-11-20 — current-revision native TokenSet audit
+
+The source-owned **Bluent v3 Design System** file advanced after the earlier visual-review snapshot. The repeatable read-only TokenSet audit was rerun against the current file and returned revision **883**: **1,285/1,285 assertions passed**, zero failures. It revalidated the 46 logical source/semantic/component roles, Light and Dark mode TokenSets, all 20 Brand×Mode themes, eight brand-palette roles per theme, and shared semantic/component preview aliases. The audit restored the user's previously active themes (**Light · Draft** and **default / light**).
+
+The older revision-842 physical inventory and revision-843 board-inspection records remain historical snapshots; they are not rewritten by this token-only re-audit. This result establishes current native TokenSet/schema alignment only. It does not approve page 45, page 55 exact values, production aliases, the public semantic allow-list, experimental public APIs, native OS accessibility or spoken AT. Page 45 remains **REVIEW REQUIRED** and page 55 remains **DRAFT**.
+
 ### 2026-11-17 — Windows cross-engine acceptance evidence
 
 The current isolated PR head ecce36cc52ae9903114c4c104c9b0a029e09c220 has **13/13 exact-head GitHub Actions SUCCESS**. On Windows 11 Pro / .NET 10.0.403 the Release solution build has 0 warnings/errors and tests pass **140/140**; Issue #418 review **13/13**, API ledger **8/8**, NuGet boundary **9/9**.

@@ -84,3 +84,16 @@ The opt-in helper now selects the last visible modal regardless of registration 
 Windows 11 Pro / .NET 10 local validation on the change: Release build with warnings as errors — 0 warnings / 0 errors; solution tests 140/140; #418 review contract 15/15; additive API ledger 8/8; Firefox 35/35 and Playwright WebKit 35/35, with no uncaught page errors. GitHub Actions were triggered for the new commit; the first Baseline Quality Gate attempt found six trailing-space hard breaks in this checkpoint file. Those trailing spaces are removed in the follow-up commit; exact-head CI must be re-read before claiming a full green run.
 
 This fixes a keyboard-ownership race in the opt-in prototype only. Native Narrator/NVDA/VoiceOver speech, native Windows Contrast Themes for Dialog/Popover, Safari.app, OS IME, and final Penpot/public API approval remain open. Issue #418 and PR #500 remain open; no stable branch, production CSS, NuGet package, release or deployment was changed.
+
+
+## Follow-up — native Penpot TokenSet audit rerun (2026-11-20)
+
+The canonical Penpot file **Bluent v3 Design System** (b64f6665-c9ab-80b5-8008-c4ac99d9d000) was re-audited at current file revision **883** using scripts/quality/penpot_v3_issue418_token_schema_audit.js.
+
+- **1,285/1,285 assertions passed; 0 failures.**
+- Confirmed 16 source + 17 semantic + 13 component roles, across Light and Dark.
+- Confirmed all 20 Brand×Mode preview themes, eight palette roles per theme, and the shared preview semantic/component alias sets.
+- The audit restored the two previously active themes: **Light · Draft** and **default / light**.
+- The older revision-843 broad board-inspection snapshot remains historical; this rerun specifically validates TokenSet/schema alignment at revision 883.
+
+This is not design-owner approval or an exact-value contrast approval. Page 45 remains **REVIEW REQUIRED**; page 55 remains **DRAFT**. Production token aliases, the public semantic allow-list, public Focus/Portal/Dialog API contracts, native Windows Contrast Themes, native Safari/VoiceOver, spoken NVDA/Narrator/VoiceOver, and Persian OS IME/caret/selection remain open. No product CSS/API activation, release, package publication, stable-branch change or deployment follows from this audit.
