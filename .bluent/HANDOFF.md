@@ -14,6 +14,13 @@ This file is the operational entry point for continuing the current Bluent work 
 - GitHub Project #5 keeps #418 **In progress**. PR #500 has only a **COMMENTED** review; no **APPROVED** review. Do not merge or mark Done until design, native OS/AT and public-contract gates are genuinely accepted. No stable Dev/main, 2.x assets, NuGet publication, release, production CSS activation or deployment is authorized by this work.
 
 
+### 2026-11-20 — #418 Dark-matrix flake correction (local, pre-push)
+
+The current working tree fixes the styling probe's Dark-state race by changing theme through the Blazor control (not DOM-only data-bui-theme mutation), waiting for the actual computed Dark surface/brand/direction, checking Word's opposite AlternateScope mode, and restoring Light through Blazor state. Local Dev01 results: Chrome/Server **1178/1178**, Chrome/WASM **1179/1179**, Edge/Server **1178/1178**, Edge/WASM **1179/1179**; focused Python regressions **61/61**; Release solution build **0 warnings / 0 errors**; solution tests **188/188**; v3 docs contract **0 findings**; Skills contract **0 errors**; Markdown links **237 files**. Exact command/evidence and limits are in docs/v3/quality/evidence/BLUENT-418-DARK-MATRIX-LOCAL-20261120.md.
+
+**Not yet verified:** pushed HEAD and its exact-head GitHub Actions, final Penpot/page-45 and page-55 approval, public token/API allow-list, native Windows Contrast Themes, spoken AT, native Safari and Persian OS IME/caret. Keep #418 In progress and do not merge PR #500 until those acceptance gates are resolved. #438 remains Backlog; no DateField implementation has started.
+
+
 ## Current Objective
 
 Complete [Issue #406](https://github.com/vrassouli/Bluent/issues/406): build and validate the canonical portable Bluent consumer skill from verified source, canonical documentation, examples, and runtime evidence.

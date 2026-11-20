@@ -171,6 +171,12 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
         self.assertIn("darkBrandForegroundFailures", browser)
         self.assertIn("Accessibility.getFullAXTree", browser)
         self.assertIn("complete dark brand foreground runtime matrix", browser)
+        self.assertIn("const ensureLabTheme = async mode =>", browser)
+        self.assertIn("await ensureLabTheme(mode);", browser)
+        self.assertIn("stable Dark source surface", browser)
+        self.assertIn('const nestedMode=mode==="dark"?"light":"dark";', browser)
+        self.assertIn('await ensureLabTheme("light");', browser)
+        self.assertNotIn("await sleep(220);", browser)
 
     def test_primary_text_on_brand_and_proposed_danger_remain_covered(self) -> None:
         self.assertEqual(self.report["currentDangerBelow4_5"], 10)

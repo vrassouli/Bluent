@@ -167,12 +167,23 @@ try {
  const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);};
  const combos=[];
  const darkBrandForegroundResults=[];
+ // Keep the theme under Blazor's ownership in both WASM and InteractiveServer.
+ // Directly mutating data-bui-theme can be undone by a delayed Server render.
+ const readLabTheme = () => cdp.js("(() => { const label = document.querySelector('#v3-lab-switch-theme')?.textContent?.trim() ?? ''; return label.includes('Switch to light') ? 'dark' : 'light'; })()");
+ const ensureLabTheme = async mode => {
+   const current = await readLabTheme();
+   if (current !== mode) {
+     await cdp.js("document.querySelector('#v3-lab-switch-theme')?.click()");
+     await until(async () => await readLabTheme() === mode, "Blazor theme callback " + mode, 12000);
+   }
+   await until(() => cdp.js("document.querySelector('.v3-lab-surface')?.dataset.buiTheme === " + JSON.stringify(mode)), "Blazor theme DOM " + mode, 12000);
+ };
  for(const [brand,modes] of Object.entries(matrix)) {
    const swap=await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));if(!l)return 'missing link';return await new Promise((resolve,reject)=>{const replacement=document.createElement('link');replacement.rel='stylesheet';replacement.href='_content/Bluent.UI/bluent.ui.theme."+brand+".min.css';replacement.onload=()=>{l.remove();resolve('ok');};replacement.onerror=()=>reject(Error('failed to load '+replacement.href));l.after(replacement);});})()");
    if(swap!=="ok"){assert("brand asset "+brand,false,String(swap));continue;}
    for(const mode of ["light","dark"]) {
      const expected=hexRgb(modes[mode].tokens["bluent.color.brandBackground"]);
-     await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='"+mode+"'");
+     await ensureLabTheme(mode);
      // Source tokens swap synchronously; the *painted* Button color can still
      // be mid-transition. Poll for the actual computed terminal color instead
      // of sampling an arbitrary animation frame (flaky on busy Windows CI).
@@ -181,7 +192,8 @@ try {
      const sample=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface');const b=document.querySelector('#v3-token-action');return {button:getComputedStyle(b).backgroundColor,text:getComputedStyle(b).color,scope:getComputedStyle(h).getPropertyValue('--bui-v3-button-background-primary').trim(),root:getComputedStyle(document.documentElement).getPropertyValue('--bui-v3-button-background-primary').trim(),nestedWord:getComputedStyle(document.querySelector('#v3-nested-brand-action')).backgroundColor,sourceBrand:getComputedStyle(h).getPropertyValue('--colorBrandBackground').trim(),sourceEnhanced:getComputedStyle(h).getPropertyValue('--colorBrandForeground2').trim(),sourceSurface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),sourceHover:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1Hover').trim(),brandCandidate:(() => {h.setAttribute('data-bui-v3-focus-brand-candidate','');const v=getComputedStyle(h).getPropertyValue('--v3-lab-focus').trim();h.removeAttribute('data-bui-v3-focus-brand-candidate');return v;})()};})()");
      combos.push({brand,mode,match:sample.button===expected,button:sample.button,expected});
      assert("brand "+brand+" "+mode+" on real Button",sample.button===expected,JSON.stringify(sample));
-     assert("Word nested host independent of global stylesheet "+brand+" "+mode,sample.nestedWord===hexRgb(matrix.word.dark.tokens["bluent.color.brandBackground"]),sample.nestedWord);
+     const nestedMode=mode==="dark"?"light":"dark"; // AlternateScope intentionally uses the opposite mode.
+     assert("Word nested host keeps its independent alternate theme " + brand + " " + mode,sample.nestedWord===hexRgb(matrix.word[nestedMode].tokens["bluent.color.brandBackground"]),JSON.stringify({nestedMode,actual:sample.nestedWord}));
      assert("primary Button text/source contrast "+brand+" "+mode,contrast(sample.button,sample.text)>=4.5,contrast(sample.button,sample.text).toFixed(3)+":1");
 
       if(mode==="dark") {
@@ -193,7 +205,10 @@ try {
         for(const direction of ["ltr","rtl"]) {
           const brandMutation=brand==="default"?"h.removeAttribute('data-bui-brand');":`h.setAttribute('data-bui-brand',${JSON.stringify(brand)});`;
           await cdp.js(`(()=>{const h=document.querySelector('.v3-lab-surface');${brandMutation}h.setAttribute('dir',${JSON.stringify(direction)});return true;})()`);
-          await sleep(220);
+          // Wait for the Blazor-owned theme plus the requested brand/direction
+          // to produce the real Dark surface; a fixed delay is not a render barrier.
+          await until(() => cdp.js("(() => {const h=document.querySelector('.v3-lab-surface');return h.dataset.buiTheme==='dark' && (h.getAttribute('data-bui-brand')||'default')===" + JSON.stringify(brand) + " && h.getAttribute('dir')===" + JSON.stringify(direction) + " && getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim().toLowerCase()===" + JSON.stringify(candidateSet.background.toLowerCase()) + ";})()"),
+            "stable Dark source surface " + brand + "/" + direction, 6500);
           const rendered=await cdp.js("(()=>{const h=document.querySelector('.v3-lab-surface'),button=document.querySelector('[data-testid=\"v3-brand-action-rest\"]'),text=button?.querySelector('.v3-brand-foreground-action'),links={linkRest:document.querySelector('[data-testid=\"v3-brand-link-rest\"]'),linkHover:document.querySelector('[data-testid=\"v3-brand-link-hover\"]'),linkPressed:document.querySelector('[data-testid=\"v3-brand-link-pressed\"]')};return {brand:h.getAttribute('data-bui-brand')||'default',dir:h.getAttribute('dir'),surface:getComputedStyle(h).getPropertyValue('--colorNeutralBackground1').trim(),buttonTag:button?.tagName,buttonName:button?.innerText?.trim(),buttonTextClass:!!text,linkTags:Object.fromEntries(Object.entries(links).map(([k,v])=>[k,v?.tagName||null])),rows:{action:text?getComputedStyle(text).color:null,linkRest:links.linkRest?getComputedStyle(links.linkRest).color:null,linkHover:links.linkHover?getComputedStyle(links.linkHover).color:null,linkPressed:links.linkPressed?getComputedStyle(links.linkPressed).color:null}};})()");
           assert(`rendered Dark candidate surface matches source ${brand}/${direction}`,rendered.surface.toLowerCase()===candidateSet.background.toLowerCase(),JSON.stringify({expected:candidateSet.background,actual:rendered.surface}));
           assert(`rendered Dark Action specimen is a real Bluent Button ${brand}/${direction}`,rendered.buttonTag==="BUTTON"&&rendered.buttonName==="Action · Rest"&&rendered.buttonTextClass,JSON.stringify(rendered));
@@ -260,7 +275,7 @@ try {
  // Restore the initial stylesheet and mode before using Blazor's real event
  // handlers. This ensures that client-side demo state remains the sole owner.
  await cdp.js("(async()=>{const l=[...document.querySelectorAll('link[rel=stylesheet]')].find(x=>x.href.includes('bluent.ui.theme.'));return await new Promise((resolve,reject)=>{const n=document.createElement('link');n.rel='stylesheet';n.href='_content/Bluent.UI/bluent.ui.theme.default.min.css';n.onload=()=>{l.remove();resolve(true);};n.onerror=()=>reject(Error('restore default failed'));l.after(n);});})()");
- await cdp.js("document.querySelector('.v3-lab-surface').dataset.buiTheme='light'");
+ await ensureLabTheme("light");
  // Simultaneous brand isolation: a live Blazor Excel Light host containing a
  // live Word Dark host. The document stylesheet remains the default brand.
  await cdp.js("Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Set main brand Excel'))?.click()");
