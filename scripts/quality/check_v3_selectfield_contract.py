@@ -303,6 +303,73 @@ def validate_native_windows_focus_evidence(root: Path = ROOT) -> list[str]:
 
     return problems
 
+
+def validate_nvda_spoken_evidence(root: Path = ROOT) -> list[str]:
+    evidence_path = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-NVDA-EDGE-SERVER.json"
+    if not evidence_path.is_file():
+        return [f"Missing NVDA spoken evidence JSON: {evidence_path.relative_to(root)}"]
+
+    try:
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return [f"Invalid NVDA spoken evidence JSON: {error}"]
+
+    problems: list[str] = []
+    environment = evidence.get("environment", {})
+    if environment.get("operatingSystem") != "Windows 11 Pro" or environment.get("hosting") != "Published Release output (Production)":
+        problems.append("NVDA spoken evidence must identify the tested Windows 11 published Release host")
+    if environment.get("screenReader") != "NVDA" or environment.get("screenReaderVersion") != "2026.3.0.58174":
+        problems.append("NVDA spoken evidence must identify the tested NVDA version (2026.3.0.58174)")
+    if environment.get("browser") != "Microsoft Edge" or environment.get("renderMode") != "InteractiveServer":
+        problems.append("NVDA spoken evidence must identify the tested Edge/InteractiveServer environment")
+    if "Speech Viewer" not in environment.get("captureMethod", ""):
+        problems.append("NVDA spoken evidence must identify Speech Viewer as the transcript capture method")
+
+    result = evidence.get("result", {})
+    if result.get("status") != "partial-pass":
+        problems.append("NVDA spoken evidence must retain its partial-pass scope")
+    cases = result.get("cases", [])
+    if not isinstance(cases, list):
+        cases = []
+    by_id = {case.get("id"): case for case in cases if isinstance(case, dict)}
+
+    department = by_id.get("single-select-accessible-name-and-help", {})
+    if (
+        department.get("automationId") != "select-department"
+        or department.get("windowsUiAutomationRole") != "combobox"
+        or department.get("focused") is not True
+        or "Department combo box Choose a department" not in department.get("speechViewerOutput", "")
+    ):
+        problems.append("NVDA evidence must retain the spoken Department name, combobox role and help text")
+
+    teams = by_id.get("multiple-select-accessible-name-and-help", {})
+    if (
+        teams.get("automationId") != "select-teams"
+        or teams.get("ariaSemantics") != "native listbox"
+        or teams.get("focused") is not True
+        or "Teams list Native listbox" not in teams.get("speechViewerOutput", "")
+        or "use the platform's modifier keys" not in teams.get("speechViewerOutput", "")
+    ):
+        problems.append("NVDA evidence must retain the spoken Teams native-listbox name and help text")
+
+    selection = by_id.get("multiple-selected-option-position", {})
+    if (
+        selection.get("automationId") != "select-teams"
+        or selection.get("selectedValues") != ["Engineering", "Product"]
+        or "Engineering 1 of 5" not in selection.get("speechViewerOutput", "")
+        or "Product 3 of 5" not in selection.get("speechViewerOutput", "")
+    ):
+        problems.append("NVDA evidence must retain both selected values and their announced positions")
+
+    limitations = result.get("limitations", [])
+    if not isinstance(limitations, list) or not any("HTTP 400" in item and "validation" in item.lower() for item in limitations):
+        problems.append("NVDA evidence must explicitly retain the unverified validation-announcement limitation")
+    if not any("VoiceOver" in item and "Narrator" in item for item in limitations):
+        problems.append("NVDA evidence must retain the untested Narrator/VoiceOver scope")
+
+    return problems
+
+
 def validate_ci_contract(browser_workflow: str, docs_workflow: str) -> list[str]:
     problems: list[str] = []
     if "  selectfield-contract:" not in browser_workflow:
@@ -384,6 +451,7 @@ def validate_repository(root: Path = ROOT) -> list[str]:
     problems += validate_evidence_files(root)
     problems += validate_culture_evidence_files(root)
     problems += validate_native_windows_focus_evidence(root)
+    problems += validate_nvda_spoken_evidence(root)
     return problems
 
 

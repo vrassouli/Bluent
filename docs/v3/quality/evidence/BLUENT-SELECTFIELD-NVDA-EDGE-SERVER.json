@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "testCommit": "855e81e44309003bfb4f05144e767848664f970c",
+  "environment": {
+    "operatingSystem": "Windows 11 Pro",
+    "browser": "Microsoft Edge",
+    "renderMode": "InteractiveServer",
+    "hosting": "Published Release output (Production)",
+    "route": "/compatibility/select-fields-server",
+    "screenReader": "NVDA",
+    "screenReaderVersion": "2026.3.0.58174",
+    "captureMethod": "NVDA Speech Viewer transcript retrieved through Windows UI Automation; this is not an audio recording."
+  },
+  "result": {
+    "status": "partial-pass",
+    "cases": [
+      {
+        "id": "single-select-accessible-name-and-help",
+        "automationId": "select-department",
+        "windowsUiAutomationRole": "combobox",
+        "focused": true,
+        "speechViewerOutput": "Department combo box Choose a department collapsed Native option and optgroup content stays in the browser control."
+      },
+      {
+        "id": "multiple-select-accessible-name-and-help",
+        "automationId": "select-teams",
+        "windowsUiAutomationRole": "list",
+        "ariaSemantics": "native listbox",
+        "focused": true,
+        "speechViewerOutput": "Teams list Native listbox; use the platform's modifier keys to select more than one item."
+      },
+      {
+        "id": "multiple-selected-option-position",
+        "automationId": "select-teams",
+        "selectedValues": [
+          "Engineering",
+          "Product"
+        ],
+        "speechViewerOutput": "Engineering 1 of 5; Product 3 of 5"
+      }
+    ],
+    "limitations": [
+      "The validation-error announcement was not verified. Activating the demo Save preference action in this UI Automation session resulted in an HTTP 400 response from the ordinary form POST; no validation speech conclusion is drawn from that run.",
+      "Narrator and VoiceOver spoken output were not tested.",
+      "Firefox, Safari, macOS, and mobile screen-reader/browser combinations were not tested.",
+      "This focused NVDA transcript is not an exhaustive assistive-technology audit or WCAG conformance certification."
+    ]
+  }
+}

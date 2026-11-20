@@ -13,6 +13,7 @@ from check_v3_selectfield_contract import (
     validate_source_contract,
     validate_ci_contract,
     validate_native_windows_focus_evidence,
+    validate_nvda_spoken_evidence,
 )
 
 
@@ -363,6 +364,93 @@ class SelectFieldNativeWindowsFocusEvidenceTests(unittest.TestCase):
             report_path.write_text(json.dumps(report), encoding="utf-8")
             errors = validate_native_windows_focus_evidence(root)
             self.assertTrue(any("restoration" in error for error in errors))
+
+
+class SelectFieldNvdaSpokenEvidenceTests(unittest.TestCase):
+    def _write_fixture(self, root: Path) -> None:
+        evidence_dir = root / "docs/v3/quality/evidence"
+        evidence_dir.mkdir(parents=True, exist_ok=True)
+        report = {
+            "schemaVersion": 1,
+            "environment": {
+                "operatingSystem": "Windows 11 Pro",
+                "hosting": "Published Release output (Production)",
+                "browser": "Microsoft Edge",
+                "renderMode": "InteractiveServer",
+                "screenReader": "NVDA",
+                "screenReaderVersion": "2026.3.0.58174",
+                "captureMethod": "NVDA Speech Viewer transcript retrieved through Windows UI Automation"
+            },
+            "result": {
+                "status": "partial-pass",
+                "cases": [
+                    {
+                        "id": "single-select-accessible-name-and-help",
+                        "automationId": "select-department",
+                        "windowsUiAutomationRole": "combobox",
+                        "focused": True,
+                        "speechViewerOutput": "Department combo box Choose a department collapsed"
+                    },
+                    {
+                        "id": "multiple-select-accessible-name-and-help",
+                        "automationId": "select-teams",
+                        "ariaSemantics": "native listbox",
+                        "focused": True,
+                        "speechViewerOutput": "Teams list Native listbox; use the platform's modifier keys to select more than one item."
+                    },
+                    {
+                        "id": "multiple-selected-option-position",
+                        "automationId": "select-teams",
+                        "selectedValues": ["Engineering", "Product"],
+                        "speechViewerOutput": "Engineering 1 of 5; Product 3 of 5"
+                    }
+                ],
+                "limitations": [
+                    "Validation announcement not verified because the test form POST returned HTTP 400.",
+                    "Narrator and VoiceOver spoken output were not tested."
+                ]
+            }
+        }
+        (evidence_dir / "BLUENT-SELECTFIELD-NVDA-EDGE-SERVER.json").write_text(
+            json.dumps(report), encoding="utf-8"
+        )
+
+    def test_valid_nvda_speech_viewer_evidence_is_accepted(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            self.assertEqual(validate_nvda_spoken_evidence(root), [])
+
+    def test_nvda_evidence_requires_department_spoken_name_and_help(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            path = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-NVDA-EDGE-SERVER.json"
+            report = json.loads(path.read_text(encoding="utf-8"))
+            report["result"]["cases"][0]["speechViewerOutput"] = "combobox"
+            path.write_text(json.dumps(report), encoding="utf-8")
+            self.assertTrue(any("Department name" in item for item in validate_nvda_spoken_evidence(root)))
+
+    def test_nvda_evidence_requires_both_announced_multi_select_positions(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            path = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-NVDA-EDGE-SERVER.json"
+            report = json.loads(path.read_text(encoding="utf-8"))
+            report["result"]["cases"][2]["selectedValues"] = ["Engineering"]
+            path.write_text(json.dumps(report), encoding="utf-8")
+            self.assertTrue(any("both selected values" in item for item in validate_nvda_spoken_evidence(root)))
+
+    def test_nvda_evidence_requires_validation_limitation_to_remain_explicit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._write_fixture(root)
+            path = root / "docs/v3/quality/evidence/BLUENT-SELECTFIELD-NVDA-EDGE-SERVER.json"
+            report = json.loads(path.read_text(encoding="utf-8"))
+            report["result"]["limitations"] = ["No other screen readers tested."]
+            path.write_text(json.dumps(report), encoding="utf-8")
+            self.assertTrue(any("validation-announcement limitation" in item for item in validate_nvda_spoken_evidence(root)))
+
 
 
 if __name__ == "__main__":
