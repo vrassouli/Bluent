@@ -2,7 +2,7 @@
 
 This file is the operational entry point for continuing the current Bluent work with Codex or another coding agent.
 
-## Active v3 foundation gate — #418 Design Tokens (refreshed 2026-11-20)
+## Active v3 foundation gate — #418 Design Tokens (refreshed 2026-11-21)
 
 - Dedicated branch: `v3/issue-418-design-tokens`; PR [#500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3` only and remains open/unmerged. Last product/runtime-validated HEAD: `90d1a4420799aeeb37deb955986f879e8191363e`; base: `6ad979ddda0b5a4da33f9cd1531f362e9d19a37a`. Subsequent docs/evidence-only commits: `2a4f932c` and `c29a6e2f`. Latest Penpot TokenSet audit at current revision **883** passed **1,285/1,285**. At the last exact-head CI poll for c29a6e2f: **6/13 workflows completed**, 11/54 check runs successful, zero failures; remaining jobs pending/in progress. The base synchronization used normal merge commit `3c66de242e6ba05a6dabe0c8338f1175a46cb7fc`; no rebase or force-push.
 - Exact-head GitHub Actions on product/runtime validation HEAD 90d1a4420799aeeb37deb955986f879e8191363e: **13/13 workflows and 30/30 checks successful**, zero failures and zero pending. This includes Token, Docs, Baseline, Package Boundary, Public Component Census, Button Runtime, Button Focus, Component Lab, Interaction Source, Real Browser Lab, Real Compatibility Browsers, Firefox Portal and WebKit Portal.
@@ -19,6 +19,11 @@ This file is the operational entry point for continuing the current Bluent work 
 The current working tree fixes two observed probe defects: (1) it no longer changes data-bui-theme directly in the DOM, and (2) after hosted Chrome/Server timed out on the component id click, it now finds and clicks the actual native button by its Switch-to-Light/Dark label, reads the rendered data-bui-theme as source of truth, and waits for the Blazor DOM update. It verifies the computed Dark surface/brand/direction, checks Word's opposite AlternateScope mode, and restores Light through the native button. Local Dev01 results: Chrome/Server **1178/1178**, Chrome/WASM **1179/1179**, Edge/Server **1178/1178**, Edge/WASM **1179/1179**; focused Python regressions **61/61**; Release solution build **0 warnings / 0 errors**; solution tests **188/188**; v3 docs contract **0 findings**; Skills contract **0 errors**; Markdown links **238 files**. Exact command/evidence and limits are in docs/v3/quality/evidence/BLUENT-418-DARK-MATRIX-LOCAL-20261120.md.
 
 **Not yet verified:** pushed HEAD and its exact-head GitHub Actions, final Penpot/page-45 and page-55 approval, public token/API allow-list, native Windows Contrast Themes, spoken AT, native Safari and Persian OS IME/caret. The native-button follow-up is locally verified in Chrome/Edge × InteractiveServer/WASM; push it and check exact-head Actions before proceeding. Keep #418 In progress and do not merge PR #500 until the remaining acceptance gates are resolved. #438 remains Backlog; no DateField implementation has started.
+
+### 2026-11-21 — #418 source namespace taxonomy review follow-up
+
+The `bluent.color.*` vs `bluent.source.*` distinction now has an explicit classification rule in `docs/v3/tokens/FOUNDATION-REVIEW-DECISIONS.md` and a fixed 9/7 name-to-CSS allow-list in `scripts/quality/test_v3_issue418_review_contract.py`. Local validation: #418 review contract 21/21, token contrast 13/13, token generator `--check`, 360-pair source contrast audit, docs contract 0 findings, Markdown links 239 files. This is documentation/contract hardening only: no schema, preview CSS, product CSS, public token or API promotion. Current dated checkpoint: `docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-21.md`. Keep #418 In progress and PR #500 open/unmerged until fresh exact-head CI and the remaining design/native/public-contract gates are accepted.
+
 
 
 ## Current Objective

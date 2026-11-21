@@ -15,7 +15,15 @@ The existing source layer deliberately retains two namespaces:
 
 Both groups resolve directly to existing source CSS variables. The prefixes distinguish the role contract, not whether one group is more native or more source-backed. A bluent.source.* role must not be generalized into an interchangeable foreground/background color merely because it is represented by a color value.
 
-The exact 9/7 membership is recorded in issue-418-token-schema.preview.json and guarded by test_v3_issue418_review_contract.py. Keep these aliases stable within this preview so the Penpot model and generated CSS do not drift. A future rename requires one coordinated Penpot TokenSet migration, schema/generator update, migration note, and separate public-vocabulary review.
+### Classification rule for future source roles
+
+Classify a source value as `bluent.color.*` only when its named role is a reusable palette primitive across consumers and its intended meaning is sufficiently expressed by the palette role itself. The role must not depend on a particular component, host surface, validation meaning, or interaction context that is not encoded in the role. Link Rest/Hover/Pressed remain in this namespace because they are three explicit, reusable palette roles; their state is part of each role's name and they must never be substituted for one another.
+
+Classify a source value as `bluent.source.*` when safe use depends on an additional consumer, surface, state, or semantic restriction. Examples in this registry are foreground-on-brand (requires a matching brand surface), accessible stroke (context-specific boundary use), Danger (not ordinary text on the tested Dark neutral surface), disabled foreground/background (disabled state only), the accessible red palette foreground (currently Label required-marker-only), and focus stroke (host/outline context). Keep those restrictions attached when the source is aliased by a semantic role; do not widen a consumer-specific approval by moving the source value into the general palette namespace.
+
+A new source entry must document its role, supported context, and known restrictions before it is classified. If the distinction cannot be justified from the role contract, fail review rather than choosing a namespace from the CSS variable name, color value, or contrast ratio alone. The classification describes taxonomy; it does not approve a semantic alias, consumer mapping, production CSS, or public token.
+
+The exact 9/7 membership is recorded in issue-418-token-schema.preview.json and guarded by test_v3_issue418_review_contract.py, including an explicit membership allow-list so a rename or namespace swap cannot pass merely by changing both the schema prefix and its policy list. Keep these aliases stable within this preview so the Penpot model and generated CSS do not drift. A future rename requires one coordinated Penpot TokenSet migration, schema/generator update, migration note, and separate public-vocabulary review.
 
 ## 2. Danger is not one interchangeable text role
 

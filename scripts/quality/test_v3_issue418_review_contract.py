@@ -15,13 +15,35 @@ class Issue418ReviewContractTests(unittest.TestCase):
         cls.layers = cls.data["layers"]
         cls.policy = cls.data["reviewPolicy"]
 
-    def test_source_namespace_membership_is_complete_and_exclusive(self):
-        source_names = {item["name"] for item in self.layers["source"]}
+    def test_source_namespace_membership_is_complete_exclusive_and_stable(self):
+        source = {item["name"]: item["css"] for item in self.layers["source"]}
+        source_names = set(source)
         policy = self.policy["sourceNamespacePolicy"]
-        self.assertEqual(set(policy["color"]), {name for name in source_names if name.startswith("bluent.color.")})
-        self.assertEqual(set(policy["source"]), {name for name in source_names if name.startswith("bluent.source.")})
-        self.assertEqual(len(policy["color"]), 9)
-        self.assertEqual(len(policy["source"]), 7)
+        expected_color = {
+            "bluent.color.background1": "--colorNeutralBackground1",
+            "bluent.color.foreground1": "--colorNeutralForeground1",
+            "bluent.color.foreground4": "--colorNeutralForeground4",
+            "bluent.color.brandBackground": "--colorBrandBackground",
+            "bluent.color.stroke1": "--colorNeutralStroke1",
+            "bluent.color.brandForeground1": "--colorBrandForeground1",
+            "bluent.color.brandForegroundLink": "--colorBrandForegroundLink",
+            "bluent.color.brandForegroundLinkHover": "--colorBrandForegroundLinkHover",
+            "bluent.color.brandForegroundLinkPressed": "--colorBrandForegroundLinkPressed",
+        }
+        expected_source = {
+            "bluent.source.onBrand": "--colorNeutralForegroundOnBrand",
+            "bluent.source.strokeAccessible": "--colorNeutralStrokeAccessible",
+            "bluent.source.dangerForeground": "--colorStatusDangerForeground1",
+            "bluent.source.foregroundDisabled": "--colorNeutralForegroundDisabled",
+            "bluent.source.backgroundDisabled": "--colorNeutralBackgroundDisabled",
+            "bluent.source.paletteRedForeground1": "--colorPaletteRedForeground1",
+            "bluent.source.focusStroke2": "--colorStrokeFocus2",
+        }
+        self.assertEqual(set(source), set(expected_color) | set(expected_source))
+        self.assertEqual({name: source[name] for name in expected_color}, expected_color)
+        self.assertEqual({name: source[name] for name in expected_source}, expected_source)
+        self.assertEqual(set(policy["color"]), set(expected_color))
+        self.assertEqual(set(policy["source"]), set(expected_source))
         self.assertEqual(set(policy["color"]) | set(policy["source"]), source_names)
         self.assertFalse(set(policy["color"]) & set(policy["source"]))
         self.assertIn("role contract", policy["rule"])
