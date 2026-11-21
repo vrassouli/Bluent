@@ -1,6 +1,6 @@
 # #418 consumer dependency audit — DateField
 
-**Date:** 2026-11-21  
+**Date:** 2026-11-21
 **Status:** Foundation review only · no DateField implementation · no token/API/CSS approval
 
 This audit uses the existing `DateField<TValue>` source as a downstream consumer to identify what the shared Bluent v3 foundation must settle before Issue #438 can enter implementation. It does **not** start or promote #438, redesign its public API, or claim that current v2 component behavior is accepted as the v3 target.
@@ -76,4 +76,3 @@ Before closing the foundation issue, confirm that the shared foundation contract
 - Board: #418 · Public token vocabulary & production alias policy · OPTION B SELECTED · RELEASE GATES OPEN — 388782f1-b766-8073-8008-f3299e849141
 
 The existing page remains PREVIEW ONLY. This source audit is not a Penpot design approval.
-
