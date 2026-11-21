@@ -480,3 +480,7 @@ Native Dev01 discovery: High Contrast White is selected but native HCF_HIGHCONTR
 ### 2026-11-21 DateField Foundation Dependency Guard
 
 A consumer audit may propose a semantic validation-text role but must not add it to the 17-role preview inventory or use either the Label-only text.dangerAccessible or non-text-only status.danger for readable validation messages. Component-owned DateField fixes stay in #438. See docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md.
+
+### 2026-11-21 — shared validation-message source audit
+
+The current .validation-message source rule in _field.scss uses --colorPaletteRedForeground1. python scripts/quality/audit_v3_validation_text_contrast.py verifies that selector and all 20 themes against NeutralBackground1/2/3 (60/60 normal-text pairs; minimum 5.2036:1). This evidence is limited to those neutral surfaces. It does not approve a new semantic/public token, expand Label's required-marker-only text.dangerAccessible, or certify brand/inverted hosts, native High Contrast or spoken AT. The tentative semantic.text.validation name remains unapproved. See DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md.

@@ -311,8 +311,8 @@ class Issue418ReviewContractTests(unittest.TestCase):
     def test_datefield_consumer_audit_keeps_validation_semantic_review_only(self):
         audit_path = ROOT / "docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md"
         audit = audit_path.read_text(encoding="utf-8-sig")
-        self.assertIn("semantic.text.validation", audit)
-        self.assertIn("do not add this role to the current 17-role schema", audit)
+        self.assertIn("tentatively semantic.text.validation", audit)
+        self.assertIn("do not add a role to the current 17-role schema", audit)
         self.assertIn("text.dangerAccessible", audit)
         self.assertIn("Label-only", audit)
         self.assertIn("status.danger", audit)
@@ -320,6 +320,10 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn("DateClass", audit)
         self.assertIn("YearSelect", audit)
         self.assertIn("DateField #438", audit)
+        self.assertIn(".validation-message", audit)
+        self.assertIn("colorPaletteRedForeground1", audit)
+        self.assertIn("60/60 pairs pass 4.5:1", audit)
+        self.assertIn("audit_v3_validation_text_contrast.py", audit)
 
         semantic_names = {item["name"] for item in self.layers["semantic"]}
         self.assertEqual(len(semantic_names), 17)

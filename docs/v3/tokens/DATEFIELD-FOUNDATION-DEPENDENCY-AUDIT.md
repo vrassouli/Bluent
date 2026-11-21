@@ -30,20 +30,22 @@ Source reviewed: DateField.razor, DateField.razor.cs, DateFieldPicker.razor, Cal
 | Forced colors | Field text/borders, focus indicator, disabled affordances and calendar selection must remain perceivable when the OS overrides colors. | Browser emulation is useful regression evidence but does not close the still-open native Windows Contrast Themes / AT acceptance gate. |
 | Direction and locale | The numeric date-entry string is intentionally LTR; surrounding labels/layout and the calendar surface must work in RTL and culture-specific calendars. | Shared logical spacing/layout and theme foundations must not force the whole component LTR. Persian IME/caret and native locale/accessibility evidence remain open. |
 
-## Open semantic gap: readable validation text
+## Existing validation source and open semantic decision
 
-A validation message is ordinary readable text. It cannot inherit the narrow approval for semantic.text.dangerAccessible (the decorative required marker owned by Label #430), nor can it use semantic.status.danger (non-text indicator use only on the studied neutral surface).
+The current shared field stylesheet already defines the .validation-message selector with color var(--colorPaletteRedForeground1). This is the existing source-color path used by the standard Blazor ValidationMessage CSS class; it is not an absent implementation or a new color proposal. The same Fluent source variable is present in the #418 source layer as bluent.source.paletteRedForeground1, but the current semantic alias bluent.semantic.text.dangerAccessible is explicitly Label required-marker-only.
 
-A **provisional concept** for maintainer review is a separate semantic text-validation foreground, tentatively named `semantic.text.validation`. The name and mapping are intentionally not settled. `colorPaletteRedForeground1` is a possible source candidate; the currently recorded 5.204:1 result is only a specific Dark neutral-surface pair, not proof across all 10 brands, Light/Dark modes, component backgrounds or state combinations.
+A reproducible source audit now checks that selector and measures the existing variable against colorNeutralBackground1, colorNeutralBackground2 and colorNeutralBackground3 in all ten brands × Light/Dark themes: python scripts/quality/audit_v3_validation_text_contrast.py. Current results: **60/60 pairs pass 4.5:1**; minimum **5.204:1**. Light themes use #bc2f32 (minimum 5.364:1 across the three neutral surfaces); Dark themes use #e37d80 (minimum 5.204:1). This confirms the existing source path on those measured neutral surfaces only. It does not prove contrast on brand/inverted/custom consumer hosts or native forced-colors surfaces.
 
-Before any role is added to the preview schema or emitted CSS, the review must establish:
+The remaining semantic decision is whether to add a separately named role, tentatively semantic.text.validation, that aliases this existing source role with an explicitly limited validation-message consumer contract. It is not approved yet. Do not widen semantic.text.dangerAccessible beyond Label #430, and do not use semantic.status.danger for readable text; the latter remains non-text-only on the studied neutral surface. A separate alias must not be introduced merely to rename the existing source implementation.
 
-1. the role's semantic name and whether validation text is its exclusive or broader consumer scope;
-2. source mapping and contrast against every supported validation-message surface across 10 brands × Light/Dark, with a normal-text target of at least 4.5:1;
-3. whether disabled, high-contrast and forced-colors cases use the system palette or another established source path;
-4. actual component consumer review and editable design approval.
+Before any semantic role is added to the preview schema or emitted CSS, the review must establish:
 
-Until then, do not add this role to the current 17-role schema, public allow-list, generator, CSS or package. Keep the existing Label-only and non-text Danger boundaries unchanged. This is a review dependency for #418, not an approved token or implementation direction.
+1. the role name and whether it is exclusive to validation messages or covers a broader error-text consumer contract;
+2. that the existing source mapping remains appropriate, with contrast review extended to every supported validation-message host/surface across 10 brands × Light/Dark and a normal-text target of at least 4.5:1;
+3. whether disabled, high-contrast and forced-colors cases use system colors or another established source path;
+4. actual consumer review and editable design approval.
+
+Until then, do not add a role to the current 17-role schema, public allow-list, generator, CSS or package. Keep the existing Label-only and non-text Danger boundaries unchanged. This remains a review dependency for #418, not an approved token or implementation direction.
 
 ## Explicitly deferred to DateField #438
 

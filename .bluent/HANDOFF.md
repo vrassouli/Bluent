@@ -302,3 +302,7 @@ Keep Issue #418 In progress and PR #500 open/unmerged. Native Contrast Themes, s
 ### 2026-11-21 — DateField consumer dependency audit
 
 A downstream-source audit for DateField was added to #418 without starting #438. It isolates the shared foundation work (field text/disabled/optional placeholder, readable validation text, field/action focus distinction, calendar/Popover surface and overlay-theme ownership, reduced motion, forced colors and RTL) from DateField-owned work (DateClass forwarding, text-entry Min/Max, YearSelect parsing, trigger accessible name and calendar keyboard behavior). The provisional validation-text semantic is not in the 17-role schema or CSS. See docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md and the review-only consumer note in PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md. #438 remains Backlog; no DateField source/API/demo was changed.
+
+### 2026-11-21 follow-up — validation text source evidence
+
+Correction to the DateField dependency checkpoint: the existing shared _field.scss rule already styles .validation-message with --colorPaletteRedForeground1. New fail-closed audit scripts/quality/audit_v3_validation_text_contrast.py checks the selector plus 20 brand/mode themes × 3 neutral surfaces: 60/60 at or above 4.5:1, measured minimum 5.2036:1. A separately named semantic.text.validation remains only a candidate for maintainer naming/consumer review; it is not in the 17-role schema and no production CSS changed. Brand/inverted/custom hosts and native forced-colors/AT remain unverified.
