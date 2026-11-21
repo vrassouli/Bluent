@@ -308,6 +308,18 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertNotIn("| Source namespace | Internal implementation mapping | Pending |", table)
 
 
+    def test_validation_text_audit_runs_in_the_token_contract_workflow(self):
+        workflow_path = ROOT / ".github/workflows/v3-token-contract.yml"
+        workflow = workflow_path.read_text(encoding="utf-8")
+        for required in (
+            "scripts/quality/audit_v3_validation_text_contrast.py",
+            "scripts/quality/test_v3_validation_text_contrast.py",
+            "scripts/quality/test_v3_issue418_review_contract.py",
+            "src/Bluent.UI/Styles/Components/_field.scss",
+            "docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md",
+        ):
+            self.assertIn(required, workflow)
+
     def test_datefield_consumer_audit_keeps_validation_semantic_review_only(self):
         audit_path = ROOT / "docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md"
         audit = audit_path.read_text(encoding="utf-8-sig")
