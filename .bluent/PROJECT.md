@@ -21,6 +21,8 @@ Local verification recorded for the delegated-decision checkpoint: full Python q
 **#434 Checkbox — Done:** Project #5 now records Done; its v3 implementation, reference, demo/QA artifacts and task Skill are present on `bluent-v3`. The earlier 2.x mixed-state and 30-vs-12 Fluent audit below is historical input to the accepted component work, not its current status.
 **#435 Switch — Done; #436 RadioGroup — Done; #437 SelectField — Done:** all three are recorded Done in Project #5 and their v3 implementation/evidence now exists on the current `bluent-v3` base. Their family-specific acceptance does not approve the global #418 production token/API decisions.
 **#438 DateField — Backlog:** source audit has identified DateClass propagation, typed Min/Max enforcement, YearSelect parsing/mask consistency and calendar-trigger accessible naming gaps. No DateField v3 implementation has started; it remains gated by #418 and its own Ready/design acceptance.
+
+DateField's downstream Foundation dependencies are now recorded in [the #418 consumer audit](../docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md) and linked from Penpot page 52 (comment #5). The separate readable validation-text semantic remains a review candidate only; #438 stays Backlog, with no component/API work started.
 **#421 Component Lab:** platform slice accepted/merged; Project #5 remains In Progress for the wider 66-family ledger. Its 18 representative Lab specimens are not a count of final accepted families and must not be used to infer per-family completion.
 
 No v3 work in this checkpoint changes stable `Dev`, `main`, released 2.x assets, NuGet packages or deployments.

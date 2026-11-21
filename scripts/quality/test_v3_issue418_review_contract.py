@@ -308,5 +308,21 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertNotIn("| Source namespace | Internal implementation mapping | Pending |", table)
 
 
+    def test_datefield_consumer_audit_keeps_validation_semantic_review_only(self):
+        audit_path = ROOT / "docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md"
+        audit = audit_path.read_text(encoding="utf-8-sig")
+        self.assertIn("semantic.text.validation", audit)
+        self.assertIn("do not add this role to the current 17-role schema", audit)
+        self.assertIn("text.dangerAccessible", audit)
+        self.assertIn("Label-only", audit)
+        self.assertIn("status.danger", audit)
+        self.assertIn("non-text", audit)
+        self.assertIn("DateClass", audit)
+        self.assertIn("YearSelect", audit)
+        self.assertIn("DateField #438", audit)
+
+        semantic_names = {item["name"] for item in self.layers["semantic"]}
+        self.assertEqual(len(semantic_names), 17)
+        self.assertNotIn("bluent.semantic.text.validation", semantic_names)
 if __name__ == "__main__":
     unittest.main()

@@ -100,3 +100,7 @@ This inventory makes the Option B per-role boundary explicit against the 17 sema
 - Link #431 is accepted, but it uses existing CSS variables. It did not approve the new semantic Link aliases.
 - Page 55's 40/40 opaque-pair preview pass is evidence for the four named Dark roles on the studied neutral surface only. It is not exact-value approval, component-state approval, or native OS/AT certification.
 - This review inventory recommends a small candidate set; it does not update reviewPolicy.selectedDecisions.publicTokenVocabulary.productionApproval, ship aliases, or change CSS/API. The final allow-list and production promotion remain open.
+
+## 2026-11-21 DateField consumer dependency — review only
+
+The source-backed [DateField foundation dependency audit](DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md) is added as a downstream-consumer review for #418. It identifies shared field text/disabled/placeholder, readable validation text, focus boundaries, calendar/Popover surfaces and ownership, reduced motion, forced colors, RTL and locale foundations. It proposes only a **provisional, unapproved** separate validation-text semantic concept; text.dangerAccessible remains Label required-marker-only and status.danger remains non-text-only. The current 17-role preview schema and production/public token allow-list are unchanged. DateClass, typed Min/Max, YearSelect parsing, calendar trigger naming and picker keyboard work remain exclusively in DateField #438.

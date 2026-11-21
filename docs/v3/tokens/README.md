@@ -476,3 +476,7 @@ Dev01 local verification on the current working tree: Release solution build 0 w
 The 17-role semantic inventory in [PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md](PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md) distinguishes selected Option B architecture from the still-pending per-role public allow-list. Suggested first-wave candidates are text.primary, text.disabled and text.placeholder; this is a review proposal, not an approved production API. Danger remains narrowly scoped and Link component acceptance does not promote new semantic Link aliases.
 
 Native Dev01 discovery: High Contrast White is selected but native HCF_HIGHCONTRASTON is false; NVDA 2026.3 is running, but no speech output was captured. Native Windows Contrast Themes, spoken screen-reader output, Safari.app and Persian OS IME/caret/selection remain open. Penpot TokenSet audit is current at revision 883 (1,285/1,285), but page 45 remains REVIEW REQUIRED and page 55 remains DRAFT. No production CSS/API, NuGet package, stable branch or deployment changed.
+
+### 2026-11-21 DateField Foundation Dependency Guard
+
+A consumer audit may propose a semantic validation-text role but must not add it to the 17-role preview inventory or use either the Label-only text.dangerAccessible or non-text-only status.danger for readable validation messages. Component-owned DateField fixes stay in #438. See docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md.
