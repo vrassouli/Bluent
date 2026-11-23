@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from audit_v3_validation_text_contrast import BACKGROUNDS, DIAGNOSTIC_BACKGROUNDS, audit_validation_text, contrast_ratio, parse_theme_values
+from audit_v3_validation_text_contrast import BACKGROUNDS, DIAGNOSTIC_BACKGROUNDS, NON_OPAQUE_BACKGROUNDS, OPAQUE_BACKGROUNDS, audit_validation_text, contrast_ratio, discover_background_tokens, parse_theme_values
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -32,8 +32,28 @@ class ValidationTextContrastAuditTests(unittest.TestCase):
 
     def test_diagnostic_host_matrix_records_unsupported_surface_contexts(self):
         report = audit_validation_text(ROOT)
+        self.assertEqual(report["opaqueBackgroundTokens"], 112)
+        self.assertEqual(report["diagnosticSurfacesPerCombination"], 109)
         self.assertEqual(report["diagnosticSurfacesPerCombination"], len(DIAGNOSTIC_BACKGROUNDS))
         self.assertEqual(report["diagnosticContrastPairs"], 20 * len(DIAGNOSTIC_BACKGROUNDS))
+        self.assertEqual(report["diagnosticContrastPairs"], 2180)
+        self.assertEqual(
+            sum(item["passingPairs"] for item in report["diagnosticSummaries"].values()),
+            834,
+        )
+        self.assertEqual(
+            sum(item["passingPairs"] == 20 for item in report["diagnosticSummaries"].values()),
+            26,
+        )
+        self.assertEqual(
+            sum(item["passingPairs"] == 0 for item in report["diagnosticSummaries"].values()),
+            51,
+        )
+        self.assertEqual(
+            sum(0 < item["passingPairs"] < 20 for item in report["diagnosticSummaries"].values()),
+            32,
+        )
+        self.assertEqual(report["nonOpaqueBackgroundsExcludedFromArithmetic"], list(NON_OPAQUE_BACKGROUNDS))
         summaries = report["diagnosticSummaries"]
         self.assertEqual(summaries["colorBrandBackground"]["passingPairs"], 0)
         self.assertEqual(summaries["colorBrandBackground"]["minimum"], 1.0027)
@@ -46,6 +66,40 @@ class ValidationTextContrastAuditTests(unittest.TestCase):
         # the separately scoped neutral host audit fail.
         self.assertTrue(report["pass"])
         self.assertEqual(report["failures"], [])
+
+    def test_background_inventory_mismatch_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "theme-a-light.css").write_text(
+                ":root { --colorNeutralBackground1: #ffffff; }", encoding="utf-8"
+            )
+            (root / "theme-b-light.css").write_text(
+                ":root { --colorNeutralBackground1: #ffffff; --colorBrandBackground: #000000; }",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "inventory differs"):
+                discover_background_tokens(root)
+
+    def test_background_opaque_format_mismatch_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "theme-a-light.css").write_text(
+                ":root { --colorNeutralBackground1: #ffffff; }", encoding="utf-8"
+            )
+            (root / "theme-b-light.css").write_text(
+                ":root { --colorNeutralBackground1: rgba(255, 255, 255, .5); }",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "mix opaque hex and non-hex"):
+                discover_background_tokens(root)
+
+    def test_every_theme_has_the_same_background_inventory(self):
+        opaque, non_opaque = discover_background_tokens(ROOT / "src/Bluent.UI/Styles/Themes")
+        self.assertEqual(opaque, OPAQUE_BACKGROUNDS)
+        self.assertEqual(non_opaque, NON_OPAQUE_BACKGROUNDS)
+        self.assertEqual(len(opaque), 112)
+        self.assertEqual(len(non_opaque), 16)
+        self.assertTrue(set(BACKGROUNDS).issubset(opaque))
 
     def test_contrast_ratio_matches_known_wcag_examples(self):
         self.assertAlmostEqual(contrast_ratio("#000000", "#ffffff"), 21.0, places=4)

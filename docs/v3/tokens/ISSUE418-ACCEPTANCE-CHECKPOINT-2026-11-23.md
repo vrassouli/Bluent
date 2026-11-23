@@ -14,8 +14,9 @@
 The shared `.validation-message` rule in `src/Bluent.UI/Styles/Components/_field.scss` already uses `--colorPaletteRedForeground1`. This follow-up does not add a semantic token or change production styles. It makes the existing evidence more explicit about where this foreground is and is not safe.
 
 - Formal neutral-base audit: **60/60** pairs across 10 brands × Light/Dark × Neutral Background 1/2/3 pass the 4.5:1 normal-text threshold. Minimum: **5.2036:1**.
-- Additional diagnostic audit: **200** pairs across 10 representative non-neutral / interaction-state surfaces × 20 brand/mode themes. These diagnostics are reported separately and do not affect the neutral-base pass/fail result.
-- Representative boundaries: Brand Background **0/20**, min **1.0027:1**; Neutral Background Inverted **0/20**, min **2.4877:1**; Palette Red Background 2 **0/20**, min **3.5017:1**. Palette Red Background 1 is **20/20**, min **5.4831:1**. Surface role/state matters; the existing source color is not a context-free validation-text foreground.
+- Source inventory: **112 common opaque background tokens** across all 20 themes; 3 are the formal neutral-base surfaces and the remaining **109 × 20 = 2,180** pairs are diagnostic only. Sixteen non-opaque/alpha/transparent backgrounds are reported separately and excluded from simple arithmetic because their effective color depends on compositing.
+- Diagnostic aggregate: **834/2,180** pairs meet 4.5:1; 26 surfaces pass in all 20 themes, 51 fail in all 20 and 32 are mixed. This diagnostic does not affect the neutral-base pass/fail result.
+- Representative boundaries: Brand Background **0/20**, min **1.0027:1**; Neutral Background Inverted **0/20**, min **2.4877:1**; Palette Red Background 2 **0/20**, min **3.5017:1**; Danger Background 3 **0/20**, min **1.0372:1**. Palette Red Background 1 is **20/20**, min **5.4831:1**; Neutral Background 2 Hover is **20/20**, min **4.5192:1**. Surface role/state matters; the existing source color is not a context-free validation-text foreground.
 - Any future `semantic.text.validation` proposal must name its permitted host surfaces and define behavior on unsupported brand, inverted and stateful surfaces. It remains outside the 17-role preview schema, public allow-list and production CSS.
 
 Commands and local results:

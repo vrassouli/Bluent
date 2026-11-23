@@ -40,22 +40,39 @@ The remaining semantic decision is whether to add a separately named role, tenta
 
 ### 2026-11-23 host-surface diagnostics — scope boundary, not a new token
 
-The existing contrast audit now keeps its 60 neutral-base pairs as the pass/fail gate and adds a separate diagnostic matrix of 200 pairs (10 representative non-neutral or interaction-state backgrounds × 20 brand/mode themes). Diagnostic failures are reported but intentionally do not fail the neutral-base gate. Results include:
+The existing contrast audit keeps its 60 neutral-base pairs as the formal pass/fail gate and now adds an exhaustive diagnostic matrix over every common opaque six-digit-hex background token in all 20 brand/mode themes. It discovers **112 opaque background tokens** in the source themes; the three formal neutral-base surfaces are excluded from the diagnostic subset, leaving **109 diagnostic surfaces × 20 themes = 2,180 pairs**. Diagnostic failures are reported but intentionally do not fail the neutral-base gate.
+
+| Diagnostic inventory | Result |
+| --- | ---: |
+| Neutral base acceptance pairs | 60/60 pass; minimum 5.2036:1 |
+| Opaque source backgrounds | 112 total (3 formal neutral bases + 109 diagnostic surfaces) |
+| Diagnostic opaque surface pairs | 2,180 |
+| Diagnostic pairs meeting 4.5:1 | 834/2,180 |
+| Diagnostic surfaces passing in all 20 themes | 26 |
+| Diagnostic surfaces failing in all 20 themes | 51 |
+| Diagnostic surfaces passing in some, but not all, themes | 32 |
+| Non-opaque / alpha / transparent backgrounds excluded from opaque arithmetic | 16 |
+
+Representative contexts:
 
 | Background context | Passing pairs | Minimum contrast | Interpretation |
 | --- | ---: | ---: | --- |
-| Neutral Background 1/2/3 (base surfaces) | 60/60 | 5.2036:1 | Existing supported numeric evidence for the neutral-base scope only |
-| Neutral Background 1 Hover | 10/20 | 3.8852:1 | State-dependent host; not a general validation-text surface |
+| Neutral Background 1 Hover | 10/20 | 3.8852:1 | State-dependent host; fails in half the themes |
+| Neutral Background 2 Hover | 20/20 | 4.5192:1 | This particular opaque surface passes in all themes |
 | Neutral Background Inverted | 0/20 | 2.4877:1 | Fails the normal-text target in every theme |
-| Brand Background | 0/20 | 1.0027:1 | Fails the normal-text target in every theme |
+| Neutral Background Static | 0/20 | 2.1605:1 | Fails in every theme |
+| Brand Background | 0/20 | 1.0027:1 | Fails in every theme |
 | Brand Background 2 | 10/20 | 4.0266:1 | Fails in half of the themes |
-| Status Danger Background 1 | 20/20 | 5.3755:1 | This particular light danger surface passes; it does not generalize to other danger states |
-| Palette Red Background 1 | 20/20 | 5.4831:1 | This particular light palette surface passes |
+| Danger Background 1 | 20/20 | 5.3755:1 | This particular lighter danger surface passes; it does not generalize to Danger 2/3 |
+| Danger Background 3 | 0/20 | 1.0372:1 | Fails in every theme |
+| Palette Red Background 1 | 20/20 | 5.4831:1 | This particular lighter palette surface passes |
 | Palette Red Background 2 | 0/20 | 3.5017:1 | Fails in every theme |
 
-This rules out describing the existing source color as a context-free validation-text foreground for arbitrary hosts. If a separate `semantic.text.validation` alias is considered, its consumer contract must state the allowed host/surface and what happens on brand, inverted, interactive-state and other unsupported backgrounds. The current evidence supports only the three neutral base surfaces measured above; no automatic host detection or universal fallback is established. The name remains a review candidate, not a schema entry, public allow-list member or CSS alias.
+The 16 non-opaque backgrounds are listed separately in the JSON report. Alpha, transparent, and other non-hex backgrounds are not assigned an opaque-pair ratio because their effective contrast depends on the rendered pixels beneath them. The audit fails closed if themes have different background-name inventories or mix opaque-hex and non-hex values for a background token.
 
-The reproducible command remains `python scripts/quality/audit_v3_validation_text_contrast.py`. Its JSON report exposes the diagnostic summaries separately from the neutral-surface `pass` result. These are opaque-color arithmetic checks, not rendered/native OS or assistive-technology acceptance.
+This exhaustive source matrix rules out describing the existing source color as a context-free validation-text foreground for arbitrary hosts. If a separate `semantic.text.validation` alias is considered, its consumer contract must state the permitted host/surface and what happens on unsupported brand, inverted, interactive-state, alpha and composited surfaces. The current formal evidence supports only the three neutral base surfaces; no automatic host detection or universal fallback is established. The name remains a review candidate, not a schema entry, public allow-list member or CSS alias.
+
+The reproducible command remains `python scripts/quality/audit_v3_validation_text_contrast.py`. Its JSON report exposes the 60-pair neutral pass/fail gate separately from the exhaustive 2,180-pair diagnostic matrix. These are source-backed opaque-color arithmetic checks, not rendered/native OS, alpha-compositing, custom-host or assistive-technology acceptance.
 
 Before any semantic role is added to the preview schema or emitted CSS, the review must establish:
 
