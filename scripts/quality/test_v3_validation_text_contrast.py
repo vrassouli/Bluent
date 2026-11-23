@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from audit_v3_validation_text_contrast import BACKGROUNDS, audit_validation_text, contrast_ratio, parse_theme_values
+from audit_v3_validation_text_contrast import BACKGROUNDS, DIAGNOSTIC_BACKGROUNDS, audit_validation_text, contrast_ratio, parse_theme_values
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -29,6 +29,23 @@ class ValidationTextContrastAuditTests(unittest.TestCase):
         self.assertEqual(len(pairs), 60)
         self.assertTrue(all(ratio > 0 for _, _, ratio in pairs))
         self.assertTrue(all(surface in BACKGROUNDS for _, surface, _ in pairs))
+
+    def test_diagnostic_host_matrix_records_unsupported_surface_contexts(self):
+        report = audit_validation_text(ROOT)
+        self.assertEqual(report["diagnosticSurfacesPerCombination"], len(DIAGNOSTIC_BACKGROUNDS))
+        self.assertEqual(report["diagnosticContrastPairs"], 20 * len(DIAGNOSTIC_BACKGROUNDS))
+        summaries = report["diagnosticSummaries"]
+        self.assertEqual(summaries["colorBrandBackground"]["passingPairs"], 0)
+        self.assertEqual(summaries["colorBrandBackground"]["minimum"], 1.0027)
+        self.assertEqual(summaries["colorNeutralBackgroundInverted"]["passingPairs"], 0)
+        self.assertEqual(summaries["colorNeutralBackgroundInverted"]["minimum"], 2.4877)
+        self.assertEqual(summaries["colorPaletteRedBackground1"]["passingPairs"], 20)
+        self.assertGreaterEqual(summaries["colorPaletteRedBackground1"]["minimum"], 4.5)
+        self.assertEqual(summaries["colorPaletteRedBackground2"]["passingPairs"], 0)
+        # Diagnostic failures document the use boundary; they must not make
+        # the separately scoped neutral host audit fail.
+        self.assertTrue(report["pass"])
+        self.assertEqual(report["failures"], [])
 
     def test_contrast_ratio_matches_known_wcag_examples(self):
         self.assertAlmostEqual(contrast_ratio("#000000", "#ffffff"), 21.0, places=4)

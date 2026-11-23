@@ -357,7 +357,17 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertIn(".validation-message", audit)
         self.assertIn("colorPaletteRedForeground1", audit)
         self.assertIn("60/60 pairs pass 4.5:1", audit)
+        self.assertIn("200 pairs", audit)
+        self.assertIn("Brand Background", audit)
+        self.assertIn("Neutral Background Inverted", audit)
+        self.assertIn("Palette Red Background 2", audit)
+        self.assertIn("no automatic host detection or universal fallback", audit)
         self.assertIn("audit_v3_validation_text_contrast.py", audit)
+
+        validator = (ROOT / "scripts/quality/audit_v3_validation_text_contrast.py").read_text(encoding="utf-8")
+        self.assertIn("DIAGNOSTIC_BACKGROUNDS", validator)
+        self.assertIn("diagnosticSummaries", validator)
+        self.assertIn("do not affect the neutral-surface pass/fail result", validator)
 
         semantic_names = {item["name"] for item in self.layers["semantic"]}
         self.assertEqual(len(semantic_names), 17)

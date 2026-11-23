@@ -38,6 +38,25 @@ A reproducible source audit now checks that selector and measures the existing v
 
 The remaining semantic decision is whether to add a separately named role, tentatively semantic.text.validation, that aliases this existing source role with an explicitly limited validation-message consumer contract. It is not approved yet. Do not widen semantic.text.dangerAccessible beyond Label #430, and do not use semantic.status.danger for readable text; the latter remains non-text-only on the studied neutral surface. A separate alias must not be introduced merely to rename the existing source implementation.
 
+### 2026-11-23 host-surface diagnostics — scope boundary, not a new token
+
+The existing contrast audit now keeps its 60 neutral-base pairs as the pass/fail gate and adds a separate diagnostic matrix of 200 pairs (10 representative non-neutral or interaction-state backgrounds × 20 brand/mode themes). Diagnostic failures are reported but intentionally do not fail the neutral-base gate. Results include:
+
+| Background context | Passing pairs | Minimum contrast | Interpretation |
+| --- | ---: | ---: | --- |
+| Neutral Background 1/2/3 (base surfaces) | 60/60 | 5.2036:1 | Existing supported numeric evidence for the neutral-base scope only |
+| Neutral Background 1 Hover | 10/20 | 3.8852:1 | State-dependent host; not a general validation-text surface |
+| Neutral Background Inverted | 0/20 | 2.4877:1 | Fails the normal-text target in every theme |
+| Brand Background | 0/20 | 1.0027:1 | Fails the normal-text target in every theme |
+| Brand Background 2 | 10/20 | 4.0266:1 | Fails in half of the themes |
+| Status Danger Background 1 | 20/20 | 5.3755:1 | This particular light danger surface passes; it does not generalize to other danger states |
+| Palette Red Background 1 | 20/20 | 5.4831:1 | This particular light palette surface passes |
+| Palette Red Background 2 | 0/20 | 3.5017:1 | Fails in every theme |
+
+This rules out describing the existing source color as a context-free validation-text foreground for arbitrary hosts. If a separate `semantic.text.validation` alias is considered, its consumer contract must state the allowed host/surface and what happens on brand, inverted, interactive-state and other unsupported backgrounds. The current evidence supports only the three neutral base surfaces measured above; no automatic host detection or universal fallback is established. The name remains a review candidate, not a schema entry, public allow-list member or CSS alias.
+
+The reproducible command remains `python scripts/quality/audit_v3_validation_text_contrast.py`. Its JSON report exposes the diagnostic summaries separately from the neutral-surface `pass` result. These are opaque-color arithmetic checks, not rendered/native OS or assistive-technology acceptance.
+
 Before any semantic role is added to the preview schema or emitted CSS, the review must establish:
 
 1. the role name and whether it is exclusive to validation messages or covers a broader error-text consumer contract;

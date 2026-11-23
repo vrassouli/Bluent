@@ -10,11 +10,25 @@ BRANDS = ("default", "excel", "office", "outlook", "powerapps", "powerbi", "powe
 MODES = ("light", "dark")
 FOREGROUND = "colorPaletteRedForeground1"
 BACKGROUNDS = ("colorNeutralBackground1", "colorNeutralBackground2", "colorNeutralBackground3")
+# Representative host/state surfaces are diagnostic only. They intentionally
+# include contexts where this validation foreground is not safe to generalize.
+DIAGNOSTIC_BACKGROUNDS = (
+    "colorNeutralBackground1Hover",
+    "colorNeutralBackground1Pressed",
+    "colorNeutralBackgroundInverted",
+    "colorBrandBackground",
+    "colorBrandBackground2",
+    "colorBrandBackgroundInverted",
+    "colorStatusDangerBackground1",
+    "colorStatusDangerBackground2",
+    "colorPaletteRedBackground1",
+    "colorPaletteRedBackground2",
+)
 
 
 def parse_theme_values(css: str) -> dict[str, str]:
     values: dict[str, str] = {}
-    for name in (FOREGROUND, *BACKGROUNDS):
+    for name in (FOREGROUND, *BACKGROUNDS, *DIAGNOSTIC_BACKGROUNDS):
         match = re.search(rf"--{re.escape(name)}\s*:\s*(#[0-9a-fA-F]{{6}})\s*;", css)
         if match:
             values[name] = match.group(1).lower()
@@ -55,7 +69,7 @@ def audit_validation_text(root: Path = ROOT) -> dict:
             continue
         brand, mode = match.groups()
         values = parse_theme_values(path.read_text(encoding="utf-8-sig"))
-        missing = [name for name in (FOREGROUND, *BACKGROUNDS) if name not in values]
+        missing = [name for name in (FOREGROUND, *BACKGROUNDS, *DIAGNOSTIC_BACKGROUNDS) if name not in values]
         if missing:
             raise ValueError(f"{path.name} is missing theme variables: {', '.join(missing)}")
         key = (brand, mode)
@@ -63,6 +77,10 @@ def audit_validation_text(root: Path = ROOT) -> dict:
             raise ValueError(f"Duplicate theme combination: {brand}/{mode}")
         seen.add(key)
         ratios = {name: round(contrast_ratio(values[FOREGROUND], values[name]), 4) for name in BACKGROUNDS}
+        diagnostic_ratios = {
+            name: round(contrast_ratio(values[FOREGROUND], values[name]), 4)
+            for name in DIAGNOSTIC_BACKGROUNDS
+        }
         entries.append({
             "theme": path.stem,
             "brand": brand,
@@ -71,12 +89,24 @@ def audit_validation_text(root: Path = ROOT) -> dict:
             "backgrounds": {name: values[name] for name in BACKGROUNDS},
             "contrast": ratios,
             "minimum": min(ratios.values()),
+            "diagnosticContrast": diagnostic_ratios,
         })
 
     expected = {(brand, mode) for brand in BRANDS for mode in MODES}
     if seen != expected:
         raise ValueError(f"Theme matrix mismatch; missing={sorted(expected-seen)}, extra={sorted(seen-expected)}")
     all_ratios = [ratio for entry in entries for ratio in entry["contrast"].values()]
+    diagnostic_summaries = {
+        name: {
+            "minimum": round(min(entry["diagnosticContrast"][name] for entry in entries), 4),
+            "passingPairs": sum(entry["diagnosticContrast"][name] >= 4.5 for entry in entries),
+            "totalPairs": len(entries),
+        }
+        for name in DIAGNOSTIC_BACKGROUNDS
+    }
+    diagnostic_ratios = [
+        ratio for entry in entries for ratio in entry["diagnosticContrast"].values()
+    ]
     failures = [
         {"theme": entry["theme"], "surface": surface, "ratio": ratio}
         for entry in entries for surface, ratio in entry["contrast"].items() if ratio < 4.5
@@ -92,6 +122,10 @@ def audit_validation_text(root: Path = ROOT) -> dict:
         "contrastPairs": len(all_ratios),
         "normalTextMinimum": 4.5,
         "measuredMinimum": round(min(all_ratios), 4),
+        "diagnosticSurfacesPerCombination": len(DIAGNOSTIC_BACKGROUNDS),
+        "diagnosticContrastPairs": len(diagnostic_ratios),
+        "diagnosticSummaries": diagnostic_summaries,
+        "diagnosticScope": "Representative non-neutral and interactive surfaces only; these do not affect the neutral-surface pass/fail result.",
         "failures": failures,
         "entries": entries,
     }

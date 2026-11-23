@@ -108,3 +108,8 @@ The source-backed [DateField foundation dependency audit](DATEFIELD-FOUNDATION-D
 ### 2026-11-21 follow-up — existing validation-message source and contrast
 
 The DateField downstream audit found that the shared field stylesheet already maps .validation-message to --colorPaletteRedForeground1. The new reproducible source audit covers all 20 theme files and three neutral backgrounds per theme (60/60 pairs, minimum 5.2036:1). This does not widen the Label-only text.dangerAccessible semantic or promote a new role; semantic.text.validation remains a naming/consumer-contract candidate only. Brand/inverted/custom hosts and native forced-colors remain outside this numeric matrix. See DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md and scripts/quality/audit_v3_validation_text_contrast.py.
+
+
+### 2026-11-23 validation-text host boundary — review only
+
+The validation-text audit now adds 200 diagnostic pairs over representative host/state backgrounds, separately from the 60-pair neutral-base acceptance gate. The existing `--colorPaletteRedForeground1` source passes on the three neutral base surfaces (minimum 5.2036:1), but fails on every tested Brand Background pair (minimum 1.0027:1) and every Neutral Background Inverted pair (minimum 2.4877:1). It also fails on Palette Red Background 2 in all 20 themes (minimum 3.5017:1). This is evidence against a context-free, all-host validation foreground. The tentative `semantic.text.validation` remains outside the 17-role schema and public first-wave list; any future contract must state its supported host surfaces and unsupported contexts. The diagnostic matrix is not a design or public API approval.
