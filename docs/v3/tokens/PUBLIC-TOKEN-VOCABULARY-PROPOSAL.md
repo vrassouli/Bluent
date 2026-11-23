@@ -55,7 +55,7 @@ The three-way decision is now represented in the source-owned Penpot file, in ad
 - File: Bluent v3 Design System (b64f6665-c9ab-80b5-8008-c4ac99d9d000)
 - Page: 52 · Public token vocabulary & CSS aliases · DRAFT (388782f1-b766-8073-8008-f3299e62827a)
 - Board: #418 · Public token vocabulary & production alias policy · DRAFT (388782f1-b766-8073-8008-f3299e849141)
-- Last inspected Penpot file revision: 812
+- Revision 812: historical inspection snapshot; see the 2026-11-23 live reinspection at revision 885 below.
 
 The board compares A (all layers public), B (global palette + individually accepted semantic), and C (semantic-only); it visualizes the proposed CSS serialization and preserves the separate Dark, Danger, Focus host and D2/D5 gates. It is marked DRAFT / MAINTAINER DECISION REQUIRED and ends with PROPOSAL ONLY / NO PUBLIC TOKEN PROMOTION / NO PRODUCTION CSS OR PACKAGE CHANGE.
 
@@ -113,3 +113,15 @@ The DateField downstream audit found that the shared field stylesheet already ma
 ### 2026-11-23 validation-text host boundary — review only
 
 The validation-text audit now checks all **109 common opaque diagnostic backgrounds × 20 brand/mode themes = 2,180 pairs**, in addition to the separate 60-pair neutral-base acceptance gate. The source inventory contains 112 opaque background tokens (including the three formal neutral bases) and 16 non-opaque/alpha/transparent tokens, which are listed but excluded from simple opaque arithmetic. Of the 2,180 diagnostic pairs, 834 reach 4.5:1; 26 surfaces pass in all 20 themes, 51 fail in all 20 and 32 are mixed. The existing `--colorPaletteRedForeground1` fails on every Brand Background pair (minimum 1.0027:1), every Neutral Background Inverted pair (2.4877:1) and every Palette Red Background 2 pair (3.5017:1). This is evidence against a context-free, all-host validation foreground. The tentative `semantic.text.validation` remains outside the 17-role schema and public first-wave list; any future contract must state its supported host surfaces and unsupported composited contexts. The diagnostic matrix is not a design or public API approval.
+
+## 2026-11-23 live Penpot reinspection
+
+The connected source-owned **Bluent v3 Design System** file was re-read through its Penpot plugin API at revision **885**. No Penpot content or status labels were modified.
+
+- Page 52 remains `OPTION B SELECTED · PREVIEW ONLY`; this records the selected vocabulary architecture, not a final semantic allow-list or production alias approval.
+- Page 53 remains `OPTION A SELECTED · PREVIEW ONLY`; the Focus same-painted-host metadata/fallback direction is still not a public attribute or component API contract.
+- Page 54 remains `OPTION A SELECTED · ACCEPTANCE OPEN`; the Dialog/Popover portal ownership prototype and additive `PortalThemeScope` CLR surface are not approved for production.
+- Page 45 remains `DRAFT`, with its principal semantic contrast board `REVIEW REQUIRED`; the existing 2,180-pair source diagnostics are review evidence, not design acceptance.
+- Page 55 remains `DRAFT`; all 40 Dark foreground entries are preview candidates and their exact values have not been approved.
+
+The live inspection corroborates the existing decision boundary. It does not authorize changing Penpot review labels, token schema, public allow-list, production CSS, or the Project #5 workflow status.

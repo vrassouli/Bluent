@@ -5,8 +5,8 @@
 - Repository: `vrassouli/Bluent`
 - Task branch: `v3/issue-418-design-tokens`; target branch: `bluent-v3`
 - PR: [#500](https://github.com/vrassouli/Bluent/pull/500), open and unmerged; no formal approving review is recorded.
-- Baseline before this follow-up: `6dc3bea3c19a4a64a70aec3fd791bfb22aa86913`.
-- The baseline's exact-head GitHub Actions result was 13/13 workflows successful. The follow-up below must receive a fresh exact-head CI run after it is pushed.
+- Previous engineering baseline before the 2026-11-23 diagnostics: `6dc3bea3c19a4a64a70aec3fd791bfb22aa86913`.
+- Current head: `e6e0e58f0fd8cc9b7ba92a8b71e47472cfdd0d25`; exact-head GitHub Actions completed **13/13 workflows successfully, 0 failed, 0 active**, including both `de-DE` and `fa-IR` Chrome/InteractiveServer SelectField culture sessions.
 - GitHub Project #5: #418 remains **In progress**; #438 DateField remains **Backlog**.
 
 ## 2026-11-23 validation-text host diagnostic follow-up
@@ -23,9 +23,17 @@ Commands and local results:
 
 | Gate | Result |
 |---|---:|
-| `python scripts/quality/audit_v3_validation_text_contrast.py` | PASS; 60 neutral pairs + 200 diagnostics |
-| `python -m unittest discover -s scripts/quality -p 'test_v3_validation_text_contrast.py' -v` | 7/7 |
+| `python scripts/quality/audit_v3_validation_text_contrast.py` | PASS; 60 formal neutral pairs + 2,180 exhaustive opaque-background diagnostics; 16 non-opaque/alpha/transparent surfaces listed separately |
+| `python -m unittest discover -s scripts/quality -p 'test_v3_validation_text_contrast.py' -v` | 10/10 |
 | `python -m unittest discover -s scripts/quality -p 'test_v3_issue418_review_contract.py' -v` | 21/21 |
+| `python -m unittest discover -s scripts/quality -p 'test_v3_token_preview_contrast.py' -v` | 13/13 |
+| `python scripts/quality/generate_v3_token_preview.py --check` | PASS |
+| `python scripts/quality/audit_v3_token_preview_contrast.py` | 360 diagnostics; no unexpected issues |
+| `python scripts/quality/check_v3_docs_contract.py` | 0 findings |
+| `python scripts/quality/check_markdown_links.py` | PASS; 241 files |
+| `git diff --check` | PASS |
+
+Exact-head hosted CI on `e6e0e58f0fd8cc9b7ba92a8b71e47472cfdd0d25`: **13/13 workflows successful, 0 failed, 0 active**. The Real Compatibility Browsers workflow also passed both `de-DE` and `fa-IR` Chrome/InteractiveServer culture-specific SelectField sessions. These source/contract and browser checks do not constitute native OS/AT or design approval.
 
 The extended diagnostic checks are opaque six-digit color arithmetic only. They do not prove rendered component behavior, alpha compositing, custom-host coverage, native Windows Contrast Themes, spoken assistive-technology output or design approval.
 

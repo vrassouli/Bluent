@@ -1,6 +1,6 @@
 # #418 — Source → semantic → component token bridge, first design/implementation checkpoint
 
-**Status:** In progress · **current checkpoint 2026-11-20** · **engineering checks green; native/design approval and production promotion remain gated**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418).
+**Status:** In progress · **current checkpoint 2026-11-23** · **exact-head hosted CI green (13/13 on `e6e0e58f`); native/design approval and production promotion remain gated**. [Epic #416](https://github.com/vrassouli/Bluent/issues/416) · [Accepted ADR #417](../architecture/ADR-0001-styling-boundaries.md) · [Issue #418](https://github.com/vrassouli/Bluent/issues/418) · [PR #500](https://github.com/vrassouli/Bluent/pull/500) remains open/unmerged with no formal approving review.
 
 ## Historical checkpoint — 2026-11-10
 
