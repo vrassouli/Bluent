@@ -5,7 +5,7 @@
 - Issue: [#418 — Design Tokens](https://github.com/vrassouli/Bluent/issues/418), remains **In progress** in GitHub Project #5.
 - Branch: `v3/issue-418-design-tokens`, targeting the isolated `bluent-v3` integration branch.
 - PR: [#500](https://github.com/vrassouli/Bluent/pull/500), OPEN / unmerged, merge state CLEAN, no formal approval decision.
-- Latest pushed head: `167bda0246165d1345c56472651f1d623f7db138`.
+- Latest fully verified pushed head before this Dark-matrix test follow-up: `79ee915335858b8279742dd435f4d03b8e01031b`; exact-head GitHub Actions on that SHA completed **13/13 successfully**.
 - Exact-head GitHub Actions: **13/13 workflows successful**, zero failures and zero active jobs. All `gh pr checks 500` checks passed.
 - This checkpoint records engineering and design-review progress only. It does not approve the public token/API contract, mark the issue Done, or authorize merge, production CSS activation, package publication, stable-branch changes or deployment.
 
@@ -41,12 +41,17 @@ The latest exact-head hosted CI passed all four Label Info locale/browser cells.
 - Native High Contrast evidence guard: 7/7.
 - #418 review contract: 21/21.
 - Validation-text contrast tests: 10/10.
-- Token-preview contrast tests: 13/13.
+- Token-preview contrast tests: **15/15 locally** after the new 40-cell proposal-table sync guard; hosted CI for this follow-up SHA is pending.
 - Token generator `--check`: pass.
 - Main token contrast diagnostics: 360 checks, no unexpected diagnostics.
 - Docs contract: 0 findings.
-- Markdown links: 242 files.
+- Markdown links: **243 files** checked.
 - `git diff --check`: pass at the latest engineering checkpoint.
+
+
+### Dark candidate proposal drift guard — local follow-up
+
+The token-preview regression suite now parses the ten-brand Dark candidate table in `DARK-SEMANTIC-FOREGROUND-PROPOSAL.md` and compares all **40 documented hex values and four-decimal contrast ratios** with the generated brand matrix. A second guard pins the source-state mapping, 4.6:1 preview target, opaque NeutralBackground1 scope and DRAFT / not-production disposition. Local suite: **15/15**. This follow-up has not yet been pushed or checked by hosted CI.
 
 ## Contrast evidence and limits
 

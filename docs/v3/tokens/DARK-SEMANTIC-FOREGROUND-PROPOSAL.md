@@ -93,7 +93,7 @@ Reproduce from the branch root:
 - python scripts/quality/audit_v3_token_preview_contrast.py
 - python -m unittest discover -s scripts/quality -p test_v3_token_preview_contrast.py -q
 
-The current audit summary reports 360 checks: 300 source-backed opaque pair diagnostics, 20 TextField placeholder/BG3 pairs, and 40 Dark brand foreground candidate pairs. All 40 candidates pass 4.6:1; the generator emits only opt-in preview artifacts.
+The current audit summary reports 360 checks: 300 source-backed opaque pair diagnostics, 20 TextField placeholder/BG3 pairs, and 40 Dark brand foreground candidate pairs. All 40 candidates pass 4.6:1; the generator emits only opt-in preview artifacts. A focused regression guard also parses this 10-brand candidate table and compares all 40 documented hex values and four-decimal ratios against `issue-418-brand-matrix.preview.json`. It pins the four matching source-state roles, opaque `--colorNeutralBackground1` scope, 4.6:1 preview target and DRAFT / no-production status, preventing independent drift between the review table and generated evidence.
 
 These numeric results do not certify:
 - Real rendered Button and Link component state semantics in every brand.

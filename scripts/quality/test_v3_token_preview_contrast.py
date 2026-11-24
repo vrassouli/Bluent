@@ -5,6 +5,7 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+import re
 from pathlib import Path
 import unittest
 
@@ -90,6 +91,83 @@ class TokenPreviewContrastReportTests(unittest.TestCase):
             {"action", "linkRest", "linkHover", "linkPressed"},
         )
 
+    def test_dark_foreground_proposal_table_matches_all_generated_candidates(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        matrix = json.loads((root / "docs/v3/tokens/issue-418-brand-matrix.preview.json").read_text(encoding="utf-8"))
+        proposal = (root / "docs/v3/tokens/DARK-SEMANTIC-FOREGROUND-PROPOSAL.md").read_text(encoding="utf-8")
+        generated = matrix["darkBrandForegroundCandidates"]
+
+        display_names = {
+            "default": "Default",
+            "excel": "Excel",
+            "office": "Office",
+            "outlook": "Outlook",
+            "powerapps": "Power Apps",
+            "powerbi": "Power BI",
+            "powerpoint": "PowerPoint",
+            "stream": "Stream",
+            "teams": "Teams",
+            "word": "Word",
+        }
+        role_order = ("action", "linkRest", "linkHover", "linkPressed")
+        table_lines = proposal.splitlines()
+        header_index = next(
+            (index for index, line in enumerate(table_lines) if line.strip() == "| Brand | Action Rest | Link Rest | Link Hover | Link Pressed |"),
+            None,
+        )
+        self.assertIsNotNone(header_index, "The exact 40-value candidate table is missing its expected columns.")
+        self.assertGreaterEqual(len(table_lines), header_index + 12)
+
+        parsed: dict[str, dict[str, tuple[str, float]]] = {}
+        for line in table_lines[header_index + 2:]:
+            if not line.lstrip().startswith("|"):
+                break
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            self.assertEqual(len(cells), 5, f"Unexpected candidate matrix row: {line}")
+            brand_display = cells[0]
+            brand = next((key for key, value in display_names.items() if value == brand_display), None)
+            self.assertIsNotNone(brand, f"Unknown brand label in candidate matrix: {brand_display}")
+            self.assertNotIn(brand, parsed, f"Duplicate brand row: {brand_display}")
+
+            role_cells: dict[str, tuple[str, float]] = {}
+            for role, cell in zip(role_order, cells[1:], strict=True):
+                match = re.fullmatch(r"(#[0-9A-Fa-f]{6})\s*/\s*([0-9]+\.[0-9]{4}):1", cell)
+                self.assertIsNotNone(match, f"Candidate cell is not a hex/4-decimal ratio pair: {brand_display}/{role}: {cell}")
+                role_cells[role] = (match.group(1).upper(), float(match.group(2)))
+            parsed[brand] = role_cells
+
+        self.assertEqual(set(parsed), set(display_names), "The proposal must contain exactly one row for every generated brand.")
+        self.assertEqual(set(generated) - {"status", "minimumContrastRatio", "targetContrastRatio", "backgroundCss", "brandAttribute", "themeAttribute", "mixDirection", "roles"}, set(display_names))
+
+        for brand, roles in parsed.items():
+            generated_roles = generated[brand]["roles"]
+            for role, (documented_hex, documented_ratio) in roles.items():
+                with self.subTest(brand=brand, role=role):
+                    self.assertEqual(documented_hex, generated_roles[role]["candidate"].upper())
+                    self.assertAlmostEqual(documented_ratio, generated_roles[role]["contrastRatio"], places=4)
+        self.assertEqual(sum(len(roles) for roles in parsed.values()), 40)
+
+    def test_dark_foreground_matrix_is_still_preview_only_and_state_specific(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        schema = json.loads((root / "docs/v3/tokens/issue-418-token-schema.preview.json").read_text(encoding="utf-8-sig"))
+        preview = schema["darkBrandForegroundPreview"]
+        selection = preview["selection"]
+        self.assertEqual(preview["targetContrastRatio"], 4.6)
+        self.assertEqual(preview["minimumContrastRatio"], 4.5)
+        self.assertEqual(preview["backgroundCss"], "--colorNeutralBackground1")
+        self.assertEqual(preview["mixDirection"], "white")
+        self.assertEqual(selection["designBoardStatus"], "DRAFT / REVIEW REQUIRED")
+        self.assertIn("remain unapproved", selection["status"])
+
+        role_sources = {name: role["sourceCss"] for name, role in preview["roles"].items()}
+        self.assertEqual(role_sources, {
+            "action": "--colorBrandForeground1",
+            "linkRest": "--colorBrandForegroundLink",
+            "linkHover": "--colorBrandForegroundLinkHover",
+            "linkPressed": "--colorBrandForegroundLinkPressed",
+        })
+        self.assertEqual(len(role_sources), 4)
+        self.assertIn("no Hover or Pressed source is reused for Rest", preview["stateRule"])
     def test_generated_css_maps_every_brand_to_its_four_own_dark_candidates(self) -> None:
         root = Path(__file__).resolve().parents[2]
         css = (root / "docs/v3/tokens/issue-418-opt-in.preview.css").read_text(encoding="utf-8")
