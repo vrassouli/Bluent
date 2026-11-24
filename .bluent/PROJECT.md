@@ -4,7 +4,7 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 ## 2026-11-24 #418 engineering closeout and acceptance-review board
 
-Latest pushed head `167bda0246165d1345c56472651f1d623f7db138` on `v3/issue-418-design-tokens` has **13/13 exact-head GitHub Actions workflows completed successfully**, zero failures and zero active jobs. PR [#500](https://github.com/vrassouli/Bluent/pull/500) remains OPEN/unmerged with merge state CLEAN and no formal approval decision. The working tree was clean before this documentation refresh.
+Last fully verified engineering head before this documentation-only follow-up `2613b6bf5d844b023725b03509c0d517816e9601` (13/13 workflows passed) on `v3/issue-418-design-tokens` has **13/13 exact-head GitHub Actions workflows completed successfully**, zero failures and zero active jobs. PR [#500](https://github.com/vrassouli/Bluent/pull/500) remains OPEN/unmerged with merge state CLEAN and no formal approval decision. The working tree was clean before this documentation refresh.
 
 The two pending engineering follow-ups from the prior checkpoint are now complete and verified:
 
@@ -13,7 +13,7 @@ The two pending engineering follow-ups from the prior checkpoint are now complet
 
 Other focused local checks: Label contract 11/11; Popover JS bundle 26/26; native HC evidence guard 7/7; #418 review contract 21/21; validation-text contrast tests 10/10; token-preview contrast 13/13; generator `--check`; docs contract 0 findings; Markdown link scan 242 files; `git diff --check`.
 
-The current editable review aid is [#418 · Token foundation acceptance review / DRAFT](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=132-2), Figma page `14:2`, frame `132:2` (1540 × 1769; 7 sections; 76 editable text nodes). Penpot was unavailable in this session, so the board was placed in the authorized independent Bluent v3 Figma working file. It separates measured evidence, its limits, pending public token/API decisions and missing native acceptance. It is not maintainer approval, canonical Penpot replacement or a final token library.
+The editable [#418 acceptance-review board / DRAFT](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=132-2) remains on Figma page 14:2, frame 132:2 (1540 × 1769; 7 sections; 76 editable text nodes). A second [17-role semantic evidence and scope register / DRAFT](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=134-12) is on the same page, frame 134:12 (1540 × 2463; 17 role instances, one shared row component, 127 editable text nodes). It records 3 first-wave candidates, 2 restricted roles and 12 deferred roles, each with source alias, bounded consumer scope and open gate. Both frames are in the repository-authorized independent Bluent v3 Figma fallback because Penpot was frozen; they are decision aids only, not canonical Penpot sign-off, maintainer approval or a final token library.
 
 The measured contrast results remain scoped: 60/60 formal neutral-base text pairs pass 4.5:1 (minimum 5.2036:1); the separate 2,180-pair opaque-host diagnostic has 834 passes and mixed failures; 16 alpha/transparent surfaces are excluded from simple arithmetic. Forty Dark foreground values meet the 4.6:1 preview target on opaque Dark NeutralBackground1 (minimum 4.6001:1), but all remain unapproved candidates. The taxonomy remains 46 roles: 16 source, 17 semantic and 13 component.
 

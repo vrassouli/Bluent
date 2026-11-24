@@ -89,6 +89,16 @@ The board separates:
 4. the explicit pending maintainer decision register;
 5. native Windows, browser, Persian IME and design acceptance gaps.
 
+
+## Editable 17-role semantic evidence register
+
+[Open the 17-role semantic evidence/scope register in Figma](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=134-12).
+
+- Page 14:2, frame 134:12; 1540 × 2463, 17 semantic-role records, 17 instances of shared component 134:2, 127 editable text nodes.
+- Disposition: 3 first-wave candidates (not public), 2 restricted roles, 12 deferred roles. Every row records exact source alias, current consumer evidence, narrowest supported scope, and open acceptance gate.
+- The board was structurally read back and visually inspected. It is an independent-file Figma fallback because the connected Penpot tab was frozen.
+- It is review context only. It does not approve the public allow-list, exact CSS aliases, schema changes, production token/CSS/API activation, or design status labels. No consumer approval was widened.
+
 ## Remaining acceptance gates
 
 1. Final public semantic-token allow-list, including permitted surfaces/states and unsupported contexts.

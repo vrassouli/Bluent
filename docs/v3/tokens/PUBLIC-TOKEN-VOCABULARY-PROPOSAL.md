@@ -125,3 +125,15 @@ The connected source-owned **Bluent v3 Design System** file was re-read through 
 - Page 55 remains `DRAFT`; all 40 Dark foreground entries are preview candidates and their exact values have not been approved.
 
 The live inspection corroborates the existing decision boundary. It does not authorize changing Penpot review labels, token schema, public allow-list, production CSS, or the Project #5 workflow status.
+## 2026-11-24 editable 17-role semantic evidence register — review only
+
+[Open the editable 17-role evidence and scope register in Figma](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=134-12).
+
+- Working file: independent Bluent v3 Figma working file JfxkDgSbNr8W0ppUZPQPHc.
+- Existing page: 14:2; new board frame: 134:12, **#418 · 17 semantic role evidence register / DRAFT**, 1540 × 2463.
+- Structure: all 17 schema semantic roles, represented by 17 instances of one editable row component (134:2); 127 editable text nodes across the register. The rendered frame was read back and visually inspected.
+- Disposition inventory: **3 first-wave candidates** (text.primary, text.placeholder, text.disabled), **2 restricted roles** (status.danger non-text-only on the studied neutral surface; text.dangerAccessible Label required-marker-only), and **12 deferred roles** pending consumer evidence or explicit decisions.
+- Each role records its exact source alias, existing consumer evidence, the narrowest scope supported by that evidence, and its open acceptance gate. The Figma status treatments are review classifications, not approval metadata.
+- The board preserves Option B and every existing decision boundary. It does not expand Label #430 or TextField #432 approvals, turn Link #431's existing CSS usage into approval of the new semantic aliases, add semantic.text.validation, update reviewPolicy.selectedDecisions.publicTokenVocabulary.productionApproval, or change schema/CSS/API.
+- Penpot's plugin tab was frozen in this session; the repository-authorized independent Bluent v3 Figma fallback was used. This board is decision context only—not canonical Penpot approval, the final allow-list, a public token library, or product typography approval. Inter was used because it was the available Figma font; product font policy remains owned by source CSS.
+- All preview aliases remain non-production. No token rename, CSS emission, package publication, or Project #5 status change is part of this review.
