@@ -81,6 +81,37 @@ def check_alpha_forced_browser_source(source: str) -> None:
                          + ", ".join(missing))
 
 
+
+_ALPHA_BROWSER_CLEANUP_REQUIREMENTS = (
+    "$root=$env:BLUENT_ALPHA_OWNED",
+    "$root.IndexOf('bluent-v3-418-alpha-cdp-') -lt 0",
+    "Get-CimInstance Win32_Process",
+    "$_.CommandLine.IndexOf($root,[StringComparison]::OrdinalIgnoreCase) -ge 0",
+    "$deadline=[DateTime]::UtcNow.AddSeconds(8)",
+    "do {",
+    "while([DateTime]::UtcNow -lt $deadline)",
+    "Stop-Process -Id $x.ProcessId -Force",
+    "if($remain.Count){exit 17}",
+)
+
+
+def check_alpha_cleanup_source(source: str) -> None:
+    """Require bounded, fail-closed cleanup scoped to this probe's unique profile."""
+    start = source.find("function clean(){")
+    end = source.find("\n}", start)
+    if start < 0 or end < start:
+        raise ValueError("alpha browser cleanup gate missing: clean() scope")
+    block = source[start:end]
+    missing = [fragment for fragment in _ALPHA_BROWSER_CLEANUP_REQUIREMENTS
+               if fragment not in block]
+    if missing:
+        raise ValueError("alpha browser cleanup gate missing: " + ", ".join(missing))
+    if block.count("$remain=@(Get-CimInstance Win32_Process") < 2:
+        raise ValueError("alpha browser cleanup gate missing: fresh post-loop verification")
+    if "Stop-Process -Name" in block or "taskkill /IM" in block:
+        raise ValueError("alpha browser cleanup must not terminate unscoped browser processes")
+
+
 def audit() -> dict:
     cases = []
     errors = []

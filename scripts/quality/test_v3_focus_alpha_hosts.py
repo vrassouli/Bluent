@@ -5,7 +5,7 @@ from collections import Counter
 from pathlib import Path
 import unittest
 from unittest.mock import patch
-from audit_v3_focus_alpha_hosts import audit, composite, rgba, rgb_hex, check_alpha_forced_browser_source
+from audit_v3_focus_alpha_hosts import audit, composite, rgba, rgb_hex, check_alpha_forced_browser_source, check_alpha_cleanup_source
 from generate_v3_token_preview import THEME_DIR
 
 
@@ -152,6 +152,30 @@ class FocusAlphaHostsTests(unittest.TestCase):
         from pathlib import Path
         probe=(Path(__file__).parent/"probe_v3_blazor_runtime.mjs").read_text(encoding="utf-8")
         check_alpha_forced_browser_source(probe)
+
+    def test_native_browser_cleanup_is_bounded_and_scoped_to_owned_profile(self):
+        probe = (Path(__file__).parent / "probe_v3_focus_alpha_hosts_browser.mjs").read_text(encoding="utf-8")
+        check_alpha_cleanup_source(probe)
+
+    def test_native_browser_cleanup_rejects_unbounded_or_unscoped_teardown(self):
+        probe = (Path(__file__).parent / "probe_v3_focus_alpha_hosts_browser.mjs").read_text(encoding="utf-8")
+        broken_scope = probe.replace("$root.IndexOf('bluent-v3-418-alpha-cdp-') -lt 0", "$false", 1)
+        with self.assertRaisesRegex(ValueError, "cleanup gate missing"):
+            check_alpha_cleanup_source(broken_scope)
+        broken_wait = probe.replace("$deadline=[DateTime]::UtcNow.AddSeconds(8)", "$deadline=[DateTime]::UtcNow", 1)
+        with self.assertRaisesRegex(ValueError, "cleanup gate missing"):
+            check_alpha_cleanup_source(broken_wait)
+        cleanup_lines = probe.splitlines()
+        checks = [i for i, line in enumerate(cleanup_lines)
+                  if "$remain=@(Get-CimInstance Win32_Process" in line]
+        self.assertGreaterEqual(len(checks), 2)
+        cleanup_lines.pop(checks[-1])
+        stale_final_count = "\n".join(cleanup_lines)
+        with self.assertRaisesRegex(ValueError, "fresh post-loop verification"):
+            check_alpha_cleanup_source(stale_final_count)
+        broad_kill = probe.replace("Stop-Process -Id $x.ProcessId -Force", "Stop-Process -Name chrome", 1)
+        with self.assertRaisesRegex(ValueError, "cleanup gate missing"):
+            check_alpha_cleanup_source(broad_kill)
 
     def test_forced_alpha_weakening_native_keyboard_is_rejected(self):
         from pathlib import Path
