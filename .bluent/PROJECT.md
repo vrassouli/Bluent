@@ -1060,3 +1060,19 @@ Exact implementation head 0a0644f825ff7f3c04818ce197bdde0f0f5595fd passed all ei
 Native Windows High Contrast focus and scoped NVDA 2026.3 Speech Viewer evidence remain recorded. Numeric contrast measurement, validation-error speech, Narrator and VoiceOver are still unverified; no exhaustive AT/WCAG certification is claimed.
 
 [PR #568](https://github.com/vrassouli/Bluent/pull/568) is ready for squash merge into bluent-v3. The task branch remains unmerged pending the final documentation/Skill commit and exact-head CI. No stable Dev/2.x source, NuGet package, release or deployment changed.
+
+## 2026-11-24 #418 — native Windows Dialog/Popover UI Automation evidence
+
+A standalone probe launched the published Release InteractiveServer fixture at /v3/interactive-portal-lab in a private Edge profile on Windows 11 Pro build 28000 / Microsoft Edge 158.0.4370.33. It enabled the actual native High Contrast White scheme through SystemParametersInfoW, observed forced-colors: active and prefers-contrast: more, and restored the original flags 126 / disabled / High Contrast White exactly from test flags 127. The isolated Edge profile was cleaned with zero owned processes remaining.
+
+Windows UI Automation exposed the live opt-in Dialog as a named Window (v3 keyboard modal), its title as Text and its Close modal action as an invokable Button. Synthetic OS-level Tab moved focus to Close modal; Shift+Tab moved focus to Last focusable; Escape closed the Dialog and returned focus to the original trigger. For the service-hosted Popover, UIA exposed its named content as Group and Text and the trigger as a named Button. The Popover surface still lacks an explicit role and its trigger lacks aria-haspopup. Its measured computed background was opaque rgb(255, 250, 239) during this run; the earlier 2026-11-23 observation of a transparent surface node is retained as separate historical evidence, not overwritten.
+
+Evidence files:
+- docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-24.md
+- docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-24.json
+- DIALOG and POPOVER PNG captures with byte length and SHA-256 pinned in the JSON manifest
+- scripts/quality/probe_v3_issue418_native_uia.mjs plus the native PowerShell High Contrast and UIA helpers
+
+The new fail-closed UIA evidence suite passes 12/12; the existing native High Contrast guard passes 7/7 and the #418 review contract 21/21. Docs contract reports 0 findings, Markdown links are checked in 244 files, and git diff --check passes. The synthetic key events were not physical hardware input; Narrator was not launched and no spoken Narrator/NVDA/VoiceOver output was captured. Screenshots are raw/unreviewed, only High Contrast White was tested, and no API, token allow-list or design approval is inferred.
+
+Canonical Penpot connection is available again in the current session, but page 45 / page 55 are still DRAFT and no design status was changed. The semantic-token allow-list and public aliases, Focus/Portal/Dialog API, physical keyboard, comprehensive native schemes/assistive technology, native Safari and Persian composition/caret acceptance remain open. #418 remains In progress and PR #500 remains open/unmerged.
