@@ -4,14 +4,14 @@ This file is the current project-state entry point. Historical sprint/relaunch d
 
 ## 2026-11-24 #418 engineering closeout and acceptance-review board
 
-Latest fully verified pushed head before this Dark-matrix test follow-up `79ee915335858b8279742dd435f4d03b8e01031b` (13/13 workflows passed) on `v3/issue-418-design-tokens` has **13/13 exact-head GitHub Actions workflows completed successfully**, zero failures and zero active jobs. PR [#500](https://github.com/vrassouli/Bluent/pull/500) remains OPEN/unmerged with merge state CLEAN and no formal approval decision. The working tree was clean before this documentation refresh.
+Latest verified pushed head `be88e1283e2d41f776d62a68e84eaa4d2d36e639` (13/13 workflows passed) on `v3/issue-418-design-tokens` has **13/13 exact-head GitHub Actions workflows completed successfully**, zero failures and zero active jobs. PR [#500](https://github.com/vrassouli/Bluent/pull/500) remains OPEN/unmerged with merge state CLEAN and no formal approval decision. The working tree was clean before this documentation refresh.
 
 The two pending engineering follow-ups from the prior checkpoint are now complete and verified:
 
 - The owned-browser cleanup is bounded to 8 seconds, scoped to the unique temporary profile path and followed by a fresh process inventory. Alpha-host Chrome passed 80/80 with zero leftovers; cleanup regression tests passed 24/24.
 - Label Info readiness waits for the surface to show, the trigger to expose `aria-expanded=true`, and actual focus to reach the Info surface before the existing focus/no-trap assertions run. Source audit and negative regression coverage pin that condition. Chrome/Edge × en-US/fa-IR local runs passed 72/72; all four hosted Label Info jobs pass on the latest head. The Edge/WASM alpha-host probe passed 1,179/1,179 locally.
 
-Other focused local checks: Label contract 11/11; Popover JS bundle 26/26; native HC evidence guard 7/7; #418 review contract 21/21; validation-text contrast tests 10/10; token-preview contrast 15/15 locally (new 40-cell proposal-table sync guard; fresh hosted CI pending); generator `--check`; docs contract 0 findings; Markdown link scan 243 files; `git diff --check`.
+Other focused local checks: Label contract 11/11; Popover JS bundle 26/26; native HC evidence guard 7/7; #418 review contract 21/21; validation-text contrast tests 10/10; token-preview contrast 15/15 locally and on exact-head hosted Token Contract CI; generator `--check`; docs contract 0 findings; Markdown link scan 243 files; `git diff --check`.
 
 The editable [#418 acceptance-review board / DRAFT](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=132-2) remains on Figma page 14:2, frame 132:2 (1540 × 1769; 7 sections; 76 editable text nodes). A second [17-role semantic evidence and scope register / DRAFT](https://www.figma.com/design/JfxkDgSbNr8W0ppUZPQPHc?node-id=134-12) is on the same page, frame 134:12 (1540 × 2463; 17 role instances, one shared row component, 127 editable text nodes). It records 3 first-wave candidates, 2 restricted roles and 12 deferred roles, each with source alias, bounded consumer scope and open gate. Both frames are in the repository-authorized independent Bluent v3 Figma fallback because Penpot was frozen; they are decision aids only, not canonical Penpot sign-off, maintainer approval or a final token library.
 

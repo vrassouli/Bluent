@@ -5,8 +5,8 @@
 - Issue: [#418 — Design Tokens](https://github.com/vrassouli/Bluent/issues/418), remains **In progress** in GitHub Project #5.
 - Branch: `v3/issue-418-design-tokens`, targeting the isolated `bluent-v3` integration branch.
 - PR: [#500](https://github.com/vrassouli/Bluent/pull/500), OPEN / unmerged, merge state CLEAN, no formal approval decision.
-- Latest fully verified pushed head before this Dark-matrix test follow-up: `79ee915335858b8279742dd435f4d03b8e01031b`; exact-head GitHub Actions on that SHA completed **13/13 successfully**.
-- Exact-head GitHub Actions: **13/13 workflows successful**, zero failures and zero active jobs. All `gh pr checks 500` checks passed.
+- Latest verified pushed head: `be88e1283e2d41f776d62a68e84eaa4d2d36e639`; exact-head GitHub Actions completed **13/13 successfully**.
+- Exact-head GitHub Actions: **13/13 workflows successful**, zero failures and zero active jobs. All completed PR checks passed; the source/evidence job also reports success via the job API and its parent workflow.
 - This checkpoint records engineering and design-review progress only. It does not approve the public token/API contract, mark the issue Done, or authorize merge, production CSS activation, package publication, stable-branch changes or deployment.
 
 ## Completed engineering follow-ups
@@ -41,7 +41,7 @@ The latest exact-head hosted CI passed all four Label Info locale/browser cells.
 - Native High Contrast evidence guard: 7/7.
 - #418 review contract: 21/21.
 - Validation-text contrast tests: 10/10.
-- Token-preview contrast tests: **15/15 locally** after the new 40-cell proposal-table sync guard; hosted CI for this follow-up SHA is pending.
+- Token-preview contrast tests: **15/15 locally and on exact-head hosted Token Contract CI**.
 - Token generator `--check`: pass.
 - Main token contrast diagnostics: 360 checks, no unexpected diagnostics.
 - Docs contract: 0 findings.
@@ -51,7 +51,7 @@ The latest exact-head hosted CI passed all four Label Info locale/browser cells.
 
 ### Dark candidate proposal drift guard — local follow-up
 
-The token-preview regression suite now parses the ten-brand Dark candidate table in `DARK-SEMANTIC-FOREGROUND-PROPOSAL.md` and compares all **40 documented hex values and four-decimal contrast ratios** with the generated brand matrix. A second guard pins the source-state mapping, 4.6:1 preview target, opaque NeutralBackground1 scope and DRAFT / not-production disposition. Local suite: **15/15**. This follow-up has not yet been pushed or checked by hosted CI.
+The token-preview regression suite now parses the ten-brand Dark candidate table in `DARK-SEMANTIC-FOREGROUND-PROPOSAL.md` and compares all **40 documented hex values and four-decimal contrast ratios** with the generated brand matrix. A second guard pins the source-state mapping, 4.6:1 preview target, opaque NeutralBackground1 scope and DRAFT / not-production disposition. Local suite: **15/15**. The follow-up is included in the pushed commit `be88e1283e2d41f776d62a68e84eaa4d2d36e639`, whose exact-head GitHub Actions completed 13/13 successfully, including the Token Contract workflow.
 
 ## Contrast evidence and limits
 
