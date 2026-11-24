@@ -52,3 +52,33 @@ The Foundation audit remains the only #438-related work in this branch. DateClas
 ## Disposition
 
 Keep #418 In progress and PR #500 open until the remaining design/maintainer, public-contract and native acceptance gates are genuinely closed. No production CSS, public API/token promotion, stable `Dev`/`main` change, package publication, release or deployment is part of this follow-up.
+
+## 2026-11-23 native Windows High Contrast prototype snapshot
+
+A focused native-platform probe was run against /v3/interactive-portal-lab on Windows 11 Pro build 28000 / Edge 158.0.4370.33 using the native **High Contrast White** scheme.
+
+- SystemParametersInfoW read the original High Contrast state as flags 126 (scheme selected, mode off). The test temporarily enabled flags 127; Edge then reported both forced-colors: active and prefers-contrast: more. A finally block restored the original flags and scheme, and a post-run read confirmed flags 126 / High Contrast White.
+- Dialog: observed role="dialog", aria-modal="true", aria-labelledby="f17659346_title"; one Tab moved to an internal button, one Shift+Tab moved to v3-modal-last-0, Escape closed it and focus returned to v3-show-keyboard-modal.
+- Popover: trigger exposed aria-expanded="true" and aria-controls="v3-popover-trigger_surface". The observed surface node was a SECTION with no explicit role; its own computed background was transparent. This is prototype output only and leaves the public role/surface contract open.
+- The test used CDP pointer/keyboard input, not physical hardware keys; it did not inspect Dialog/Popover with UI Automation or capture/listen to Narrator/NVDA/VoiceOver speech. The screenshot is raw and not independently pixel-reviewed. Only one Edge/Windows build and High Contrast White were exercised; no contrast ratio or cross-platform guarantee is claimed.
+
+See [native Windows evidence note](../quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-HC-2026-11-23.md), [JSON manifest](../quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-HC-2026-11-23.json) and pinned PNG in the same directory. These artifacts do not constitute design, API, AT or product acceptance.
+
+## 2026-11-24 follow-up — native HC evidence regression and local validation
+
+The native Windows snapshot above is pinned by `test_v3_issue418_native_hc_evidence.py` (**7/7**). The test also asserts state restoration, the precise Edge/DOM observations, the no-physical-key/no-spoken-output limitations, the Popover role/background caveat, and the retained screenshot hash/length. Additional current local results:
+
+| Gate | Result |
+|---|---:|
+| Native High Contrast evidence regression | 7/7 |
+| #418 review-contract regression | 21/21 |
+| Validation-text contrast regression | 10/10 |
+| Token-preview contrast regression | 13/13 |
+| Token-preview generator `--check` | PASS |
+| Token-preview contrast audit | 360 diagnostics; no unexpected issues |
+| Validation-text source audit | 60/60 formal neutral pairs; 2,180 exhaustive opaque-background diagnostics; 16 non-opaque/alpha surfaces reported separately |
+| v3 documentation contract | PASS; 0 findings |
+| Markdown links | PASS; 242 files |
+| `git diff --check` | PASS |
+
+The retained PNG is 104,481 bytes with SHA-256 `b7f79d840d4bbbdbb314a0451d1b31751b906fe28bb40f6caf9f3185603b8232`. Exact-head hosted CI above still refers to pushed commit `477b4887127ea9e61da3c91b6129e1c961d27d79`; the native evidence follow-up is local and uncommitted at this point. It must receive a fresh exact-head CI run after commit/push. This does not close the remaining native scheme/host, UI Automation, physical keyboard, spoken AT, design or public-contract gates.

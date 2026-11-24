@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "issue": 418,
+  "title": "Native Windows High Contrast evidence for the Issue 418 Dialog/Popover prototype",
+  "capturedAt": "2026-11-23",
+  "status": "limited-prototype-evidence-only",
+  "environment": {
+    "operatingSystem": "Windows 11 Pro",
+    "build": "28000",
+    "architecture": "x64",
+    "browser": "Microsoft Edge",
+    "browserVersion": "158.0.4370.33",
+    "fixtureRoute": "/v3/interactive-portal-lab",
+    "renderMode": "InteractiveServer",
+    "nativeContrastApi": "SystemParametersInfoW / SPI_GETHIGHCONTRAST and SPI_SETHIGHCONTRAST",
+    "nativeScheme": "High Contrast White",
+    "originalState": {
+      "flags": 126,
+      "enabled": false,
+      "scheme": "High Contrast White"
+    },
+    "testState": {
+      "flags": 127,
+      "enabled": true,
+      "scheme": "High Contrast White"
+    },
+    "restoredState": {
+      "flags": 126,
+      "enabled": false,
+      "scheme": "High Contrast White",
+      "exactlyMatchesOriginal": true
+    }
+  },
+  "browserObservations": {
+    "forcedColorsActive": true,
+    "prefersContrastMore": true,
+    "documentTitle": "v3 opt-in tokens and theme ownership experiment | Bluent",
+    "documentReadyState": "complete",
+    "buttons": 72
+  },
+  "interactionMethod": {
+    "browser": "Chromium DevTools Protocol against the real Edge page",
+    "pointer": "Input.dispatchMouseEvent",
+    "keyboard": "Input.dispatchKeyEvent",
+    "physicalKeyboardUsed": false,
+    "windowsUiAutomationUsedForDialogInteraction": false,
+    "assistiveTechnologySpeechCaptured": false
+  },
+  "dialog": {
+    "visibleWhileOpen": true,
+    "rootTag": "DIV",
+    "rootId": "f17659346",
+    "role": "dialog",
+    "ariaModal": "true",
+    "ariaLabelledBy": "f17659346_title",
+    "ariaDescribedBy": null,
+    "focusOnOpen": "f17659346",
+    "focusAfterTab": "f73d00374",
+    "focusAfterShiftTab": "v3-modal-last-0",
+    "escapeClosesDialog": true,
+    "focusAfterEscape": "v3-show-keyboard-modal",
+    "style": {
+      "backgroundColor": "rgb(255, 250, 239)",
+      "color": "rgb(61, 61, 61)",
+      "borderColor": "rgb(61, 61, 61)",
+      "outlineColor": "rgb(61, 61, 61)",
+      "boxShadow": "none",
+      "forcedColorAdjust": "auto"
+    }
+  },
+  "popover": {
+    "triggerId": "v3-popover-trigger",
+    "ariaExpanded": "true",
+    "ariaControls": "v3-popover-trigger_surface",
+    "surfaceTag": "SECTION",
+    "surfaceId": "v3-popover-trigger_surface",
+    "surfaceRole": null,
+    "surfaceComputedBackground": "rgba(255, 250, 239, 0)",
+    "surfaceComputedColor": "rgb(61, 61, 61)",
+    "surfaceComputedBorderColor": "rgb(61, 61, 61)",
+    "surfaceComputedOutlineColor": "rgb(61, 61, 61)",
+    "surfaceBoxShadow": "none",
+    "surfaceForcedColorAdjust": "auto"
+  },
+  "capture": {
+    "file": "BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-HC-2026-11-23.png",
+    "bytes": 104481,
+    "sha256": "b7f79d840d4bbbdbb314a0451d1b31751b906fe28bb40f6caf9f3185603b8232",
+    "content": "Raw CDP screenshot captured with the Popover probe open while native High Contrast White was active.",
+    "independentPixelReviewCompleted": false,
+    "visualApproval": false
+  },
+  "limitations": [
+    "One Windows 11 Pro build and one Microsoft Edge version only; this is not a cross-browser or cross-Windows-scheme matrix.",
+    "The only native scheme exercised was High Contrast White. High Contrast Black and user-defined contrast themes were not tested.",
+    "The native Windows flag was enabled for this short test and restored to the exact original flags and scheme in a finally block; post-run verification read flags=126 and High Contrast White.",
+    "DOM, computed CSS and browser-level CDP keyboard/pointer observations are recorded. The keyboard events were not physical hardware key presses, and no Dialog/Popover UI Automation tree walk was performed during this run.",
+    "No Narrator, NVDA or VoiceOver spoken output was captured or evaluated.",
+    "The Dialog focus observations include initial focus, one Tab, one Shift+Tab and Escape/focus return. This is not exhaustive forward/backward focus-wrap coverage.",
+    "The Popover trigger exposes aria-expanded and aria-controls; the observed SECTION surface has no explicit role. This records prototype output and does not decide the future public contract.",
+    "The measured Popover surface element has a transparent computed background. This is scoped to that element; the test did not infer the full ancestor/portal composite surface or a final contrast ratio.",
+    "The PNG is a raw browser capture and was not independently pixel-reviewed. It is not visual design acceptance.",
+    "This is prototype evidence only. It does not approve the Penpot boards, token schema, semantic allow-list, production CSS aliases, Dialog/Popover API, Focus host contract or any general product support claim."
+  ]
+}
