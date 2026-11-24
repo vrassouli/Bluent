@@ -19,6 +19,7 @@ def check_label_contract(root: Path) -> None:
     english=(label_root/'Resources/LabelResources.resx').read_text(encoding='utf-8-sig')
     persian=(label_root/'Resources/LabelResources.fa-IR.resx').read_text(encoding='utf-8-sig')
     demo=(root/'src/Bluent.UI.Demo.Pages/Pages/Components/Labels.razor').read_text(encoding='utf-8-sig')
+    runtime_probe=(root/'scripts/quality/probe_v3_label_runtime.mjs').read_text(encoding='utf-8-sig')
 
     _require(razor,(
         '@if (Info is null)',
@@ -56,6 +57,7 @@ def check_label_contract(root: Path) -> None:
     _require(english,('name="MoreInformation"','More information','{0}, more information'),'English Label resources')
     _require(persian,('name="MoreInformation"','اطلاعات بیشتر','{0}، اطلاعات بیشتر'),'Persian Label resources')
     _require(demo,('for="label-demo-email"','id="label-demo-email"','required','InfoButtonAriaLabel','dir="rtl"','LabelRequiredState.NotRequired','visual only'),'Label demo')
+    _require(runtime_probe,("s?.classList.contains('show')&&b.getAttribute('aria-expanded')==='true'&&document.activeElement?.matches('[data-bui-label-info-surface]')?","check('activation opens Info and focuses content without trap'","opened.focus"),'Label runtime probe initial focus synchronization')
 
 def main() -> int:
     import argparse

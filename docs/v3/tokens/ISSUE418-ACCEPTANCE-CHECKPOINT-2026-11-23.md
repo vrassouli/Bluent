@@ -90,3 +90,22 @@ The docs-sync commit `39dfdf7f268cc47ec3c5636dd975cd85d7ea9158` triggered a fres
 The cleanup now retains the unique `bluent-v3-418-alpha-cdp-*` scope, repeatedly stops only Chrome/Edge processes whose command line contains that exact owned path for a bounded maximum of 8 seconds, and performs a fresh final process inventory before reporting `remaining=0`. It continues to fail closed if an owned browser remains, and it never kills unscoped browser processes. New negative regression coverage rejects missing scope checks, unbounded waiting, broad process-name termination, and omission of the fresh post-loop inventory.
 
 Local validation on Dev01: Focus Alpha host tests **24/24**; the actual Chrome CDP probe **80/80**, `cleanup=remaining=0`, zero matching temporary profile directories; Native HC evidence 7/7; #418 review contract 21/21; validation-text contrast 10/10; token-preview contrast 13/13; docs contract 0 findings; Markdown links 242 files; `git diff --check` pass. Exact-head hosted CI for the cleanup follow-up is pending and must be checked on its pushed SHA; the preceding `31b23c99` remains the last fully green exact-head checkpoint (**13/13 workflows**, compatibility matrix **32/32**). This cleanup change is test-harness infrastructure only and does not alter production Bluent CSS/API.
+
+## 2026-11-24 follow-up — Label Info readiness race and Edge/WASM rerun
+
+Exact-head CI on `c397f110a0a6551ccf9b0152fda8555dc1d1bf10` completed with 11/13 workflow passes and two failed workflows containing three failed jobs. The Compatibility Browsers job failures were `Label Info / Edge / en-US` and `Label Info / Edge / fa-IR` (17/18 assertions in each). Logs showed the Info surface had become visible and `aria-expanded=true`, but the probe sampled `document.activeElement` before the component's requestAnimationFrame focus had moved to `[data-bui-label-info-surface]`. This was a probe readiness race, not an observed component focus failure.
+
+The runtime probe now waits for the surface's `show` class, the trigger's `aria-expanded=true`, and actual focus on the Info content before returning its observation. The existing focus/no-trap assertion remains unchanged. `check_v3_label_contract.py` now reads and guards this probe source; a negative test fails if the focus readiness condition is removed. Actual Dev01 reruns:
+
+| Browser | Culture | Result |
+|---|---|---:|
+| Chrome | en-US | 18/18 |
+| Chrome | fa-IR | 18/18 |
+| Edge | en-US | 18/18 |
+| Edge | fa-IR | 18/18 |
+
+Total **72/72** assertions; four refreshed JSON reports are retained as `BLUENT-LABEL-CHROME.json`, `BLUENT-LABEL-CHROME-FA-IR.json`, `BLUENT-LABEL-EDGE.json` and `BLUENT-LABEL-EDGE-FA-IR.json`. The Label source/contract regression suite passes **11/11**.
+
+The separate `Bluent v3 Real Browser Lab / Edge / WASM` failure in the same exact-head CI was a failed fetch of `System.Private.CoreLib.*.wasm` from the probe's ephemeral `127.0.0.1` host (TypeError `Failed to fetch`, status 0) after the alpha-host Focus2 sample/cleanup phase passed. The identical Edge/CDP WebAssembly probe was rerun locally on Dev01 and completed **1,179/1,179** assertions with zero failures. This local success does not erase the hosted failure; it suggests a transient runner/loopback transport issue, which must be rechecked by the next hosted exact-head run.
+
+Other current local regressions: Focus Alpha cleanup **24/24**, native HC evidence **7/7**, #418 review contract **21/21**, validation-text contrast **10/10**, token-preview contrast **13/13**, Popover JS bundle **26/26**, v3 docs contract **0 findings**, Markdown links **242 files** and `git diff --check` pass. The probe/Label evidence follow-up remains local at this checkpoint until commit/push and a fresh 13-workflow exact-head CI.
