@@ -355,3 +355,12 @@ Local follow-up verification: #418 review contract 22/22; full `RegexSampleGener
 - Artifact: `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK-SCOPED-WORD-COMPARE-4.*` (JSON, Markdown, Dialog + two Popover PNGs with verified SHA-256). Native flags 127 / HC Black already enabled, exact restoration verified, probe-owned Edge processes remaining=0.
 - Focused guard: `scripts/quality/test_v3_issue418_native_hc_black_scoped_portals.py`; added to #418 Token Contract workflow. Generic Popover surfaces remain role-less in the probe by design; no universal `dialog` role is proposed.
 - Limitations: one Windows/Edge/scheme, synthetic keys only, no spoken AT, no contrast certification or user-defined HC scheme. #418 remains In progress; #438 remains Backlog. No production API/CSS/runtime or v2/stable changes.
+
+
+### #418 exact-head CI confirmation — 2026-11-25
+
+- PR #500 exact head: `e650d337c4d804ad4d0a7ac7d7776acddcd310b8`, base `bluent-v3`, OPEN/unmerged, merge state CLEAN, no formal review decision. Latest `gh pr checks` snapshot had no failed or pending checks.
+- Compatibility workflow `45555459625` completed SUCCESS after only the failed Chrome/WASM job was rerun. Initial Chrome/WASM run's 51/51 main assertions and 200/400 zoom assertions passed; the only error was a transient PowerShell/CIM process-inventory cleanup timeout. Rerun `139010721850`: 72/72 checks, native zoom 200% 10/10 and 400% 10/10, both cleanup `killed=0 remaining=0`, JSON/PNG artifact uploaded.
+- No source/product fix was needed, and no unrelated #425 cleanup harness edit was made. The transient CI timeout is closed by exact-head successful rerun.
+- Native HC acceptance summary corrected: built-in White and Black have both been exercised for the Dialog/Popover prototype. User-defined schemes, broad Focus-host/component coverage, physical keyboard, spoken Narrator/NVDA/VoiceOver, native Safari, Persian IME/selection, public API/token decisions and canonical Penpot review remain open.
+- #418 remains In Progress; #438 remains Backlog. No merge, release, package publication, stable/v2 change or Project #5 status promotion.

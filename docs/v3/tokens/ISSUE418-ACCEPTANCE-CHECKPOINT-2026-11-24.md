@@ -111,8 +111,8 @@ The board separates:
 3. Explicit disposition of the 40 Dark candidate foreground values.
 4. Public Focus/Portal/Dialog type/member contract and ownership semantics.
 5. Canonical Penpot page-45 contrast review and page-55 Dark-value review; page 45 remains DRAFT with its main contrast board REVIEW REQUIRED, and page 55 remains DRAFT. Pages 52–54 record prototype directions only.
-6. Broader native Windows Contrast Themes coverage, including High Contrast Black and user-defined schemes, Dialog/Popover/Focus hosts and user-facing fallback behavior.
-7. Physical-keyboard coverage, broader UI Automation component coverage, and spoken Narrator/NVDA/VoiceOver acceptance (the 2026-11-24 UIA probe is limited to the Dialog/Popover prototype and synthetic OS key events).
+6. Native Windows Contrast Themes evidence now covers built-in High Contrast White and High Contrast Black on one Windows 11/Edge fixture for the prototype Dialog and generic Popover. Still open: user-defined schemes; broader component and Focus-host matrix; additional OS/browser versions; user-facing fallback behavior; and independent pixel review. The paired HC Black run verifies that separate light/default/LTR and dark/Word/RTL ThemeScope metadata reaches both detached Popover roots.
+7. Physical-keyboard coverage, broader UI Automation of components beyond the Dialog/Popover prototype, and spoken Narrator/NVDA/VoiceOver acceptance remain open. The available White/Black UIA runs use synthetic OS key events; no spoken output was captured or listened to.
 8. Native Safari.app/SafariDriver verification; Playwright WebKit CI is not equivalent.
 9. Persian OS IME composition, caret/selection behavior and cross-platform font metrics.
 
@@ -167,3 +167,10 @@ Under native High Contrast Black, both computed surfaces were `rgb(32,32,32)` wi
 Paired artifact: `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK-SCOPED-WORD-COMPARE-4.md` plus JSON and three SHA-256 verified PNGs (Dialog, CurrentScope Popover, AlternateScope Word/dark Popover). Native HC Black was already active at the start (flags 127) and exactly restored; Edge owned processes remaining=0. Probe uses unique evidence suffix and refuses overwrite.
 
 A focused test `test_v3_issue418_native_hc_black_scoped_portals.py` guards same-run scope metadata, forced-colors output, screenshots, native restore and the no-universal-role boundary; the #418 Token Contract workflow now runs it. This is limited native engineering evidence only: no physical keyboard or spoken AT, one OS/browser/scheme, no blanket contrast certification, and no API/product runtime change.
+
+
+## 2026-11-25 — Exact-head GitHub CI confirmation after native portal evidence
+
+PR #500 head `e650d337c4d804ad4d0a7ac7d7776acddcd310b8` completed the full `Bluent v3 Real Compatibility Browsers` workflow (`45555459625`) successfully. The first Chrome/WASM attempt passed all 51 primary runtime assertions and native 200%/400% zoom assertions, but reported a PowerShell process-inventory cleanup timeout. Only that failed job was rerun. The rerun job `139010721850` succeeded with **72/72** Chrome/WASM checks, **10/10** native 200% zoom, **10/10** native 400% zoom, `killed=0 remaining=0` for both zoom cleanup records, and uploaded JSON/PNG evidence. No product code change was necessary; no #425 cleanup harness change was made on this branch.
+
+The final `gh pr checks 500` snapshot on the same exact head had no failed or pending checks. PR state: OPEN / unmerged, base `bluent-v3`, merge state CLEAN, no formal review decision. This closes the exact-head CI gate only; it does not approve the public token vocabulary/aliases, Dark candidates, Focus/Portal/Dialog API signatures, Penpot boards, user-defined native schemes, physical keyboard, spoken AT, native Safari, or Persian OS IME/selection behavior. #418 remains In Progress; #438 remains Backlog.
