@@ -397,6 +397,32 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertEqual(len(semantic_names), 17)
         self.assertNotIn("bluent.semantic.text.validation", semantic_names)
 
+
+    def test_portal_api_source_audit_records_d4_lifecycle_gaps_and_d5_candidate(self):
+        audit_path = ROOT / "docs/v3/tokens/ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md"
+        audit = audit_path.read_text(encoding="utf-8")
+        for required in (
+            "silently drops it",
+            "ReturnFocusTargetId",
+            "DialogContainer.Dispose",
+            "PopoverSurface.razor",
+            "PopoverSettings",
+            "PopoverConfiguration",
+            "SurfaceRole",
+            "SurfaceAriaLabel",
+            "SurfaceAriaLabelledBy",
+            "mutually exclusive",
+            "Do not emit a default role",
+            "no aria-modal",
+        ):
+            self.assertIn(required, audit)
+
+        packet = (
+            ROOT / "docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("D4.1 — Source-backed refinements before API freeze", packet)
+        self.assertIn("ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md", packet)
+
     def test_maintainer_decision_packet_separates_selected_direction_from_public_approval(self):
         packet_path = ROOT / "docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md"
         packet = packet_path.read_text(encoding="utf-8")

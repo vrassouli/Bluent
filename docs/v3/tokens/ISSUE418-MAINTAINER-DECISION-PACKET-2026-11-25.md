@@ -106,6 +106,12 @@ The complete ledger is in [ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md](ISSUE418-AD
 
 **Requested decision:** approve or revise the exact public names, constructor validation, optional/default behavior, builder semantics and XML/migration contract. Keep the selected Option A lifecycle; do not add `OwnerId`, a launcher component, a second owner type, or a grouped accessibility-options type.
 
+### D4.1 — Source-backed refinements before API freeze
+
+The dedicated [Portal / Dialog / Popover source audit](ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md) identifies two concrete D4 validation/lifecycle gaps: a configured Dialog description is silently discarded if no accessible name is supplied; and the return-focus-only Dialog path is not included in the current opt-in Container disposal completion filter. It also records the coupling between SetAccessibleDialog(name, closeButtonLabel) and SetCloseButton(false), plus the JS interop-only nature of DismissOnEscape.
+
+These are acceptance questions to resolve in the final contract before freezing exact signatures. No runtime change is included in this PR update.
+
 ### D5 — Shared Popover surface role/name contract
 
 The DateField consumer review exposes one concrete shared gap: the detached `PopoverSurface` root is currently an unnamed `div`. Existing `AccessibleTriggerState` supplies the live `aria-expanded` / persistent `aria-controls` relationship; it does not assign surface semantics or an accessible name.
@@ -119,7 +125,7 @@ The proposed behavioral contract is:
 5. Popover does not make every surface a dialog. DateField #438 selects `role="dialog"` and a stable name; menu, listbox and tooltip consumers retain their own semantics.
 6. This does not make DateField modal: no `aria-modal`, background inerting, focus trap or modal Dialog lifecycle is implied.
 
-**Requested decision:** approve this minimal opt-in behavioral contract, revise it, or require a different design. Exact public member names/types and validation rules should be selected only after that decision. The calendar's selected-day focus, grid navigation and natural Tab/Shift+Tab exit remain owned by #438, which is still Backlog.
+**Requested decision:** approve this minimal opt-in behavioral contract, revise it, or require a different design. The current source audit recommends the following exact-name candidate (not approved or implemented): Popover.SurfaceRole : string?, SurfaceAriaLabel : string?, and SurfaceAriaLabelledBy : string?; all default to null. Carry them in Blazor-side PopoverConfiguration, not JS-serialized PopoverSettings, and forward them only to the controlled detached root. The two name sources are mutually exclusive; either requires an explicit role that permits author-provided naming. See [Portal API source audit](ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md) for validation and tests. The calendar's selected-day focus, grid navigation and natural Tab/Shift+Tab exit remain owned by #438, which is still Backlog.
 
 ## 4. Design references and current review state
 
@@ -175,6 +181,7 @@ Until the required decisions and acceptance evidence are complete:
 - [Dark semantic foreground proposal](DARK-SEMANTIC-FOREGROUND-PROPOSAL.md)
 - [Focus host public contract proposal](FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md)
 - [Portal theme / Dialog public API proposal](PORTAL-THEME-PUBLIC-API-PROPOSAL.md)
+- [Portal / Dialog / Popover source audit](ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md)
 - [Additive API ledger](ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md)
 - [DateField Popover consumer review](DATEFIELD-POPOVER-CONSUMER-REVIEW.md)
 - [Acceptance checkpoint](ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-24.md)
