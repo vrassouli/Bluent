@@ -34,7 +34,7 @@ The shared #418 boundary is limited to the trigger/surface relationship. DateFie
 
 `PopoverSurface.razor` currently renders the positioning root as a plain `<div id="<trigger-id>_surface">` with no semantic role and no accessible name. `AccessibleTriggerState` only manages the trigger's expanded/controls relationship; it does not name or type the surface. Generic Popover also does not close an ordinary non-menu popup on Tab/Shift+Tab leaving the surface.
 
-Therefore the current shared implementation is **not yet sufficient by itself** for the DateField contract. The DateField design needs the controlled surface root to expose `role="dialog"` and a stable accessible name. This should be resolved as a narrowly opt-in #418 contract on the Popover surface (candidate: an optional surface role plus an accessible-name source such as `aria-label` or `aria-labelledby`). No default semantics should change for existing Popovers. The exact public member names and validation rules remain open for review.
+Therefore the current shared implementation is **not yet sufficient by itself** for the DateField contract. DateField needs its controlled surface root to expose `role="dialog"` and a stable accessible name. This must remain **consumer-selected semantics**, not a universal Popover role: a menu, listbox, tooltip and non-modal dialog have different contracts. If #418 accepts a shared API, it should only forward an explicitly supplied role and accessible-name source (for example `aria-label` or `aria-labelledby`) to the actual controlled root; an unconfigured Popover must gain no inferred/default role, and Popover must not force `aria-haspopup`. DateField #438 chooses `dialog`; other consumers keep their own semantics. Exact public member names and validation rules remain open for review.
 
 ## Recommended responsibility split
 
@@ -42,7 +42,7 @@ Therefore the current shared implementation is **not yet sufficient by itself** 
 | --- | --- |
 | Caller-provided `aria-haspopup="dialog"` | DateField trigger usage, using ordinary Button attributes |
 | Live `aria-expanded` and persistent `aria-controls` | Existing opt-in Popover disclosure behavior |
-| Semantic role/name on the actual controlled surface root | Shared Popover contract in #418; additive and opt-in |
+| Explicit, consumer-selected role/name on the actual controlled surface root (no inferred/default role) | Shared Popover plumbing in #418, if accepted; additive and opt-in |
 | Escape dismiss + trigger focus restoration | Existing Popover behavior, verified for opt-in disclosure |
 | Focus selected date/today on open | DateField #438 |
 | Arrow/Home/End/PageUp/PageDown calendar navigation | DateField #438 |
@@ -53,7 +53,7 @@ Therefore the current shared implementation is **not yet sufficient by itself** 
 
 1. Plain Button preserves `aria-haspopup="dialog"`; managed Menu Button continues to emit only `aria-haspopup="menu"`.
 2. Opt-in Popover adds and updates exactly one `aria-expanded` and persistent `aria-controls`; pre-authored conflicting values are not used by the DateField implementation.
-3. The actual controlled surface root exposes `role="dialog"` and a stable accessible name; no `aria-modal` is emitted.
+3. DateField's actual controlled surface root exposes its explicitly selected `role="dialog"` and a stable accessible name; no `aria-modal` is emitted. Unconfigured Popovers gain no role, and menu/listbox/tooltip consumers retain their own semantics.
 4. Escape from inside closes and restores focus to the calendar trigger; focus outside the trigger/surface is not stolen.
 5. Tab and Shift+Tab leave the page's natural focus order, close the calendar, and do not trap focus.
 6. Opening focuses the selected day or today; DateField owns the calendar-grid keyboard contract.
