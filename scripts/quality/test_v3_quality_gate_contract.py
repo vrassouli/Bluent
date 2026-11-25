@@ -263,6 +263,20 @@ class V3QualityContractTests(unittest.TestCase):
         path=Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs"
         check_native_site_zoom_source(path.read_text(encoding="utf-8-sig"))
 
+    def test_native_zoom_waits_for_first_interactive_render(self):
+        from pathlib import Path
+        probe_path=Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs"
+        probe=probe_path.read_text(encoding="utf-8-sig")
+        fixture=COMPAT_PROBE.read_text(encoding="utf-8-sig")
+        check_native_site_zoom_source(probe)
+        check_compatibility_probe_text(fixture)
+        bad_probe=probe.replace("v?.blazorInteractive&&", "", 1)
+        with self.assertRaisesRegex(QualityContractError, "site zoom evidence missing"):
+            check_native_site_zoom_source(bad_probe)
+        bad_fixture=fixture.replace('"data-bluent-compatibility-interactive"', '"data-bluent-compatibility-ready"', 1)
+        with self.assertRaisesRegex(QualityContractError, "first interactive render"):
+            check_compatibility_probe_text(bad_fixture)
+
     def test_native_zoom_cannot_replace_saved_browser_preferences_with_emulation(self):
         from pathlib import Path
         source=(Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs").read_text(encoding="utf-8")

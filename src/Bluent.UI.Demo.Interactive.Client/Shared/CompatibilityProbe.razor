@@ -1,6 +1,8 @@
 @inject IDialogService DialogService
 @inject IDrawerService DrawerService
 @inject IToastService ToastService
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
 
 <PageTitle>@Mode compatibility | Bluent</PageTitle>
 
@@ -165,6 +167,22 @@
         ["Second"] = 5,
         ["Third"] = 3
     };
+
+    // Static prerender markup and the Blazor boot script can both exist before
+    // the WebAssembly renderer has attached its delegated event handlers. Only
+    // advertise readiness after the first interactive render has completed.
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        await JSRuntime.InvokeVoidAsync(
+            "document.documentElement.setAttribute",
+            "data-bluent-compatibility-interactive",
+            "true");
+    }
 
     private void OnToggleChanged(bool value)
     {

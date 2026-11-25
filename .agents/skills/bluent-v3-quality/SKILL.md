@@ -170,3 +170,7 @@ Penpot parity still require separate review.
   New-head GitHub CI in all four modes is still
   independently required; no native Windows OS AT
   or reviewer-approved visual parity is claimed.
+
+## Interactive-renderer readiness for native zoom (2026-11-25)
+
+The native site-zoom probe must not infer Blazor interactivity from `window.Blazor` or prerendered DOM controls: both can exist before the WebAssembly renderer has completed its first interactive render and attached delegated event handlers. The shared `CompatibilityProbe` fixture now sets `data-bluent-compatibility-interactive="true"` from its first `OnAfterRenderAsync(firstRender)` callback using `IJSRuntime`. The zoom probe requires both the Blazor boot global and this explicit fixture marker before it sends real pointer/keyboard input. Keep the exactly-once Enter callback assertion; do not replace it with a synthetic DOM click or relax its timeout as a substitute for correct readiness. The source contract and negative tests must protect the marker at both ends. The initial 2026-11-25 Chrome/WASM timeout was non-reproducible on rerun (72/72); the readiness fix still requires exact-head CI verification. This changes only the shared QA fixture and quality harness, not a Bluent product component.

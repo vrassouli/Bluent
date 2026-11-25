@@ -68,7 +68,7 @@ function cleanupOwned(profileRoot){
   {env:{...process.env,BLUENT_V3_ZOOM_OWNED:profileRoot},
    windowsHide:true,encoding:"utf8",timeout:23000}).trim();
 }
-const metricExpr="(()=>{const sels=['h1','#compatibility-input','[data-testid=event-count]','[data-testid=popover-trigger]'];const items=sels.map(selector=>{const e=document.querySelector(selector),r=e?.getBoundingClientRect();return {selector,exists:!!e,left:r?.left,right:r?.right,width:r?.width}});const offenders=[...document.querySelectorAll('body *')].map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,cls:String(e.className?.baseVal??e.className??'').slice(0,75),left:r.left,right:r.right,width:r.width}}).filter(x=>x.right>innerWidth+.5||x.left<-.5).slice(0,15);return {devicePixelRatio,viewportWidth:innerWidth,documentScrollWidth:document.documentElement.scrollWidth,rootFont:getComputedStyle(document.documentElement).fontSize,blazorReady:!!window.Blazor,items,offenders}})()";
+const metricExpr="(()=>{const sels=['h1','#compatibility-input','[data-testid=event-count]','[data-testid=popover-trigger]'];const items=sels.map(selector=>{const e=document.querySelector(selector),r=e?.getBoundingClientRect();return {selector,exists:!!e,left:r?.left,right:r?.right,width:r?.width}});const offenders=[...document.querySelectorAll('body *')].map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,cls:String(e.className?.baseVal??e.className??'').slice(0,75),left:r.left,right:r.right,width:r.width}}).filter(x=>x.right>innerWidth+.5||x.left<-.5).slice(0,15);return {devicePixelRatio,viewportWidth:innerWidth,documentScrollWidth:document.documentElement.scrollWidth,rootFont:getComputedStyle(document.documentElement).fontSize,blazorReady:!!window.Blazor,blazorInteractive:document.documentElement.getAttribute('data-bluent-compatibility-interactive')==='true',items,offenders}})()";
 for(const factor of [2,4]){
  const folder=join(work,"zoom-"+factor),profile=join(folder,"profile");
  mkdirSync(join(profile,"Default"),{recursive:true});
@@ -106,7 +106,7 @@ for(const factor of [2,4]){
   await cdp.send("Page.enable");
   let state=await until(async()=>{
    const v=await cdp.js(metricExpr);
-   return v?.blazorReady&&v.items.every(e=>e.exists)?v:null;
+   return v?.blazorReady&&v?.blazorInteractive&&v.items.every(e=>e.exists)?v:null;
   },"interactive published Bluent app at site zoom",50000);
   record.initialMetrics=state;
   // Native zoom affects Chart.js canvas sizing after Blazor hydration.

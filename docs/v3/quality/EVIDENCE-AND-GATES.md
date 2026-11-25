@@ -498,3 +498,9 @@ and 400% site zoom, and browser AX source evidence. Emulated forced
 colors and screenshot integrity do not qualify as native Windows
 screen-reader acceptance or accepted Penpot visual parity.
 The exact new task commit remote CI is still a separate gate.
+
+## 2026-11-25 native zoom readiness race — QA harness correction
+
+A Chrome/WebAssembly CI run intermittently timed out while waiting for a real Enter key to increment the Blazor compatibility fixture's callback counter. The same failed job passed on rerun (native 200% and 400% zoom each 10/10; the full Chrome/WASM probe 72/72), showing that the first failure was not reproducible. Source inspection found that the zoom probe's readiness predicate accepted `window.Blazor` plus prerendered DOM. In WebAssembly, those can appear before the first interactive renderer has attached its delegated event handlers.
+
+The shared compatibility fixture now emits `data-bluent-compatibility-interactive="true"` only from its first `OnAfterRenderAsync(firstRender)` callback through `IJSRuntime`. The native zoom probe waits for that marker as well as the Blazor boot global and expected controls before dispatching physical-equivalent CDP pointer/keyboard input. The existing exactly-once Enter callback assertion remains mandatory; this is not addressed by suppressing or retrying an interaction assertion, weakening the test, or increasing the timeout. A fail-closed source contract and negative test protect the readiness signal in both fixture and probe. The correction is confined to the QA fixture/harness and does not change a public Bluent component. Verify the new exact PR head in CI before treating the gate as resolved.
