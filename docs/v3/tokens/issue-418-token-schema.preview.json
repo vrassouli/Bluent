@@ -1,0 +1,1256 @@
+{
+  "status": "DRAFT - opt-in token bridge; not public v3 API",
+  "issue": 418,
+  "source": "src/Bluent.UI/Styles/Themes/theme-<brand>-<mode>.css",
+  "supportedBrands": [
+    "default",
+    "excel",
+    "office",
+    "outlook",
+    "powerapps",
+    "powerbi",
+    "powerpoint",
+    "stream",
+    "teams",
+    "word"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "design": {
+    "authoritativeFile": "Bluent v3 Design System",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
+    "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
+    "savedVersion": "Bluent v3 · #418 opt-in scope and accessible motion rules 2026-10-11",
+    "observedRevision": 843,
+    "nativeTokensPerMode": 46,
+    "totalNativeTokens": 92,
+    "sourceAddedPerMode": 16,
+    "semanticPerMode": 17,
+    "componentPerMode": 13,
+    "brandPageId": "acf5f619-7d81-80da-8008-c5cce396e634",
+    "brandBoardId": "acf5f619-7d81-80da-8008-c5cce3bd4593",
+    "brandSnapshotChecks": 60,
+    "brandSnapshotErrors": 0,
+    "totalDesignPages": 61,
+    "brandThemeCount": 20,
+    "brandThemeSourceSets": 20,
+    "sharedBrandPreviewSets": 2,
+    "brandPreviewTokens": 176,
+    "combinedNativeTokens": 492,
+    "brandLivePageId": "acf5f619-7d81-80da-8008-c5d06084d4c6",
+    "brandLiveBoardId": "acf5f619-7d81-80da-8008-c5d0608ab738",
+    "liveBrandThemeSwitchChecks": 258,
+    "liveBrandThemeSwitchErrors": 0,
+    "brandThemeGroup": "Bluent v3 / Brand×Mode (Preview)",
+    "previewRequiresCoordinatedModeTheme": true,
+    "totalNativeSets": 45,
+    "dangerContrastPageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
+    "dangerContrastBoardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
+    "dangerContrastModes": 2,
+    "dangerContrastNativeTokenSets": 2,
+    "dangerContrastNativeTokens": 4,
+    "dangerContrastLiveChecks": 12,
+    "dangerContrastLiveErrors": 0,
+    "dangerContrastSourceChecks": 80,
+    "dangerContrastAffectedDarkBrands": 10,
+    "dangerContrastCandidateFailures": 0,
+    "dangerContrastCandidateApproved": false,
+    "foundationPageId": "acf5f619-7d81-80da-8008-c5e09d3a050f",
+    "foundationBoardId": "acf5f619-7d81-80da-8008-c5e0d7a2fbf9",
+    "foundationAliasTokenSetId": "acf5f619-7d81-80da-8008-c5e09d49cf8a",
+    "foundationAliasTokens": 6,
+    "foundationLiveChecks": 18,
+    "foundationLiveErrors": 0,
+    "accessibilityPolicyPageId": "acf5f619-7d81-80da-8008-c5ef1089ac94",
+    "accessibilityPolicyBoardId": "acf5f619-7d81-80da-8008-c5ef2f9a3158",
+    "nestedThemeBrowserChecks": 100,
+    "nestedThemeBrowserFailures": 0,
+    "forcedColorsRuntimeApproved": false,
+    "reducedMotionRuntimeApproved": false,
+    "activeModeTokenSets": 17,
+    "activeModeTokenEntries": 262,
+    "nativeTokenSchema": "16 source + 17 semantic + 13 component logical tokens per mode; Link Rest/Hover/Pressed use bluent.color.*"
+  },
+  "layers": {
+    "source": [
+      {
+        "name": "bluent.color.background1",
+        "css": "--colorNeutralBackground1",
+        "default": {
+          "light": "#FFFFFF",
+          "dark": "#292929"
+        }
+      },
+      {
+        "name": "bluent.color.foreground1",
+        "css": "--colorNeutralForeground1",
+        "default": {
+          "light": "#242424",
+          "dark": "#FFFFFF"
+        }
+      },
+      {
+        "name": "bluent.color.foreground4",
+        "css": "--colorNeutralForeground4",
+        "default": {
+          "light": "#707070",
+          "dark": "#999999"
+        }
+      },
+      {
+        "name": "bluent.color.brandBackground",
+        "css": "--colorBrandBackground",
+        "default": {
+          "light": "#1267B4",
+          "dark": "#18599B"
+        }
+      },
+      {
+        "name": "bluent.color.stroke1",
+        "css": "--colorNeutralStroke1",
+        "default": {
+          "light": "#D1D1D1",
+          "dark": "#666666"
+        }
+      },
+      {
+        "name": "bluent.color.brandForeground1",
+        "css": "--colorBrandForeground1",
+        "default": {
+          "light": "#1267B4",
+          "dark": "#4F82C8"
+        }
+      },
+      {
+        "name": "bluent.source.onBrand",
+        "css": "--colorNeutralForegroundOnBrand",
+        "default": {
+          "light": "#FFFFFF",
+          "dark": "#FFFFFF"
+        }
+      },
+      {
+        "name": "bluent.source.strokeAccessible",
+        "css": "--colorNeutralStrokeAccessible",
+        "default": {
+          "light": "#616161",
+          "dark": "#ADADAD"
+        }
+      },
+      {
+        "name": "bluent.source.dangerForeground",
+        "css": "--colorStatusDangerForeground1",
+        "default": {
+          "light": "#B10E1C",
+          "dark": "#DC626D"
+        }
+      },
+      {
+        "name": "bluent.source.foregroundDisabled",
+        "css": "--colorNeutralForegroundDisabled",
+        "default": {
+          "light": "#BDBDBD",
+          "dark": "#5C5C5C"
+        }
+      },
+      {
+        "name": "bluent.source.backgroundDisabled",
+        "css": "--colorNeutralBackgroundDisabled",
+        "default": {
+          "light": "#F0F0F0",
+          "dark": "#141414"
+        }
+      },
+      {
+        "name": "bluent.source.paletteRedForeground1",
+        "css": "--colorPaletteRedForeground1",
+        "default": {
+          "light": "#BC2F32",
+          "dark": "#E37D80"
+        }
+      },
+      {
+        "name": "bluent.source.focusStroke2",
+        "css": "--colorStrokeFocus2",
+        "default": {
+          "light": "#000000",
+          "dark": "#FFFFFF"
+        }
+      },
+      {
+        "name": "bluent.color.brandForegroundLink",
+        "css": "--colorBrandForegroundLink",
+        "default": {
+          "light": "#18599B",
+          "dark": "#4F82C8"
+        }
+      },
+      {
+        "name": "bluent.color.brandForegroundLinkHover",
+        "css": "--colorBrandForegroundLinkHover",
+        "default": {
+          "light": "#1B4C82",
+          "dark": "#6790CF"
+        }
+      },
+      {
+        "name": "bluent.color.brandForegroundLinkPressed",
+        "css": "--colorBrandForegroundLinkPressed",
+        "default": {
+          "light": "#193253",
+          "dark": "#3174C2"
+        }
+      }
+    ],
+    "semantic": [
+      {
+        "name": "bluent.semantic.surface.default",
+        "alias": "bluent.color.background1",
+        "css": "--bui-v3-surface-default"
+      },
+      {
+        "name": "bluent.semantic.text.primary",
+        "alias": "bluent.color.foreground1",
+        "css": "--bui-v3-text-primary"
+      },
+      {
+        "name": "bluent.semantic.text.placeholder",
+        "alias": "bluent.color.foreground4",
+        "css": "--bui-v3-text-placeholder"
+      },
+      {
+        "name": "bluent.semantic.action.background",
+        "alias": "bluent.color.brandBackground",
+        "css": "--bui-v3-action-background"
+      },
+      {
+        "name": "bluent.semantic.action.foreground",
+        "alias": "bluent.color.brandForeground1",
+        "css": "--bui-v3-action-foreground"
+      },
+      {
+        "name": "bluent.semantic.action.onBrand",
+        "alias": "bluent.source.onBrand",
+        "css": "--bui-v3-action-on-brand"
+      },
+      {
+        "name": "bluent.semantic.border.default",
+        "alias": "bluent.color.stroke1",
+        "css": "--bui-v3-border-default"
+      },
+      {
+        "name": "bluent.semantic.border.strong",
+        "alias": "bluent.source.strokeAccessible",
+        "css": "--bui-v3-border-strong"
+      },
+      {
+        "name": "bluent.semantic.status.danger",
+        "alias": "bluent.source.dangerForeground",
+        "css": "--bui-v3-status-danger"
+      },
+      {
+        "name": "bluent.semantic.text.disabled",
+        "alias": "bluent.source.foregroundDisabled",
+        "css": "--bui-v3-text-disabled"
+      },
+      {
+        "name": "bluent.semantic.surface.disabled",
+        "alias": "bluent.source.backgroundDisabled",
+        "css": "--bui-v3-surface-disabled"
+      },
+      {
+        "name": "bluent.semantic.border.focus",
+        "alias": "bluent.color.brandBackground",
+        "css": "--bui-v3-border-focus"
+      },
+      {
+        "name": "bluent.semantic.text.dangerAccessible",
+        "alias": "bluent.source.paletteRedForeground1",
+        "css": "--bui-v3-text-danger-accessible"
+      },
+      {
+        "name": "bluent.semantic.focusRing.strongCandidate",
+        "alias": "bluent.source.focusStroke2",
+        "css": "--bui-v3-focus-ring-strong-candidate"
+      },
+      {
+        "name": "bluent.semantic.link.foregroundRest",
+        "alias": "bluent.color.brandForegroundLink",
+        "css": "--bui-v3-semantic-link-foreground-rest"
+      },
+      {
+        "name": "bluent.semantic.link.foregroundHover",
+        "alias": "bluent.color.brandForegroundLinkHover",
+        "css": "--bui-v3-semantic-link-foreground-hover"
+      },
+      {
+        "name": "bluent.semantic.link.foregroundPressed",
+        "alias": "bluent.color.brandForegroundLinkPressed",
+        "css": "--bui-v3-semantic-link-foreground-pressed"
+      }
+    ],
+    "component": [
+      {
+        "name": "bluent.component.button.backgroundPrimary",
+        "alias": "bluent.semantic.action.background",
+        "css": "--bui-v3-button-background-primary"
+      },
+      {
+        "name": "bluent.component.button.foregroundPrimary",
+        "alias": "bluent.semantic.action.onBrand",
+        "css": "--bui-v3-button-foreground-primary"
+      },
+      {
+        "name": "bluent.component.button.foregroundDefault",
+        "alias": "bluent.semantic.text.primary",
+        "css": "--bui-v3-button-foreground-default"
+      },
+      {
+        "name": "bluent.component.textField.background",
+        "alias": "bluent.semantic.surface.default",
+        "css": "--bui-v3-text-field-background"
+      },
+      {
+        "name": "bluent.component.textField.stroke",
+        "alias": "bluent.semantic.border.strong",
+        "css": "--bui-v3-text-field-stroke"
+      },
+      {
+        "name": "bluent.component.checkbox.checkedFill",
+        "alias": "bluent.semantic.action.background",
+        "css": "--bui-v3-checkbox-checked-fill"
+      },
+      {
+        "name": "bluent.component.switch.checkedTrack",
+        "alias": "bluent.semantic.action.background",
+        "css": "--bui-v3-switch-checked-track"
+      },
+      {
+        "name": "bluent.component.badge.dangerForeground",
+        "alias": "bluent.semantic.status.danger",
+        "css": "--bui-v3-badge-danger-foreground"
+      },
+      {
+        "name": "bluent.component.badge.dangerTextAccessible",
+        "alias": "bluent.semantic.text.dangerAccessible",
+        "css": "--bui-v3-badge-danger-text-accessible"
+      },
+      {
+        "name": "bluent.component.button.focusOuterCandidate",
+        "alias": "bluent.semantic.focusRing.strongCandidate",
+        "css": "--bui-v3-button-focus-outer-candidate"
+      },
+      {
+        "name": "bluent.component.link.foregroundRest",
+        "alias": "bluent.semantic.link.foregroundRest",
+        "css": "--bui-v3-link-foreground"
+      },
+      {
+        "name": "bluent.component.link.foregroundHover",
+        "alias": "bluent.semantic.link.foregroundHover",
+        "css": "--bui-v3-link-foreground-hover"
+      },
+      {
+        "name": "bluent.component.link.foregroundPressed",
+        "alias": "bluent.semantic.link.foregroundPressed",
+        "css": "--bui-v3-link-foreground-pressed"
+      }
+    ]
+  },
+  "scopeSelector": "[data-bui-v3-tokens][data-bui-theme], [data-bui-v3-tokens] [data-bui-theme]",
+  "guardrails": [
+    "Do not redefine any legacy --color*, --spacing*, or --fui-* variable.",
+    "No stylesheet is added to the current global CSS bundle under this experimental issue phase.",
+    "The only approved architecture is ADR #417 D1-D5; exact token vocabulary is a draft.",
+    "The twenty native Brand×Mode preview themes are selectable and actually resolve source/semantic/component values; they use a separate preview namespace and require coordinated Light/Dark Mode selection, not production alias integration.",
+    "Danger text contrast candidate is additive/opt-in; legacy status-danger mappings and stable CSS are not changed, and text/AT acceptance remains required.",
+    "The extra Focus2 aliases are experimental and additive; legacy --bui-v3-border-focus is preserved for compatibility, with no default Button CSS change."
+  ],
+  "focusHostPreview": {
+    "status": "Maintainer-approved host-color choice; opt-in candidate CSS name, NOT final public Button API",
+    "penpotBoardId": "f4136a9a-101d-8004-8008-ca2956fe05f9",
+    "hostAttribute": "data-bui-v3-focus-host",
+    "outputCssVariable": "--bui-v3-focus-host-ring-candidate",
+    "light": {
+      "neutral": "--colorBrandBackground",
+      "brand": "--colorNeutralForegroundOnBrand",
+      "brandHover": "--colorNeutralForegroundOnBrand",
+      "danger": "--colorNeutralForegroundOnBrand",
+      "inverted": "--colorNeutralForegroundOnBrand"
+    },
+    "dark": {
+      "neutral": "--colorBrandForeground2",
+      "brand": "--colorNeutralForegroundOnBrand",
+      "brandHover": "--colorNeutralForegroundOnBrand",
+      "danger": "--colorNeutralForegroundOnBrand",
+      "inverted": "--colorBrandForeground2"
+    },
+    "modeAttribute": "data-bui-v3-focus-mode"
+  },
+  "darkBrandForegroundPreview": {
+    "status": "Maintainer-approved direction; exact values are source-derived preview candidates, not final public tokens",
+    "designFileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "designPageId": "d0bcea67-3af4-8071-8008-d8e442b90ed1",
+    "designBoardId": "fce13529-02e2-80e4-8008-df6f76b3b4ac",
+    "minimumContrastRatio": 4.5,
+    "targetContrastRatio": 4.6,
+    "backgroundCss": "--colorNeutralBackground1",
+    "brandAttribute": "data-bui-brand",
+    "themeAttribute": "data-bui-theme",
+    "mixDirection": "white",
+    "algorithm": "minimum per-role sRGB interpolation toward white, rounded to 8-bit RGB, then rechecked against the target ratio",
+    "roles": {
+      "action": {
+        "sourceCss": "--colorBrandForeground1",
+        "outputCss": "--bui-v3-action-foreground"
+      },
+      "linkRest": {
+        "sourceCss": "--colorBrandForegroundLink",
+        "outputCss": "--bui-v3-semantic-link-foreground-rest"
+      },
+      "linkHover": {
+        "sourceCss": "--colorBrandForegroundLinkHover",
+        "outputCss": "--bui-v3-semantic-link-foreground-hover"
+      },
+      "linkPressed": {
+        "sourceCss": "--colorBrandForegroundLinkPressed",
+        "outputCss": "--bui-v3-semantic-link-foreground-pressed"
+      }
+    },
+    "stateRule": "Each foreground state is derived from its corresponding source state; no Hover or Pressed source is reused for Rest.",
+    "selection": {
+      "date": "2026-11-16",
+      "status": "Selected opt-in preview target; exact public token names and production CSS remain unapproved.",
+      "scope": "40 generated values across ten brands for Action Rest, Link Rest, Link Hover and Link Pressed on opaque Dark NeutralBackground1 only.",
+      "minimumObservedContrast": 4.6001,
+      "targetContrast": 4.6,
+      "designBoardStatus": "DRAFT / REVIEW REQUIRED"
+    }
+  },
+  "reviewPolicy": {
+    "status": "explicit engineering review contract for opt-in preview; not public API approval",
+    "sourceNamespacePolicy": {
+      "rule": "bluent.color.* names reusable neutral/brand palette primitives and state-specific link palette roles. bluent.source.* names source roles whose meaning is constrained by context (on-brand contrast, accessible stroke, danger, disabled, accessible palette text, or focus). Both namespaces are direct aliases to existing source CSS variables; the prefix distinguishes the role contract, not the provenance or token type.",
+      "color": [
+        "bluent.color.background1",
+        "bluent.color.foreground1",
+        "bluent.color.foreground4",
+        "bluent.color.brandBackground",
+        "bluent.color.stroke1",
+        "bluent.color.brandForeground1",
+        "bluent.color.brandForegroundLink",
+        "bluent.color.brandForegroundLinkHover",
+        "bluent.color.brandForegroundLinkPressed"
+      ],
+      "source": [
+        "bluent.source.onBrand",
+        "bluent.source.strokeAccessible",
+        "bluent.source.dangerForeground",
+        "bluent.source.foregroundDisabled",
+        "bluent.source.backgroundDisabled",
+        "bluent.source.paletteRedForeground1",
+        "bluent.source.focusStroke2"
+      ],
+      "compatibility": "Preserve the existing Penpot/schema aliases during this preview. Any rename requires a coordinated Penpot TokenSet migration, schema/generator update, migration note, and a separately reviewed public-vocabulary decision."
+    },
+    "dangerConsumerBoundary": {
+      "semantic.status.danger": {
+        "source": "bluent.source.dangerForeground",
+        "allowedRole": "non-text status indicators/icons/accents on the tested neutral surface",
+        "forbiddenRole": "ordinary or small text foreground",
+        "evidence": {
+          "minimumDarkNeutralBackground1Contrast": 4.164,
+          "minimumRequiredForNormalText": 4.5,
+          "minimumRequiredForNonTextContrast": 3,
+          "scope": "opaque source CSS pairs only; not complete WCAG component or AT conformance"
+        }
+      },
+      "semantic.text.dangerAccessible": {
+        "source": "bluent.source.paletteRedForeground1",
+        "approvedConsumer": "Label required marker only",
+        "notApprovedConsumers": [
+          "Badge",
+          "Alert",
+          "Toast",
+          "Button Danger",
+          "generic status/body text"
+        ],
+        "evidence": {
+          "lightNeutralBackground1Contrast": 5.848,
+          "darkNeutralBackground1Contrast": 5.204,
+          "scope": "the reviewed Label marker pairing only"
+        }
+      },
+      "component.badge.dangerTextAccessible": {
+        "status": "unapproved preview candidate",
+        "rule": "Do not treat the existence of this generated alias as approval for Badge or any other consumer."
+      },
+      "component.badge.dangerForeground": {
+        "source": "bluent.semantic.status.danger",
+        "status": "unapproved preview candidate",
+        "allowedRole": "non-text Badge status indicator/icon/accent only, on the tested neutral surface",
+        "forbiddenRole": "Badge text foreground or any ordinary/small text",
+        "rule": "The token name foreground does not approve a text consumer. Do not consume this candidate in Badge runtime until a dedicated per-state design and contrast review approves its exact surface/text pairing."
+      },
+      "penpotDesignRecord": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
+        "boardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
+        "observedRevision": 808,
+        "boardStatus": "DRAFT",
+        "updatedDate": "2026-11-15",
+        "decisionClarification": "semantic.text.dangerAccessible is approved only for Label decorative required marker; Badge, Alert, Toast and Button Danger text remain unapproved. semantic.status.danger is limited to non-text status marks on the tested neutral surface."
+      }
+    },
+    "focusHostBoundary": {
+      "status": "Option A selected 2026-11-16 as future v3 contract direction; opt-in preview only; no shipping API approved",
+      "approvedVisualDesign": {
+        "penpotBoardId": "f4136a9a-101d-8004-8008-ca2956fe05f9",
+        "ownerIssue": 501
+      },
+      "supportedOpaqueHostKinds": [
+        "neutral",
+        "brand",
+        "brandHover",
+        "danger",
+        "inverted"
+      ],
+      "requiresExplicitOptInRoot": "data-bui-v3-tokens",
+      "requiresSameElementAttributes": [
+        "data-bui-v3-focus-mode",
+        "data-bui-v3-focus-host"
+      ],
+      "automaticBackgroundInference": false,
+      "publicAttributeOrComponentApiApproved": false,
+      "unsupportedWithoutSeparateReview": [
+        "translucent",
+        "gradient",
+        "image-backed",
+        "nested composited",
+        "arbitrary custom host"
+      ],
+      "ownership": {
+        "visualDesign": 501,
+        "buttonRuntimeAndConsumerApi": 428,
+        "previewTokenBridge": 418
+      },
+      "selectedOption": "A"
+    },
+    "portalBoundary": {
+      "status": "Option A selected 2026-11-16 as future API direction; opt-in research prototype; no shipping public API approved",
+      "ownershipRule": "A detached portal receives an immutable scope snapshot from its actual owner; never infer ownership from last click, focus, or the current document theme.",
+      "popoverPrototype": "Cascading owner scope follows the owning subtree and updates only that owner's detached surface.",
+      "dialogPrototype": "An explicit immutable owner snapshot is captured at ShowAsync; unscoped calls retain legacy fallback behavior.",
+      "modalPrototype": "aria-modal/inert behavior remains explicitly opt-in and requires a valid accessible name; the opt-in proof does not approve a public Dialog/Popover contract.",
+      "shippingPublicApiApproved": false,
+      "remainingNativeEvidence": [
+        "native Windows Contrast Themes for Dialog/Popover",
+        "spoken NVDA/Narrator/VoiceOver acceptance",
+        "independent Firefox/Safari engine coverage",
+        "third-party popup arbitration and route/unmount/iframe lifecycle"
+      ],
+      "penpotDesignRecord": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageId": "acf5f619-7d81-80da-8008-c5fec09d9837",
+        "boardId": "acf5f619-7d81-80da-8008-c5fec0b7ec61",
+        "observedRevision": 809,
+        "boardStatus": "DRAFT",
+        "updatedDate": "2026-11-15",
+        "decisionBoundary": "Popover owner cascade; Dialog explicit owner scope captured at ShowAsync; unscoped calls retain legacy fallback; no public PortalThemeScope/Dialog/Popover API approved."
+      },
+      "currentVerification": {
+        "d2": {
+          "scope": "owner-scoped Dialog/Popover detached surfaces; concurrent Excel/Light and Word/Dark owners; owner updates; no-scope fallback; forced-colors role propagation; reduced motion; bounded 320px/200% reflow",
+          "chromeWebAssembly": "126/126",
+          "chromePublishedInteractiveServer": "126/126",
+          "nunit": "40/40",
+          "brandModeStylesheets": 20,
+          "brandSensitiveVariables": 49,
+          "totalDeclaredSourceVariables": 450,
+          "status": "opt-in research; not public API acceptance"
+        },
+        "d5": {
+          "runtimeCommit": "cf008b6d140ac3c4aac5bb9d59880de570620b20",
+          "chromeDebugWebAssembly": "1179/1179",
+          "chromePublishedInteractiveServer": "1178/1178",
+          "focusedNunit": "45/45",
+          "historicalChromiumProofPacks": [
+            "176/176 each on Chrome/Edge × WASM/InteractiveServer",
+            "190/190 each on Chrome/Edge × WASM/InteractiveServer"
+          ],
+          "status": "opt-in research; not public API or native AT acceptance"
+        },
+        "remaining": [
+          "native Windows Contrast Themes for Dialog/Popover",
+          "spoken NVDA/Narrator/VoiceOver acceptance",
+          "current independent Firefox/Safari engine coverage",
+          "third-party popup arbitration",
+          "route/unmount/iframe lifecycle edge coverage",
+          "final public API/design approval"
+        ]
+      },
+      "selectedOption": "A"
+    },
+    "typographyAndMediaBoundary": {
+      "productionFontSourceOfTruth": "The complete Segoe UI / Segoe UI Web / native system CSS fallback chain in the shipped theme CSS.",
+      "designCanvasFonts": "Penpot Inter and Noto Sans Arabic are specimen fallbacks only; they do not approve a production font substitution.",
+      "browserEvidenceDoesNotApprove": [
+        "native Persian OS IME composition/caret/selection",
+        "all-platform Persian font metrics",
+        "universal forced-colors behavior",
+        "native screen-reader speech"
+      ],
+      "reducedMotionAndForcedColors": "Keep source CSS/system Highlight behavior and the existing browser-emulation tests; do not equate those runs with native OS or AT acceptance."
+    },
+    "penpotReviewRecords": [
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 27,
+        "pageId": "acf5f619-7d81-80da-8008-c5cad7f94014",
+        "boardId": "acf5f619-7d81-80da-8008-c5cb90d6963b",
+        "observedRevision": 840,
+        "status": "DRAFT / native schema aligned; public promotion remains gated",
+        "scope": "Source → semantic → component architecture; 46 logical roles now resolve through native Light/Dark TokenSets. Ten-brand preview remains separate; board is not production or native accessibility approval.",
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 30,
+        "pageId": "acf5f619-7d81-80da-8008-c5ddd53bc436",
+        "boardId": "acf5f619-7d81-80da-8008-c5ddf5c26686",
+        "observedRevision": 808,
+        "status": "DRAFT",
+        "scope": "Danger consumer boundary: text.dangerAccessible is Label decorative required-marker only; status.danger is non-text-only on tested neutral surface; Badge text consumers unapproved."
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 33,
+        "pageId": "acf5f619-7d81-80da-8008-c5fec09d9837",
+        "boardId": "acf5f619-7d81-80da-8008-c5fec0b7ec61",
+        "observedRevision": 809,
+        "status": "DRAFT",
+        "scope": "D2 Popover owner cascade and Dialog show-time owner snapshot; unscoped legacy fallback; D2/D5 verification does not approve a public API."
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 45,
+        "pageId": "d0bcea67-3af4-8071-8008-d8e442b90ed1",
+        "boardId": "d0bcea67-3af4-8071-8008-d8e4c3d426d0",
+        "observedRevision": 810,
+        "status": "DRAFT / REVIEW REQUIRED",
+        "scope": "Dark semantic role decisions remain preview candidates; page 45 Danger caveat aligns Label-only text.dangerAccessible and non-text-only status.danger; no full public vocabulary or production aliases approved."
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 52,
+        "pageId": "388782f1-b766-8073-8008-f3299e62827a",
+        "boardId": "388782f1-b766-8073-8008-f3299e849141",
+        "status": "OPTION B SELECTED / PREVIEW ONLY",
+        "scope": "Public palette namespace plus individually approved semantic roles; source internal and component private; CSS aliases only within v3 opt-in after role approval.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 53,
+        "pageId": "388782f1-b766-8073-8008-f32b0b243fc9",
+        "boardId": "388782f1-b766-8073-8008-f32b0b39e88b",
+        "status": "OPTION A SELECTED / PREVIEW ONLY / PUBLIC API OPEN",
+        "scope": "Explicit same-host data-bui-v3-focus-mode and data-bui-v3-focus-host direction; unsupported hosts fail closed while preserving current visible focus; public attributes and production CSS remain unapproved.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 54,
+        "pageId": "388782f1-b766-8073-8008-f32c913ab071",
+        "boardId": "388782f1-b766-8073-8008-f32c9154ed0d",
+        "status": "OPTION A SELECTED / PROTOTYPE ONLY / NATIVE ACCEPTANCE OPEN",
+        "scope": "Option A reuses the existing Dialog configuration builder and CascadingValue path; current prototype includes one public immutable PortalThemeScope value object as the explicit data carrier. No public OwnerId, launcher component or DialogAccessibilityOptions type; final public names/shape remain unapproved.",
+        "observedRevision": 836,
+        "updatedDate": "2026-11-17"
+      },
+      {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "pageNumber": 55,
+        "pageId": "388782f1-b766-8073-8008-f32e8223fd29",
+        "boardId": "388782f1-b766-8073-8008-f32e823c8580",
+        "status": "DRAFT / EXACT VALUES NOT APPROVED",
+        "scope": "Forty per-brand Dark candidate values for Action Rest, Link Rest, Link Hover and Link Pressed; 4.6:1 opaque NeutralBackground1 preview target only.",
+        "observedRevision": 833,
+        "updatedDate": "2026-11-17"
+      }
+    ],
+    "publicVocabularyProposal": {
+      "status": "Option B selected 2026-11-16; production/public API promotion remains gated by design and acceptance review",
+      "document": "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md",
+      "recommendedOption": "B",
+      "options": {
+        "A": "Expose color, source, semantic and component logical names; freezes all implementation layers as consumer contracts.",
+        "B": "Expose reusable bluent.color.* and individually approved bluent.semantic.*; keep bluent.source.* and bluent.component.* internal.",
+        "C": "Expose only individually approved bluent.semantic.*; keep color/source/component internal."
+      },
+      "productionAliasPolicy": {
+        "status": "Option B alias direction selected 2026-11-16; no aliases approved for production by this record",
+        "prefix": "--bui-v3-*",
+        "publicMappings": "Only approved bluent.color.* and bluent.semantic.* roles",
+        "privateMappings": "bluent.source.* and bluent.component.* remain internal and are not consumer override contracts",
+        "scope": "Explicit v3 opt-in scope only",
+        "legacy": "Do not rename or remove existing --color* Fluent-compatible variables or alter 2.x bundles",
+        "compatibility": "Never repurpose a shipped name; semantic changes require a new alias and migration; removal requires separate breaking-release approval",
+        "publishing": "Preview assets remain excluded from production package until design, consumer, compatibility and runtime gates are accepted"
+      }
+    },
+    "selectedDecisions": {
+      "date": "2026-11-16",
+      "authority": "Selected by the maintainer-delegated design decision; engineering direction only.",
+      "publicTokenVocabulary": {
+        "option": "B",
+        "publicLayers": [
+          "bluent.color.*",
+          "individually approved bluent.semantic.*"
+        ],
+        "internalLayers": [
+          "bluent.source.*",
+          "bluent.component.*"
+        ],
+        "cssAliases": "Stable --bui-v3-* serialization only for approved public logical roles inside the explicit v3 opt-in scope.",
+        "compatibility": "Never repurpose a shipped token or alias; semantic changes use a new name and migration; legacy --color* variables and 2.x assets remain untouched.",
+        "productionApproval": false
+      },
+      "focusHost": {
+        "option": "A",
+        "contractDirection": "Explicit data-bui-v3-focus-mode and data-bui-v3-focus-host metadata on the same actual painted host.",
+        "supportedOpaqueKinds": [
+          "neutral",
+          "brand",
+          "brandHover",
+          "danger",
+          "inverted"
+        ],
+        "unknownOrUnsupportedFallback": "Do not infer a host from pixels and do not emit a host-specific alias; preserve the existing visible keyboard focus indicator without promising a host-specific contrast result.",
+        "newWrapperOrRazorParameter": false,
+        "productionApiApproval": false
+      },
+      "portalOwnership": {
+        "option": "A",
+        "popover": "Follow the nearest live owner cascade while the trigger/owner is alive.",
+        "dialog": "Pass owner context explicitly through the existing Dialog configuration builder and capture an immutable snapshot at ShowAsync; unscoped calls retain the legacy fallback.",
+        "ownerIdentity": "Private implementation identity/registry handle; do not expose a public OwnerId merely for internal bookkeeping.",
+        "dialogAccessibility": "Keep D5 modal/accessibility configuration explicit and validated, separate from D2 owner context; retain existing explicit builder methods rather than adding a new options type in this iteration.",
+        "productionApiApproval": false,
+        "publicScopeValueType": {
+          "name": "Bluent.UI.Components.PortalThemeScope",
+          "status": "Present in the isolated prototype as one immutable public value object required to supply the same caller scope through CascadingValue and DialogConfigurator.SetThemeScope; not approved as a released public API name or shape.",
+          "fields": [
+            "Mode",
+            "Brand",
+            "Direction",
+            "Density",
+            "UseV3Tokens"
+          ],
+          "whyPublic": "A consumer must be able to construct a strongly typed value for the public builder method and Blazor CascadingValue. Making the type internal would make the public method unusable and the cascade contract untyped.",
+          "approvalBoundary": "This is the only public owner-scope data carrier in Option A. No public OwnerId, launcher component or separate DialogAccessibilityOptions object is added."
+        },
+        "newOwnerId": false,
+        "newLauncherComponent": false,
+        "newDialogAccessibilityOptions": false
+      },
+      "darkBrandForeground": {
+        "selection": "Use the 40 generated candidates as the selected opt-in preview target for the four named roles only.",
+        "roles": [
+          "Action Rest",
+          "Link Rest",
+          "Link Hover",
+          "Link Pressed"
+        ],
+        "brands": 10,
+        "surface": "--colorNeutralBackground1 opaque Dark surface (#292929 in the current source matrix)",
+        "minimumCandidateContrast": 4.6001,
+        "targetContrast": 4.6,
+        "publicNamesApproved": false,
+        "productionCssApproved": false,
+        "limitations": "Does not certify alpha/composited/gradient/image surfaces, other components or states, native forced-colors, spoken assistive technology, or blanket WCAG conformance."
+      },
+      "danger": {
+        "semanticStatusDanger": "Non-text status indicators/icons/accents only on the tested neutral surface; not normal/small text.",
+        "semanticTextDangerAccessible": "Label decorative required marker only.",
+        "unapprovedTextConsumers": [
+          "Badge",
+          "Alert",
+          "Toast",
+          "Button Danger",
+          "generic status/body text"
+        ]
+      },
+      "publicationBoundary": "No production CSS, stable branch, stable package, NuGet publication or deployment is authorized by these decisions. Keep design boards in their actual DRAFT/REVIEW REQUIRED states until reviewed in Penpot."
+    },
+    "latestValidation": {
+      "date": "2026-11-20",
+      "exactHead": "9c5ec655f60e5d31a8553635527aed21b36750fa",
+      "baseBranch": "bluent-v3",
+      "githubActions": {
+        "workflows": 13,
+        "success": 13,
+        "failure": 0,
+        "pending": 0,
+        "allExactHead": true,
+        "includes": [
+          "Baseline Quality Gate",
+          "Button Runtime Contract",
+          "Button Focus Design Contract",
+          "Documentation Contract",
+          "Firefox Portal Lab",
+          "WebKit Portal Lab",
+          "Interaction Source Contract",
+          "Local Package Boundary",
+          "Public Component Census",
+          "Real Browser Lab",
+          "Real Compatibility Browsers",
+          "Token Contract",
+          "Component Lab Pilot"
+        ]
+      },
+      "localRelease": {
+        "environment": "macOS 27.2 ARM64; .NET SDK 10.0.300",
+        "restore": "PASS",
+        "releaseBuildWarningsAsErrors": "PASS; 0 warnings; 0 errors",
+        "solutionTests": "140/140",
+        "nugetBoundaryUnitTests": "9/9",
+        "localOnlyPackage": "PASS; Bluent.UI 1.0.0; 10 legacy theme bundles; no unexpected v3/demo-only assets or unapproved fonts",
+        "gitDiffCheck": "PASS"
+      },
+      "focusedContracts": {
+        "issue418Review": "13/13",
+        "additiveApiLedger": "8/8",
+        "tokenPreviewContrast": "12/12",
+        "foundationPreview": "7/7",
+        "approvedFocusHostBridge": "7/7",
+        "focusHostSurfaceMatrix": "22/22",
+        "focusAlphaHost": "PASS",
+        "typographySource": "PASS",
+        "systemFontContinuity": "PASS",
+        "docsContract": "0 findings",
+        "skillsContract": "0 errors"
+      },
+      "penpot": {
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "currentRevision": 883,
+        "inspectedPages": [
+          27,
+          31,
+          32,
+          33,
+          42,
+          45,
+          52,
+          53,
+          54,
+          55
+        ],
+        "decisionBoardsExportedAndVisuallyInspected": [
+          27,
+          45,
+          52,
+          53,
+          54,
+          55
+        ]
+      },
+      "remainingAcceptance": [
+        "Native spoken NVDA/Narrator/VoiceOver and keyboard navigation acceptance, including Persian Dialog description, localized Close activation and focus return. NVDA 2026.3 is installed and running in the current Dev01 interactive session, but no Speech Viewer/log or spoken output was captured; process presence is not spoken acceptance.",
+        "Native Windows Contrast Themes for Dialog/Popover and unrecognized/translucent Focus host surfaces; browser CDP media emulation is not native OS evidence.",
+        "Native Safari.app/SafariDriver plus VoiceOver acceptance; Playwright WebKit is not Safari.app or spoken AT.",
+        "Composition-based Persian OS IME/caret/selection and cross-platform font metrics; platform glyph observation is not an IME/typing test.",
+        "Page 45 maintainer review and final approval of the individual public semantic allow-list, exact production alias set, and public Focus/Portal/Dialog type/member names."
+      ],
+      "publicApiAudit": {
+        "baseline": "origin/bluent-v3 f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6",
+        "comparedHead": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+        "newExportedTypes": 1,
+        "existingExportedTypesWithAdditions": 5,
+        "existingIdialogServiceOverloadsChanged": false,
+        "previouslyUnderreportedMembersNowRecorded": true,
+        "approval": "isolated experimental API only; final public names/shape remain unapproved",
+        "newPublicDialogConfiguratorMethods": 6,
+        "newPublicDialogConfigurationProperties": 7,
+        "newPublicPopoverSettingsProperties": 1,
+        "newPublicDialogAndPopoverComponentProperties": 9,
+        "newPublicDialogMethods": 2,
+        "auditMethod": "Release-compiled reflection comparison against a separate clean bluent-v3 base worktree",
+        "publicMemberRemovalOrChangeCount": 0
+      },
+      "verificationHistory": [
+        {
+          "head": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+          "purpose": "implementation + full native-independent browser/API evidence checkpoint",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Includes Firefox and GitHub macOS Playwright WebKit D2/D5; does not claim native Safari/AT."
+        },
+        {
+          "head": "ae05397a26c3142385b667a96af302bedee5ff51",
+          "purpose": "Penpot/schema/acceptance evidence synchronization",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Documentation/schema/test-only changes; full exact-head CI completed. The following API ledger correction is validated locally and will receive a separate exact-head CI run."
+        },
+        {
+          "head": "ecce36cc52ae9903114c4c104c9b0a029e09c220",
+          "purpose": "latest #418 probe harness and Windows acceptance evidence",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Windows Release solution build 0 warnings/errors, 140/140 solution tests; Chrome/Edge WASM 1,179/1,179 each; Chrome/Edge forced-colors 299/299 each; Firefox/WebKit Published InteractiveServer D2/D5 34/34 each."
+        },
+        {
+          "head": "9c5ec655f60e5d31a8553635527aed21b36750fa",
+          "purpose": "Dark matrix probe stabilization, complete browser/compatibility rerun, semantic review inventory and current native-environment discovery",
+          "githubActions": "13/13 SUCCESS",
+          "note": "Chrome/Edge x InteractiveServer/WebAssembly Real Browser Lab 4/4; Compatibility 30/30 after retry of Chrome CDP startup timeouts; Component Lab 4/4; Popover 4/4; Firefox and Playwright WebKit 34/34 each. Playwright WebKit is not Safari.app. Native Windows Contrast Themes and spoken NVDA remain open."
+        }
+      ],
+      "nativePenpotTokenAudit": {
+        "date": "2026-11-20",
+        "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+        "fileName": "Bluent v3 Design System",
+        "revision": 883,
+        "auditScript": "scripts/quality/penpot_v3_issue418_token_schema_audit.js",
+        "result": "PASS",
+        "assertions": 1285,
+        "passed": 1285,
+        "failed": 0,
+        "logicalTokenCounts": {
+          "source": 16,
+          "semantic": 17,
+          "component": 13,
+          "total": 46
+        },
+        "modeThemes": [
+          "Light",
+          "Dark"
+        ],
+        "nativeBrandThemes": 20,
+        "brandPaletteTokenCountPerTheme": 8,
+        "sharedBrandSemanticTokens": 8,
+        "sharedBrandComponentTokens": 8,
+        "legacyLinkSourceAliasesRemaining": false,
+        "restoredActiveThemes": [
+          {
+            "group": "Bluent v3 / Mode",
+            "name": "Light · Draft"
+          },
+          {
+            "group": "Bluent v3 / Brand×Mode (Preview)",
+            "name": "default / light"
+          }
+        ],
+        "migration": {
+          "addedPerMode": [
+            "bluent.color.foreground4",
+            "bluent.source.paletteRedForeground1",
+            "bluent.semantic.text.placeholder",
+            "bluent.semantic.text.dangerAccessible",
+            "bluent.component.badge.dangerTextAccessible"
+          ],
+          "renamedPerMode": [
+            "bluent.source.brandForegroundLink → bluent.color.brandForegroundLink",
+            "bluent.source.brandForegroundLinkHover → bluent.color.brandForegroundLinkHover",
+            "bluent.source.brandForegroundLinkPressed → bluent.color.brandForegroundLinkPressed"
+          ],
+          "semanticLinkAliasesUpdated": 3,
+          "recoveryVersion": "Before #418 native token schema alignment — 2026-11-17"
+        },
+        "totalNativeTokenSets": 45,
+        "totalNativeTokenEntries": 492,
+        "activeModeTokenSets": 17,
+        "activeModeTokenEntries": 262
+      },
+      "windowsAcceptance": {
+        "date": "2026-11-17",
+        "head": "ecce36cc52ae9903114c4c104c9b0a029e09c220",
+        "environment": {
+          "os": "Windows 11 Pro",
+          "build": "28000",
+          "dotnetSdk": "10.0.403",
+          "isolatedWorktree": "%TEMP%/Bluent-418-Acceptance",
+          "protectedCheckout": "D:\\projects\\Bluent remained on Dev and clean"
+        },
+        "releaseValidation": {
+          "restore": "PASS",
+          "releaseBuildWarningsAsErrors": "PASS; 0 warnings; 0 errors",
+          "solutionTests": "140/140",
+          "issue418Review": "13/13",
+          "additiveApiLedger": "8/8",
+          "nugetBoundaryUnitTests": "9/9",
+          "gitDiffCheck": "PASS"
+        },
+        "browserRuntime": {
+          "wasmChrome": {
+            "browser": "Google Chrome 157.0.8103.79",
+            "probe": "scripts/quality/probe_v3_blazor_runtime.mjs",
+            "checks": 1179,
+            "passed": 1179,
+            "failed": 0,
+            "brandModeSamples": 20,
+            "darkBrandForegroundSamples": 80,
+            "focusZoomSamples": 80,
+            "narrowViewportSamples": 80,
+            "doubleRingViewportSamples": 80,
+            "minimumDarkBrandForegroundContrast": 4.60012520805205,
+            "persianFontEvidence": "platform-glyph-observed",
+            "classification": "Actual Blazor WebAssembly interaction/computed-style smoke; not AT, full WCAG or native OS certification."
+          },
+          "wasmEdge": {
+            "browser": "Microsoft Edge 157.0.4341.60",
+            "probe": "scripts/quality/probe_v3_blazor_runtime.mjs",
+            "checks": 1179,
+            "passed": 1179,
+            "failed": 0,
+            "brandModeSamples": 20,
+            "darkBrandForegroundSamples": 80,
+            "focusZoomSamples": 80,
+            "narrowViewportSamples": 80,
+            "doubleRingViewportSamples": 80,
+            "minimumDarkBrandForegroundContrast": 4.60012520805205,
+            "persianFontEvidence": "platform-glyph-observed",
+            "classification": "Actual Blazor WebAssembly interaction/computed-style smoke; not AT, full WCAG or native OS certification."
+          },
+          "forcedColorsChrome": {
+            "browser": "Google Chrome 157.0.8103.79",
+            "probe": "scripts/quality/probe_v3_forced_colors_runtime.mjs",
+            "checks": 299,
+            "passed": 299,
+            "failed": 0,
+            "brands": 10,
+            "modes": [
+              "Light",
+              "Dark"
+            ],
+            "mediaCases": [
+              "normal",
+              "reduced-motion only",
+              "forced-colors only",
+              "forced-colors + reduced-motion"
+            ],
+            "focusContract": "Button retains visible 2px system Highlight focus ring without layout shift; TextField retains underline-only focus.",
+            "classification": "Real Blazor WASM with browser CDP media emulation; not native Windows High Contrast."
+          },
+          "forcedColorsEdge": {
+            "browser": "Microsoft Edge 157.0.4341.60",
+            "probe": "scripts/quality/probe_v3_forced_colors_runtime.mjs",
+            "checks": 299,
+            "passed": 299,
+            "failed": 0,
+            "brands": 10,
+            "modes": [
+              "Light",
+              "Dark"
+            ],
+            "mediaCases": [
+              "normal",
+              "reduced-motion only",
+              "forced-colors only",
+              "forced-colors + reduced-motion"
+            ],
+            "focusContract": "Button retains visible 2px system Highlight focus ring without layout shift; TextField retains underline-only focus.",
+            "classification": "Real Blazor WASM with browser CDP media emulation; not native Windows High Contrast."
+          },
+          "serverFirefox": {
+            "browser": "Firefox 159",
+            "playwright": "1.65.1",
+            "probe": "scripts/quality/probe_v3_firefox_portal.mjs",
+            "renderMode": "Published InteractiveServer",
+            "checks": 34,
+            "passed": 34,
+            "failed": 0,
+            "coverage": [
+              "D2 scoped owner snapshots",
+              "independent nested/concurrent Dialog and Popover ownership",
+              "modal inert background",
+              "Escape priority",
+              "nested Escape and focus restoration",
+              "route teardown",
+              "no uncaught browser errors"
+            ]
+          },
+          "serverWebKit": {
+            "browser": "Playwright WebKit",
+            "playwright": "1.65.1",
+            "probe": "scripts/quality/probe_v3_firefox_portal.mjs",
+            "renderMode": "Published InteractiveServer",
+            "checks": 34,
+            "passed": 34,
+            "failed": 0,
+            "coverage": [
+              "D2 scoped owner snapshots",
+              "independent nested/concurrent Dialog and Popover ownership",
+              "modal inert background",
+              "Escape priority",
+              "nested Escape and focus restoration",
+              "route teardown",
+              "no uncaught browser errors"
+            ]
+          }
+        },
+        "probeHarnessCorrections": {
+          "localizedCloseLabel": "The prior JS probe source contained a mojibake Persian literal. It now encodes the actual Persian Close accessible name with JavaScript Unicode escapes.",
+          "modalRegistrationReadiness": "The probe waits until both parent and nested modal roots carry data-bui-v3-keyboard-bound before dispatching Escape.",
+          "runtimeCodeChanged": false
+        },
+        "nativeWindows": {
+          "contrastThemesEnabled": false,
+          "narratorInstalled": true,
+          "narratorRunning": false,
+          "nvdaInstalled": false,
+          "jawsInstalled": false,
+          "settingsChanged": false,
+          "acceptance": "Open. Browser CDP forced-colors media emulation is not native Windows Contrast Themes or spoken screen-reader acceptance."
+        }
+      },
+      "currentDev01Verification": {
+        "date": "2026-11-20",
+        "basedOnHead": "9c5ec655f60e5d31a8553635527aed21b36750fa",
+        "branch": "v3/issue-418-design-tokens",
+        "environment": {
+          "os": "Windows 11 Pro",
+          "build": "28000",
+          "dotnetSdk": "11.0.100"
+        },
+        "releaseBuildWarningsAsErrors": "PASS; 0 warnings; 0 errors",
+        "solutionTests": "188/188",
+        "focusedIssue418ReviewContract": "19/19",
+        "focusedRegressionSuites": {
+          "tokenPreviewContrast": "13/13",
+          "issue418ReviewContract": "19/19",
+          "approvedFocusHostTokenBridge": "7/7",
+          "focusAlphaHost": "22/22",
+          "runtimeFailureDiagnostics": "4/4",
+          "total": "65/65"
+        },
+        "docsContract": "0 findings",
+        "skillsContract": "0 errors",
+        "markdownLinks": "238 files checked",
+        "browserRuntimeLocal": {
+          "chromeInteractiveServer": "1178/1178",
+          "chromeWebAssembly": "1179/1179",
+          "edgeInteractiveServer": "1178/1178",
+          "edgeWebAssembly": "1179/1179"
+        },
+        "scope": "Local Dev01 working-tree verification; exact-head GitHub Actions is recorded separately."
+      },
+      "currentNativeEnvironment": {
+        "date": "2026-11-20",
+        "windows": {
+          "systemParametersInfoQuery": "SPI_GETHIGHCONTRAST",
+          "querySucceeded": true,
+          "dwFlags": 126,
+          "highContrastOn": false,
+          "selectedScheme": "High Contrast White",
+          "registryFlags": 126,
+          "settingsChanged": false,
+          "acceptance": "OPEN; the selected scheme is not active native High Contrast. Browser media emulation is not native OS acceptance."
+        },
+        "nvda": {
+          "installed": true,
+          "running": true,
+          "version": "2026.3",
+          "fileVersion": "2026.3.0.58174",
+          "executable": "C:\\Program Files\\NVDA\\nvda.exe",
+          "sessionId": 1,
+          "synth": "oneCore",
+          "voiceToken": "MSTTS_V110_enUS_DavidM",
+          "speechViewerConfirmed": false,
+          "speechLogFound": false,
+          "spokenOutputCaptured": false,
+          "acceptance": "OPEN; NVDA process/config discovery is not spoken output or keyboard acceptance."
+        },
+        "narrator": {
+          "running": false,
+          "acceptance": "OPEN; not started and no settings were changed."
+        },
+        "jaws": {
+          "status": "not checked in this read-only snapshot"
+        },
+        "safari": {
+          "nativeSafariAppRun": false,
+          "remoteAutomationSettingChanged": false,
+          "acceptance": "OPEN; Playwright WebKit evidence is not Safari.app/SafariDriver or VoiceOver."
+        },
+        "persianIme": {
+          "compositionCaretSelectionTested": false,
+          "acceptance": "OPEN; no OS IME composition test was run."
+        }
+      }
+    },
+    "publicApiDelta": {
+      "baseline": "origin/bluent-v3 at f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6",
+      "reviewedAgainst": "5e42cbeeb2b44876c73085d6b7e331cadf24dc0b + current #418 additive D4/D5 implementation",
+      "newExportedTypes": [
+        {
+          "name": "Bluent.UI.Components.PortalThemeScope",
+          "kind": "public sealed immutable record value object",
+          "constructor": "PortalThemeScope(string mode, string direction = \"ltr\", string density = \"comfortable\", bool useV3Tokens = true, string? brand = null)",
+          "properties": [
+            "string Mode { get; }",
+            "string Direction { get; }",
+            "string Density { get; }",
+            "bool UseV3Tokens { get; }",
+            "string? Brand { get; }"
+          ]
+        }
+      ],
+      "addedPublicMembers": {
+        "Bluent.UI.Components.Dialog": [
+          "string? AccessibleName { get; set; }",
+          "string? AccessibleDescription { get; set; }",
+          "string? CloseButtonLabel { get; set; }",
+          "bool IsModal { get; set; }",
+          "bool EnableModalKeyboard { get; set; }",
+          "string? InitialFocusTargetId { get; set; }",
+          "bool UseStandardTitleHeading { get; set; }",
+          "void DismissOnEscape() [JSInvokable]",
+          "ValueTask DisposeAsync() [override]"
+        ],
+        "Bluent.UI.Components.Popover": [
+          "bool AccessibleTriggerState { get; set; }",
+          "PortalThemeScope? ThemeScope { get; set; } [CascadingParameter]",
+          "string? SurfaceRole { get; set; } [Parameter]",
+          "string? SurfaceAriaLabel { get; set; } [Parameter]",
+          "string? SurfaceAriaLabelledBy { get; set; } [Parameter]"
+        ],
+        "Bluent.UI.Components.PopoverSettings": [
+          "bool AccessibleTriggerState { get; set; }"
+        ],
+        "Bluent.UI.Components.DialogConfigurator": [
+          "SetThemeScope(PortalThemeScope? themeScope)",
+          "SetAccessibleDialog(string name, string closeButtonLabel)",
+          "SetAccessibleDescription(string description)",
+          "SetReturnFocusTargetId(string elementId)",
+          "SetModalKeyboardNavigation(bool enabled = true)",
+          "SetInitialFocusTargetId(string elementId)",
+          "SetAccessibleDialog(string name)"
+        ],
+        "DialogConfiguration": [
+          "PortalThemeScope? ThemeScope { get; init; }",
+          "string? AccessibleName { get; init; }",
+          "string? AccessibleDescription { get; init; }",
+          "string? CloseButtonLabel { get; init; }",
+          "string? ReturnFocusTargetId { get; init; }",
+          "bool EnableModalKeyboard { get; init; }",
+          "string? InitialFocusTargetId { get; init; }"
+        ]
+      },
+      "compatibility": "Compiled CLR comparison found one new exported helper type and additive members on five existing exported types. No existing public member signatures were removed or changed; no existing IDialogService overload was added, removed or changed.",
+      "scopeBoundary": "These are experimental opt-in additions on the isolated v3 branch only. They are not approved for stable Dev/2.x, NuGet or production until the individual public names and contracts pass final review."
+    },
+    "verificationHistory": [
+      {
+        "head": "a6f02a3692cd26a428c74710e236d549c1893465",
+        "purpose": "complete Portal API audit and branch handoff reconciliation",
+        "githubActions": "13/13 SUCCESS",
+        "note": "Native Penpot TokenSet migration and 1,285-assertion schema/brand audit then completed against the source-owned design file at revision 840."
+      }
+    ]
+  }
+}

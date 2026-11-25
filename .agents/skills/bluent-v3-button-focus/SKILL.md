@@ -60,3 +60,11 @@ PR #554 was merged from v3/issue-428-button-p0 into bluent-v3 after all exact-he
 - Never merge this task into stable Dev, main, existing 2.x branches, NuGet or deployments.
 
 See docs/v3/components/button.md and docs/v3/quality/FLUENT2-BUTTON-COMPATIBILITY.md for the current implementation and complete member-by-member mapping.
+
+
+## Token and focus ownership cross-reference (#418 / #501)
+
+- #418 owns global/semantic/component token schema, brand palette and candidate aliases. Candidate token names remain non-public until #418 is accepted and integrated.
+- #501 owns the editable focus-visible design and its review. The current approved opaque-host direction is the branded single Button focus ring; TextField retains its animated bottom underline rather than gaining a second rectangular ring.
+- Review the source-owned handoffs before changing focus/token behavior: docs/v3/design/BUTTON-FOCUS-HOST-CONTEXT-NATIVE-REVIEW.md, docs/v3/tokens/FOCUS-HOST-CONTEXT-REVIEW.md, docs/v3/tokens/FOCUS-ALPHA-HOST-AUDIT.md, and docs/v3/tokens/README.md.
+- Do not turn candidate aliases or isolated preview CSS into public production tokens. Transparent/alpha host contrast and full native OS/assistive-technology conformance remain separately bounded concerns.

@@ -905,6 +905,69 @@
   outline: none;
 }
 
+/* Bluent v3 #418 opt-in public token bridge.
+   This file is scoped to explicit v3 roots and does not redefine legacy --color* names.
+   Dark branded Action/Link candidates remain in the documentation preview only until exact-value visual acceptance.
+*/
+[data-bui-v3-tokens][data-bui-theme],
+[data-bui-v3-tokens] [data-bui-theme] {
+  /* Public source palette: 9 stable color roles from the Option B allow-list. */
+  --bui-v3-color-background1: var(--colorNeutralBackground1);
+  --bui-v3-color-foreground1: var(--colorNeutralForeground1);
+  --bui-v3-color-foreground4: var(--colorNeutralForeground4);
+  --bui-v3-color-brand-background: var(--colorBrandBackground);
+  --bui-v3-color-stroke1: var(--colorNeutralStroke1);
+  --bui-v3-color-brand-foreground1: var(--colorBrandForeground1);
+  --bui-v3-color-brand-foreground-link: var(--colorBrandForegroundLink);
+  --bui-v3-color-brand-foreground-link-hover: var(--colorBrandForegroundLinkHover);
+  --bui-v3-color-brand-foreground-link-pressed: var(--colorBrandForegroundLinkPressed);
+  /* First-wave semantic roles: each retains its accepted consumer boundary. */
+  --bui-v3-text-primary: var(--bui-v3-color-foreground1);
+  --bui-v3-text-disabled: var(--colorNeutralForegroundDisabled);
+  --bui-v3-text-placeholder: var(--bui-v3-color-foreground4);
+}
+
+/* Focus Option A: the actual painted, opaque host declares both mode and kind.
+   Unknown, translucent, gradient, image and composited hosts receive no override.
+   The existing Button :focus-visible ring remains visible through its legacy fallback. */
+[data-bui-v3-tokens][data-bui-v3-focus-mode=light][data-bui-v3-focus-host=neutral],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=light][data-bui-v3-focus-host=neutral] {
+  --bui-button-focus-ring-color: var(--colorBrandBackground);
+}
+
+[data-bui-v3-tokens][data-bui-v3-focus-mode=light][data-bui-v3-focus-host=brand],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=light][data-bui-v3-focus-host=brand],
+[data-bui-v3-tokens][data-bui-v3-focus-mode=light][data-bui-v3-focus-host=brandHover],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=light][data-bui-v3-focus-host=brandHover],
+[data-bui-v3-tokens][data-bui-v3-focus-mode=light][data-bui-v3-focus-host=danger],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=light][data-bui-v3-focus-host=danger],
+[data-bui-v3-tokens][data-bui-v3-focus-mode=light][data-bui-v3-focus-host=inverted],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=light][data-bui-v3-focus-host=inverted] {
+  --bui-button-focus-ring-color: var(--colorNeutralForegroundOnBrand);
+}
+
+[data-bui-v3-tokens][data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=neutral],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=neutral],
+[data-bui-v3-tokens][data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=inverted],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=inverted] {
+  --bui-button-focus-ring-color: var(--colorBrandForeground2);
+}
+
+[data-bui-v3-tokens][data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=brand],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=brand],
+[data-bui-v3-tokens][data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=brandHover],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=brandHover],
+[data-bui-v3-tokens][data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=danger],
+[data-bui-v3-tokens] [data-bui-v3-focus-mode=dark][data-bui-v3-focus-host=danger] {
+  --bui-button-focus-ring-color: var(--colorNeutralForegroundOnBrand);
+}
+
+@media (forced-colors: active) {
+  [data-bui-v3-tokens][data-bui-v3-focus-mode][data-bui-v3-focus-host],
+  [data-bui-v3-tokens] [data-bui-v3-focus-mode][data-bui-v3-focus-host] {
+    --bui-button-focus-ring-color: Highlight;
+  }
+}
 .ltr .bui-button-group, [dir=ltr] .bui-button-group {
   display: flex;
 }

@@ -8,4 +8,5 @@ export type PopoverSettings = {
     triggerEvents: string[];
     hideEvents: string[];
     sameWidth: boolean;
+    accessibleTriggerState?: boolean;
 };

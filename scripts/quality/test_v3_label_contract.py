@@ -15,6 +15,7 @@ class LabelContractTests(unittest.TestCase):
             'published':ROOT/'src/Bluent.UI/wwwroot/bluent.ui.components.min.css',
             'persian':ROOT/'src/Bluent.UI/Components/LabelComponent/Resources/LabelResources.fa-IR.resx',
             'demo':ROOT/'src/Bluent.UI.Demo.Pages/Pages/Components/Labels.razor',
+            'runtimeProbe':ROOT/'scripts/quality/probe_v3_label_runtime.mjs',
         }
         self.original={key:path.read_text(encoding='utf-8-sig') for key,path in self.paths.items()}
 
@@ -52,6 +53,11 @@ class LabelContractTests(unittest.TestCase):
 
     def test_rtl_example_is_kept_in_demo(self):
         self._check_mutation('demo','dir="rtl"','dir="ltr"')
+
+    def test_initial_focus_probe_waits_for_real_info_surface_focus(self):
+        required = "s?.classList.contains('show')&&b.getAttribute('aria-expanded')==='true'&&document.activeElement?.matches('[data-bui-label-info-surface]')?"
+        self.assertIn(required, self.original['runtimeProbe'])
+        self._check_mutation('runtimeProbe', required, "s?.classList.contains('show')?")
 
     def test_persian_info_accessible_name_remains_available(self):
         self._check_mutation('persian','{0}، اطلاعات بیشتر','{0} اطلاعات')

@@ -1,0 +1,66 @@
+name: Bluent v3 Firefox Portal Lab
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [bluent-v3]
+    paths:
+      - ".github/workflows/v3-firefox-portal-lab.yml"
+      - "scripts/quality/probe_v3_firefox_portal.mjs"
+      - "docs/v3/tokens/issue-418-token-schema.preview.json"
+      - "src/Bluent.UI/**"
+      - "src/Bluent.UI.Demo.Pages/**"
+      - "src/Bluent.UI.Demo.SSR/**"
+
+concurrency:
+  group: bluent-v3-firefox-portal
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  firefox-interactive-server:
+    name: Firefox / InteractiveServer / D2-D5
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout isolated v3 revision
+        uses: actions/checkout@v4
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Install Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Restore solution (no publishing)
+        run: dotnet restore Bluent.sln --nologo
+      - name: Install pinned Playwright and Firefox
+        shell: pwsh
+        run: |
+          $packageRoot = Join-Path $env:RUNNER_TEMP "bluent-v3-firefox-playwright"
+          New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
+          '{"private":true}' | Set-Content -Path (Join-Path $packageRoot "package.json") -Encoding utf8
+          npm install --prefix $packageRoot --no-save --no-package-lock "playwright@1.65.1"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $playwrightPackage = Join-Path $packageRoot "node_modules\playwright"
+          $firefoxArtifacts = ".artifacts\bluent-v3-firefox"
+          Add-Content -Path $env:GITHUB_ENV -Value "BLUENT_V3_PLAYWRIGHT_PACKAGE=$playwrightPackage" -Encoding utf8
+          Add-Content -Path $env:GITHUB_ENV -Value "BLUENT_V3_FIREFOX_ARTIFACTS=$firefoxArtifacts" -Encoding utf8
+          & (Join-Path $packageRoot "node_modules\.bin\playwright.cmd") install firefox
+          exit $LASTEXITCODE
+      - name: Run real Firefox D2-D5 probe against Published SSR
+        shell: pwsh
+        run: |
+          node scripts/quality/probe_v3_firefox_portal.mjs
+          exit $LASTEXITCODE
+      - name: Preserve Firefox trace, screenshot and server diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bluent-v3-firefox-d2-d5
+          path: .artifacts/bluent-v3-firefox/
+          if-no-files-found: ignore
+          retention-days: 14

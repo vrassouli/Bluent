@@ -32,6 +32,23 @@
             </Popover>
         </section>
 
+        @* #418 D5: explicit semantics and accessible-name source on the detached surface root. *@
+        <h3>Named surface accessibility contract</h3>
+        <section class="p-7 rounded-5 shadow-3">
+            <Popover KeepSurface="true"
+                     AccessibleTriggerState="true"
+                     SurfaceRole="group"
+                     SurfaceAriaLabelledBy="popover-accessible-name">
+                <Trigger>
+                    <Button Text="Open named surface" />
+                </Trigger>
+                <Surface>
+                    <h4 id="popover-accessible-name" class="mt-0">Named Popover surface</h4>
+                    <p>Consumer-supplied surface semantics are applied to this controlled root.</p>
+                </Surface>
+            </Popover>
+        </section>
+
         @* #420 RightEnd placement must retain the CSS entry transform
            as well as the JS Floating UI placement, in both render modes. *@
         <h3>RightEnd placement regression</h3>

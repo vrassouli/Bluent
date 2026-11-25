@@ -1,0 +1,1893 @@
+{
+  "schemaVersion": "0.1.0-preview",
+  "issue": 418,
+  "status": "draft-opt-in-only-not-public-api",
+  "sourceTheme": "src/Bluent.UI/Styles/Themes/theme-<brand>-<mode>.css",
+  "supportedBrands": [
+    "default",
+    "excel",
+    "office",
+    "outlook",
+    "powerapps",
+    "powerbi",
+    "powerpoint",
+    "stream",
+    "teams",
+    "word"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "design": {
+    "authoritativeFile": "Bluent v3 Design System",
+    "fileId": "b64f6665-c9ab-80b5-8008-c4ac99d9d000",
+    "foundationPageId": "acf5f619-7d81-80da-8008-c5e09d3a050f",
+    "foundationBoardId": "acf5f619-7d81-80da-8008-c5e0d7a2fbf9",
+    "observedRevision": 708,
+    "sourceSetCount": 96,
+    "semanticTokenCount": 104,
+    "componentTokenCount": 14,
+    "nativePenpotSemanticAliasesExpected": 95,
+    "nativePenpotSemanticAliasLimit": "Nine motion curves remain exact CSS source functions; Penpot has no cubic-bezier token type.",
+    "textFieldMinHeightValues": {
+      "small": 24,
+      "medium": 32,
+      "large": 40,
+      "source": "src/Bluent.UI/Styles/Components/_field.scss"
+    },
+    "componentHeightScope": "TextField only; do not treat these as generic Button heights.",
+    "designSourceTokenCount": 5,
+    "radiusCrosswalk": {
+      "none": 0,
+      "small": 2,
+      "medium": 4,
+      "large": 8,
+      "xlarge": 12,
+      "circular": "50%",
+      "legacySourceCodeLarge": 6,
+      "sourceVariables": {
+        "--borderRadiusLarge": 6,
+        "--borderRadiusXLarge": 8
+      },
+      "decision": "Map Fluent 2 design names to correct semantic values while preserving the original source variables under explicit code-level/compatibility names."
+    },
+    "densityGapSource": "Direct semantic aliases of existing spacing.horizontal.s/m/l source tokens (8/12/16); no duplicated design-source values."
+  },
+  "layers": {
+    "source": [
+      {
+        "key": "type.family.base",
+        "css": "--fontFamilyBase",
+        "type": "fontFamilies",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.family.base",
+        "penpotFidelity": "first-family-only"
+      },
+      {
+        "key": "type.family.monospace",
+        "css": "--fontFamilyMonospace",
+        "type": "fontFamilies",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.family.monospace",
+        "penpotFidelity": "font-fallback-list-incomplete"
+      },
+      {
+        "key": "type.family.numeric",
+        "css": "--fontFamilyNumeric",
+        "type": "fontFamilies",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.family.numeric",
+        "penpotFidelity": "canvas-system-fallback-only-css-stack-authoritative"
+      },
+      {
+        "key": "type.size.100",
+        "css": "--fontSizeBase100",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.100",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.100",
+        "css": "--lineHeightBase100",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.100",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.200",
+        "css": "--fontSizeBase200",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.200",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.200",
+        "css": "--lineHeightBase200",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.200",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.300",
+        "css": "--fontSizeBase300",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.300",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.300",
+        "css": "--lineHeightBase300",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.300",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.400",
+        "css": "--fontSizeBase400",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.400",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.400",
+        "css": "--lineHeightBase400",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.400",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.500",
+        "css": "--fontSizeBase500",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.500",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.500",
+        "css": "--lineHeightBase500",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.500",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.600",
+        "css": "--fontSizeBase600",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.600",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.600",
+        "css": "--lineHeightBase600",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.600",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.700",
+        "css": "--fontSizeHero700",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.700",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.700",
+        "css": "--lineHeightHero700",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.700",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.800",
+        "css": "--fontSizeHero800",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.800",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.800",
+        "css": "--lineHeightHero800",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.800",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.900",
+        "css": "--fontSizeHero900",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.900",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.900",
+        "css": "--lineHeightHero900",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.900",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.size.1000",
+        "css": "--fontSizeHero1000",
+        "type": "fontSizes",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.size.1000",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.lineHeight.1000",
+        "css": "--lineHeightHero1000",
+        "type": "number",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.lineHeight.1000",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.weight.regular",
+        "css": "--fontWeightRegular",
+        "type": "fontWeights",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.weight.regular",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.weight.medium",
+        "css": "--fontWeightMedium",
+        "type": "fontWeights",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.weight.medium",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.weight.semibold",
+        "css": "--fontWeightSemibold",
+        "type": "fontWeights",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.weight.semibold",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "type.weight.bold",
+        "css": "--fontWeightBold",
+        "type": "fontWeights",
+        "category": "typography",
+        "penpotSet": "bluent-v3/draft/typography",
+        "penpotToken": "bluent.type.weight.bold",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.none",
+        "css": "--spacingHorizontalNone",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.none",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xxs",
+        "css": "--spacingHorizontalXXS",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xxs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xs",
+        "css": "--spacingHorizontalXS",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.snudge",
+        "css": "--spacingHorizontalSNudge",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.snudge",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.s",
+        "css": "--spacingHorizontalS",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.s",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.mnudge",
+        "css": "--spacingHorizontalMNudge",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.mnudge",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.m",
+        "css": "--spacingHorizontalM",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.m",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.l",
+        "css": "--spacingHorizontalL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.l",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xl",
+        "css": "--spacingHorizontalXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xxl",
+        "css": "--spacingHorizontalXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xxxl",
+        "css": "--spacingHorizontalXXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xxxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xxxxl",
+        "css": "--spacingHorizontalXXXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xxxxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.horizontal.xxxxxl",
+        "css": "--spacingHorizontalXXXXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-scale",
+        "penpotToken": "bluent.space.xxxxxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.none",
+        "css": "--spacingVerticalNone",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.none",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xxs",
+        "css": "--spacingVerticalXXS",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xxs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xs",
+        "css": "--spacingVerticalXS",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.snudge",
+        "css": "--spacingVerticalSNudge",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.snudge",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.s",
+        "css": "--spacingVerticalS",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.s",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.mnudge",
+        "css": "--spacingVerticalMNudge",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.mnudge",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.m",
+        "css": "--spacingVerticalM",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.m",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.l",
+        "css": "--spacingVerticalL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.l",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xl",
+        "css": "--spacingVerticalXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xxl",
+        "css": "--spacingVerticalXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xxxl",
+        "css": "--spacingVerticalXXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xxxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xxxxl",
+        "css": "--spacingVerticalXXXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xxxxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "spacing.vertical.xxxxxl",
+        "css": "--spacingVerticalXXXXXL",
+        "type": "spacing",
+        "category": "spacing",
+        "penpotSet": "bluent-v3/draft/spacing-vertical",
+        "penpotToken": "bluent.space.vertical.xxxxxl",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "radius.none",
+        "css": "--borderRadiusNone",
+        "type": "borderRadius",
+        "category": "shape",
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.none",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "radius.small",
+        "css": "--borderRadiusSmall",
+        "type": "borderRadius",
+        "category": "shape",
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.small",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "radius.medium",
+        "css": "--borderRadiusMedium",
+        "type": "borderRadius",
+        "category": "shape",
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.medium",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "radius.codeLarge",
+        "css": "--borderRadiusLarge",
+        "type": "borderRadius",
+        "category": "shape",
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.codeLarge",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "radius.codeXLarge",
+        "css": "--borderRadiusXLarge",
+        "type": "borderRadius",
+        "category": "shape",
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.large",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "radius.circular",
+        "css": "--borderRadiusCircular",
+        "type": "borderRadius",
+        "category": "shape",
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.circular",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "stroke.width.thin",
+        "css": "--strokeWidthThin",
+        "type": "borderWidth",
+        "category": "stroke",
+        "penpotSet": "bluent-v3/draft/stroke-width",
+        "penpotToken": "bluent.stroke.width.thin",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "stroke.width.thick",
+        "css": "--strokeWidthThick",
+        "type": "borderWidth",
+        "category": "stroke",
+        "penpotSet": "bluent-v3/draft/stroke-width",
+        "penpotToken": "bluent.stroke.width.thick",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "stroke.width.thicker",
+        "css": "--strokeWidthThicker",
+        "type": "borderWidth",
+        "category": "stroke",
+        "penpotSet": "bluent-v3/draft/stroke-width",
+        "penpotToken": "bluent.stroke.width.thicker",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "stroke.width.thickest",
+        "css": "--strokeWidthThickest",
+        "type": "borderWidth",
+        "category": "stroke",
+        "penpotSet": "bluent-v3/draft/stroke-width",
+        "penpotToken": "bluent.stroke.width.thickest",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.ultraFast",
+        "css": "--durationUltraFast",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.ultraFastMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.faster",
+        "css": "--durationFaster",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.fasterMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.fast",
+        "css": "--durationFast",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.fastMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.normal",
+        "css": "--durationNormal",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.normalMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.gentle",
+        "css": "--durationGentle",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.gentleMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.slow",
+        "css": "--durationSlow",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.slowMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.slower",
+        "css": "--durationSlower",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.slowerMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.duration.ultraSlow",
+        "css": "--durationUltraSlow",
+        "type": "number",
+        "category": "motion",
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.ultraSlowMs",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "motion.curve.accelerateMax",
+        "css": "--curveAccelerateMax",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.accelerateMid",
+        "css": "--curveAccelerateMid",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.accelerateMin",
+        "css": "--curveAccelerateMin",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.decelerateMax",
+        "css": "--curveDecelerateMax",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.decelerateMid",
+        "css": "--curveDecelerateMid",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.decelerateMin",
+        "css": "--curveDecelerateMin",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.easyEaseMax",
+        "css": "--curveEasyEaseMax",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.easyEase",
+        "css": "--curveEasyEase",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "motion.curve.linear",
+        "css": "--curveLinear",
+        "type": "css-function",
+        "category": "motion",
+        "penpotSet": null,
+        "penpotToken": null,
+        "penpotFidelity": "css-source-only-no-penpot-easing-token-type"
+      },
+      {
+        "key": "elevation.neutral.2",
+        "css": "--shadow2",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.neutral.2",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.brand.2",
+        "css": "--shadow2Brand",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.brand.2",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.neutral.4",
+        "css": "--shadow4",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.neutral.4",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.brand.4",
+        "css": "--shadow4Brand",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.brand.4",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.neutral.8",
+        "css": "--shadow8",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.neutral.8",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.brand.8",
+        "css": "--shadow8Brand",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.brand.8",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.neutral.16",
+        "css": "--shadow16",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.neutral.16",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.brand.16",
+        "css": "--shadow16Brand",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.brand.16",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.neutral.28",
+        "css": "--shadow28",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.neutral.28",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.brand.28",
+        "css": "--shadow28Brand",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.brand.28",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.neutral.64",
+        "css": "--shadow64",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.neutral.64",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.brand.64",
+        "css": "--shadow64Brand",
+        "type": "shadow",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/elevation",
+        "penpotToken": "bluent.shadow.brand.64",
+        "penpotFidelity": "native-alias"
+      },
+      {
+        "key": "elevation.color.neutral.ambient",
+        "css": "--colorNeutralShadowAmbient",
+        "type": "color",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/light",
+        "penpotToken": "bluent.color.neutralShadowAmbient",
+        "penpotSetByMode": {
+          "light": "bluent-v3/draft/light",
+          "dark": "bluent-v3/draft/dark"
+        }
+      },
+      {
+        "key": "elevation.color.neutral.key",
+        "css": "--colorNeutralShadowKey",
+        "type": "color",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/light",
+        "penpotToken": "bluent.color.neutralShadowKey",
+        "penpotSetByMode": {
+          "light": "bluent-v3/draft/light",
+          "dark": "bluent-v3/draft/dark"
+        }
+      },
+      {
+        "key": "elevation.color.brand.ambient",
+        "css": "--colorBrandShadowAmbient",
+        "type": "color",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/light",
+        "penpotToken": "bluent.color.brandShadowAmbient",
+        "penpotSetByMode": {
+          "light": "bluent-v3/draft/light",
+          "dark": "bluent-v3/draft/dark"
+        }
+      },
+      {
+        "key": "elevation.color.brand.key",
+        "css": "--colorBrandShadowKey",
+        "type": "color",
+        "category": "elevation",
+        "penpotSet": "bluent-v3/draft/light",
+        "penpotToken": "bluent.color.brandShadowKey",
+        "penpotSetByMode": {
+          "light": "bluent-v3/draft/light",
+          "dark": "bluent-v3/draft/dark"
+        }
+      }
+    ],
+    "designSource": [
+      {
+        "key": "field.minHeight.small",
+        "type": "sizing",
+        "value": 24,
+        "penpotSet": "bluent-v3/draft/density",
+        "penpotToken": "bluent.field.minHeight.small",
+        "sourceReference": {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "declaration": "--fui-text-field-min-height",
+          "scope": "TextField size modifier; not a global theme CSS variable"
+        }
+      },
+      {
+        "key": "field.minHeight.medium",
+        "type": "sizing",
+        "value": 32,
+        "penpotSet": "bluent-v3/draft/density",
+        "penpotToken": "bluent.field.minHeight.medium",
+        "sourceReference": {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "declaration": "--fui-text-field-min-height",
+          "scope": "TextField size modifier; not a global theme CSS variable"
+        }
+      },
+      {
+        "key": "field.minHeight.large",
+        "type": "sizing",
+        "value": 40,
+        "penpotSet": "bluent-v3/draft/density",
+        "penpotToken": "bluent.field.minHeight.large",
+        "sourceReference": {
+          "path": "src/Bluent.UI/Styles/Components/_field.scss",
+          "declaration": "--fui-text-field-min-height",
+          "scope": "TextField size modifier; not a global theme CSS variable"
+        }
+      },
+      {
+        "key": "motion.duration.reduced",
+        "type": "number",
+        "value": 0,
+        "penpotSet": "bluent-v3/draft/motion",
+        "penpotToken": "bluent.motion.reducedMs",
+        "cssSource": null,
+        "note": "opt-in reduced-motion policy value; not an emitted global duration variable"
+      },
+      {
+        "key": "radius.xlarge",
+        "type": "borderRadius",
+        "value": 12,
+        "sourceReference": {
+          "url": "https://fluent2.microsoft.design/shapes",
+          "label": "Fluent 2 Shapes · X-Large corner radius",
+          "note": "Design-semantic value 12px. The current Bluent/Fluent-style source variable --borderRadiusXLarge is 8px and remains available under its source token name; do not confuse source code suffix with design semantic name."
+        },
+        "penpotSet": "bluent-v3/draft/layout",
+        "penpotToken": "bluent.radius.xlarge"
+      }
+    ],
+    "semantic": [
+      {
+        "name": "bluent.semantic.type.family.base",
+        "alias": "source:type.family.base",
+        "css": "--bui-v3-foundation-type-family-base",
+        "type": "fontFamilies",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.family.monospace",
+        "alias": "source:type.family.monospace",
+        "css": "--bui-v3-foundation-type-family-monospace",
+        "type": "fontFamilies",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.family.numeric",
+        "alias": "source:type.family.numeric",
+        "css": "--bui-v3-foundation-type-family-numeric",
+        "type": "fontFamilies",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.100",
+        "alias": "source:type.size.100",
+        "css": "--bui-v3-foundation-type-size-100",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.100",
+        "alias": "source:type.lineHeight.100",
+        "css": "--bui-v3-foundation-type-lineHeight-100",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.200",
+        "alias": "source:type.size.200",
+        "css": "--bui-v3-foundation-type-size-200",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.200",
+        "alias": "source:type.lineHeight.200",
+        "css": "--bui-v3-foundation-type-lineHeight-200",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.300",
+        "alias": "source:type.size.300",
+        "css": "--bui-v3-foundation-type-size-300",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.300",
+        "alias": "source:type.lineHeight.300",
+        "css": "--bui-v3-foundation-type-lineHeight-300",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.400",
+        "alias": "source:type.size.400",
+        "css": "--bui-v3-foundation-type-size-400",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.400",
+        "alias": "source:type.lineHeight.400",
+        "css": "--bui-v3-foundation-type-lineHeight-400",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.500",
+        "alias": "source:type.size.500",
+        "css": "--bui-v3-foundation-type-size-500",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.500",
+        "alias": "source:type.lineHeight.500",
+        "css": "--bui-v3-foundation-type-lineHeight-500",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.600",
+        "alias": "source:type.size.600",
+        "css": "--bui-v3-foundation-type-size-600",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.600",
+        "alias": "source:type.lineHeight.600",
+        "css": "--bui-v3-foundation-type-lineHeight-600",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.700",
+        "alias": "source:type.size.700",
+        "css": "--bui-v3-foundation-type-size-700",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.700",
+        "alias": "source:type.lineHeight.700",
+        "css": "--bui-v3-foundation-type-lineHeight-700",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.800",
+        "alias": "source:type.size.800",
+        "css": "--bui-v3-foundation-type-size-800",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.800",
+        "alias": "source:type.lineHeight.800",
+        "css": "--bui-v3-foundation-type-lineHeight-800",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.900",
+        "alias": "source:type.size.900",
+        "css": "--bui-v3-foundation-type-size-900",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.900",
+        "alias": "source:type.lineHeight.900",
+        "css": "--bui-v3-foundation-type-lineHeight-900",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.size.1000",
+        "alias": "source:type.size.1000",
+        "css": "--bui-v3-foundation-type-size-1000",
+        "type": "fontSizes",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.lineHeight.1000",
+        "alias": "source:type.lineHeight.1000",
+        "css": "--bui-v3-foundation-type-lineHeight-1000",
+        "type": "number",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.weight.regular",
+        "alias": "source:type.weight.regular",
+        "css": "--bui-v3-foundation-type-weight-regular",
+        "type": "fontWeights",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.weight.medium",
+        "alias": "source:type.weight.medium",
+        "css": "--bui-v3-foundation-type-weight-medium",
+        "type": "fontWeights",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.weight.semibold",
+        "alias": "source:type.weight.semibold",
+        "css": "--bui-v3-foundation-type-weight-semibold",
+        "type": "fontWeights",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.type.weight.bold",
+        "alias": "source:type.weight.bold",
+        "css": "--bui-v3-foundation-type-weight-bold",
+        "type": "fontWeights",
+        "category": "typography"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.none",
+        "alias": "source:spacing.horizontal.none",
+        "css": "--bui-v3-foundation-spacing-horizontal-none",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xxs",
+        "alias": "source:spacing.horizontal.xxs",
+        "css": "--bui-v3-foundation-spacing-horizontal-xxs",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xs",
+        "alias": "source:spacing.horizontal.xs",
+        "css": "--bui-v3-foundation-spacing-horizontal-xs",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.snudge",
+        "alias": "source:spacing.horizontal.snudge",
+        "css": "--bui-v3-foundation-spacing-horizontal-snudge",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.s",
+        "alias": "source:spacing.horizontal.s",
+        "css": "--bui-v3-foundation-spacing-horizontal-s",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.mnudge",
+        "alias": "source:spacing.horizontal.mnudge",
+        "css": "--bui-v3-foundation-spacing-horizontal-mnudge",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.m",
+        "alias": "source:spacing.horizontal.m",
+        "css": "--bui-v3-foundation-spacing-horizontal-m",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.l",
+        "alias": "source:spacing.horizontal.l",
+        "css": "--bui-v3-foundation-spacing-horizontal-l",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xl",
+        "alias": "source:spacing.horizontal.xl",
+        "css": "--bui-v3-foundation-spacing-horizontal-xl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xxl",
+        "alias": "source:spacing.horizontal.xxl",
+        "css": "--bui-v3-foundation-spacing-horizontal-xxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xxxl",
+        "alias": "source:spacing.horizontal.xxxl",
+        "css": "--bui-v3-foundation-spacing-horizontal-xxxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xxxxl",
+        "alias": "source:spacing.horizontal.xxxxl",
+        "css": "--bui-v3-foundation-spacing-horizontal-xxxxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.horizontal.xxxxxl",
+        "alias": "source:spacing.horizontal.xxxxxl",
+        "css": "--bui-v3-foundation-spacing-horizontal-xxxxxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.none",
+        "alias": "source:spacing.vertical.none",
+        "css": "--bui-v3-foundation-spacing-vertical-none",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xxs",
+        "alias": "source:spacing.vertical.xxs",
+        "css": "--bui-v3-foundation-spacing-vertical-xxs",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xs",
+        "alias": "source:spacing.vertical.xs",
+        "css": "--bui-v3-foundation-spacing-vertical-xs",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.snudge",
+        "alias": "source:spacing.vertical.snudge",
+        "css": "--bui-v3-foundation-spacing-vertical-snudge",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.s",
+        "alias": "source:spacing.vertical.s",
+        "css": "--bui-v3-foundation-spacing-vertical-s",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.mnudge",
+        "alias": "source:spacing.vertical.mnudge",
+        "css": "--bui-v3-foundation-spacing-vertical-mnudge",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.m",
+        "alias": "source:spacing.vertical.m",
+        "css": "--bui-v3-foundation-spacing-vertical-m",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.l",
+        "alias": "source:spacing.vertical.l",
+        "css": "--bui-v3-foundation-spacing-vertical-l",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xl",
+        "alias": "source:spacing.vertical.xl",
+        "css": "--bui-v3-foundation-spacing-vertical-xl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xxl",
+        "alias": "source:spacing.vertical.xxl",
+        "css": "--bui-v3-foundation-spacing-vertical-xxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xxxl",
+        "alias": "source:spacing.vertical.xxxl",
+        "css": "--bui-v3-foundation-spacing-vertical-xxxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xxxxl",
+        "alias": "source:spacing.vertical.xxxxl",
+        "css": "--bui-v3-foundation-spacing-vertical-xxxxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.spacing.vertical.xxxxxl",
+        "alias": "source:spacing.vertical.xxxxxl",
+        "css": "--bui-v3-foundation-spacing-vertical-xxxxxl",
+        "type": "spacing",
+        "category": "spacing"
+      },
+      {
+        "name": "bluent.semantic.radius.none",
+        "alias": "source:radius.none",
+        "css": "--bui-v3-foundation-radius-none",
+        "type": "borderRadius",
+        "category": "shape"
+      },
+      {
+        "name": "bluent.semantic.radius.small",
+        "alias": "source:radius.small",
+        "css": "--bui-v3-foundation-radius-small",
+        "type": "borderRadius",
+        "category": "shape"
+      },
+      {
+        "name": "bluent.semantic.radius.medium",
+        "alias": "source:radius.medium",
+        "css": "--bui-v3-foundation-radius-medium",
+        "type": "borderRadius",
+        "category": "shape"
+      },
+      {
+        "name": "bluent.semantic.radius.large",
+        "alias": "source:radius.codeXLarge",
+        "css": "--bui-v3-foundation-radius-large",
+        "type": "borderRadius",
+        "category": "shape"
+      },
+      {
+        "name": "bluent.semantic.radius.xlarge",
+        "alias": "design-source:radius.xlarge",
+        "css": "--bui-v3-foundation-radius-xlarge",
+        "type": "borderRadius",
+        "category": "shape"
+      },
+      {
+        "name": "bluent.semantic.radius.circular",
+        "alias": "source:radius.circular",
+        "css": "--bui-v3-foundation-radius-circular",
+        "type": "borderRadius",
+        "category": "shape"
+      },
+      {
+        "name": "bluent.semantic.stroke.width.thin",
+        "alias": "source:stroke.width.thin",
+        "css": "--bui-v3-foundation-stroke-width-thin",
+        "type": "borderWidth",
+        "category": "stroke"
+      },
+      {
+        "name": "bluent.semantic.stroke.width.thick",
+        "alias": "source:stroke.width.thick",
+        "css": "--bui-v3-foundation-stroke-width-thick",
+        "type": "borderWidth",
+        "category": "stroke"
+      },
+      {
+        "name": "bluent.semantic.stroke.width.thicker",
+        "alias": "source:stroke.width.thicker",
+        "css": "--bui-v3-foundation-stroke-width-thicker",
+        "type": "borderWidth",
+        "category": "stroke"
+      },
+      {
+        "name": "bluent.semantic.stroke.width.thickest",
+        "alias": "source:stroke.width.thickest",
+        "css": "--bui-v3-foundation-stroke-width-thickest",
+        "type": "borderWidth",
+        "category": "stroke"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.ultraFast",
+        "alias": "source:motion.duration.ultraFast",
+        "css": "--bui-v3-foundation-motion-duration-ultraFast",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.faster",
+        "alias": "source:motion.duration.faster",
+        "css": "--bui-v3-foundation-motion-duration-faster",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.fast",
+        "alias": "source:motion.duration.fast",
+        "css": "--bui-v3-foundation-motion-duration-fast",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.normal",
+        "alias": "source:motion.duration.normal",
+        "css": "--bui-v3-foundation-motion-duration-normal",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.gentle",
+        "alias": "source:motion.duration.gentle",
+        "css": "--bui-v3-foundation-motion-duration-gentle",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.slow",
+        "alias": "source:motion.duration.slow",
+        "css": "--bui-v3-foundation-motion-duration-slow",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.slower",
+        "alias": "source:motion.duration.slower",
+        "css": "--bui-v3-foundation-motion-duration-slower",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.ultraSlow",
+        "alias": "source:motion.duration.ultraSlow",
+        "css": "--bui-v3-foundation-motion-duration-ultraSlow",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.accelerateMax",
+        "alias": "source:motion.curve.accelerateMax",
+        "css": "--bui-v3-foundation-motion-curve-accelerateMax",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.accelerateMid",
+        "alias": "source:motion.curve.accelerateMid",
+        "css": "--bui-v3-foundation-motion-curve-accelerateMid",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.accelerateMin",
+        "alias": "source:motion.curve.accelerateMin",
+        "css": "--bui-v3-foundation-motion-curve-accelerateMin",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.decelerateMax",
+        "alias": "source:motion.curve.decelerateMax",
+        "css": "--bui-v3-foundation-motion-curve-decelerateMax",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.decelerateMid",
+        "alias": "source:motion.curve.decelerateMid",
+        "css": "--bui-v3-foundation-motion-curve-decelerateMid",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.decelerateMin",
+        "alias": "source:motion.curve.decelerateMin",
+        "css": "--bui-v3-foundation-motion-curve-decelerateMin",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.easyEaseMax",
+        "alias": "source:motion.curve.easyEaseMax",
+        "css": "--bui-v3-foundation-motion-curve-easyEaseMax",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.easyEase",
+        "alias": "source:motion.curve.easyEase",
+        "css": "--bui-v3-foundation-motion-curve-easyEase",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.motion.curve.linear",
+        "alias": "source:motion.curve.linear",
+        "css": "--bui-v3-foundation-motion-curve-linear",
+        "type": "css-function",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.elevation.neutral.2",
+        "alias": "source:elevation.neutral.2",
+        "css": "--bui-v3-foundation-elevation-neutral-2",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.brand.2",
+        "alias": "source:elevation.brand.2",
+        "css": "--bui-v3-foundation-elevation-brand-2",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.neutral.4",
+        "alias": "source:elevation.neutral.4",
+        "css": "--bui-v3-foundation-elevation-neutral-4",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.brand.4",
+        "alias": "source:elevation.brand.4",
+        "css": "--bui-v3-foundation-elevation-brand-4",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.neutral.8",
+        "alias": "source:elevation.neutral.8",
+        "css": "--bui-v3-foundation-elevation-neutral-8",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.brand.8",
+        "alias": "source:elevation.brand.8",
+        "css": "--bui-v3-foundation-elevation-brand-8",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.neutral.16",
+        "alias": "source:elevation.neutral.16",
+        "css": "--bui-v3-foundation-elevation-neutral-16",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.brand.16",
+        "alias": "source:elevation.brand.16",
+        "css": "--bui-v3-foundation-elevation-brand-16",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.neutral.28",
+        "alias": "source:elevation.neutral.28",
+        "css": "--bui-v3-foundation-elevation-neutral-28",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.brand.28",
+        "alias": "source:elevation.brand.28",
+        "css": "--bui-v3-foundation-elevation-brand-28",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.neutral.64",
+        "alias": "source:elevation.neutral.64",
+        "css": "--bui-v3-foundation-elevation-neutral-64",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.brand.64",
+        "alias": "source:elevation.brand.64",
+        "css": "--bui-v3-foundation-elevation-brand-64",
+        "type": "shadow",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.field.minHeight.small",
+        "alias": "design-source:field.minHeight.small",
+        "css": "--bui-v3-foundation-field-min-height-small",
+        "type": "sizing",
+        "category": "field"
+      },
+      {
+        "name": "bluent.semantic.field.minHeight.medium",
+        "alias": "design-source:field.minHeight.medium",
+        "css": "--bui-v3-foundation-field-min-height-medium",
+        "type": "sizing",
+        "category": "field"
+      },
+      {
+        "name": "bluent.semantic.field.minHeight.large",
+        "alias": "design-source:field.minHeight.large",
+        "css": "--bui-v3-foundation-field-min-height-large",
+        "type": "sizing",
+        "category": "field"
+      },
+      {
+        "name": "bluent.semantic.density.gap.compact",
+        "alias": "source:spacing.horizontal.s",
+        "css": "--bui-v3-foundation-density-gap-compact",
+        "type": "spacing",
+        "category": "density"
+      },
+      {
+        "name": "bluent.semantic.density.gap.regular",
+        "alias": "source:spacing.horizontal.m",
+        "css": "--bui-v3-foundation-density-gap-regular",
+        "type": "spacing",
+        "category": "density"
+      },
+      {
+        "name": "bluent.semantic.density.gap.comfortable",
+        "alias": "source:spacing.horizontal.l",
+        "css": "--bui-v3-foundation-density-gap-comfortable",
+        "type": "spacing",
+        "category": "density"
+      },
+      {
+        "name": "bluent.semantic.motion.duration.reduced",
+        "alias": "design-source:motion.duration.reduced",
+        "css": "--bui-v3-foundation-motion-duration-reduced",
+        "type": "number",
+        "category": "motion"
+      },
+      {
+        "name": "bluent.semantic.elevation.color.brand.ambient",
+        "alias": "source:elevation.color.brand.ambient",
+        "css": "--bui-v3-foundation-elevation-color-brand-ambient",
+        "type": "color",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.color.brand.key",
+        "alias": "source:elevation.color.brand.key",
+        "css": "--bui-v3-foundation-elevation-color-brand-key",
+        "type": "color",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.color.neutral.ambient",
+        "alias": "source:elevation.color.neutral.ambient",
+        "css": "--bui-v3-foundation-elevation-color-neutral-ambient",
+        "type": "color",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.elevation.color.neutral.key",
+        "alias": "source:elevation.color.neutral.key",
+        "css": "--bui-v3-foundation-elevation-color-neutral-key",
+        "type": "color",
+        "category": "elevation"
+      },
+      {
+        "name": "bluent.semantic.radius.legacyCodeLarge",
+        "alias": "source:radius.codeLarge",
+        "css": "--bui-v3-foundation-radius-legacy-code-large",
+        "type": "borderRadius",
+        "category": "shape"
+      }
+    ],
+    "component": [
+      {
+        "name": "bluent.component.textField.minHeight.small",
+        "alias": "bluent.semantic.field.minHeight.small",
+        "css": "--bui-v3-text-field-min-height-small",
+        "type": "sizing",
+        "category": "field",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.textField.minHeight.medium",
+        "alias": "bluent.semantic.field.minHeight.medium",
+        "css": "--bui-v3-text-field-min-height-medium",
+        "type": "sizing",
+        "category": "field",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.textField.minHeight.large",
+        "alias": "bluent.semantic.field.minHeight.large",
+        "css": "--bui-v3-text-field-min-height-large",
+        "type": "sizing",
+        "category": "field",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.button.text.size",
+        "alias": "bluent.semantic.type.size.300",
+        "css": "--bui-v3-button-text-size",
+        "type": "fontSizes",
+        "category": "typography",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.button.text.lineHeight",
+        "alias": "bluent.semantic.type.lineHeight.300",
+        "css": "--bui-v3-button-text-line-height",
+        "type": "number",
+        "category": "typography",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.button.text.weight",
+        "alias": "bluent.semantic.type.weight.semibold",
+        "css": "--bui-v3-button-text-weight",
+        "type": "fontWeights",
+        "category": "typography",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.button.radius",
+        "alias": "bluent.semantic.radius.medium",
+        "css": "--bui-v3-button-radius",
+        "type": "borderRadius",
+        "category": "shape",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.textField.radius",
+        "alias": "bluent.semantic.radius.medium",
+        "css": "--bui-v3-text-field-radius",
+        "type": "borderRadius",
+        "category": "shape",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.badge.radius",
+        "alias": "bluent.semantic.radius.circular",
+        "css": "--bui-v3-badge-radius",
+        "type": "borderRadius",
+        "category": "shape",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.card.elevation",
+        "alias": "bluent.semantic.elevation.neutral.4",
+        "css": "--bui-v3-card-shadow",
+        "type": "shadow",
+        "category": "elevation",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.popover.elevation",
+        "alias": "bluent.semantic.elevation.neutral.16",
+        "css": "--bui-v3-popover-shadow",
+        "type": "shadow",
+        "category": "elevation",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.dialog.elevation",
+        "alias": "bluent.semantic.elevation.neutral.64",
+        "css": "--bui-v3-dialog-shadow",
+        "type": "shadow",
+        "category": "elevation",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.button.motion.duration",
+        "alias": "bluent.semantic.motion.duration.fast",
+        "css": "--bui-v3-button-motion-duration",
+        "type": "number",
+        "category": "motion",
+        "status": "component-consumption-candidate"
+      },
+      {
+        "name": "bluent.component.control.gap",
+        "alias": "bluent.semantic.density.gap.regular",
+        "css": "--bui-v3-control-gap",
+        "type": "spacing",
+        "category": "density",
+        "status": "component-consumption-candidate"
+      }
+    ]
+  },
+  "designDifferences": [
+    {
+      "token": "type.family.base",
+      "bluentCssSource": "Full Segoe UI-first system fallback stack",
+      "penpotPreview": "Segoe UI family specimen only",
+      "decision": "Penpot cannot preserve the full CSS fallback stack as a single resolved fontFamilies token; generator uses the exact source CSS variable."
+    },
+    {
+      "token": "radius.design.large",
+      "fluent2DesignValue": 8,
+      "sourceCssToken": "--borderRadiusXLarge",
+      "sourceValue": 8,
+      "decision": "The CSS suffix XL is a code token name; its emitted value maps to Fluent 2 design Large. Semantic token radius.large aliases this source."
+    },
+    {
+      "token": "radius.design.xlarge",
+      "fluent2DesignValue": 12,
+      "sourceCssToken": null,
+      "sourceValue": null,
+      "decision": "No emitted Bluent source token currently provides this Fluent 2 design value. Keep a separate opt-in design-source value at 12px; do not overwrite --borderRadiusXLarge."
+    },
+    {
+      "token": "radius.legacyCodeLarge",
+      "fluent2DesignValue": null,
+      "sourceCssToken": "--borderRadiusLarge",
+      "sourceValue": 6,
+      "decision": "Preserve the existing code-level source value behind an explicit compatibility alias; do not call it Fluent 2 design Large."
+    }
+  ],
+  "toolingLimitations": [
+    {
+      "category": "motion.curve",
+      "sourceCssVariables": [
+        "--curveAccelerateMax",
+        "--curveAccelerateMid",
+        "--curveAccelerateMin",
+        "--curveDecelerateMax",
+        "--curveDecelerateMid",
+        "--curveDecelerateMin",
+        "--curveEasyEaseMax",
+        "--curveEasyEase",
+        "--curveLinear"
+      ],
+      "penpot": "No native cubic-bezier/easing token type; retain exact CSS function strings in the source schema and generated scoped CSS."
+    }
+  ],
+  "guardrails": [
+    "No stable 2.x CSS, bundleconfig, NuGet, Dev branch or deployments are changed.",
+    "Preview CSS is applied only under [data-bui-v3-foundations].",
+    "Existing Fluent-like source variables remain the value source; generated aliases never rewrite them.",
+    "Per-brand Dark Action/Link foreground candidates stay in the separate 44-token color contract.",
+    "Component mappings are candidates and do not imply production component consumption or final visual approval."
+  ]
+}

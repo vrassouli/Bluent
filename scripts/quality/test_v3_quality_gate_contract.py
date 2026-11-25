@@ -1,4 +1,4 @@
-﻿"""Explicit negative controls proving v3 quality policy fails closed."""
+"""Explicit negative controls proving v3 quality policy fails closed."""
 from __future__ import annotations
 import unittest
 from pathlib import Path
@@ -46,8 +46,10 @@ class V3QualityContractTests(unittest.TestCase):
     def test_reject_vulnerable_server_patch(self):
         original=SSR_PROJ.read_text(encoding="utf-8-sig")
         self.assertIn('Version="10.0.15"',original)
-        with self.assertRaisesRegex(QualityContractError,"at least patched 10.0.15"):
-            check_server_patch(original.replace('Version="10.0.15"','Version="10.0.14"'))
+        for vulnerable_version in ("10.0.7", "10.0.14"):
+            with self.subTest(version=vulnerable_version):
+                with self.assertRaisesRegex(QualityContractError,"at least patched 10.0.15"):
+                    check_server_patch(original.replace('Version="10.0.15"', f'Version="{vulnerable_version}"'))
 
     def test_current_devserver_dependencies_are_patched(self):
         root=Path(__file__).resolve().parents[2]
@@ -58,8 +60,10 @@ class V3QualityContractTests(unittest.TestCase):
     def test_reject_vulnerable_devserver_patch(self):
         original=DEMO_PROJ.read_text(encoding="utf-8-sig")
         self.assertIn('Version="10.0.15"',original)
-        with self.assertRaisesRegex(QualityContractError,"at least patched 10.0.15"):
-            check_devserver_patch(original.replace('Version="10.0.15"','Version="10.0.14"'),str(DEMO_PROJ))
+        for vulnerable_version in ("10.0.7", "10.0.14"):
+            with self.subTest(version=vulnerable_version):
+                with self.assertRaisesRegex(QualityContractError,"at least patched 10.0.15"):
+                    check_devserver_patch(original.replace('Version="10.0.15"', f'Version="{vulnerable_version}"'),str(DEMO_PROJ))
 
     def test_real_browser_matrix_contract(self):
         check_browser_contract(BROWSERS.read_text(encoding="utf-8-sig"),
@@ -258,6 +262,20 @@ class V3QualityContractTests(unittest.TestCase):
         from pathlib import Path
         path=Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs"
         check_native_site_zoom_source(path.read_text(encoding="utf-8-sig"))
+
+    def test_native_zoom_waits_for_first_interactive_render(self):
+        from pathlib import Path
+        probe_path=Path(__file__).resolve().parent/"probe_v3_native_site_zoom.mjs"
+        probe=probe_path.read_text(encoding="utf-8-sig")
+        fixture=COMPAT_PROBE.read_text(encoding="utf-8-sig")
+        check_native_site_zoom_source(probe)
+        check_compatibility_probe_text(fixture)
+        bad_probe=probe.replace("v?.blazorInteractive&&", "", 1)
+        with self.assertRaisesRegex(QualityContractError, "site zoom evidence missing"):
+            check_native_site_zoom_source(bad_probe)
+        bad_fixture=fixture.replace('"data-bluent-compatibility-interactive"', '"data-bluent-compatibility-ready"', 1)
+        with self.assertRaisesRegex(QualityContractError, "first interactive render"):
+            check_compatibility_probe_text(bad_fixture)
 
     def test_native_zoom_cannot_replace_saved_browser_preferences_with_emulation(self):
         from pathlib import Path

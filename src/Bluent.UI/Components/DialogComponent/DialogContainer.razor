@@ -1,8 +1,13 @@
-﻿@for (var index = 0; index < _contexts.Count; index++)
+@for (var index = 0; index < _contexts.Count; index++)
 {
     var context = _contexts[index];
 
-    <div class="dialog-wrapper" style="--dialog-stack-index: @index">
+    <div class="dialog-wrapper" style="--dialog-stack-index: @index"
+         data-bui-brand="@context.Config.ThemeScope?.Brand"
+         data-bui-theme="@context.Config.ThemeScope?.Mode"
+         data-bui-v3-tokens="@(context.Config.ThemeScope?.UseV3Tokens == true ? "" : null)"
+         data-density="@context.Config.ThemeScope?.Density"
+         dir="@context.Config.ThemeScope?.Direction">
         @if (context.Config.Modal)
         {
             <Overlay OnClick="() => OverlayClickHandler(context)" />
@@ -10,6 +15,13 @@
         <Dialog @ref=context.DialogReference
                 @key=context
                 Size="context.Config.Size"
+                AccessibleName="@context.Config.AccessibleName"
+                CloseButtonLabel="@context.Config.CloseButtonLabel"
+                IsModal="@context.Config.Modal"
+                EnableModalKeyboard="@context.Config.EnableModalKeyboard"
+                InitialFocusTargetId="@context.Config.InitialFocusTargetId"
+                UseStandardTitleHeading="@context.Config.UseStandardTitleHeading"
+                AccessibleDescription="@context.Config.AccessibleDescription"
                 OnClose="(result) => { OnDialogClose(result, context); }">
             @context.Content
         </Dialog>

@@ -153,6 +153,8 @@ def check_native_site_zoom_source(probe:str)->None:
                  "record.initialMetrics=state", "record.metrics=state", "const renderMode=url.endsWith",
                  '"-"+renderMode+".png"', '"-"+renderMode+".json"',
                  "documentOverflowPx", "remaining=", "cleanupOwned(folder)",
+                  "blazorInteractive", "v?.blazorInteractive",
+                  "data-bluent-compatibility-interactive",
                  'process.exitCode=2', "record.errors.push",
                  "Input.dispatchMouseEvent", "Input.dispatchKeyEvent",
                  "document.elementFromPoint", "document.activeElement?.id==='compatibility-input'",
@@ -177,6 +179,17 @@ def check_compatibility_probe_text(probe_source:str)->None:
 
     need('data-testid="compatibility-link"' in probe_source,
          "mobile RTL sample must expose a unique link selector for contrast checks")
+
+    for required in (
+        "@using Microsoft.JSInterop",
+        "@inject IJSRuntime JSRuntime",
+        "protected override async Task OnAfterRenderAsync(bool firstRender)",
+        "if (!firstRender)",
+        "JSRuntime.InvokeVoidAsync(",
+        '"data-bluent-compatibility-interactive"',
+    ):
+        need(required in probe_source,
+             "compatibility fixture must signal readiness after its first interactive render: " + required)
 
 def check_compatibility_host_theme(layout_source:str)->None:
     # The host must paint a themed surface behind themed text; otherwise

@@ -6,6 +6,14 @@ public class DialogConfigurator
 {
     private bool _modal = true;
     private DialogSize _size = DialogSize.Medium;
+    private PortalThemeScope? _themeScope;
+    private string? _accessibleName;
+    private string? _closeButtonLabel;
+    private string? _returnFocusTargetId;
+    private bool _enableModalKeyboard;
+    private string? _initialFocusTargetId;
+    private bool _useStandardTitleHeading;
+    private string? _accessibleDescription;
     private bool _showCloseButton = true;
     private List<DialogAction> _actions = new();
 
@@ -23,6 +31,59 @@ public class DialogConfigurator
         return this;
     }
 
+    /// <summary>Opt into the experimental #418 detached-portal theme snapshot.</summary>
+    public DialogConfigurator SetThemeScope(PortalThemeScope? themeScope)
+    {
+        _themeScope = themeScope;
+        return this;
+    }
+    /// <summary>Sets the accessible Dialog name when the icon-only close button is hidden.</summary>
+    /// <remarks>When the close button is visible, use the overload that supplies its localized accessible label.</remarks>
+    public DialogConfigurator SetAccessibleDialog(string name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        _accessibleName = name;
+        _closeButtonLabel = null;
+        return this;
+    }
+
+    /// <summary>Sets the accessible Dialog name and the localized label for its icon-only close button.</summary>
+    public DialogConfigurator SetAccessibleDialog(string name, string closeButtonLabel)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(closeButtonLabel);
+        _accessibleName = name;
+        _closeButtonLabel = closeButtonLabel;
+        return this;
+    }
+
+    /// <summary>Opt in to a visible description, linked by aria-describedby.</summary>
+    public DialogConfigurator SetAccessibleDescription(string description)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(description);
+        _accessibleDescription = description;
+        return this;
+    }
+    /// <summary>Restore focus to the explicitly named launcher after the final Dialog dismisses.</summary>
+    public DialogConfigurator SetReturnFocusTargetId(string elementId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(elementId);
+        _returnFocusTargetId = elementId;
+        return this;
+    }
+    /// <summary>Experimental opt-in Tab/Shift+Tab/Escape handling for a named modal Dialog.</summary>
+    public DialogConfigurator SetModalKeyboardNavigation(bool enabled = true)
+    {
+        _enableModalKeyboard = enabled;
+        return this;
+    }
+    /// <summary>Experimental opt-in initial focus on a visible enabled element inside the named Dialog.</summary>
+    public DialogConfigurator SetInitialFocusTargetId(string elementId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(elementId);
+        _initialFocusTargetId = elementId;
+        return this;
+    }
     public DialogConfigurator SetCloseButton(bool show)
     {
         _showCloseButton = show;
@@ -37,7 +98,31 @@ public class DialogConfigurator
         return this;
     }
 
-    internal DialogConfiguration Configuration => new DialogConfiguration(_modal, _size);
+    /// <summary>Called only by the built-in title-bearing Dialog overload.</summary>
+    internal void UseStandardTitleHeading(bool hasNonemptyTitle) =>
+        _useStandardTitleHeading = hasNonemptyTitle;
+    internal DialogConfiguration Configuration
+    {
+        get
+        {
+            if (_showCloseButton && !string.IsNullOrWhiteSpace(_accessibleName) && string.IsNullOrWhiteSpace(_closeButtonLabel))
+                throw new ArgumentException("An accessible close-button label is required while the icon-only close button is visible. Hide the close button or provide its localized label.");
+
+            var configuration = new DialogConfiguration(_modal, _size)
+            {
+                ThemeScope = _themeScope,
+                AccessibleName = _accessibleName,
+                CloseButtonLabel = _closeButtonLabel,
+                ReturnFocusTargetId = _returnFocusTargetId,
+                EnableModalKeyboard = _enableModalKeyboard,
+                InitialFocusTargetId = _initialFocusTargetId,
+                UseStandardTitleHeading = _useStandardTitleHeading && !string.IsNullOrWhiteSpace(_accessibleName),
+                AccessibleDescription = _accessibleDescription
+            };
+            configuration.ValidateAccessibleBehavior();
+            return configuration;
+        }
+    }
     internal bool ShowCloseButton => _showCloseButton;
     internal List<DialogAction> Actions => _actions;
 }
