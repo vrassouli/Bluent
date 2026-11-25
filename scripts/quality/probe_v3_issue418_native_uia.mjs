@@ -26,7 +26,8 @@ const base = "BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-" + day + schemeSuffix 
 const jsonPath = join(evidenceDir, base + ".json");
 const dialogCapturePath = join(evidenceDir, base + "-DIALOG.png");
 const popoverCapturePath = join(evidenceDir, base + "-POPOVER.png");
-if ([jsonPath, dialogCapturePath, popoverCapturePath].some(path => existsSync(path)))
+const scopedPopoverCapturePath = join(evidenceDir, base + "-SCOPED-WORD-POPOVER.png");
+if ([jsonPath, dialogCapturePath, popoverCapturePath, scopedPopoverCapturePath].some(path => existsSync(path)))
   throw new Error("Refusing to overwrite existing native evidence; supply a new BLUENT_ISSUE418_NATIVE_EVIDENCE_SUFFIX.");
 const temp = mkdtempSync(join(tmpdir(), "bluent-v3-418-native-uia-"));
 const profile = join(temp, "edge-profile");
@@ -131,7 +132,7 @@ const report = {
     uiAutomation: "Windows AutomationElement ControlView tree from the native Edge window",
     narratorStarted: false, assistiveTechnologySpeechCaptured: false
   },
-  dialog: {}, popover: {}, cleanup: {},
+  dialog: {}, popover: {}, scopedPopover: {}, cleanup: {},
   limitations: [
     `One Windows 11 Pro build, one Edge version, ${requestedScheme} only.`,
     "Tab/Shift+Tab/Escape were synthetic OS keyboard events; no physical keyboard hardware was used.",
@@ -217,7 +218,7 @@ try {
     "Dialog Escape close and return", 18000);
 
   await cdp.js("document.querySelector('#v3-popover-trigger').click()");
-  report.popover.dom = await until(() => cdp.js("(() => {const t=document.querySelector('#v3-popover-trigger'),s=document.querySelector('#v3-popover-trigger_surface'),x=document.querySelector('[data-v3-popover-probe]');if(!t||!s||!x||s.classList.contains('hidden'))return null;const cs=getComputedStyle(s);return {triggerId:t.id,triggerExpanded:t.getAttribute('aria-expanded'),triggerControls:t.getAttribute('aria-controls'),triggerHasPopup:t.getAttribute('aria-haspopup'),surfaceId:s.id,surfaceTag:s.tagName,surfaceRole:s.getAttribute('role'),surfaceLabel:x.getAttribute('aria-label'),surfaceBackground:cs.backgroundColor,surfaceColor:cs.color,surfaceBorder:cs.borderTopColor,surfaceOutline:cs.outlineColor,surfaceBoxShadow:cs.boxShadow,surfaceForcedColorAdjust:cs.forcedColorAdjust,text:x.innerText?.slice(0,400),activeElementId:document.activeElement?.id};})()"),
+  report.popover.dom = await until(() => cdp.js("(() => {const t=document.querySelector('#v3-popover-trigger'),s=document.querySelector('#v3-popover-trigger_surface'),x=document.querySelector('[data-v3-popover-probe]');if(!t||!s||!x||s.classList.contains('hidden'))return null;const cs=getComputedStyle(s);return {triggerId:t.id,triggerExpanded:t.getAttribute('aria-expanded'),triggerControls:t.getAttribute('aria-controls'),triggerHasPopup:t.getAttribute('aria-haspopup'),surfaceId:s.id,surfaceTag:s.tagName,surfaceRole:s.getAttribute('role'),surfaceLabel:x.getAttribute('aria-label'),surfaceTheme:s.getAttribute('data-bui-theme'),surfaceBrand:s.getAttribute('data-bui-brand'),surfaceV3Tokens:s.hasAttribute('data-bui-v3-tokens'),surfaceDensity:s.getAttribute('data-density'),surfaceDirection:s.getAttribute('dir'),surfaceBackground:cs.backgroundColor,surfaceColor:cs.color,surfaceBorder:cs.borderTopColor,surfaceOutline:cs.outlineColor,surfaceBoxShadow:cs.boxShadow,surfaceForcedColorAdjust:cs.forcedColorAdjust,text:x.innerText?.slice(0,400),activeElementId:document.activeElement?.id};})()"),
     "visible service-hosted Popover", 22000);
   report.popover.uiAutomation = await uia("Popover open");
   const popoverImage = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
@@ -229,8 +230,19 @@ try {
         /v3 detached theme ownership probe|global Popover ownership check|Show service-hosted popover/i.test(node.name?.value || ""))
       .map(node => ({ role: node.role?.value, name: node.name?.value, ignored: node.ignored }));
   } catch (error) { report.popover.browserAccessibilityTreeError = String(error); }
+  // Keep the CurrentScope surface open while opening the independent
+  // AlternateScope surface. PopoverContainer supports multiple live contexts;
+  // this gives a same-run comparison without relying on focus-dependent Escape.
+  const scopedTrigger = await cdp.js("document.querySelector('#v3-independent-popover-trigger')?.id || null");
+  if (!scopedTrigger) throw new Error("The AlternateScope (Word/dark) Popover trigger is missing.");
+  await cdp.js("document.querySelector('#v3-independent-popover-trigger').click()");
+  report.scopedPopover.dom = await until(() => cdp.js("(() => {const t=document.querySelector('#v3-independent-popover-trigger'),s=document.querySelector('#v3-independent-popover-trigger_surface'),x=document.querySelector('[data-v3-independent-popover-probe]');if(!t||!s||!x||s.classList.contains('hidden'))return null;const cs=getComputedStyle(s);return {triggerId:t.id,triggerExpanded:t.getAttribute('aria-expanded'),triggerControls:t.getAttribute('aria-controls'),triggerHasPopup:t.getAttribute('aria-haspopup'),surfaceId:s.id,surfaceTag:s.tagName,surfaceRole:s.getAttribute('role'),surfaceTheme:s.getAttribute('data-bui-theme'),surfaceBrand:s.getAttribute('data-bui-brand'),surfaceV3Tokens:s.hasAttribute('data-bui-v3-tokens'),surfaceDensity:s.getAttribute('data-density'),surfaceDirection:s.getAttribute('dir'),surfaceBackground:cs.backgroundColor,surfaceColor:cs.color,surfaceBorder:cs.borderTopColor,surfaceOutline:cs.outlineColor,surfaceBoxShadow:cs.boxShadow,surfaceForcedColorAdjust:cs.forcedColorAdjust,text:x.innerText?.slice(0,400),activeElementId:document.activeElement?.id};})()"),
+    "visible AlternateScope (Word/dark) service-hosted Popover", 22000);
+  report.scopedPopover.uiAutomation = await uia("AlternateScope Word/dark Popover open");
+  const scopedPopoverImage = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  report.scopedPopover.screenshot = screenshot(base + "-SCOPED-WORD-POPOVER.png", scopedPopoverImage.data);
   report.browserEvents = cdp.events.slice(-15);
-  console.log("Dialog and Popover native UIA observations captured.");
+  console.log("Dialog, CurrentScope Popover and AlternateScope Word/dark Popover native UIA observations captured.");
 } catch (error) {
   report.error = String(error?.stack || error);
   console.error(report.error);
@@ -275,7 +287,7 @@ try {
   }
   try { rmSync(temp, { recursive: true, force: true }); } catch {}
   report.completed = !report.error && report.nativeHighContrast.exactlyMatchesOriginal === true &&
-    !!report.dialog?.uiAutomationOnOpen && !!report.popover?.uiAutomation;
+    !!report.dialog?.uiAutomationOnOpen && !!report.popover?.uiAutomation && !!report.scopedPopover?.uiAutomation;
   report.capturedAt = new Date().toISOString();
   writeFileSync(jsonPath, JSON.stringify(report, null, 2) + "\n", "utf8");
   console.log(JSON.stringify({
@@ -286,6 +298,8 @@ try {
       afterShiftTab: report.dialog?.afterShiftTab?.relevant, focusAfterEscape: report.dialog?.domAfterEscape },
     popover: { elements: report.popover?.uiAutomation?.controlViewElementCount,
       relevant: report.popover?.uiAutomation?.relevant, dom: report.popover?.dom },
+    scopedPopover: { elements: report.scopedPopover?.uiAutomation?.controlViewElementCount,
+      relevant: report.scopedPopover?.uiAutomation?.relevant, dom: report.scopedPopover?.dom },
     cleanup: report.cleanup
   }, null, 2));
 }

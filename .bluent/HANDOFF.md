@@ -346,3 +346,12 @@ Local follow-up verification: #418 review contract 22/22; full `RegexSampleGener
 - Harness accepts only built-in HC White/Black. It now refuses to overwrite existing JSON/PNG; deliberate reruns require a unique `BLUENT_ISSUE418_NATIVE_EVIDENCE_SUFFIX`. Its focused evidence tests run in the #418 Token Contract workflow.
 - Local: HC Black evidence 10/10; prior HC White UIA 12/12; prior HC White evidence 7/7; #418 review contract 22/22; v3 docs contract 0 findings; Markdown links 246 files; full RegexSampleGeneratorTest Release 189/189; `node --check` and `git diff --check` pass.
 - #418 remains In progress, #438 Backlog, PR #500 open/unmerged. No runtime, public API, product CSS, stable/v2, package or release changes.
+
+
+### #418 paired HC Black detached portal scopes — 2026-11-25
+
+- Extended native UIA evidence probe to open CurrentScope and AlternateScope Popovers simultaneously under High Contrast Black. Same-run evidence shows CurrentScope light/default/LTR and AlternateScope dark/Word/RTL attributes each survive detachment to the global Containers surface; both retain the v3 token marker, density and `aria-controls` relationship.
+- Under HC Black, both surfaces compute system black/white colors. This is native forced-colors replacing authored brand/theme values, not proof of lost ThemeScope. The paired artifact supersedes the tentative interpretation from the earlier standalone snapshot; retain the first raw artifact as historical run-specific evidence.
+- Artifact: `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK-SCOPED-WORD-COMPARE-4.*` (JSON, Markdown, Dialog + two Popover PNGs with verified SHA-256). Native flags 127 / HC Black already enabled, exact restoration verified, probe-owned Edge processes remaining=0.
+- Focused guard: `scripts/quality/test_v3_issue418_native_hc_black_scoped_portals.py`; added to #418 Token Contract workflow. Generic Popover surfaces remain role-less in the probe by design; no universal `dialog` role is proposed.
+- Limitations: one Windows/Edge/scheme, synthetic keys only, no spoken AT, no contrast certification or user-defined HC scheme. #418 remains In progress; #438 remains Backlog. No production API/CSS/runtime or v2/stable changes.

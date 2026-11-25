@@ -58,7 +58,7 @@ The real service-hosted Popover was opened. Its trigger/surface relationship was
 
 UI Automation exposed the detached content as a named Group and its body as Text. The trigger was exposed as a named Button.
 
-**Important finding:** while the native Dialog adopted the observed High Contrast Black system colors, the Popover surface still reported a white background and dark text in this run. No contrast pass is claimed. This is concrete evidence that the shared Popover portal/surface host needs a closer forced-colors review; consumer-selected role/name semantics and theme/forced-colors rendering remain separate concerns. The missing surface role is intentional for this generic consumer and does not mean every Popover should automatically become a Dialog.
+**Initial single-surface observation:** this first HC Black run recorded a white background and dark text for the generic Popover surface. A later same-run paired comparison of CurrentScope (light/default/LTR) and AlternateScope (dark/Word/RTL) on the same route and scheme is retained in `BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK-SCOPED-WORD-COMPARE-4.*`. That controlled comparison confirms both distinct `data-bui-theme`/brand/direction signatures reached the detached roots and both surfaces computed system black/white colors. Therefore the initial sample must not be used to claim ThemeScope was lost. The surface role remains absent for this generic consumer by design; Popover must not automatically become a Dialog. Neither artifact claims a blanket contrast pass.
 
 ![Raw High Contrast Black Popover capture](BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK-POPOVER.png)
 
