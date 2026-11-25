@@ -403,11 +403,18 @@ class Issue418ReviewContractTests(unittest.TestCase):
         audit = audit_path.read_text(encoding="utf-8")
         for required in (
             "silently drops it",
+            "public init property",
+            "ShowAsync(RenderFragment, config)",
+            "ValidateAccessibleBehavior",
             "ReturnFocusTargetId",
             "DialogContainer.Dispose",
             "PopoverSurface.razor",
             "PopoverSettings",
             "PopoverConfiguration",
+            "_triggerAlreadySet",
+            "refreshes only a changed `ThemeScope`",
+            "snapshot semantics",
+            "live-update semantics",
             "SurfaceRole",
             "SurfaceAriaLabel",
             "SurfaceAriaLabelledBy",

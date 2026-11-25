@@ -30,7 +30,8 @@ The current prototype uses the selected existing DialogConfigurator builder rout
 
 | Source finding | Current behavior | Required contract / disposition |
 |---|---|---|
-| Description without name | SetAccessibleDescription accepts a nonblank description, but DialogConfigurator.Configuration silently drops it unless AccessibleName is also set. | Fail closed: final configuration validation should reject description-without-name, or the builder must make the dependency explicit. Never silently discard a successfully configured option. |
+| Description without name (builder path) | SetAccessibleDescription accepts a nonblank description, but DialogConfigurator.Configuration silently drops it unless AccessibleName is also set. | Fail closed: validate the dependency before projection drops the value, or make the builder dependency explicit. Never silently discard a successfully configured option. |
+| Description without name (direct configuration path) | AccessibleDescription is a public init property. A caller can set it on DialogConfiguration and pass that object to ShowAsync(RenderFragment, config). The shared ValidateAccessibleBehavior currently accepts the missing name, while Dialog markup emits aria-describedby only for a named Dialog; the configured description therefore becomes a no-op. | Put the dependency in the shared DialogConfiguration.ValidateAccessibleBehavior boundary so both public service paths reject or consistently support this combination. Do not rely on builder-only validation. |
 | Return focus without name | SetReturnFocusTargetId accepts a launcher ID without an accessible name. DialogContainer.Dispose currently completes pending tasks only for contexts with AccessibleName or EnableModalKeyboard; a return-focus-only context is not included in that opt-in cleanup filter. | Either require an accessible name for this focus-managed path, or include ReturnFocusTargetId in route/container disposal completion and test the no-longer-existing launcher case. State the chosen lifecycle explicitly. |
 | Close label coupled to name | SetAccessibleDialog(name, closeButtonLabel) requires both values, while SetCloseButton(false) can suppress the actual button. | Decide whether the label remains mandatory even when the button is hidden, or whether name and close-button label become separate builder decisions. Do not publish accidental coupling without documenting it. |
 | JS callback visibility | Dialog.DismissOnEscape is public and JSInvokable; it is an implementation callback, not an intended consumer command. | Keep the callback callable by the JS bridge, but document it as interop-only and consider editor hiding/documentation exclusion. Include it in the CLR ledger while distinguishing it from consumer-authored usage. |
@@ -65,6 +66,12 @@ Additional facts:
 6. Keep surface semantics out of PopoverSettings because that record is used across JS interop for trigger/position/event behavior. Carry the three DOM-only values in the Blazor-side PopoverConfiguration and render them on PopoverSurface root.
 7. Role forwarding alone does not implement menu/listbox/grid keyboard behavior, focus movement, dismissal, or modality. Each consumer must own and test its own interaction contract.
 
+### Parameter update lifecycle is still undefined
+
+The current Popover registration path captures its inputs once: SetTrigger is guarded by `_triggerAlreadySet`, and the initial `PopoverConfiguration`, `PopoverSettings`, and `Surface` fragment are handed to the service at that point. `Popover.OnParametersSet` currently detects and refreshes only a changed `ThemeScope`. Changes to other parameters are not copied into the registered configuration; `PopoverService.RefreshSurface` only asks the existing surface component to render again and does not rebuild the captured configuration or update JS interop settings.
+
+The D5 contract must therefore state whether role/name parameters are immutable for the lifetime of a registered trigger (snapshot semantics) or are expected to track later parent renders (live-update semantics). Do not imply live updates merely because they are Razor parameters. If live updates are selected, the implementation contract must specify how the detached root and any affected trigger/interop settings are synchronized; a surface-only `StateHasChanged` is not sufficient for settings outside the surface markup.
+
 ### Consumer examples (illustrative; not a shipped API)
 
 - DateField #438: SurfaceRole="dialog" and SurfaceAriaLabelledBy="calendar-heading"; the calendar remains non-modal, with no aria-modal, focus trap or background inerting.
@@ -76,6 +83,7 @@ Additional facts:
 - Default generic Popover remains role-less/unnamed and does not emit aria-haspopup.
 - Explicit role and either name source land on the exact detached root referenced by trigger aria-controls.
 - Both name sources together, blank role/name values and name-without-role fail validation.
+- A parent update after trigger registration follows the explicitly approved snapshot or live-update policy for role/name and surface content; the test must prove the chosen behavior rather than assume Razor parameter updates are automatic.
 - aria-labelledby with multiple valid IDs resolves to the intended accessible name; missing IDs are surfaced by a browser-level accessibility-tree assertion.
 - DateField dialog remains non-modal and Label Info keeps its own consumer-specific interaction/role.
 - Chrome/Edge × InteractiveServer/WebAssembly plus Firefox/WebKit portal regression; native AT remains a separate gate.
