@@ -1,6 +1,6 @@
 # Issue #418 — Native Windows High Contrast Black and UI Automation evidence
 
-**Captured:** 2026-11-25  
+**Captured:** 2026-11-25
 **Classification:** Limited native Windows engineering evidence for the opt-in Dialog/Popover prototype. This is not design, public API, physical-keyboard, spoken assistive-technology, or product accessibility acceptance.
 
 ## Environment and native OS mode
