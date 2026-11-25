@@ -1076,3 +1076,12 @@ Evidence files:
 The new fail-closed UIA evidence suite passes 12/12; the existing native High Contrast guard passes 7/7 and the #418 review contract 21/21. Docs contract reports 0 findings, Markdown links are checked in 244 files, and git diff --check passes. The synthetic key events were not physical hardware input; Narrator was not launched and no spoken Narrator/NVDA/VoiceOver output was captured. Screenshots are raw/unreviewed, only High Contrast White was tested, and no API, token allow-list or design approval is inferred.
 
 Canonical Penpot connection is available again in the current session, but page 45 / page 55 are still DRAFT and no design status was changed. The semantic-token allow-list and public aliases, Focus/Portal/Dialog API, physical keyboard, comprehensive native schemes/assistive technology, native Safari and Persian composition/caret acceptance remain open. #418 remains In progress and PR #500 remains open/unmerged.
+
+
+## 2026-11-25 live update — Issue #418
+
+Current branch `v3/issue-418-design-tokens`; latest verified synchronized head `8af943609491ce1e8683c5a2ef042dc8b291833a`. PR [#500](https://github.com/vrassouli/Bluent/pull/500) remains OPEN/unmerged against `bluent-v3`, merge state CLEAN, without a formal approving review. Exact-head hosted CI is green: **13/13 workflows, 56/56 PR checks**. Issue #418 remains **In progress** and DateField #438 remains **Backlog**.
+
+The new [#418 maintainer decision packet](../docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md) is the current index for selected delegated directions versus approvals still required. It does not promote preview aliases, change runtime/API/CSS, or authorize a merge/release. Remaining decisions include the individual semantic public allow-list, exact Dark values, Focus/Portal/Dialog signatures, explicit Popover surface role/name contract, Penpot review and native accessibility/platform evidence. See also the [latest acceptance checkpoint](../docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-24.md).
+
+No stable `Dev`/`main` or 2.x changes, package publication, release or deployment. Do not change Project #5 status or merge PR #500 until the documented acceptance gates and independent review are complete.

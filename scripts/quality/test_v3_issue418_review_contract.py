@@ -396,5 +396,45 @@ class Issue418ReviewContractTests(unittest.TestCase):
         semantic_names = {item["name"] for item in self.layers["semantic"]}
         self.assertEqual(len(semantic_names), 17)
         self.assertNotIn("bluent.semantic.text.validation", semantic_names)
+
+    def test_maintainer_decision_packet_separates_selected_direction_from_public_approval(self):
+        packet_path = ROOT / "docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md"
+        packet = packet_path.read_text(encoding="utf-8")
+        self.assertIn("**Status: DRAFT", packet)
+        for selected in (
+            "Public token layering — Option B",
+            "Focus host — Option A",
+            "Portal owner lifecycle and Dialog — Option A",
+            "Dark branded foregrounds — preview target selected",
+        ):
+            self.assertIn(selected, packet)
+
+        first_wave = {
+            line.split("|", 2)[1].strip().strip("`")
+            for line in packet.splitlines()
+            if line.startswith("| `bluent.semantic.")
+        }
+        self.assertEqual(first_wave, {
+            "bluent.semantic.text.primary",
+            "bluent.semantic.text.disabled",
+            "bluent.semantic.text.placeholder",
+        })
+        self.assertIn("bluent.semantic.text.dangerAccessible", packet)
+        self.assertIn("bluent.semantic.status.danger", packet)
+        self.assertIn("role-less and unnamed", packet)
+        self.assertIn("no inferred/default role", packet)
+        self.assertIn("56/56 PR checks", packet)
+        self.assertIn("user-defined Windows Contrast Themes", packet)
+        self.assertIn("DRAFT / REVIEW REQUIRED", packet)
+
+        for source in (
+            "PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md",
+            "FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md",
+            "PORTAL-THEME-PUBLIC-API-PROPOSAL.md",
+            "ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md",
+            "DATEFIELD-POPOVER-CONSUMER-REVIEW.md",
+        ):
+            self.assertTrue((ROOT / "docs/v3/tokens" / source).is_file(), source)
+
 if __name__ == "__main__":
     unittest.main()

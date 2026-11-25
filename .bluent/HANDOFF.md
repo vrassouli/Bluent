@@ -364,3 +364,14 @@ Local follow-up verification: #418 review contract 22/22; full `RegexSampleGener
 - No source/product fix was needed, and no unrelated #425 cleanup harness edit was made. The transient CI timeout is closed by exact-head successful rerun.
 - Native HC acceptance summary corrected: built-in White and Black have both been exercised for the Dialog/Popover prototype. User-defined schemes, broad Focus-host/component coverage, physical keyboard, spoken Narrator/NVDA/VoiceOver, native Safari, Persian IME/selection, public API/token decisions and canonical Penpot review remain open.
 - #418 remains In Progress; #438 remains Backlog. No merge, release, package publication, stable/v2 change or Project #5 status promotion.
+
+
+## Issue #418 — latest exact-head handoff — 2026-11-25
+
+Current task branch: `v3/issue-418-design-tokens`; current synchronized head before this documentation update: `8af943609491ce1e8683c5a2ef042dc8b291833a` (`docs(v3): sync #418 acceptance checkpoint with CI`). PR [#500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, remains OPEN/unmerged, merge state CLEAN, and has no formal approving review. Issue #418 remains In progress; DateField #438 remains Backlog.
+
+Exact-head GitHub Actions on `8af94360`: **13/13 workflows and 56/56 PR checks successful**. The real Popover matrix is Chrome/Edge × InteractiveServer/WebAssembly at 73/73 assertions per cell; Compatibility is 32/32. Native High Contrast White and Black were both captured on one Windows 11 Pro / Edge fixture; paired Black evidence confirms independent detached portal ThemeScope metadata for light/default/LTR and dark/Word/RTL owners. These results do not certify user-defined schemes, physical keyboard, spoken Narrator/NVDA/VoiceOver, native Safari.app, Persian OS IME composition/caret/selection, arbitrary surfaces, or WCAG conformance.
+
+The current decision map is consolidated in [ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md](../docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md). Delegated directions already selected (Option B token layering, Option A focus host, Option A portal lifecycle, and the 40-value Dark preview target) are distinguished there from pending exact public semantic allow-list, values, CLR signatures, Popover surface role/name, Penpot and native acceptance gates.
+
+The earlier 2026-11-25 `e650d337` compatibility retry entry above is a historical intermediate snapshot and is superseded by this later exact-head `8af94360` record. No runtime/public API/production CSS, stable/v2 branch, package, release or deployment change was made by this decision packet. Do not merge PR #500 or move #418 to Review/Done from green CI alone.
