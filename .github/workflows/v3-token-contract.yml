@@ -20,6 +20,15 @@ on:
       - "scripts/quality/audit_v3_validation_text_contrast.py"
       - "scripts/quality/test_v3_validation_text_contrast.py"
       - "scripts/quality/test_v3_issue418_review_contract.py"
+      - "scripts/quality/test_v3_issue418_native_hc_evidence.py"
+      - "scripts/quality/test_v3_issue418_native_uia_evidence.py"
+      - "scripts/quality/test_v3_issue418_native_hc_black_evidence.py"
+      - "scripts/quality/probe_v3_issue418_native_uia.mjs"
+      - "scripts/quality/v3_issue418_native_highcontrast.ps1"
+      - "scripts/quality/v3_issue418_native_uia.ps1"
+      - "docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-*.json"
+      - "docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-*.md"
+      - "docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-*.png"
       - "src/Bluent.UI/Styles/Components/_field.scss"
       - "docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md"
       - "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md"
@@ -95,6 +104,10 @@ jobs:
           python scripts/quality/audit_v3_validation_text_contrast.py
           python -m unittest discover -s scripts/quality -p 'test_v3_validation_text_contrast.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_issue418_review_contract.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_issue418_native_hc_evidence.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_issue418_native_uia_evidence.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_issue418_native_hc_black_evidence.py' -v
+          node --check scripts/quality/probe_v3_issue418_native_uia.mjs
           python -m unittest discover -s scripts/quality -p 'test_v3_brand_focus_candidate.py' -v
           python scripts/quality/audit_v3_brand_focus_candidate.py
           node --check scripts/quality/penpot_v3_field_brand_focus_review_audit.js

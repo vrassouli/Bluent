@@ -145,3 +145,14 @@ The fail-closed evidence regression suite passes 12/12; the pre-existing native 
 - Do not activate `--bui-v3-*` preview aliases in production CSS.
 - Do not publish NuGet packages, create releases/tags, change stable `Dev`/`main` or deploy v3 work.
 - Do not imply native OS/AT acceptance from browser-emulated forced-colors, Playwright WebKit or CDP key dispatch.
+
+
+## 2026-11-25 — Native High Contrast Black UI Automation follow-up
+
+A second native Windows UIA artifact now records the opt-in Dialog/Popover fixture under **High Contrast Black** on Windows 11 Pro build 28000 / Edge 158.0.4370.33 / published InteractiveServer. Edge observed `forced-colors: active` and `prefers-contrast: more`. The native Dialog was exposed in Windows UIA as a named Window with a Text heading and invokable Close modal Button; synthetic Tab/Shift+Tab observations and Escape/focus return were retained. Both Dialog and Popover screenshots have verified SHA-256 manifests.
+
+The run began with High Contrast Black already active (flags 127). The probe records this exact initial state and verified the same flags/scheme/enabled value after its `finally` restoration (`exactlyMatchesOriginal=true`). This run did not demonstrate a White-to-Black transition. The Dialog computed surface was `rgb(32, 32, 32)` with white text and a system-colored outline. The separate Popover surface still computed white background / dark text under this Black scheme and has no explicit role; no contrast pass is claimed. This is a concrete outstanding #418 forced-colors portal-surface review finding, not a general Popover role recommendation.
+
+Evidence: `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK.md`, matching JSON and two PNG captures. The focused Black evidence suite pins the native scheme, exact restoration, UIA structure, synthetic keyboard limits, screenshot SHA-256 and Popover gap. The native probe now accepts only built-in High Contrast White/Black schemes and refuses to overwrite an existing evidence JSON or screenshot; a deliberate repeat run requires a unique `BLUENT_ISSUE418_NATIVE_EVIDENCE_SUFFIX`.
+
+Local verification on this checkpoint: Black evidence 10/10, prior White UIA evidence 12/12, prior White HC evidence 7/7, #418 review contract 22/22, full `RegexSampleGeneratorTest` Release suite 189/189, docs contract 0 findings, Markdown links 246 files and Node syntax check passed. This is limited engineering/UIA evidence: keyboard events were synthetic, no physical keyboard or spoken Narrator/NVDA/VoiceOver output was captured, only the Black scheme was exercised in this run, and screenshots have not been independently pixel-reviewed. #418 remains In progress; #438 remains Backlog; no public API, product CSS or stable/v2 behavior changed.

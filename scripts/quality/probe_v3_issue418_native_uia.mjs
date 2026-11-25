@@ -13,8 +13,21 @@ const execFileAsync = promisify(execFile);
 const cwd = resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const edgePath = process.env.EDGE_PATH || "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const evidenceDir = join(cwd, "docs/v3/quality/evidence");
-const day = "2026-11-24";
-const base = "BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-" + day;
+const requestedScheme = process.env.BLUENT_ISSUE418_NATIVE_SCHEME || "High Contrast White";
+if (!["High Contrast White", "High Contrast Black"].includes(requestedScheme))
+  throw new Error(`Unsupported native High Contrast scheme: ${requestedScheme}`);
+const whiteBaseline = requestedScheme === "High Contrast White";
+const evidenceSuffix = process.env.BLUENT_ISSUE418_NATIVE_EVIDENCE_SUFFIX || "";
+if (evidenceSuffix && !/^[A-Z0-9-]{1,32}$/.test(evidenceSuffix))
+  throw new Error("Evidence suffix must contain only uppercase ASCII letters, digits and hyphens (1–32 chars).");
+const day = whiteBaseline && !evidenceSuffix ? "2026-11-24" : "2026-11-25";
+const schemeSuffix = whiteBaseline ? (evidenceSuffix ? "-HC-WHITE" : "") : "-HC-BLACK";
+const base = "BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-" + day + schemeSuffix + (evidenceSuffix ? "-" + evidenceSuffix : "");
+const jsonPath = join(evidenceDir, base + ".json");
+const dialogCapturePath = join(evidenceDir, base + "-DIALOG.png");
+const popoverCapturePath = join(evidenceDir, base + "-POPOVER.png");
+if ([jsonPath, dialogCapturePath, popoverCapturePath].some(path => existsSync(path)))
+  throw new Error("Refusing to overwrite existing native evidence; supply a new BLUENT_ISSUE418_NATIVE_EVIDENCE_SUFFIX.");
 const temp = mkdtempSync(join(tmpdir(), "bluent-v3-418-native-uia-"));
 const profile = join(temp, "edge-profile");
 const published = join(temp, "published-ssr");
@@ -109,8 +122,8 @@ const report = {
   title: "Native Windows High Contrast and UI Automation evidence for Bluent Dialog/Popover prototype",
   capturedAt: new Date().toISOString(),
   status: "limited-native-windows-ui-automation-prototype-evidence-only",
-  environment: { browser: "Microsoft Edge", fixtureRoute: "/v3/interactive-portal-lab", renderMode: "Published InteractiveServer" },
-  nativeHighContrast: { api: "SystemParametersInfoW / SPI_GETHIGHCONTRAST / SPI_SETHIGHCONTRAST" },
+  environment: { browser: "Microsoft Edge", fixtureRoute: "/v3/interactive-portal-lab", renderMode: "Published InteractiveServer", nativeHighContrastScheme: requestedScheme },
+  nativeHighContrast: { api: "SystemParametersInfoW / SPI_GETHIGHCONTRAST / SPI_SETHIGHCONTRAST", targetScheme: requestedScheme },
   interactionMethod: {
     dialogOpen: "CDP click on the Bluent fixture trigger",
     keyboard: "Windows user32 keybd_event targeted to isolated Edge",
@@ -120,7 +133,7 @@ const report = {
   },
   dialog: {}, popover: {}, cleanup: {},
   limitations: [
-    "One Windows 11 Pro build, one Edge version, High Contrast White only.",
+    `One Windows 11 Pro build, one Edge version, ${requestedScheme} only.`,
     "Tab/Shift+Tab/Escape were synthetic OS keyboard events; no physical keyboard hardware was used.",
     "UI Automation tree data was inspected, but no Narrator/NVDA/VoiceOver speech was recorded or evaluated.",
     "The Dialog keyboard path is limited and is not exhaustive focus-cycle acceptance.",
@@ -133,14 +146,12 @@ try {
   original = JSON.parse(await ps(highContrastScript, ["-Action", "get"]));
   report.nativeHighContrast.originalState = original;
   if (!original.success) throw new Error("Native High Contrast API read failed.");
-  if (original.scheme !== "High Contrast White") throw new Error("Refusing to change the active scheme: " + original.scheme);
-  if (!original.enabled) {
-    const enabled = JSON.parse(await ps(highContrastScript,
-      ["-Action", "set", "-Flags", String(original.flags | 1), "-Scheme", original.scheme]));
-    if (!enabled.enabled || enabled.scheme !== original.scheme) throw new Error("Could not enable High Contrast White.");
-  }
-  const active = JSON.parse(await ps(highContrastScript, ["-Action", "get"]));
-  if (!active.enabled || active.scheme !== original.scheme) throw new Error("Native High Contrast activation failed.");
+  if (!original.scheme) throw new Error("Native High Contrast original scheme is missing; refusing a non-restorable change.");
+  // Apply only this probe's requested built-in scheme. The exact original flags and scheme are restored in finally.
+  const active = JSON.parse(await ps(highContrastScript,
+    ["-Action", "set", "-Flags", String(original.flags | 1), "-Scheme", requestedScheme]));
+  if (!active.enabled || active.scheme !== requestedScheme)
+    throw new Error(`Native High Contrast activation failed for ${requestedScheme}; observed ${active.scheme}.`);
   report.nativeHighContrast.testState = active;
 
   const testOrigin = await allocateOrigin();
@@ -266,7 +277,6 @@ try {
   report.completed = !report.error && report.nativeHighContrast.exactlyMatchesOriginal === true &&
     !!report.dialog?.uiAutomationOnOpen && !!report.popover?.uiAutomation;
   report.capturedAt = new Date().toISOString();
-  const jsonPath = join(evidenceDir, base + ".json");
   writeFileSync(jsonPath, JSON.stringify(report, null, 2) + "\n", "utf8");
   console.log(JSON.stringify({
     completed: report.completed, error: report.error || null, jsonPath,
