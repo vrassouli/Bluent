@@ -55,9 +55,10 @@ class CompiledContractTests(unittest.TestCase):
             "Required": "String | get=True set=True | ParameterAttribute",
         })
         # #435 contributes the reviewed Switch inheritance/parameter migration.
-        # #418 contributes a separate, audited Dialog/Popover overlay: 9 properties
-        # and 2 Dialog methods. Pin those names/signatures so the combined count
-        # cannot drift while leaving either issue's reviewed delta intact.
+        # #418 contributes a separate, audited Dialog/Popover overlay: 12 public
+        # component properties and 2 Dialog methods. The extra DialogConfigurator
+        # builder overload is tracked in the dedicated #418 additive API ledger.
+        # Pin these names/signatures so neither reviewed delta can drift.
         dialog = payload["Components"]["Bluent.UI::Bluent.UI.Components.Dialog"]
         expected_dialog_properties = {
             "AccessibleName": "String | get=True set=True | ParameterAttribute",
@@ -82,9 +83,15 @@ class CompiledContractTests(unittest.TestCase):
                          "Boolean | get=True set=True | ParameterAttribute")
         self.assertEqual(popover["Properties"]["ThemeScope"],
                          "Bluent.UI.Components.PortalThemeScope | get=True set=True | CascadingParameterAttribute")
+        for name in ("SurfaceRole", "SurfaceAriaLabel", "SurfaceAriaLabelledBy"):
+            with self.subTest(popover_property=name):
+                self.assertEqual(
+                    popover["Properties"][name],
+                    "String | get=True set=True | ParameterAttribute",
+                )
         self.assertEqual(len(payload["Components"]), 140)
         self.assertEqual(len(payload["SharedBaseContracts"]), 8)
-        self.assertEqual(sum(len(c["Properties"]) for c in payload["Components"].values()), 792)
+        self.assertEqual(sum(len(c["Properties"]) for c in payload["Components"].values()), 795)
         self.assertEqual(sum(len(c.get("Methods", [])) for c in payload["Components"].values()), 196)
 
     def test_switch_checkbox_inheritance_reversion_fails(self):
