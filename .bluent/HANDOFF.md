@@ -321,3 +321,11 @@ A downstream-source audit for DateField was added to #418 without starting #438.
 ### 2026-11-21 follow-up — validation text source evidence
 
 Correction to the DateField dependency checkpoint: the existing shared _field.scss rule already styles .validation-message with --colorPaletteRedForeground1. New fail-closed audit scripts/quality/audit_v3_validation_text_contrast.py checks the selector plus 20 brand/mode themes × 3 neutral surfaces: 60/60 at or above 4.5:1, measured minimum 5.2036:1. A separately named semantic.text.validation remains only a candidate for maintainer naming/consumer review; it is not in the 17-role schema and no production CSS changed. Brand/inverted/custom hosts and native forced-colors/AT remain unverified.
+
+## Issue #418 / DateField #438 consumer follow-up — 2026-11-25
+
+On `v3/issue-418-design-tokens`, added `docs/v3/tokens/DATEFIELD-POPOVER-CONSUMER-REVIEW.md` and an HtmlRenderer regression test for the non-menu Button trigger contract. The source review confirms that an ordinary Button preserves caller `aria-haspopup="dialog"`; opt-in `Popover.AccessibleTriggerState` owns live `aria-expanded` and persistent `aria-controls`; Escape from the trigger/surface closes and restores focus. It also records the remaining shared gap: `PopoverSurface` is currently an unnamed, untyped `div`, and generic non-menu Popover does not own Tab/Shift+Tab exit. DateField owns initial selected-day focus, date-grid navigation and natural Tab exit; the shared Popover role/name contract remains a #418 decision, not an unapproved workaround in #438.
+
+Added editable draft board `#418 · DateField non-modal dialog popup contract · DRAFT` on the owned Penpot page 54 (board `24212ef8-fb72-801e-8008-ff8ab7d62f7c`). It is explicitly DRAFT / REVIEW REQUIRED, not public API approval. The #438 page 61 design remains DESIGN DECIDED / GATES OPEN. #438 remains Backlog; #418 remains In progress; PR #500 remains open/unmerged.
+
+Local verification on this worktree: v3 docs contract 0 findings; Markdown links 245 files; #418 review-contract 22/22; full RegexSampleGeneratorTest Release suite 189/189; `git diff --check` clean. This is source/docs/test evidence only; no DateField runtime, CSS, public API, release or stable/v2 code changed.

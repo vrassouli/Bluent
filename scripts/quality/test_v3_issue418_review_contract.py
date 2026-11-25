@@ -342,6 +342,23 @@ class Issue418ReviewContractTests(unittest.TestCase):
         ):
             self.assertIn(required, workflow)
 
+    def test_datefield_popover_consumer_review_keeps_shared_and_local_ownership(self):
+        review_path = ROOT / "docs/v3/tokens/DATEFIELD-POPOVER-CONSUMER-REVIEW.md"
+        review = review_path.read_text(encoding="utf-8-sig")
+        self.assertIn("source-backed consumer review and API proposal only", review)
+        self.assertIn("Popover.AccessibleTriggerState", review)
+        self.assertIn('aria-haspopup="dialog"', review)
+        self.assertIn('role="dialog"', review)
+        self.assertIn("aria-labelledby", review)
+        self.assertIn("does not close an ordinary non-menu popup on Tab/Shift+Tab", review)
+        self.assertIn("initial focus on the selected date", review)
+        self.assertIn("no focus trap", review)
+        self.assertIn("page-id=388782f1-b766-8073-8008-f32c913ab071", review)
+
+        test_path = ROOT / "tests/RegexSampleGeneratorTest/PopoverDialogTriggerContractTests.cs"
+        test_source = test_path.read_text(encoding="utf-8-sig")
+        self.assertIn("GenericButtonPreservesDialogPopupTypeForNonMenuPopoverConsumers", test_source)
+
     def test_datefield_consumer_audit_keeps_validation_semantic_review_only(self):
         audit_path = ROOT / "docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md"
         audit = audit_path.read_text(encoding="utf-8-sig")
