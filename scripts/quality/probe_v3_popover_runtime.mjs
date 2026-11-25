@@ -71,6 +71,20 @@ async function triggerAxEvidence(cdp){
   controls:attr("controls")?.value,
   controlsTargetIds:attr("controls")?.relatedNodes?.map(x=>x.idref)||[]};
 }
+async function surfaceAxEvidence(cdp,surfaceId){
+ const obj=await cdp.send("Runtime.evaluate",{
+  expression:`document.getElementById(${JSON.stringify(surfaceId)})`
+ });
+ if(!obj.result?.objectId)throw Error("Named Popover surface has no CDP remote object: "+surfaceId);
+ const tree=await cdp.send("Accessibility.getPartialAXTree",{
+  objectId:obj.result.objectId,fetchRelatives:true
+ });
+ const node=tree.nodes?.find(n=>!n.ignored&&n.role?.value==="group");
+ if(!node)throw Error("Named Popover surface absent as a group in Chromium AX tree: "+surfaceId);
+ return {role:node.role?.value,name:node.name?.value,
+  axNodes:tree.nodes?.map(x=>({role:x.role?.value,name:x.name?.value,ignored:x.ignored}))||[]};
+}
+
 try{
  // URL overrides select a free local port; they must not disable starting the Demo host.
  // External-host mode is explicit and reserved for a separately managed QA server.
@@ -191,6 +205,11 @@ try{
  result("opened Popover announces expanded and references real visible surface",
    openedDisclosure.expanded==='true'&&!!openedDisclosure.surface&&
    openedDisclosure.controls===openedDisclosure.surface,openedDisclosure);
+ const unconfiguredSurface=await cdp.js("(()=>{const s=[...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'));return {id:s?.id,role:s?.getAttribute('role'),ariaLabel:s?.getAttribute('aria-label'),ariaLabelledBy:s?.getAttribute('aria-labelledby')};})()");
+ result("unconfigured legacy Popover surface gains no inferred role or accessible name",
+   !!unconfiguredSurface.id&&unconfiguredSurface.role===null&&
+   unconfiguredSurface.ariaLabel===null&&unconfiguredSurface.ariaLabelledBy===null,
+   unconfiguredSurface);
  const axOpened=await triggerAxEvidence(cdp);
  result("Chromium AX tree exposes expanded trigger and valid controlled surface",
    axOpened.role==="button"&&axOpened.expanded===true&&
@@ -211,6 +230,23 @@ try{
    axAfterEscape.role==="button"&&axAfterEscape.expanded===false&&
    axAfterEscape.focused===true&&axAfterEscape.controlsTargetIds.length===0,
    axAfterEscape);
+ // #418 D5: consumer-selected SurfaceRole + aria-labelledby must resolve on
+ // the actual detached surface referenced by the trigger's aria-controls.
+ const namedTriggerClicked=await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='Open named surface');if(!b)return false;b.focus();b.click();return document.activeElement===b;})()");
+ result("named-surface Popover trigger is present and clicked once",namedTriggerClicked);
+ const namedSurfaceDom=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='Open named surface');const id=b?.getAttribute('aria-controls');const s=id&&document.getElementById(id);const label=document.getElementById('popover-accessible-name');if(!b||!s||!label||b.getAttribute('aria-expanded')!=='true'||!s.classList.contains('show'))return null;return {expanded:b.getAttribute('aria-expanded'),controls:id,surfaceId:s.id,role:s.getAttribute('role'),labelledBy:s.getAttribute('aria-labelledby'),headingId:label.id,headingText:label.textContent.trim(),uniqueLabel:document.querySelectorAll('[id=\"popover-accessible-name\"]').length===1};})()"),"consumer-labelled Popover surface opens and references actual labelled content",16000);
+ result("SurfaceRole and aria-labelledby are forwarded to the actual aria-controls root",
+   namedSurfaceDom.expanded==='true'&&namedSurfaceDom.controls===namedSurfaceDom.surfaceId&&
+   namedSurfaceDom.role==='group'&&namedSurfaceDom.labelledBy===namedSurfaceDom.headingId&&
+   namedSurfaceDom.headingText==='Named Popover surface'&&namedSurfaceDom.uniqueLabel,namedSurfaceDom);
+ const namedSurfaceAx=await surfaceAxEvidence(cdp,namedSurfaceDom.surfaceId);
+ result("Chromium AX tree computes the named detached surface from aria-labelledby",
+   namedSurfaceAx.role==='group'&&namedSurfaceAx.name==='Named Popover surface',namedSurfaceAx);
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyDown",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ await cdp.send("Input.dispatchKeyEvent",{type:"keyUp",key:"Escape",code:"Escape",windowsVirtualKeyCode:27});
+ const namedSurfaceClosed=await until(()=>cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='Open named surface');const s=b?.getAttribute('aria-controls')&&document.getElementById(b.getAttribute('aria-controls'));return !!(b&&s&&!s.classList.contains('show')&&document.activeElement===b&&b.getAttribute('aria-expanded')==='false');})()"),"named Popover closes and returns focus to its exact trigger",9000);
+ result("named Popover Escape dismissal restores trigger focus",namedSurfaceClosed);
+
  const reopened=await until(async()=>{
   await cdp.js("(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Popover trigger'));b?.click();return !!b;})()");
   return cdp.js("!![...document.querySelectorAll('.bui-popover-surface.show')].find(x=>x.textContent.includes('This is a sample content.'))");

@@ -1,0 +1,468 @@
+{
+  "schema": 1,
+  "browser": "Chrome",
+  "commit": "local",
+  "checks": [
+    {
+      "name": "real interactive Popover page mounted",
+      "pass": true
+    },
+    {
+      "name": "real default Overlay retains authored fade animation",
+      "pass": true,
+      "details": {
+        "duration": "0.25s",
+        "name": "fade-in",
+        "delay": "0s"
+      }
+    },
+    {
+      "name": "actual Blazor Overlay honors reduced-motion in SHIPPED CSS",
+      "pass": true,
+      "details": {
+        "duration": "0s",
+        "delay": "0s",
+        "reduced": true
+      }
+    },
+    {
+      "name": "exiting reduced-motion restores original Overlay fade animation",
+      "pass": true,
+      "details": {
+        "duration": "0.25s",
+        "normal": true
+      }
+    },
+    {
+      "name": "actual Blazor Overlay closes after all three media scenarios",
+      "pass": true
+    },
+    {
+      "name": "RightEnd native Blazor Popover has correct CSS entry transform",
+      "pass": true,
+      "details": {
+        "placement": "bui-popover-surface hidden default right-end",
+        "entryTranslateX": -10,
+        "hidden": true,
+        "restored": true
+      }
+    },
+    {
+      "name": "RightEnd click opens correct native Popover surface",
+      "pass": true
+    },
+    {
+      "name": "RightEnd Escape closes and restores exact trigger focus",
+      "pass": true
+    },
+    {
+      "name": "closed click-trigger Popover advertises aria-expanded=false without dangling aria-controls",
+      "pass": true,
+      "details": {
+        "expanded": "false",
+        "controls": null
+      }
+    },
+    {
+      "name": "Chromium AX tree exposes labeled focusable button as collapsed",
+      "pass": true,
+      "details": {
+        "role": "button",
+        "name": "Popover trigger",
+        "focusable": true,
+        "focused": false,
+        "expanded": false,
+        "controlsTargetIds": []
+      }
+    },
+    {
+      "name": "KeepSurface trigger opens actual Popover",
+      "pass": true
+    },
+    {
+      "name": "opened Popover announces expanded and references real visible surface",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "controls": "f2d909b4c_surface",
+        "surface": "f2d909b4c_surface"
+      }
+    },
+    {
+      "name": "unconfigured legacy Popover surface gains no inferred role or accessible name",
+      "pass": true,
+      "details": {
+        "id": "f2d909b4c_surface",
+        "role": null,
+        "ariaLabel": null,
+        "ariaLabelledBy": null
+      }
+    },
+    {
+      "name": "Chromium AX tree exposes expanded trigger and valid controlled surface",
+      "pass": true,
+      "details": {
+        "role": "button",
+        "name": "Popover trigger",
+        "focusable": true,
+        "focused": false,
+        "expanded": true,
+        "controls": "f2d909b4c_surface",
+        "controlsTargetIds": [
+          "f2d909b4c_surface"
+        ]
+      }
+    },
+    {
+      "name": "Escape closes popover and restores exact trigger focus",
+      "pass": true
+    },
+    {
+      "name": "Escape synchronizes aria-expanded=false and removes stale aria-controls",
+      "pass": true,
+      "details": {
+        "expanded": "false",
+        "controls": null
+      }
+    },
+    {
+      "name": "Chromium AX tree reports collapsed focused trigger after Escape",
+      "pass": true,
+      "details": {
+        "role": "button",
+        "name": "Popover trigger",
+        "focusable": true,
+        "focused": true,
+        "expanded": false,
+        "controlsTargetIds": []
+      }
+    },
+    {
+      "name": "named-surface Popover trigger is present and clicked once",
+      "pass": true
+    },
+    {
+      "name": "SurfaceRole and aria-labelledby are forwarded to the actual aria-controls root",
+      "pass": true,
+      "details": {
+        "expanded": "true",
+        "controls": "f308eb8d3_surface",
+        "surfaceId": "f308eb8d3_surface",
+        "role": "group",
+        "labelledBy": "popover-accessible-name",
+        "headingId": "popover-accessible-name",
+        "headingText": "Named Popover surface",
+        "uniqueLabel": true
+      }
+    },
+    {
+      "name": "Chromium AX tree computes the named detached surface from aria-labelledby",
+      "pass": true,
+      "details": {
+        "role": "group",
+        "name": "Named Popover surface",
+        "axNodes": [
+          {
+            "role": "group",
+            "name": "Named Popover surface",
+            "ignored": false
+          },
+          {
+            "role": "heading",
+            "name": "Named Popover surface",
+            "ignored": false
+          },
+          {
+            "role": "paragraph",
+            "name": "",
+            "ignored": false
+          },
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          },
+          {
+            "role": "generic",
+            "name": "",
+            "ignored": false
+          },
+          {
+            "role": "none",
+            "ignored": true
+          },
+          {
+            "role": "none",
+            "ignored": true
+          },
+          {
+            "role": "RootWebArea",
+            "name": "Bluent.UI.Demo",
+            "ignored": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "named Popover Escape dismissal restores trigger focus",
+      "pass": true
+    },
+    {
+      "name": "trigger reopens popover after Escape",
+      "pass": true
+    },
+    {
+      "name": "outside click dismisses without moving focus to trigger",
+      "pass": true
+    },
+    {
+      "name": "RTL with reduced-motion and forced-colors browser emulation enabled",
+      "pass": true,
+      "details": {
+        "reduced": true,
+        "forced": true,
+        "dir": "rtl"
+      }
+    },
+    {
+      "name": "shipped Popover CSS naturally honors OS prefers-reduced-motion",
+      "pass": true,
+      "details": {
+        "ok": true,
+        "duration": "0s",
+        "delay": "0s"
+      }
+    },
+    {
+      "name": "zero-duration RTL Popover opens",
+      "pass": true
+    },
+    {
+      "name": "zero-duration Escape hides surface without transitionend",
+      "pass": true
+    },
+    {
+      "name": "long-animation Popover opens",
+      "pass": true
+    },
+    {
+      "name": "rapid reopen cancels pending hide",
+      "pass": true
+    },
+    {
+      "name": "old hide completion cannot conceal reopened Popover",
+      "pass": true
+    },
+    {
+      "name": "dynamic surface rendered from Set/Show sequence",
+      "pass": true
+    },
+    {
+      "name": "Popover inner action rerenders actual surface",
+      "pass": true
+    },
+    {
+      "name": "manual Popover Show follows registration",
+      "pass": true
+    },
+    {
+      "name": "manual Popover Close hides requested surface",
+      "pass": true
+    },
+    {
+      "name": "rendered surface and input still present",
+      "pass": true,
+      "details": {
+        "visible": 1,
+        "inputs": 3
+      }
+    },
+    {
+      "name": "compiled Popover ES-module loaded in actual Chromium",
+      "pass": true
+    },
+    {
+      "name": "explicit opt-in ARIA points to mounted surface initially",
+      "pass": true
+    },
+    {
+      "name": "explicit opt-in expanded ARIA uses stable live controls",
+      "pass": true
+    },
+    {
+      "name": "explicit opt-in collapsed ARIA preserves mounted controls",
+      "pass": true
+    },
+    {
+      "name": "explicit opt-in rebind preserves aria-expanded from the visible KeepSurface",
+      "pass": true
+    },
+    {
+      "name": "explicit opt-in rebind restores aria-expanded=false for the collapsed KeepSurface",
+      "pass": true
+    },
+    {
+      "name": "nested opt-in Popover leaves outside Escape to parent Modal",
+      "pass": true
+    },
+    {
+      "name": "nested opt-in Popover consumes own Escape and restores trigger focus",
+      "pass": true
+    },
+    {
+      "name": "ordinary click trigger starts collapsed with no dangling controls",
+      "pass": true
+    },
+    {
+      "name": "ordinary click trigger exposes controls only while expanded",
+      "pass": true
+    },
+    {
+      "name": "ordinary click trigger removes controls after closing",
+      "pass": true
+    },
+    {
+      "name": "authored ARIA attributes survive compiled disclosure transitions",
+      "pass": true
+    },
+    {
+      "name": "separate real stacked Popover Blazor fixture loaded",
+      "pass": true
+    },
+    {
+      "name": "manual stack OpenBoth command delivered once after Blazor interactive readiness",
+      "pass": true
+    },
+    {
+      "name": "two Popover surfaces can be open concurrently",
+      "pass": true
+    },
+    {
+      "name": "independent initial SameWidth matches both trigger widths",
+      "pass": true,
+      "details": {
+        "first": 151,
+        "second": 170.53125,
+        "one": 151,
+        "two": 170.53125
+      }
+    },
+    {
+      "name": "first SameWidth ResizeObserver remains active with second open",
+      "pass": true
+    },
+    {
+      "name": "first Escape closes only topmost and focuses second trigger",
+      "pass": true
+    },
+    {
+      "name": "second Escape closes remaining and focuses first trigger",
+      "pass": true
+    },
+    {
+      "name": "both Popovers reopened before one Blazor child is destroyed",
+      "pass": true
+    },
+    {
+      "name": "destroying one live Popover leaves sibling visible and usable",
+      "pass": true
+    },
+    {
+      "name": "remaining Popover retains Escape-to-trigger-focus after sibling removal",
+      "pass": true
+    },
+    {
+      "name": "public DisplayArrow false opens actual Popover",
+      "pass": true
+    },
+    {
+      "name": "optional arrow positioning works without arrow DOM",
+      "pass": true
+    },
+    {
+      "name": "Popover positioning emits no unhandled JavaScript exceptions",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "real Calendar MonthSelect and YearSelect fixture mounted",
+      "pass": true
+    },
+    {
+      "name": "real month Calendar selection dispatched",
+      "pass": true
+    },
+    {
+      "name": "real month Calendar async callback reports pending",
+      "pass": true
+    },
+    {
+      "name": "real month Calendar pending callback released by user control",
+      "pass": true
+    },
+    {
+      "name": "real month Calendar callback finishes after awaited release",
+      "pass": true
+    },
+    {
+      "name": "real year Calendar selection dispatched",
+      "pass": true
+    },
+    {
+      "name": "real year Calendar async callback reports pending",
+      "pass": true
+    },
+    {
+      "name": "real year Calendar pending callback released by user control",
+      "pass": true
+    },
+    {
+      "name": "real year Calendar callback finishes after awaited release",
+      "pass": true
+    },
+    {
+      "name": "real navigation MonthChanged dispatched",
+      "pass": true
+    },
+    {
+      "name": "real navigation MonthChanged awaiting consumer callback",
+      "pass": true
+    },
+    {
+      "name": "real navigation MonthChanged release sent",
+      "pass": true
+    },
+    {
+      "name": "real navigation MonthChanged completes after awaited release",
+      "pass": true
+    },
+    {
+      "name": "real external MonthChanged dispatched",
+      "pass": true
+    },
+    {
+      "name": "real external MonthChanged awaiting consumer callback",
+      "pass": true
+    },
+    {
+      "name": "real external MonthChanged release sent",
+      "pass": true
+    },
+    {
+      "name": "real external MonthChanged completes after awaited release",
+      "pass": true
+    },
+    {
+      "name": "Calendar async selection emits no JavaScript runtime exceptions",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "cleanupAttempts": [
+    {
+      "supported": true,
+      "output": "killed=6 remaining=0"
+    }
+  ],
+  "errors": []
+}

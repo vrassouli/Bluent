@@ -398,6 +398,27 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertNotIn("bluent.semantic.text.validation", semantic_names)
 
 
+    def test_popover_labelledby_is_verified_on_the_real_detached_surface_ax_node(self):
+        demo = (ROOT / "src/Bluent.UI.Demo.Pages/Pages/Components/Popovers.razor").read_text(encoding="utf-8-sig")
+        probe = (ROOT / "scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
+        for required in (
+            'AccessibleTriggerState="true"',
+            'SurfaceRole="group"',
+            'SurfaceAriaLabelledBy="popover-accessible-name"',
+            'id="popover-accessible-name"',
+            'Named Popover surface',
+        ):
+            self.assertIn(required, demo)
+        for required in (
+            "async function surfaceAxEvidence(cdp,surfaceId)",
+            "Accessibility.getPartialAXTree",
+            "Chromium AX tree computes the named detached surface from aria-labelledby",
+            "SurfaceRole and aria-labelledby are forwarded to the actual aria-controls root",
+            "unconfigured legacy Popover surface gains no inferred role or accessible name",
+            "named Popover Escape dismissal restores trigger focus",
+        ):
+            self.assertIn(required, probe)
+
     def test_portal_api_source_audit_records_d4_lifecycle_gaps_and_d5_candidate(self):
         audit_path = ROOT / "docs/v3/tokens/ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md"
         audit = audit_path.read_text(encoding="utf-8")
