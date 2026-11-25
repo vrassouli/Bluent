@@ -1,6 +1,6 @@
 # Issue #418 — Native High Contrast Black: paired portal ThemeScope comparison
 
-**Captured:** 2026-11-25  
+**Captured:** 2026-11-25
 **Classification:** Same-run, native Windows High Contrast Black engineering evidence for Bluent's detached Popover portals. Not public API/design approval, contrast certification, physical-keyboard acceptance, or spoken assistive-technology acceptance.
 
 ## Environment
