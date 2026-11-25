@@ -375,3 +375,12 @@ Exact-head GitHub Actions on `8af94360`: **13/13 workflows and 56/56 PR checks s
 The current decision map is consolidated in [ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md](../docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md). Delegated directions already selected (Option B token layering, Option A focus host, Option A portal lifecycle, and the 40-value Dark preview target) are distinguished there from pending exact public semantic allow-list, values, CLR signatures, Popover surface role/name, Penpot and native acceptance gates.
 
 The earlier 2026-11-25 `e650d337` compatibility retry entry above is a historical intermediate snapshot and is superseded by this later exact-head `8af94360` record. No runtime/public API/production CSS, stable/v2 branch, package, release or deployment change was made by this decision packet. Do not merge PR #500 or move #418 to Review/Done from green CI alone.
+
+
+## 2026-11-25 #418 implementation continuation
+
+Branch `v3/issue-418-design-tokens`; PR #500 remains open against `bluent-v3`. The branch contains additive Dialog/Popover accessibility corrections, an opt-in D1 public token bridge (9 color + 3 narrow text aliases), and D3 same-painted-host focus metadata CSS. D2's 40 Dark Action/Link candidates remain preview-only. See `docs/v3/tokens/ISSUE418-IMPLEMENTATION-CONTRACT-2026-11-25.md` for the actual branch contract.
+
+Local evidence: #418 contract suites 37/37; Dialog/Popover HtmlRenderer 19/19; token preview generator check passed; contrast audit 360 cases / 0 issues; v3 docs contract 0 findings; Markdown links 250 files; Skill contract 6 files / 0 errors. A focused Release test rebuilds Bluent.UI and the browser-free tests. Full solution Release build/test passed locally (0 warnings/errors; 197/197); exact-head hosted CI must pass for the latest commit before merge.
+
+Open acceptance is deliberately not represented as complete: Penpot pages 45/53/54/55 are still DRAFT / REVIEW REQUIRED; real-browser accessibility-tree ID resolution for Popover, consumer-owned keyboard behavior, native spoken AT, physical keyboard, user-defined Windows Contrast Themes, Safari and Persian IME/caret acceptance remain open. Issue #438 remains Backlog. No merge, Project #5 promotion, NuGet publish, release or deployment is authorized by this work.

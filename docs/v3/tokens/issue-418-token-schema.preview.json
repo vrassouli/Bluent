@@ -1185,7 +1185,7 @@
     },
     "publicApiDelta": {
       "baseline": "origin/bluent-v3 at f3c87255e7a9846e8e5c6f0a9f8ce78909f849a6",
-      "reviewedAgainst": "6c9dc96158a554cba88f54ba516f27ed24c15215",
+      "reviewedAgainst": "5e42cbeeb2b44876c73085d6b7e331cadf24dc0b + current #418 additive D4/D5 implementation",
       "newExportedTypes": [
         {
           "name": "Bluent.UI.Components.PortalThemeScope",
@@ -1214,7 +1214,10 @@
         ],
         "Bluent.UI.Components.Popover": [
           "bool AccessibleTriggerState { get; set; }",
-          "PortalThemeScope? ThemeScope { get; set; } [CascadingParameter]"
+          "PortalThemeScope? ThemeScope { get; set; } [CascadingParameter]",
+          "string? SurfaceRole { get; set; } [Parameter]",
+          "string? SurfaceAriaLabel { get; set; } [Parameter]",
+          "string? SurfaceAriaLabelledBy { get; set; } [Parameter]"
         ],
         "Bluent.UI.Components.PopoverSettings": [
           "bool AccessibleTriggerState { get; set; }"
@@ -1225,7 +1228,8 @@
           "SetAccessibleDescription(string description)",
           "SetReturnFocusTargetId(string elementId)",
           "SetModalKeyboardNavigation(bool enabled = true)",
-          "SetInitialFocusTargetId(string elementId)"
+          "SetInitialFocusTargetId(string elementId)",
+          "SetAccessibleDialog(string name)"
         ],
         "DialogConfiguration": [
           "PortalThemeScope? ThemeScope { get; init; }",

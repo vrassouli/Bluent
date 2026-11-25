@@ -17,5 +17,8 @@ public class PopoverConfiguration
     public bool KeepSurface { get; }
     internal bool Visible { get; set; }
     internal PortalThemeScope? ThemeScope { get; set; }
+    internal string? SurfaceRole { get; set; }
+    internal string? SurfaceAriaLabel { get; set; }
+    internal string? SurfaceAriaLabelledBy { get; set; }
     internal string SurfaceId => $"{Settings.TriggerId}_surface";
 }

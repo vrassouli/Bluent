@@ -58,74 +58,47 @@ The selected preview target is 40 independently generated values: Action Rest, L
 
 This is not approval of exact production values, arbitrary/alpha/composited surfaces, rendered component behavior, native forced-colors behavior, or a blanket WCAG claim.
 
-## 3. Maintainer decisions still required
+## 3. Engineering dispositions and remaining acceptance
 
 ### D1 — First semantic-token production allow-list
 
-The evidence supports a deliberately small, consumer-scoped first-wave proposal. The request is to approve or revise these scopes, not to approve all 17 preview roles.
+The compiled opt-in bridge now emits only the three consumer-scoped text aliases below, alongside the nine public `bluent.color.*` roles documented in the implementation contract.
 
-| Candidate role | Preview source mapping | Preview CSS alias | Narrowest existing consumer evidence | Proposed initial scope |
-|---|---|---|---|---|
-| `bluent.semantic.text.primary` | `bluent.color.foreground1` | `--bui-v3-text-primary` | Label #430 primary text mapping | Label primary text only until other consumers are separately accepted |
-| `bluent.semantic.text.disabled` | `bluent.source.foregroundDisabled` | `--bui-v3-text-disabled` | Label #430 visually disabled text mapping | Label disabled visual state only; not a normal-text contrast promise |
-| `bluent.semantic.text.placeholder` | `bluent.color.foreground4` | `--bui-v3-text-placeholder` | TextField #432 ordinary placeholder mapping | TextField placeholder only; placeholder is not an accessible name |
+| Alias | Source | First-wave consumer boundary |
+|---|---|---|
+| `bluent.semantic.text.primary` | `bluent.color.foreground1` | Label #430 primary text only |
+| `bluent.semantic.text.disabled` | `bluent.source.foregroundDisabled` | Label #430 disabled visual state only; not ordinary text contrast |
+| `bluent.semantic.text.placeholder` | `bluent.color.foreground4` | TextField #432 placeholder only; not an accessible name |
 
-Specific exclusions remain:
-
-- `bluent.semantic.text.dangerAccessible`: Label required-marker only; exclude it from the general first-wave text allow-list.
-- `bluent.semantic.status.danger`: non-text status indicators/icons/accents on the studied neutral surface only; never ordinary/small text.
-- `semantic.text.validation`: not part of the 17-role schema or public allow-list. Existing validation-message source contrast passes the three neutral bases (60/60), but the wider opaque diagnostic matrix is not universal: 834/2,180 pairs reach 4.5:1, and 16 non-opaque/alpha/transparent backgrounds are excluded from simple arithmetic.
-- Link Rest/Hover/Pressed and Action roles: defer production semantic promotion until their Dark exact values and rendered consumer states are accepted.
-- The remaining semantic and all component-private roles: defer unless an individual consumer contract is supplied.
-
-**Requested decision:** accept the three roles with the limited scopes above, revise the list/scopes, or defer semantic publication. Even acceptance here would not by itself publish CSS or NuGet; the design/value and native gates remain independent.
+`text.dangerAccessible`, `status.danger`, validation text, Action/Link semantics and remaining semantic/component roles remain excluded. The bridge is under `data-bui-v3-tokens` and is branch-local/unreleased. Page 45 semantic scope and page 52 vocabulary review remain open.
 
 ### D2 — Exact Dark foreground values
 
-Review page 55 and the generated 10-brand × four-role matrix. The technical generator and 40-value drift guard are in place. The remaining question is whether the exact 40 values are visually accepted for their corresponding Action/Link states and may become the first production Dark values.
-
-**Requested decision:** accept the exact table as the initial Dark values within the stated opaque Neutral Background 1 scope, request revisions, or keep them preview-only. Do not widen their host/surface scope by implication.
+The generated ten-brand × four-role matrix contains 40 values, all at least 4.6:1 against the opaque Dark Neutral Background 1 preview surface (minimum 4.6001:1). **All 40 values remain preview-only and are not emitted by the compiled bundle.** Page 55 visual review must accept the exact rendered Action/Link states before these values or their semantic aliases are promoted. No claim extends to translucent, composite, gradient, image or arbitrary host surfaces.
 
 ### D3 — Focus host public contract
 
-The selected Option A direction is clear, but page 53 remains a draft and the public-attribute contract is not activated.
+Focus Option A is implemented branch-locally in the opt-in CSS. The same actual painted host inside the v3 token scope carries `data-bui-v3-focus-mode` (`light|dark`) and `data-bui-v3-focus-host` (`neutral|brand|brandHover|danger|inverted`). The scoped rule sets the existing Button focus-ring variable and preserves the existing 2px outline / 2px offset. Unknown metadata receives no host-specific override; the visible fallback remains. Forced-colors uses system `Highlight`.
 
-Acceptance must explicitly cover exact spelling, allowed values, same-element requirements, the opt-in boundary, nesting/ownership, unknown-host behavior, and compatibility fallback. Keep the selected fail-closed rule: no host-specific alias for unsupported contexts while preserving the existing visible focus indicator.
+Only the studied opaque host mapping is supported. Alpha, gradient, image/video and composite surfaces remain out of scope. Page 53 visual/design review and native OS/AT checks remain open.
 
-### D4 — Portal / Dialog public API spelling and additive CLR surface
+### D4 — Portal / Dialog API and lifecycle
 
-The prototype's Release-compiled API ledger identifies the complete additive surface. It includes:
+Source-backed defects are now fixed in the isolated branch: both direct and builder Dialog paths reject description-without-name through the shared configuration validator; the builder does not silently discard descriptions; a named Dialog may omit the close-button label only when the icon-only close button is hidden; and return-focus-only contexts complete when their route/container host is disposed. Existing `IDialogService.ShowAsync` overloads and the selected immutable `PortalThemeScope` snapshot at `ShowAsync` remain unchanged.
 
-- New immutable `Bluent.UI.Components.PortalThemeScope` record with `Mode`, `Direction`, `Density`, `UseV3Tokens` and optional `Brand`.
-- Dialog parameters: `AccessibleName`, `AccessibleDescription`, `CloseButtonLabel`, `IsModal`, `EnableModalKeyboard`, `InitialFocusTargetId`, `UseStandardTitleHeading`.
-- Popover parameters: `AccessibleTriggerState`, `ThemeScope`.
-- Dialog builder methods: `SetThemeScope`, `SetAccessibleDialog`, `SetAccessibleDescription`, `SetReturnFocusTargetId`, `SetModalKeyboardNavigation`, `SetInitialFocusTargetId`.
-- Additions to `DialogConfiguration` and `PopoverSettings`, plus the Dialog `DismissOnEscape` interop method and disposal override.
+The API ledger records `SetAccessibleDialog(string name)` in addition to the existing two-argument overload. Page 54 public naming/constructor review remains open; implementation does not equal design approval.
 
-The complete ledger is in [ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md](ISSUE418-ADDITIVE-API-CONTRACT-REVIEW.md). The recorded comparison found no removed/changed prior member signatures and no changed or additional `IDialogService` overloads. The existence of these branch-local members is not their production approval.
+#### D4.1 — Source-backed refinements before API freeze
 
-**Requested decision:** approve or revise the exact public names, constructor validation, optional/default behavior, builder semantics and XML/migration contract. Keep the selected Option A lifecycle; do not add `OwnerId`, a launcher component, a second owner type, or a grouped accessibility-options type.
-
-### D4.1 — Source-backed refinements before API freeze
-
-The dedicated [Portal / Dialog / Popover source audit](ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md) identifies a builder-path description that is silently discarded without an accessible name, plus a direct `DialogConfiguration` path that accepts the same unsupported combination because the shared validator does not reject it and the renderer suppresses `aria-describedby`. The return-focus-only Dialog path is also not included in the current opt-in Container disposal completion filter. The audit records the coupling between SetAccessibleDialog(name, closeButtonLabel) and SetCloseButton(false), plus the JS interop-only nature of DismissOnEscape.
-
-These are acceptance questions to resolve in the final contract before freezing exact signatures. No runtime change is included in this PR update.
+The source audit findings have been implemented and regression-tested. `bluent.semantic.text.dangerAccessible` remains excluded from the public first-wave bridge and limited to the Label decorative required marker; `bluent.semantic.status.danger` remains limited to non-text indicators on the studied neutral surface. Neither alias is emitted by the production opt-in bridge.
 
 ### D5 — Shared Popover surface role/name contract
 
-The DateField consumer review exposes one concrete shared gap: the detached `PopoverSurface` root is currently an unnamed `div`. Existing `AccessibleTriggerState` supplies the live `aria-expanded` / persistent `aria-controls` relationship; it does not assign surface semantics or an accessible name.
+The three nullable parameters `SurfaceRole`, `SurfaceAriaLabel` and `SurfaceAriaLabelledBy` are implemented. They render only on the actual detached surface root identified by trigger `aria-controls`, are kept out of JS `PopoverSettings`, and use fail-closed WAI-ARIA role/name validation. Name sources are mutually exclusive; a name requires a role supporting name-from-author; roles requiring a name reject an unnamed configuration. The unconfigured generic surface stays role-less and unnamed; no inferred `aria-haspopup` or `aria-modal` is emitted.
 
-The proposed behavioral contract is:
+D5 uses **live-update semantics** for the registered Popover owner: changing role/name or the surface fragment refreshes that exact detached surface. This does not implement menu/listbox/dialog keyboard interactions, focus management, dismissal or modality; those remain consumer-owned. HtmlRenderer and parent-refresh regressions pass. A real-browser accessibility-tree assertion for `aria-labelledby` resolution and a real consumer keyboard model remain open. DateField #438 remains Backlog and was not started.
 
-1. A consumer may explicitly supply the semantic role for the actual controlled surface root.
-2. It may supply an accessible-name source (`aria-label` or `aria-labelledby`); the contract must define whether both are allowed and how empty/missing references are validated.
-3. The selected attributes are forwarded to the actual detached root referenced by `aria-controls`, not a wrapper or trigger.
-4. An unconfigured Popover remains role-less and unnamed; no role is inferred and no default `aria-haspopup` is emitted.
-5. Popover does not make every surface a dialog. DateField #438 selects `role="dialog"` and a stable name; menu, listbox and tooltip consumers retain their own semantics.
-6. This does not make DateField modal: no `aria-modal`, background inerting, focus trap or modal Dialog lifecycle is implied.
-
-**Requested decision:** approve this minimal opt-in behavioral contract, revise it, or require a different design. The current source audit recommends the following exact-name candidate (not approved or implemented): Popover.SurfaceRole : string?, SurfaceAriaLabel : string?, and SurfaceAriaLabelledBy : string?; all default to null. Carry them in Blazor-side PopoverConfiguration, not JS-serialized PopoverSettings, and forward them only to the controlled detached root. The two name sources are mutually exclusive; either requires an explicit role that permits author-provided naming. See [Portal API source audit](ISSUE418-PORTAL-API-SOURCE-AUDIT-2026-11-25.md) for validation and tests. The source audit also records an unresolved lifecycle choice: Popover currently captures its initial registration/configuration once and refreshes only ThemeScope, so D5 must explicitly select snapshot or live-update semantics for later role/name parameter changes. The calendar's selected-day focus, grid navigation and natural Tab/Shift+Tab exit remain owned by #438, which is still Backlog.
+The complete branch-local D1–D5 behavior and sample opt-in markup are recorded in [ISSUE418-IMPLEMENTATION-CONTRACT-2026-11-25.md](ISSUE418-IMPLEMENTATION-CONTRACT-2026-11-25.md). These changes still require the Penpot visual/design reviews, fresh exact-head CI and formal maintainer acceptance before merge/release.
 
 ## 4. Design references and current review state
 

@@ -3,6 +3,9 @@
 @using Humanizer
 <div id="@Context.Config.SurfaceId"
      class="bui-popover-surface hidden @(Context.Config.Appearance.ToString().Kebaberize()) @(Context.Config.Settings.Placement.ToString().Kebaberize())"
+     role="@Context.Config.SurfaceRole"
+     aria-label="@Context.Config.SurfaceAriaLabel"
+     aria-labelledby="@Context.Config.SurfaceAriaLabelledBy"
      data-bui-brand="@Context.Config.ThemeScope?.Brand"
      data-bui-theme="@Context.Config.ThemeScope?.Mode"
      data-bui-v3-tokens="@(Context.Config.ThemeScope?.UseV3Tokens == true ? "" : null)"

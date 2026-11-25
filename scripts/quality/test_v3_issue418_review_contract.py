@@ -260,7 +260,7 @@ class Issue418ReviewContractTests(unittest.TestCase):
         self.assertFalse(decisions["portalOwnership"]["newDialogAccessibilityOptions"])
         delta = self.policy["publicApiDelta"]
         self.assertEqual(len(delta["newExportedTypes"]), 1)
-        self.assertEqual(len(delta["addedPublicMembers"]["Bluent.UI.Components.DialogConfigurator"]), 6)
+        self.assertEqual(len(delta["addedPublicMembers"]["Bluent.UI.Components.DialogConfigurator"]), 7)
         self.assertEqual(len(delta["addedPublicMembers"]["DialogConfiguration"]), 7)
         self.assertEqual(len(delta["addedPublicMembers"]["Bluent.UI.Components.Dialog"]), 9)
         self.assertIn("No existing public member signatures were removed or changed", delta["compatibility"])

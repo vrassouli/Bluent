@@ -37,7 +37,17 @@ public class DialogConfigurator
         _themeScope = themeScope;
         return this;
     }
-    /// <summary>Opt-in accessible Dialog name and localized icon-only dismiss label (#418 prototype).</summary>
+    /// <summary>Sets the accessible Dialog name when the icon-only close button is hidden.</summary>
+    /// <remarks>When the close button is visible, use the overload that supplies its localized accessible label.</remarks>
+    public DialogConfigurator SetAccessibleDialog(string name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        _accessibleName = name;
+        _closeButtonLabel = null;
+        return this;
+    }
+
+    /// <summary>Sets the accessible Dialog name and the localized label for its icon-only close button.</summary>
     public DialogConfigurator SetAccessibleDialog(string name, string closeButtonLabel)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
@@ -95,6 +105,9 @@ public class DialogConfigurator
     {
         get
         {
+            if (_showCloseButton && !string.IsNullOrWhiteSpace(_accessibleName) && string.IsNullOrWhiteSpace(_closeButtonLabel))
+                throw new ArgumentException("An accessible close-button label is required while the icon-only close button is visible. Hide the close button or provide its localized label.");
+
             var configuration = new DialogConfiguration(_modal, _size)
             {
                 ThemeScope = _themeScope,
@@ -104,7 +117,7 @@ public class DialogConfigurator
                 EnableModalKeyboard = _enableModalKeyboard,
                 InitialFocusTargetId = _initialFocusTargetId,
                 UseStandardTitleHeading = _useStandardTitleHeading && !string.IsNullOrWhiteSpace(_accessibleName),
-                AccessibleDescription = !string.IsNullOrWhiteSpace(_accessibleName) ? _accessibleDescription : null
+                AccessibleDescription = _accessibleDescription
             };
             configuration.ValidateAccessibleBehavior();
             return configuration;

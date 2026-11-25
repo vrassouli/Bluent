@@ -1,6 +1,6 @@
 # #418 — Dark semantic foreground values: review proposal
 
-**Status: DRAFT / REVIEW REQUIRED.** The maintainer-approved direction is to preserve each brand's own hue and derive separate Dark Action Rest, Link Rest, Link Hover and Link Pressed foreground candidates from their corresponding source roles. This document records the exact generated candidates; it does not approve those values, semantic token names, CSS aliases or production defaults.
+**Status: DRAFT / REVIEW REQUIRED — the 40 exact Dark candidates remain preview-only and are excluded from the compiled public token bundle.** The maintainer-approved direction is to preserve each brand's own hue and derive separate Dark Action Rest, Link Rest, Link Hover and Link Pressed foreground candidates from their corresponding source roles. This document records the exact generated candidates; it does not approve those values, semantic token names, CSS aliases or production defaults.
 
 ## 1. What is already accepted, and what is still open
 

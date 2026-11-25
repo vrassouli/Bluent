@@ -30,6 +30,23 @@ public class DialogConfiguration
 
     internal void ValidateAccessibleBehavior()
     {
+        if (AccessibleName is not null && string.IsNullOrWhiteSpace(AccessibleName))
+            throw new ArgumentException("AccessibleName must be nonempty when supplied.", nameof(AccessibleName));
+
+        if (AccessibleDescription is not null)
+        {
+            if (string.IsNullOrWhiteSpace(AccessibleDescription))
+                throw new ArgumentException("AccessibleDescription must be nonempty when supplied.", nameof(AccessibleDescription));
+            if (string.IsNullOrWhiteSpace(AccessibleName))
+                throw new ArgumentException("AccessibleDescription requires an explicit AccessibleName.", nameof(AccessibleDescription));
+        }
+
+        if (ReturnFocusTargetId is not null && string.IsNullOrWhiteSpace(ReturnFocusTargetId))
+            throw new ArgumentException("ReturnFocusTargetId must be nonempty when supplied.", nameof(ReturnFocusTargetId));
+
+        if (InitialFocusTargetId is not null && string.IsNullOrWhiteSpace(InitialFocusTargetId))
+            throw new ArgumentException("InitialFocusTargetId must be nonempty when supplied.", nameof(InitialFocusTargetId));
+
         if (EnableModalKeyboard && (!Modal || string.IsNullOrWhiteSpace(AccessibleName)))
             throw new ArgumentException("Modal keyboard navigation requires Modal=true and an explicit AccessibleName.");
         if (!string.IsNullOrWhiteSpace(InitialFocusTargetId) && string.IsNullOrWhiteSpace(AccessibleName))

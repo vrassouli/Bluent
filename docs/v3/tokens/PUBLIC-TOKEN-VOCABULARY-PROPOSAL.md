@@ -1,6 +1,6 @@
 # #418 — Public token vocabulary and production alias policy proposal
 
-**Status: Option B architecture selected by the maintainer-delegated decision (2026-11-16); final semantic allow-list and production promotion remain pending.** This document does not approve a public Bluent v3 API, change the token schema, publish CSS, or promote the Penpot decision boards. It makes the remaining naming and compatibility decision explicit so it can be reviewed without conflating implementation consistency with public API approval.
+**Status: narrow branch-local opt-in D1 bridge implemented; Penpot visual/API acceptance and public release remain open.** This document does not approve a public Bluent v3 API, change the token schema, publish CSS, or promote the Penpot decision boards. It makes the remaining naming and compatibility decision explicit so it can be reviewed without conflating implementation consistency with public API approval.
 
 ## Current preview facts
 

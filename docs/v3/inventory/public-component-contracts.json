@@ -2146,7 +2146,10 @@
         "Surface": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
         "ThemeScope": "Bluent.UI.Components.PortalThemeScope | get=True set=True | CascadingParameterAttribute",
         "Trigger": "Microsoft.AspNetCore.Components.RenderFragment | get=True set=True | EditorRequiredAttribute,ParameterAttribute",
-        "TriggerEvents": "String | get=True set=True | ParameterAttribute"
+        "TriggerEvents": "String | get=True set=True | ParameterAttribute",
+        "SurfaceRole": "String | get=True set=True | ParameterAttribute",
+        "SurfaceAriaLabel": "String | get=True set=True | ParameterAttribute",
+        "SurfaceAriaLabelledBy": "String | get=True set=True | ParameterAttribute"
       },
       "Methods": [
         "Close():Void | generic=0",

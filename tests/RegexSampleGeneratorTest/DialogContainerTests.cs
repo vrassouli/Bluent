@@ -310,6 +310,76 @@ public class DialogContainerTests
         Assert.That((object?)await named!, Is.Null);
         Assert.That((object?)await keyboardOnly!, Is.Null);
     }
+
+    [Test]
+    public async Task AccessibleDescriptionRequiresAccessibleNameOnBothPublicServicePaths()
+    {
+        await using var services = CreateServices();
+        var service = services.GetRequiredService<IDialogService>();
+
+        Assert.Throws<ArgumentException>(() => service.ShowAsync(
+            TextContent("Direct config without name"),
+            new DialogConfiguration { AccessibleDescription = "Description without name" }));
+
+        Assert.Throws<ArgumentException>(() => service.ShowAsync<EmptyDialogBody>(
+            "Builder without name", null,
+            options => options.SetAccessibleDescription("Description without name")));
+    }
+
+    [Test]
+    public async Task BuilderCanOmitCloseLabelOnlyWhenCloseButtonIsHidden()
+    {
+        await using var services = CreateServices();
+        await using var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        await renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var container = await renderer.RenderComponentAsync<DialogContainer>();
+            var service = services.GetRequiredService<IDialogService>();
+
+            Assert.Throws<ArgumentException>(() => service.ShowAsync<EmptyDialogBody>(
+                "Named with visible close", null,
+                options => options.SetAccessibleDialog("Named dialog")));
+
+            _ = service.ShowAsync<EmptyDialogBody>(
+                "Named without close", null,
+                options => options.SetCloseButton(false).SetAccessibleDialog("Named dialog"));
+            await container.QuiescenceTask;
+
+            var html = container.ToHtmlString();
+            Assert.That(html, Does.Contain("aria-labelledby="));
+            Assert.That(html, Does.Not.Contain("aria-label=\"\""));
+        });
+    }
+
+    [Test]
+    public async Task PageLocalHostDisposalCompletesReturnFocusOnlyOptInResult()
+    {
+        await using var services = CreateServices();
+        var renderer = new HtmlRenderer(services, services.GetRequiredService<ILoggerFactory>());
+        Task<dynamic?>? pending = null;
+        try
+        {
+            await renderer.Dispatcher.InvokeAsync(async () =>
+            {
+                var container = await renderer.RenderComponentAsync<DialogContainer>();
+                pending = services.GetRequiredService<IDialogService>().ShowAsync(
+                    TextContent("Return focus only"),
+                    new DialogConfiguration { ReturnFocusTargetId = "dialog-launcher" });
+                await container.QuiescenceTask;
+                Assert.That(pending.IsCompleted, Is.False);
+            });
+        }
+        finally
+        {
+            await renderer.DisposeAsync();
+        }
+
+        Assert.That(pending, Is.Not.Null);
+        Assert.That(pending!.IsCompletedSuccessfully, Is.True,
+            "A route-local host must complete a return-focus-only opt-in task during disposal.");
+        Assert.That((object?)await pending, Is.Null);
+    }
+
     public sealed class EmptyDialogBody : ComponentBase { }
     private static ServiceProvider CreateServices()
     {

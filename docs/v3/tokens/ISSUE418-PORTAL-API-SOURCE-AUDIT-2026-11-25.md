@@ -1,6 +1,16 @@
 # Issue #418 — Portal / Dialog / Popover public API source audit — 2026-11-25
 
-> **Status: DRAFT · source-backed contract review only.** This audit reads the current #418 branch prototype. It proposes API wording and records concrete lifecycle/configuration gaps; it does not authorize runtime/API changes, public API approval, production styling, or release.
+> **Status: D4/D5 branch implementation landed; design/public acceptance remains open.** The source findings below are retained as the rationale and audit trail. Their actionable Dialog/Popover corrections are now implemented in this isolated v3 branch; no stable package or deployment was changed.
+
+## 0. Current implementation disposition (2026-11-25)
+
+- `DialogConfiguration.ValidateAccessibleBehavior` rejects blank supplied names, blank supplied descriptions and description-without-name for both direct configuration and builder paths. `AccessibleDescription` is no longer dropped during projection.
+- `DialogConfigurator.SetAccessibleDialog(string name)` supports a named Dialog without an icon-only close button; if the button remains visible, its localized accessible label is required.
+- Return-focus-only Dialog contexts are included in route/container disposal completion. Host teardown completes the pending result but does not promise focus restoration into a page that no longer exists.
+- `Popover` exposes nullable `SurfaceRole`, `SurfaceAriaLabel` and `SurfaceAriaLabelledBy`. The parameters validate supported WAI-ARIA 1.2 roles, mutually exclusive name sources and name-required/name-prohibited cases. Values remain in Blazor `PopoverConfiguration`, not JS `PopoverSettings`, and render only on the detached root.
+- Role/name/content changes follow live-update semantics for the registered Popover trigger; by contrast, the service Dialog owner scope retains immutable snapshot semantics captured at `ShowAsync`.
+- Targeted HtmlRenderer regressions: **19/19**. The API inventory and compiled additive ledger were updated for the new parameters and overload.
+- Remaining: real-browser AX-tree name resolution for `aria-labelledby`, consumer-specific keyboard model, page-54 visual review and final public API acceptance.
 
 ## 1. Existing source facts
 
@@ -46,9 +56,9 @@ Additional facts:
 - AccessibleDescription is emitted as aria-describedby only for a named Dialog.
 - The existing v2/default service path remains modal by configuration but does not silently opt into the new focus/keyboard behavior.
 
-## 3. D5 — recommended minimal additive Popover API candidate
+## 3. D5 — branch implementation of the detached Popover surface contract
 
-**Candidate names only; not approved or implemented.**
+**Implemented in the isolated #418 branch; final Penpot/API acceptance remains open.**
 
 | Candidate Popover parameter | Type | Default | Purpose |
 |---|---|---|---|
@@ -56,7 +66,7 @@ Additional facts:
 | SurfaceAriaLabel | string? | null | Consumer-provided accessible name via aria-label. |
 | SurfaceAriaLabelledBy | string? | null | Consumer-provided accessible-name references via aria-labelledby (one or more space-separated IDs). |
 
-### Proposed behavioral constraints
+### Implemented behavioral constraints
 
 1. All three values are opt-in. When absent, the surface remains the current role-less, unnamed div.
 2. Forward them onto PopoverSurface's actual root, whose ID is the controlled target. Do not place them on a wrapper or on the trigger.
@@ -66,13 +76,13 @@ Additional facts:
 6. Keep surface semantics out of PopoverSettings because that record is used across JS interop for trigger/position/event behavior. Carry the three DOM-only values in the Blazor-side PopoverConfiguration and render them on PopoverSurface root.
 7. Role forwarding alone does not implement menu/listbox/grid keyboard behavior, focus movement, dismissal, or modality. Each consumer must own and test its own interaction contract.
 
-### Parameter update lifecycle is still undefined
+### Parameter update lifecycle — resolved as live-update
 
 The current Popover registration path captures its inputs once: SetTrigger is guarded by `_triggerAlreadySet`, and the initial `PopoverConfiguration`, `PopoverSettings`, and `Surface` fragment are handed to the service at that point. `Popover.OnParametersSet` currently detects and refreshes only a changed `ThemeScope`. Changes to other parameters are not copied into the registered configuration; `PopoverService.RefreshSurface` only asks the existing surface component to render again and does not rebuild the captured configuration or update JS interop settings.
 
-The D5 contract must therefore state whether role/name parameters are immutable for the lifetime of a registered trigger (snapshot semantics) or are expected to track later parent renders (live-update semantics). Do not imply live updates merely because they are Razor parameters. If live updates are selected, the implementation contract must specify how the detached root and any affected trigger/interop settings are synchronized; a surface-only `StateHasChanged` is not sufficient for settings outside the surface markup.
+D5 selects live-update semantics for role/name parameters and the consumer Surface fragment for the lifetime of the registered trigger. `Popover.OnParametersSet` updates the existing Blazor-side configuration and requests a refresh for that exact surface; the fragment reads the current Surface value from its owning component instance. The new regression verifies the refresh notification and keeps the DOM-only attributes out of JS interop settings.
 
-### Consumer examples (illustrative; not a shipped API)
+### Consumer examples (illustrative; branch API available, consumer interaction remains owned by each feature)
 
 - DateField #438: SurfaceRole="dialog" and SurfaceAriaLabelledBy="calendar-heading"; the calendar remains non-modal, with no aria-modal, focus trap or background inerting.
 - Label Info: an explicit supplemental-content role/name chosen by the approved Label design; no assumption that it is a tooltip if the surface contains interactive content.

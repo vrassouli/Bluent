@@ -17,6 +17,9 @@ DIALOG = {
 POPOVER = {
     "AccessibleTriggerState": "Boolean | get=True set=True | ParameterAttribute",
     "ThemeScope": "Bluent.UI.Components.PortalThemeScope | get=True set=True | CascadingParameterAttribute",
+    "SurfaceRole": "String | get=True set=True | ParameterAttribute",
+    "SurfaceAriaLabel": "String | get=True set=True | ParameterAttribute",
+    "SurfaceAriaLabelledBy": "String | get=True set=True | ParameterAttribute",
 }
 METHODS = {
     "DismissOnEscape():Void | generic=0",
@@ -34,7 +37,7 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
         for name, signature in DIALOG.items(): self.assertEqual(dialog["Properties"][name], signature)
         for name, signature in POPOVER.items(): self.assertEqual(popover["Properties"][name], signature)
         self.assertTrue(METHODS.issubset(set(dialog["Methods"])))
-        self.assertEqual(len(DIALOG)+len(POPOVER),9)
+        self.assertEqual(len(DIALOG)+len(POPOVER),12)
         self.assertEqual(len(METHODS),2)
     def test_new_features_remain_opt_in(self):
         dialog = (ROOT/"src/Bluent.UI/Components/DialogComponent/Dialog.razor.cs").read_text(encoding="utf-8-sig")
@@ -52,8 +55,8 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
         self.assertEqual(len(self.payload["SharedBaseContracts"]),8)
         property_count = sum(len(x["Properties"]) for x in types.values())
         # The current bluent-v3 base includes Label.InfoButtonAriaLabel and the
-        # reviewed #435 Switch migration. Together with #418's nine Dialog /
-        # Popover properties the cumulative component snapshot is exactly 792.
+        # reviewed #435 Switch migration. Together with #418's twelve Dialog /
+        # Popover properties the cumulative component snapshot is exactly 795.
         label_properties = types["Bluent.UI::Bluent.UI.Components.Label"]["Properties"]
         base_label_signature = "String | get=True set=True | ParameterAttribute"
         self.assertEqual(label_properties["InfoButtonAriaLabel"], base_label_signature)
@@ -67,7 +70,7 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
             "LabelPosition": "Bluent.UI.Components.SwitchLabelPosition | get=True set=True | ParameterAttribute",
             "Required": "String | get=True set=True | ParameterAttribute",
         })
-        self.assertEqual(property_count, 792)
+        self.assertEqual(property_count, 795)
         self.assertEqual(sum(len(x["Methods"]) for x in types.values()),196)
         self.assertEqual(sum(len(x["Constructors"]) for x in types.values()),139)
         self.assertEqual(sum(len(x["Events"]) for x in types.values()),13)
@@ -93,6 +96,7 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
         source = (ROOT / "src/Bluent.UI/Components/DialogComponent/DialogConfigurator.cs").read_text(encoding="utf-8-sig")
         expected = (
             "SetThemeScope(PortalThemeScope? themeScope)",
+            "SetAccessibleDialog(string name)",
             "SetAccessibleDialog(string name, string closeButtonLabel)",
             "SetAccessibleDescription(string description)",
             "SetReturnFocusTargetId(string elementId)",
@@ -126,10 +130,10 @@ class Issue418AdditiveApiLedgerTests(unittest.TestCase):
         self.assertEqual(len(review["newExportedTypes"]), 1)
         self.assertEqual(review["newExportedTypes"][0]["name"], "Bluent.UI.Components.PortalThemeScope")
         members = review["addedPublicMembers"]
-        self.assertEqual(len(members["Bluent.UI.Components.DialogConfigurator"]), 6)
+        self.assertEqual(len(members["Bluent.UI.Components.DialogConfigurator"]), 7)
         self.assertEqual(len(members["DialogConfiguration"]), 7)
         self.assertEqual(len(members["Bluent.UI.Components.Dialog"]), 9)
-        self.assertEqual(len(members["Bluent.UI.Components.Popover"]), 2)
+        self.assertEqual(len(members["Bluent.UI.Components.Popover"]), 5)
         self.assertEqual(len(members["Bluent.UI.Components.PopoverSettings"]), 1)
         self.assertIn("No existing public member signatures were removed or changed", review["compatibility"])
 

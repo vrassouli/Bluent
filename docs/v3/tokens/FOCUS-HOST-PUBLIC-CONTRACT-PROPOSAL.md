@@ -1,6 +1,6 @@
 # #418 — Public Focus host-context contract proposal
 
-**Status: DRAFT — maintainer decision required.** This document separates an already accepted visual direction from the still-open consumer API contract. It does not approve a new Razor parameter, wrapper component, public HTML attribute, CSS token name, production selector, or universal accessibility claim.
+**Status: Option A host contract implemented in the branch-local opt-in stylesheet; page-53 visual review and native acceptance remain open.** This document separates an already accepted visual direction from the still-open consumer API contract. It does not approve a new Razor parameter, wrapper component, public HTML attribute, CSS token name, production selector, or universal accessibility claim.
 
 ## 1. Decisions already settled — do not reopen
 

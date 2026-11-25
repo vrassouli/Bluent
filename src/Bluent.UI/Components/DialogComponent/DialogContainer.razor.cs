@@ -33,7 +33,7 @@ public partial class DialogContainer : IDisposable
         // Complete the pending ShowAsync task as dismissed, without attempting
         // to focus a launcher that no longer belongs to the current page.
         var pending = _contexts
-            .Where(context => context.Config.AccessibleName is not null || context.Config.EnableModalKeyboard)
+            .Where(context => context.Config.AccessibleName is not null || context.Config.EnableModalKeyboard || context.Config.ReturnFocusTargetId is not null)
             .ToArray();
         _contexts.Clear();
         _pendingFocusTargetId = null;
@@ -47,7 +47,7 @@ public partial class DialogContainer : IDisposable
     {
         if (_disposed)
         {
-            if (e.Context.Config.AccessibleName is not null || e.Context.Config.EnableModalKeyboard)
+            if (e.Context.Config.AccessibleName is not null || e.Context.Config.EnableModalKeyboard || e.Context.Config.ReturnFocusTargetId is not null)
                 e.Context.ResultTCS.TrySetResult(null);
             return;
         }

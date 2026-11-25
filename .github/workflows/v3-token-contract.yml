@@ -20,6 +20,23 @@ on:
       - "scripts/quality/audit_v3_validation_text_contrast.py"
       - "scripts/quality/test_v3_validation_text_contrast.py"
       - "scripts/quality/test_v3_issue418_review_contract.py"
+      - "scripts/quality/test_v3_issue418_public_token_bridge.py"
+      - "docs/v3/tokens/ISSUE418-IMPLEMENTATION-CONTRACT-2026-11-25.md"
+      - "docs/v3/tokens/ISSUE418-*.md"
+      - "docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md"
+      - "docs/v3/tokens/DARK-SEMANTIC-FOREGROUND-PROPOSAL.md"
+      - "docs/v3/tokens/FOCUS-HOST-PUBLIC-CONTRACT-PROPOSAL.md"
+      - "docs/v3/tokens/README.md"
+      - "docs/v3/tokens/issue-418-token-schema.preview.json"
+      - "src/Bluent.UI/Styles/Components/_v3-token-contract.scss"
+      - "src/Bluent.UI/Styles/Components/components.scss"
+      - "src/Bluent.UI/Styles/Components/components.css"
+      - "src/Bluent.UI/wwwroot/bluent.ui.components.css"
+      - "src/Bluent.UI/wwwroot/bluent.ui.components.min.css"
+      - "src/Bluent.UI/Components/DialogComponent/**"
+      - "src/Bluent.UI/Components/PopoverComponent/**"
+      - "tests/RegexSampleGeneratorTest/DialogContainerTests.cs"
+      - "tests/RegexSampleGeneratorTest/PopoverSurfaceAccessibilityContractTests.cs"
       - "scripts/quality/test_v3_issue418_native_hc_evidence.py"
       - "scripts/quality/test_v3_issue418_native_uia_evidence.py"
       - "scripts/quality/test_v3_issue418_native_hc_black_evidence.py"
@@ -105,6 +122,7 @@ jobs:
           python scripts/quality/audit_v3_validation_text_contrast.py
           python -m unittest discover -s scripts/quality -p 'test_v3_validation_text_contrast.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_issue418_review_contract.py' -v
+          python -m unittest discover -s scripts/quality -p 'test_v3_issue418_public_token_bridge.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_issue418_native_hc_evidence.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_issue418_native_uia_evidence.py' -v
           python -m unittest discover -s scripts/quality -p 'test_v3_issue418_native_hc_black_evidence.py' -v

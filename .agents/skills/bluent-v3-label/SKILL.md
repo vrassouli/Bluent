@@ -16,7 +16,7 @@ Use this Skill only for the isolated v3 Label task [#430](https://github.com/vra
 - With no `Info`, keep the original native Label markup path. With `Info`, render the action Button as a **sibling** of the native `<label>`, not inside it.
 - `InfoButtonAriaLabel` overrides a localized default name composed from the visible label plus “more information”. No empty-name icon-only Info action.
 - Required and Disabled are visual Label states only. The marker is `aria-hidden`; the associated input owns native required, validation and disabled semantics.
-- Use `--bui-v3-text-primary`, `--bui-v3-text-disabled`, and `--bui-v3-text-danger-accessible` with the approved source fallbacks in the canonical reference. Reuse global typography/spacing; do not create `component.label.*` tokens.
+- The #418 branch-local opt-in bridge emits `--bui-v3-text-primary` and `--bui-v3-text-disabled` inside `[data-bui-v3-tokens]`; use them only within that explicit scope and retain the canonical source fallbacks. `--bui-v3-text-danger-accessible` is **not** emitted by the first-wave bridge: keep the required marker on its existing approved red source fallback until the separate decorative-marker semantic decision is accepted. Reuse global typography/spacing; do not create `component.label.*` tokens.
 - Use the shared Popover owner for expanded/controls state, Escape/focus restoration, outside dismissal and focus-leave cleanup. Do not add an independent Label document keyboard listener or a focus trap.
 - Keep English and `fa-IR` resource strings in sync; maintain logical CSS for RTL.
 
