@@ -1,102 +1,157 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @using Bluent.UI.Extensions
 @inherits BluentUiComponentBase
 @typeparam TValue
 
-<div @attributes=AdditionalAttributes id="@Id" class="@GetComponentClass()" style="@Style"
+<div @ref="_root"
+     dir="@(Culture.TextInfo.IsRightToLeft ? "rtl" : "ltr")"
+     @attributes="AdditionalAttributes"
+     id="@Id"
+     class="@GetComponentClass()"
+     style="@Style"
      @onclick:stopPropagation="true"
      @onclick:preventDefault="true">
+    @if (!string.IsNullOrWhiteSpace(Id))
+    {
+        <h2 class="sr-only" id="@(Id + "-heading")" aria-live="polite">@GetAccessibleHeading()</h2>
+    }
+
     @if (_viewMode == CalendarMode.DaySelect)
     {
-        var daysFromPrevMonth = ((int)MonthStart.DayOfWeek - (int)Culture.DateTimeFormat.FirstDayOfWeek + 7) % 7;
-        var daysFromNextMonth = 7 - (((int)MonthStart.AddMonths(1, Culture).DayOfWeek - (int)Culture.DateTimeFormat.FirstDayOfWeek + 7) % 7);
-        var dayOffsets = Enumerable.Range(-daysFromPrevMonth, daysFromPrevMonth + DaysInMonth + daysFromNextMonth);
+        var daysInMonth = DaysInMonth;
+        var daysFromPreviousMonth = FirstDayOffset;
+        var totalDays = daysFromPreviousMonth + daysInMonth;
+        var daysFromNextMonth = (7 - totalDays % 7) % 7;
+        var dates = Enumerable.Range(0, totalDays + daysFromNextMonth)
+            .Select(offset =>
+            {
+                try
+                {
+                    var date = MonthStart.AddDays(offset - daysFromPreviousMonth);
+                    return IsWithinCalendarSupport(date) ? (DateTime?)date : null;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    return null;
+                }
+            })
+            .Chunk(7);
+        var weekdays = Enumerable.Range(0, 7)
+            .Select(offset => (DayOfWeek)(((int)Culture.DateTimeFormat.FirstDayOfWeek + offset) % 7))
+            .ToArray();
 
         <div class="header">
-            <button class="title" @onclick="OnSelectMonth">
-                @Culture.DateTimeFormat.MonthNames[Culture.Calendar.GetMonth(ViewDate) - 1] @Culture.Calendar.GetYear(ViewDate)
+            <button type="button" class="title" @onclick="OnSelectMonth" aria-label="@Localizer["ChooseMonth"]">
+                @Culture.DateTimeFormat.GetMonthName(Culture.DateTimeFormat.Calendar.GetMonth(ViewDate)) @Culture.DateTimeFormat.Calendar.GetYear(ViewDate)
             </button>
             <div class="nav">
-                <button type="button" @onclick="OnPreviousMonth">
+                <button type="button" aria-label="@Localizer["PreviousMonth"]" disabled="@(!CanNavigateToPreviousMonth)" @onclick="OnPreviousMonth">
                     <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.13 9.16a.5.5 0 1 0 .74.68L9.5 3.67V17.5a.5.5 0 1 0 1 0V3.67l5.63 6.17a.5.5 0 0 0 .74-.68l-6.32-6.92a.75.75 0 0 0-1.1 0L3.13 9.16Z" fill="currentColor"></path>
                     </svg>
                 </button>
-                <button type="button" @onclick="OnNextMonth">
+                <button type="button" aria-label="@Localizer["NextMonth"]" disabled="@(!CanNavigateToNextMonth)" @onclick="OnNextMonth">
                     <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.87 10.84a.5.5 0 1 0-.74-.68l-5.63 6.17V2.5a.5.5 0 0 0-1 0v13.83l-5.63-6.17a.5.5 0 0 0-.74.68l6.31 6.91a.75.75 0 0 0 1.11 0l6.32-6.91Z" fill="currentColor"></path>
                     </svg>
                 </button>
             </div>
         </div>
-        <table @key=MonthStart>
-            <tr>
-                @for (var i = (int)Culture.DateTimeFormat.FirstDayOfWeek; i <= (int)Enum.GetValues<DayOfWeek>().Max(); i++)
-                {
-                    <th class="cell" title="@Culture.DateTimeFormat.DayNames[i]">
-                        <span>@Culture.DateTimeFormat.ShortestDayNames[i]</span>
-                    </th>
-                }
-                @for (var i = 0; i < (int)Culture.DateTimeFormat.FirstDayOfWeek; i++)
-                {
-                    <th class="cell" title="@Culture.DateTimeFormat.DayNames[i]">
-                        <span>@Culture.DateTimeFormat.ShortestDayNames[i]</span>
-                    </th>
-                }
-            </tr>
-            @for (int week = 0; week < Math.Ceiling((double)dayOffsets.Count()) / 7; week++)
-            {
-                var offsets = dayOffsets.Skip(week * 7).Take(7);
-
-                <tr>
-                    @foreach (var offset in offsets)
+        <table @key="MonthStart" role="grid" aria-label="@($"{Culture.DateTimeFormat.GetMonthName(Culture.DateTimeFormat.Calendar.GetMonth(ViewDate))} {Culture.DateTimeFormat.Calendar.GetYear(ViewDate)}")">
+            <thead>
+                <tr role="row">
+                    @foreach (var weekday in weekdays)
                     {
-                        var date = MonthStart.AddDays(offset);
-                        var isFromPrev = date < MonthStart;
-                        var isFromNext = date > MonthEnd;
-                        var isToday = date == DateTime.Today;
-                        var isSelected = Culture.Calendar.Equals(SelectedDate, date);
-                        var isOutOfRange = (Max != null && date > Max) || (Min != null && date < Min);
-                        var customClass = DateClass?.Invoke(DateOnly.FromDateTime(date));
-
-                        <td class="day-cell @(isFromPrev ? "prev" : "") @(isFromNext ? "next" : "") @(isToday ? "today" : "") @(isSelected ? "selected" : "") @(isOutOfRange ? "disabled" : "") @customClass" disabled="@isOutOfRange" @onclick="async ()=> await OnSelectDate(date)">
-                            <button disabled="@isOutOfRange">@Culture.Calendar.GetDayOfMonth(date)</button>
-                        </td>
+                        <th role="columnheader" scope="col" class="cell" title="@Culture.DateTimeFormat.DayNames[(int)weekday]">
+                            <span>@Culture.DateTimeFormat.ShortestDayNames[(int)weekday]</span>
+                        </th>
                     }
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var week in dates)
+                {
+                    <tr role="row">
+                        @foreach (var dateValue in week)
+                        {
+                            if (dateValue is DateTime date)
+                            {
+                                var isFromPreviousMonth = date < MonthStart;
+                                var isFromNextMonth = date > MonthEnd;
+                                var isToday = date.Date == DateTime.Today;
+                                var isSelected = SelectedDateAsDate is DateTime selected && selected.Date == date.Date;
+                                var isOutOfRange = !IsWithinSelectionRange(date);
+                                var customClass = DateClass?.Invoke(DateOnly.FromDateTime(date));
+                                var dayButtonId = GetDayButtonId(date);
+
+                                <td role="gridcell"
+                                    aria-selected="@(isSelected ? "true" : "false")"
+                                    class="day-cell @(isFromPreviousMonth ? "prev" : string.Empty) @(isFromNextMonth ? "next" : string.Empty) @(isToday ? "today" : string.Empty) @(isSelected ? "selected" : string.Empty) @(isOutOfRange ? "disabled" : string.Empty) @customClass">
+                                    <button
+                                            id="@dayButtonId"
+                                            type="button"
+                                            disabled="@isOutOfRange"
+                                            tabindex="@GetDayTabIndex(date)"
+                                            aria-label="@date.ToString("D", Culture)"
+                                            aria-pressed="@(isSelected ? "true" : "false")"
+                                            aria-current="@(isToday ? "date" : null)"
+                                            @onclick="() => OnSelectDate(date)"
+                                            @onkeydown="args => OnDateKeyDown(args, date)">
+                                        @Culture.DateTimeFormat.Calendar.GetDayOfMonth(date)
+                                    </button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td role="gridcell" class="day-cell disabled"></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
         </table>
     }
     else if (_viewMode == CalendarMode.MonthSelect)
     {
+        var year = Culture.DateTimeFormat.Calendar.GetYear(ViewDate);
+        var monthsInYear = Culture.DateTimeFormat.Calendar.GetMonthsInYear(year);
         <div class="header">
-            <button class="title" @onclick="OnSelectYear">
-                @Culture.Calendar.GetYear(ViewDate)
+            <button type="button" class="title" @onclick="OnSelectYear" aria-label="@Localizer["ChooseYear"]">
+                @year
             </button>
             <div class="nav">
-                <button type="button" @onclick="OnPreviousYear">
+                <button type="button" aria-label="@Localizer["PreviousYear"]" disabled="@(!CanNavigateToPreviousYear)" @onclick="OnPreviousYear">
                     <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.13 9.16a.5.5 0 1 0 .74.68L9.5 3.67V17.5a.5.5 0 1 0 1 0V3.67l5.63 6.17a.5.5 0 0 0 .74-.68l-6.32-6.92a.75.75 0 0 0-1.1 0L3.13 9.16Z" fill="currentColor"></path>
                     </svg>
                 </button>
-                <button type="button" @onclick="OnNextYear">
+                <button type="button" aria-label="@Localizer["NextYear"]" disabled="@(!CanNavigateToNextYear)" @onclick="OnNextYear">
                     <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16.87 10.84a.5.5 0 1 0-.74-.68l-5.63 6.17V2.5a.5.5 0 0 0-1 0v13.83l-5.63-6.17a.5.5 0 0 0-.74.68l6.31 6.91a.75.75 0 0 0 1.11 0l6.32-6.91Z" fill="currentColor"></path>
+                        <path d="M16.87 10.84a.5.5 0 0 0-.74-.68l-5.63 6.17V2.5a.5.5 0 0 0-1 0v13.83l-5.63-6.17a.5.5 0 0 0-.74.68l6.31 6.91a.75.75 0 0 0 1.11 0l6.32-6.91Z" fill="currentColor"></path>
                     </svg>
                 </button>
             </div>
         </div>
-        <div class="grid" @key=Culture.Calendar.GetYear(ViewDate)>
-            @for (var row = 0; row < 3; row++)
+        <div class="grid" role="group" aria-label="@Localizer["ChooseMonth"]" @key="year">
+            @foreach (var monthNumbers in Enumerable.Range(1, monthsInYear).Chunk(4))
             {
                 <div class="row">
-                    @for (var col = 0; col < 4; col++)
+                    @foreach (var monthNumber in monthNumbers)
                     {
-                        var name = Culture.DateTimeFormat.AbbreviatedMonthNames[row * 4 + col];
-                        var monthStart = Culture.Calendar.ToDateTime(Culture.Calendar.GetYear(ViewDate), row * 4 + col + 1, 1, 0, 0, 0, 0);
+                        var monthDate = GetDateForMonth(year, monthNumber);
+                        var isDisabled = !TryGetFirstSelectableDate(GetMonthStart(year, monthNumber), GetMonthEnd(year, monthNumber), out _);
+                        var isSelected = ActiveCalendar.GetMonth(ViewDate) == monthNumber;
+                        var isActive = ActiveCalendar.GetYear(_focusDate) == year && ActiveCalendar.GetMonth(_focusDate) == monthNumber;
+                        var monthName = GetMonthDisplayName(monthNumber);
 
-                        <button @onclick="()=>OnMonthSelected(monthStart)">
-                            @(name.Substring(0, Math.Min(3, name.Length)))
+                        <button type="button"
+                                disabled="@isDisabled"
+                                aria-label="@monthName"
+                                aria-pressed="@(isSelected ? "true" : "false")"
+                                tabindex="@(!isDisabled && isActive ? 0 : -1)"
+                                @onkeydown="args => OnMonthGridKeyDown(args, monthDate)"
+                                @onclick="() => OnMonthSelected(monthDate)">
+                            @GetMonthShortName(monthNumber)
                         </button>
                     }
                 </div>
@@ -105,34 +160,42 @@
     }
     else if (_viewMode == CalendarMode.YearSelect)
     {
-        var range = $"{Culture.Calendar.GetYear(ViewDate)} - {Culture.Calendar.GetYear(ViewDate) + 12}";
+        var yearRange = GetVisibleYearRange();
         <div class="header">
-            <button class="title" @onclick="OnSelectMonth">
-                @range
+            <button type="button" class="title" @onclick="OnSelectMonth" aria-label="@Localizer["ChooseMonth"]">
+                @yearRange.Start - @yearRange.End
             </button>
             <div class="nav">
-                <button type="button" @onclick="OnPreviousYearRange">
+                <button type="button" aria-label="@Localizer["PreviousYearRange"]" disabled="@(!CanNavigateToPreviousYearRange)" @onclick="OnPreviousYearRange">
                     <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.13 9.16a.5.5 0 1 0 .74.68L9.5 3.67V17.5a.5.5 0 1 0 1 0V3.67l5.63 6.17a.5.5 0 0 0 .74-.68l-6.32-6.92a.75.75 0 0 0-1.1 0L3.13 9.16Z" fill="currentColor"></path>
                     </svg>
                 </button>
-                <button type="button" @onclick="OnNextYearRange">
+                <button type="button" aria-label="@Localizer["NextYearRange"]" disabled="@(!CanNavigateToNextYearRange)" @onclick="OnNextYearRange">
                     <svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.87 10.84a.5.5 0 1 0-.74-.68l-5.63 6.17V2.5a.5.5 0 0 0-1 0v13.83l-5.63-6.17a.5.5 0 0 0-.74.68l6.31 6.91a.75.75 0 0 0 1.11 0l6.32-6.91Z" fill="currentColor"></path>
                     </svg>
                 </button>
             </div>
         </div>
-        <div class="grid" @key=@range>
-            @for (var row = 0; row < 3; row++)
+        <div class="grid" role="group" aria-label="@Localizer["ChooseYear"]" @key="yearRange.Start">
+            @foreach (var yearNumbers in Enumerable.Range(yearRange.Start, yearRange.End - yearRange.Start + 1).Chunk(4))
             {
                 <div class="row">
-                    @for (var col = 0; col < 4; col++)
+                    @foreach (var yearNumber in yearNumbers)
                     {
-                        var yearStart = Culture.Calendar.ToDateTime(Culture.Calendar.GetYear(ViewDate) + row * 4 + col, 1, 1, 0, 0, 0, 0);
+                        var yearDate = GetDateForYear(yearNumber);
+                        var isDisabled = !TryGetFirstSelectableDate(GetYearStart(yearNumber), GetYearEnd(yearNumber), out _);
+                        var isSelected = ActiveCalendar.GetYear(ViewDate) == yearNumber;
+                        var isActive = ActiveCalendar.GetYear(_focusDate) == yearNumber;
 
-                        <button @onclick="()=>OnYearSelected(yearStart)">
-                            @(Culture.Calendar.GetYear(ViewDate) + row * 4 + col)
+                        <button type="button"
+                                disabled="@isDisabled"
+                                aria-pressed="@(isSelected ? "true" : "false")"
+                                tabindex="@(!isDisabled && isActive ? 0 : -1)"
+                                @onkeydown="args => OnYearGridKeyDown(args, yearDate)"
+                                @onclick="() => OnYearSelected(yearDate)">
+                            @yearNumber
                         </button>
                     }
                 </div>

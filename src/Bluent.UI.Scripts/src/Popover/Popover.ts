@@ -1,4 +1,4 @@
-import { flip, shift, offset, arrow, computePosition, autoUpdate } from '@floating-ui/dom';
+import { flip, shift, offset, arrow, size, computePosition, autoUpdate, type Middleware } from '@floating-ui/dom';
 import { PopoverSettings } from './PopoverSettings';
 export class Popover {
     private _dotNetRef: any;
@@ -510,13 +510,34 @@ export class Popover {
         if (!surface || !trigger)
             return;
 
+        const isDateFieldCalendar = surface.querySelector('.datefield-calendar-popup') !== null;
+        const middleware: Middleware[] = [
+            flip(),
+            shift({ padding: settings.padding }),
+            offset(settings.offset),
+        ];
+        if (isDateFieldCalendar) {
+            // The base shift keeps overlays within the horizontal bounds. A tall
+            // calendar also needs a vertical shift after its anchor offset so its
+            // heading and focused day remain on screen in compact viewports.
+            middleware.push(shift({ padding: settings.padding, crossAxis: true }));
+            middleware.push(size({
+                padding: settings.padding,
+                apply({ availableHeight, elements }: { availableHeight: number; elements: { floating: HTMLElement } }) {
+                    const viewportHeight = elements.floating.ownerDocument.documentElement.clientHeight;
+                    const viewportPadding = typeof settings.padding === 'number'
+                        ? settings.padding * 2
+                        : (settings.padding?.top ?? 0) + (settings.padding?.bottom ?? 0);
+                    const maxHeight = viewportHeight > 0 ? viewportHeight - viewportPadding : availableHeight;
+                    elements.floating.style.maxHeight = Math.max(0, maxHeight) + 'px';
+                },
+            }));
+        }
+        middleware.push(arrow({ element: arrowElement }));
+
         computePosition(trigger, surface, {
             placement: settings.placement,
-            middleware: [
-                flip(),
-                shift({ padding: settings.padding }),
-                offset(settings.offset),
-                arrow({ element: arrowElement }),],
+            middleware,
         }).then(({ x, y, placement, middlewareData }) => {
             Object.assign(surface.style, {
                 left: `${x}px`,

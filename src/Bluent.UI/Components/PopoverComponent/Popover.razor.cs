@@ -140,13 +140,13 @@ public partial class Popover : IDisposable
             PopoverService.Close(_settings.TriggerId);
     }
 
-    internal Task CloseAsync()
+    internal Task CloseAsync(bool restoreFocus = false)
     {
         if (_settings is null)
             return Task.CompletedTask;
 
         if (PopoverService is Bluent.UI.Services.PopoverService service)
-            return service.CloseAsync(_settings.TriggerId);
+            return service.CloseAsync(_settings.TriggerId, restoreFocus);
 
         PopoverService.Close(_settings.TriggerId);
         return Task.CompletedTask;

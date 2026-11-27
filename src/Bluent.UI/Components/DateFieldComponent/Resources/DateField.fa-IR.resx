@@ -129,4 +129,13 @@
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>مقدار وارد شده برای {0} باید {1} باشد.</value>
   </data>
+  <data name="ChooseDate" xml:space="preserve">
+    <value>انتخاب تاریخ</value>
+  </data>
+  <data name="MinimumErrorMessage" xml:space="preserve">
+    <value>تاریخ {0} باید برابر یا بعد از {1} باشد.</value>
+  </data>
+  <data name="MaximumErrorMessage" xml:space="preserve">
+    <value>تاریخ {0} باید برابر یا قبل از {1} باشد.</value>
+  </data>
 </root>

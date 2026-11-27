@@ -1,0 +1,953 @@
+{
+  "recordedOn": "2026-11-27",
+  "branch": "v3/issue-438-datefield",
+  "headCommit": "add8d519a75432a9a990a4dafbed06aa33590356",
+  "sourceState": "uncommitted working tree",
+  "browser": "Edge",
+  "renderMode": "WebAssembly",
+  "result": {
+    "url": "http://127.0.0.1:5017/compatibility/datefield-probe",
+    "total": 35,
+    "passed": 35,
+    "failed": 0,
+    "checks": [
+      {
+        "name": "browser loads the isolated DateField browser probe",
+        "pass": true,
+        "details": {
+          "url": "http://127.0.0.1:5017/compatibility/datefield-probe",
+          "renderMode": "WebAssembly"
+        }
+      },
+      {
+        "name": "probe renders DateTime and DateOnly fields with calendar triggers",
+        "pass": true,
+        "details": {
+          "input": "2026/11/24",
+          "triggerCount": 4,
+          "disabledTrigger": false
+        }
+      },
+      {
+        "name": "Chromium accessibility tree exposes the DateTime and DateOnly labels",
+        "pass": true,
+        "details": [
+          "DateTime value",
+          "DateOnly value",
+          "Month selection",
+          "Year selection"
+        ]
+      },
+      {
+        "name": "DateField dialog is named by the current live month/year heading",
+        "pass": true,
+        "details": {
+          "labelledBy": "datefield-calendar-f0607ff3d59048f3aa8c3125dab9a1ec-heading",
+          "heading": "November 2026",
+          "headingLive": "polite",
+          "gridLabel": "November 2026",
+          "dialogModal": null,
+          "selectedCount": 1,
+          "selectedTabIndex": 0,
+          "activeInside": true,
+          "expanded": true
+        }
+      },
+      {
+        "name": "calendar keeps one selected, tabbable day in a non-modal dialog",
+        "pass": true,
+        "details": {
+          "labelledBy": "datefield-calendar-f0607ff3d59048f3aa8c3125dab9a1ec-heading",
+          "heading": "November 2026",
+          "headingLive": "polite",
+          "gridLabel": "November 2026",
+          "dialogModal": null,
+          "selectedCount": 1,
+          "selectedTabIndex": 0,
+          "activeInside": true,
+          "expanded": true
+        }
+      },
+      {
+        "name": "DateField day circles and navigation controls use the approved outlined geometry",
+        "pass": true,
+        "details": {
+          "dayWidth": 30,
+          "dayHeight": 30,
+          "dayRadius": "10000px",
+          "dayBorderStyle": "solid",
+          "dayBorderColor": "rgb(209, 209, 209)",
+          "navWidth": 44,
+          "navHeight": 44,
+          "navBorderStyle": "solid",
+          "navBorderColor": "rgb(209, 209, 209)",
+          "previousIconTransform": "matrix(0, -1, 1, 0, 0, 0)",
+          "nextIconTransform": "matrix(0, -1, 1, 0, 0, 0)",
+          "previousArrowPointsLeft": true,
+          "nextArrowPointsRight": true
+        }
+      },
+      {
+        "name": "DateField popup has no arrow or horizontal scroll overflow",
+        "pass": true,
+        "details": {
+          "width": 360,
+          "height": 396,
+          "viewportWidth": 756,
+          "arrowCount": 0,
+          "clientWidth": 358,
+          "scrollWidth": 358,
+          "horizontalOverflow": false
+        }
+      },
+      {
+        "name": "Chromium accessibility tree names the calendar dialog and grid",
+        "pass": true,
+        "details": {
+          "dialogs": [
+            "November 2026"
+          ],
+          "grids": [
+            "November 2026"
+          ]
+        }
+      },
+      {
+        "name": "calendar opens with focus inside its grid",
+        "pass": true,
+        "details": {
+          "labelledBy": "datefield-calendar-f0607ff3d59048f3aa8c3125dab9a1ec-heading",
+          "heading": "November 2026",
+          "headingLive": "polite",
+          "gridLabel": "November 2026",
+          "dialogModal": null,
+          "selectedCount": 1,
+          "selectedTabIndex": 0,
+          "activeInside": true,
+          "expanded": true
+        }
+      },
+      {
+        "name": "ArrowRight moves the active day button",
+        "pass": true,
+        "details": {
+          "before": "Tuesday, November 24, 2026",
+          "after": "Wednesday, November 25, 2026"
+        }
+      },
+      {
+        "name": "Home moves focus to the first day of the culture-defined week",
+        "pass": true,
+        "details": {
+          "label": "Sunday, November 22, 2026",
+          "index": 0,
+          "count": 7
+        }
+      },
+      {
+        "name": "End moves focus to the last day of the culture-defined week",
+        "pass": true,
+        "details": {
+          "label": "Saturday, November 28, 2026",
+          "index": 6,
+          "count": 7
+        }
+      },
+      {
+        "name": "PageUp moves to the previous month",
+        "pass": true,
+        "details": {
+          "before": "November 2026",
+          "after": "October 2026"
+        }
+      },
+      {
+        "name": "PageDown moves to the next month",
+        "pass": true,
+        "details": "November 2026"
+      },
+      {
+        "name": "Shift+PageUp moves to the previous year",
+        "pass": true,
+        "details": {
+          "before": "November 2026",
+          "after": "November 2025"
+        }
+      },
+      {
+        "name": "Shift+PageDown moves to the next year",
+        "pass": true,
+        "details": "November 2026"
+      },
+      {
+        "name": "Space selects the focused day, updates DateTime, and returns focus to the trigger",
+        "pass": true,
+        "details": {
+          "before": {
+            "input": "2026/11/24",
+            "output": "2026-11-24"
+          },
+          "after": {
+            "input": "2026/11/28",
+            "output": "2026-11-28"
+          },
+          "focusRestored": true
+        }
+      },
+      {
+        "name": "Escape closes the picker and restores focus to its trigger",
+        "pass": true,
+        "details": null
+      },
+      {
+        "name": "Space opens the calendar and moves focus inside its grid",
+        "pass": true,
+        "details": null
+      },
+      {
+        "name": "Tab leaves the calendar naturally without a focus trap",
+        "pass": true,
+        "details": null
+      },
+      {
+        "name": "browser identifies a visible unselected day target",
+        "pass": true,
+        "details": {
+          "x": 236,
+          "y": 170,
+          "label": "Sunday, November 1, 2026",
+          "value": "1",
+          "hit": true,
+          "hitTag": "BUTTON",
+          "hitClass": "",
+          "hitText": "1"
+        }
+      },
+      {
+        "name": "selecting a day updates the bound DateTime field",
+        "pass": true,
+        "details": {
+          "target": {
+            "x": 236,
+            "y": 170,
+            "label": "Sunday, November 1, 2026",
+            "value": "1",
+            "hit": true,
+            "hitTag": "BUTTON",
+            "hitClass": "",
+            "hitText": "1"
+          },
+          "before": "2026/11/24",
+          "after": "2026/11/01",
+          "output": "2026-11-01"
+        }
+      },
+      {
+        "name": "DateOnly probe field renders its bound initial value",
+        "pass": true,
+        "details": {
+          "input": "2026/11/24",
+          "output": "2026-11-24"
+        }
+      },
+      {
+        "name": "DateOnly calendar remains inside the viewport after opening",
+        "pass": true,
+        "details": {
+          "top": 5,
+          "bottom": 401,
+          "height": 396,
+          "viewportWidth": 756,
+          "viewportHeight": 441,
+          "titleVisible": true,
+          "titleText": "November 2026",
+          "titleTop": 26,
+          "titleBottom": 70,
+          "titleLeft": 213,
+          "titleRight": 443,
+          "accessibleHeadingPresent": true
+        }
+      },
+      {
+        "name": "DateOnly calendar title remains visible in the compact viewport",
+        "pass": true,
+        "details": {
+          "top": 5,
+          "bottom": 401,
+          "height": 396,
+          "viewportWidth": 756,
+          "viewportHeight": 441,
+          "titleVisible": true,
+          "titleText": "November 2026",
+          "titleTop": 26,
+          "titleBottom": 70,
+          "titleLeft": 213,
+          "titleRight": 443,
+          "accessibleHeadingPresent": true
+        }
+      },
+      {
+        "name": "browser identifies a visible unselected DateOnly day target",
+        "pass": true,
+        "details": {
+          "x": 236,
+          "y": 136,
+          "label": "Sunday, November 1, 2026",
+          "value": "1",
+          "hit": true
+        }
+      },
+      {
+        "name": "selecting a day updates the bound DateOnly field",
+        "pass": true,
+        "details": {
+          "before": {
+            "input": "2026/11/24",
+            "output": "2026-11-24"
+          },
+          "after": {
+            "input": "2026/11/01",
+            "output": "2026-11-01"
+          },
+          "target": {
+            "x": 236,
+            "y": 136,
+            "label": "Sunday, November 1, 2026",
+            "value": "1",
+            "hit": true
+          }
+        }
+      },
+      {
+        "name": "MonthSelect grid renders three columns",
+        "pass": true,
+        "details": {
+          "columns": 3,
+          "gridTemplate": "78px 78px 78px",
+          "display": "grid",
+          "count": 12,
+          "index": 5,
+          "active": "June",
+          "positions": [
+            [
+              213,
+              88
+            ],
+            [
+              299,
+              88
+            ],
+            [
+              385,
+              88
+            ],
+            [
+              213,
+              142
+            ],
+            [
+              299,
+              142
+            ],
+            [
+              385,
+              142
+            ],
+            [
+              213,
+              196
+            ],
+            [
+              299,
+              196
+            ],
+            [
+              385,
+              196
+            ],
+            [
+              213,
+              250
+            ],
+            [
+              299,
+              250
+            ],
+            [
+              385,
+              250
+            ]
+          ]
+        }
+      },
+      {
+        "name": "MonthSelect ArrowDown moves down three columns",
+        "pass": true,
+        "details": {
+          "before": {
+            "columns": 3,
+            "gridTemplate": "78px 78px 78px",
+            "display": "grid",
+            "count": 12,
+            "index": 5,
+            "active": "June",
+            "positions": [
+              [
+                213,
+                88
+              ],
+              [
+                299,
+                88
+              ],
+              [
+                385,
+                88
+              ],
+              [
+                213,
+                142
+              ],
+              [
+                299,
+                142
+              ],
+              [
+                385,
+                142
+              ],
+              [
+                213,
+                196
+              ],
+              [
+                299,
+                196
+              ],
+              [
+                385,
+                196
+              ],
+              [
+                213,
+                250
+              ],
+              [
+                299,
+                250
+              ],
+              [
+                385,
+                250
+              ]
+            ]
+          },
+          "after": {
+            "columns": 3,
+            "gridTemplate": "78px 78px 78px",
+            "display": "grid",
+            "count": 12,
+            "index": 8,
+            "active": "September",
+            "positions": [
+              [
+                213,
+                88
+              ],
+              [
+                299,
+                88
+              ],
+              [
+                385,
+                88
+              ],
+              [
+                213,
+                142
+              ],
+              [
+                299,
+                142
+              ],
+              [
+                385,
+                142
+              ],
+              [
+                213,
+                196
+              ],
+              [
+                299,
+                196
+              ],
+              [
+                385,
+                196
+              ],
+              [
+                213,
+                250
+              ],
+              [
+                299,
+                250
+              ],
+              [
+                385,
+                250
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "name": "MonthSelect ArrowUp returns up three columns",
+        "pass": true,
+        "details": {
+          "before": {
+            "columns": 3,
+            "gridTemplate": "78px 78px 78px",
+            "display": "grid",
+            "count": 12,
+            "index": 5,
+            "active": "June",
+            "positions": [
+              [
+                213,
+                88
+              ],
+              [
+                299,
+                88
+              ],
+              [
+                385,
+                88
+              ],
+              [
+                213,
+                142
+              ],
+              [
+                299,
+                142
+              ],
+              [
+                385,
+                142
+              ],
+              [
+                213,
+                196
+              ],
+              [
+                299,
+                196
+              ],
+              [
+                385,
+                196
+              ],
+              [
+                213,
+                250
+              ],
+              [
+                299,
+                250
+              ],
+              [
+                385,
+                250
+              ]
+            ]
+          },
+          "after": {
+            "columns": 3,
+            "gridTemplate": "78px 78px 78px",
+            "display": "grid",
+            "count": 12,
+            "index": 5,
+            "active": "June",
+            "positions": [
+              [
+                213,
+                51
+              ],
+              [
+                299,
+                51
+              ],
+              [
+                385,
+                51
+              ],
+              [
+                213,
+                105
+              ],
+              [
+                299,
+                105
+              ],
+              [
+                385,
+                105
+              ],
+              [
+                213,
+                159
+              ],
+              [
+                299,
+                159
+              ],
+              [
+                385,
+                159
+              ],
+              [
+                213,
+                213
+              ],
+              [
+                299,
+                213
+              ],
+              [
+                385,
+                213
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "name": "YearSelect grid renders three columns",
+        "pass": true,
+        "details": {
+          "columns": 3,
+          "gridTemplate": "74px 74px 74px",
+          "display": "grid",
+          "count": 12,
+          "index": 7,
+          "active": "2024",
+          "positions": [
+            [
+              213,
+              144
+            ],
+            [
+              295,
+              144
+            ],
+            [
+              377,
+              144
+            ],
+            [
+              213,
+              196
+            ],
+            [
+              295,
+              196
+            ],
+            [
+              377,
+              196
+            ],
+            [
+              213,
+              248
+            ],
+            [
+              295,
+              248
+            ],
+            [
+              377,
+              248
+            ],
+            [
+              213,
+              300
+            ],
+            [
+              295,
+              300
+            ],
+            [
+              377,
+              300
+            ]
+          ]
+        }
+      },
+      {
+        "name": "YearSelect ArrowDown moves down three columns",
+        "pass": true,
+        "details": {
+          "before": {
+            "columns": 3,
+            "gridTemplate": "74px 74px 74px",
+            "display": "grid",
+            "count": 12,
+            "index": 7,
+            "active": "2024",
+            "positions": [
+              [
+                213,
+                144
+              ],
+              [
+                295,
+                144
+              ],
+              [
+                377,
+                144
+              ],
+              [
+                213,
+                196
+              ],
+              [
+                295,
+                196
+              ],
+              [
+                377,
+                196
+              ],
+              [
+                213,
+                248
+              ],
+              [
+                295,
+                248
+              ],
+              [
+                377,
+                248
+              ],
+              [
+                213,
+                300
+              ],
+              [
+                295,
+                300
+              ],
+              [
+                377,
+                300
+              ]
+            ]
+          },
+          "after": {
+            "columns": 3,
+            "gridTemplate": "74px 74px 74px",
+            "display": "grid",
+            "count": 12,
+            "index": 10,
+            "active": "2027",
+            "positions": [
+              [
+                213,
+                136
+              ],
+              [
+                295,
+                136
+              ],
+              [
+                377,
+                136
+              ],
+              [
+                213,
+                188
+              ],
+              [
+                295,
+                188
+              ],
+              [
+                377,
+                188
+              ],
+              [
+                213,
+                240
+              ],
+              [
+                295,
+                240
+              ],
+              [
+                377,
+                240
+              ],
+              [
+                213,
+                292
+              ],
+              [
+                295,
+                292
+              ],
+              [
+                377,
+                292
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "name": "YearSelect ArrowUp returns up three columns",
+        "pass": true,
+        "details": {
+          "before": {
+            "columns": 3,
+            "gridTemplate": "74px 74px 74px",
+            "display": "grid",
+            "count": 12,
+            "index": 7,
+            "active": "2024",
+            "positions": [
+              [
+                213,
+                144
+              ],
+              [
+                295,
+                144
+              ],
+              [
+                377,
+                144
+              ],
+              [
+                213,
+                196
+              ],
+              [
+                295,
+                196
+              ],
+              [
+                377,
+                196
+              ],
+              [
+                213,
+                248
+              ],
+              [
+                295,
+                248
+              ],
+              [
+                377,
+                248
+              ],
+              [
+                213,
+                300
+              ],
+              [
+                295,
+                300
+              ],
+              [
+                377,
+                300
+              ]
+            ]
+          },
+          "after": {
+            "columns": 3,
+            "gridTemplate": "74px 74px 74px",
+            "display": "grid",
+            "count": 12,
+            "index": 7,
+            "active": "2024",
+            "positions": [
+              [
+                213,
+                106
+              ],
+              [
+                295,
+                106
+              ],
+              [
+                377,
+                106
+              ],
+              [
+                213,
+                158
+              ],
+              [
+                295,
+                158
+              ],
+              [
+                377,
+                158
+              ],
+              [
+                213,
+                210
+              ],
+              [
+                295,
+                210
+              ],
+              [
+                377,
+                210
+              ],
+              [
+                213,
+                262
+              ],
+              [
+                295,
+                262
+              ],
+              [
+                377,
+                262
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "name": "DateField input stays within a 320px viewport",
+        "pass": true,
+        "details": {
+          "viewport": 320,
+          "scrollWidth": 320,
+          "left": 10,
+          "right": 241
+        }
+      },
+      {
+        "name": "browser runtime reports no uncaught JavaScript errors",
+        "pass": true,
+        "details": []
+      }
+    ],
+    "failures": [],
+    "browserErrors": [],
+    "visualArtifacts": []
+  }
+}

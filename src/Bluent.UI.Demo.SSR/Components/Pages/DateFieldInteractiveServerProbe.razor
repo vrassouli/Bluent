@@ -1,0 +1,24 @@
+@page "/compatibility/datefield-server"
+@rendermode InteractiveServer
+@layout Bluent.UI.Demo.Interactive.Client.Layout.CompatibilityLayout
+@using Bluent.UI.Demo.Pages.Components
+
+<Containers />
+<DateFieldBrowserProbe />
+
+<div id="datefield-interactive-ready" data-ready="@(_interactiveReady ? "true" : "false")" hidden></div>
+
+@code {
+    private bool _interactiveReady;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactiveReady = true;
+            StateHasChanged();
+        }
+
+        return Task.CompletedTask;
+    }
+}

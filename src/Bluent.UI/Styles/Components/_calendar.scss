@@ -1,5 +1,18 @@
-﻿
+
 .bui-calendar {
+    > .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+    }
+
     width: 196px;
     padding: 12px;
     margin: 0;
@@ -264,4 +277,254 @@
             }
         }
     }
+}
+
+.bui-calendar button:focus-visible {
+    outline: 2px solid var(--bui-button-focus-ring-color, var(--colorBrandBackground));
+    outline-offset: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+[data-bui-theme="dark"] .bui-calendar button:focus-visible {
+    outline-color: var(--bui-button-focus-ring-color, var(--colorBrandForeground2));
+}
+
+.bui-calendar button:disabled:focus-visible {
+    outline: none;
+}
+
+@media (forced-colors: active) {
+    .bui-calendar button:focus-visible {
+        outline-color: Highlight;
+        box-shadow: none;
+    }
+}
+// DateField-specific geometry follows the approved page 61 boards while leaving standalone Calendar unchanged.
+.bui-button.datefield-calendar-trigger {
+    box-sizing: border-box;
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    flex: 0 0 48px;
+    padding: 0;
+    color: var(--colorBrandForeground1);
+    background-color: var(--colorBrandBackground2);
+    border-color: var(--colorTransparentStroke);
+
+    &:hover {
+        background-color: var(--colorBrandBackground2Hover);
+    }
+
+    &:active {
+        background-color: var(--colorBrandBackground2Pressed);
+    }
+}
+
+.bui-popover-surface[aria-labelledby^="datefield-calendar-"] {
+    box-sizing: border-box;
+    max-width: calc(100vw - 32px);
+    border-radius: var(--borderRadiusXLarge);
+}
+
+.datefield-calendar-popup {
+    box-sizing: border-box;
+    width: 342px;
+    max-width: 100%;
+
+    &.month-select {
+        width: 274px;
+    }
+
+    &.year-select {
+        width: 262px;
+    }
+
+    > .bui-calendar.datefield-calendar {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        padding: 12px;
+
+        > .header {
+            height: 44px;
+            line-height: 44px;
+
+            > .title {
+                height: 44px;
+                line-height: 44px;
+                border-radius: var(--borderRadiusMedium);
+                font-size: var(--fontSizeBase400);
+            }
+
+            > .nav > button {
+                width: 44px;
+                height: 44px;
+                line-height: 44px;
+                border: 1px solid var(--colorNeutralStroke1);
+                border-radius: var(--borderRadiusMedium);
+                background-color: var(--colorNeutralBackground1);
+            }
+        }
+
+        > .header > .nav > button:first-child > svg {
+            transform: rotate(-90deg);
+        }
+
+        > .header > .nav > button:last-child > svg {
+            transform: rotate(-90deg);
+        }
+
+        &.day-select {
+            > table {
+                width: 100%;
+                margin-top: 8px;
+                padding-bottom: 0;
+
+                th {
+                    width: auto;
+                    height: 36px;
+                    line-height: 36px;
+                }
+
+                td.day-cell {
+                    width: auto;
+                    height: 44px;
+                    line-height: normal;
+                    border-radius: 0;
+                    background-color: var(--colorTransparentBackground);
+
+                    > button {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        vertical-align: middle;
+                        box-sizing: border-box;
+                        width: 30px;
+                        height: 30px;
+                        line-height: 1;
+                        border: 1px solid var(--colorNeutralStroke1);
+                        border-radius: var(--borderRadiusCircular);
+                    }
+
+                    &.selected {
+                        color: var(--colorNeutralForegroundOnBrand);
+                        background-color: var(--colorTransparentBackground);
+
+                        > button {
+                            color: var(--colorNeutralForegroundOnBrand);
+                            background-color: var(--colorBrandBackground);
+                            border-color: transparent;
+                            font-weight: var(--fontWeightSemibold);
+                        }
+                    }
+
+                    &.today:not(.selected) > button {
+                        color: var(--colorBrandForeground1);
+                        background-color: var(--colorTransparentBackground);
+                        border-color: var(--colorBrandForeground1);
+                        font-weight: var(--fontWeightSemibold);
+                    }
+
+                    &.disabled > button {
+                        color: var(--colorNeutralForegroundDisabled);
+                        cursor: not-allowed;
+                    }
+
+                    &:hover {
+                        color: inherit;
+                        background-color: var(--colorTransparentBackground);
+                        outline: none;
+
+                        > button {
+                            color: var(--colorBrandForeground1);
+                            background-color: var(--colorBrandBackground2Hover);
+                        }
+                    }
+
+                    &.selected:hover > button {
+                        color: var(--colorNeutralForegroundOnBrand);
+                        background-color: var(--colorBrandBackgroundHover);
+                    }
+                }
+            }
+        }
+
+        &.month-select,
+        &.year-select {
+            > div.grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 14px 8px;
+                margin-top: 8px;
+
+                > .row {
+                    display: contents;
+                    margin: 0;
+
+                    > button {
+                        width: 100%;
+                        min-width: 0;
+                        margin: 0;
+                        border-radius: var(--borderRadiusMedium);
+                    }
+                }
+            }
+        }
+
+        &.month-select > div.grid > .row > button {
+            height: 40px;
+            min-height: 40px;
+            line-height: 40px;
+        }
+
+        &.year-select > div.grid > .row > button {
+            height: 38px;
+            min-height: 38px;
+            line-height: 38px;
+        }
+    }
+
+    .datefield-calendar-selected-date {
+        display: flex;
+        align-items: center;
+        min-height: 38px;
+        margin-top: 8px;
+        padding-inline: 10px;
+        color: var(--colorNeutralForeground2);
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+    }
+}
+
+.bui-button.datefield-calendar-trigger:not(.small):not(.large) {
+    height: 46px;
+    min-height: 46px;
+    padding: 0;
+}
+
+.bui-button.datefield-calendar-trigger.small {
+    height: 38px;
+    min-height: 38px;
+    padding: 0;
+}
+
+.bui-button.datefield-calendar-trigger.large {
+    height: 54px;
+    min-height: 54px;
+    padding: 0;
+}
+
+.bui-button.datefield-calendar-trigger[disabled] {
+    color: var(--colorNeutralForegroundDisabled);
+    background-color: var(--colorNeutralBackgroundDisabled);
+    border-color: var(--colorNeutralStrokeDisabled);
+}
+
+.datefield-calendar-popup:has(> .bui-calendar.month-select) {
+    width: 274px;
+}
+
+.datefield-calendar-popup:has(> .bui-calendar.year-select) {
+    width: 262px;
 }

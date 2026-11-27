@@ -1,4 +1,4 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<TValue>
 @typeparam TValue
 
@@ -10,7 +10,8 @@
              Style="@Style"
              @bind-Value="CurrentValueAsString"
              AsciiDigits="true"
-             @attributes=GetInputAdditionalAttributes()
+             InputEventName="@BindValueEvent"
+             @attributes="GetInputAdditionalAttributes()"
              id="@GetInputId()"
              dir="ltr"
              autocomplete="off"

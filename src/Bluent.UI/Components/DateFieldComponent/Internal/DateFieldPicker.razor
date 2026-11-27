@@ -1,27 +1,57 @@
-﻿@using System.Globalization
+@using System.Globalization
+@using Microsoft.Extensions.Localization
 @typeparam TValue
 
-<Popover>
+<Popover AccessibleTriggerState="true"
+         Placement="Placement.BottomStart"
+         DisplayArrow="false"
+         SurfaceRole="dialog"
+         SurfaceAriaLabelledBy="@_calendarHeadingId">
     <Trigger>
         <Button Icon="@FluentIcons.Calendar"
                 Appearance="ButtonAppearance.Subtle"
                 Size="ButtonSize"
-                disabled="@IsDisabled"/>
+                Class="datefield-calendar-trigger"
+                aria-label="@Localizer["ChooseDate"]"
+                aria-haspopup="dialog"
+                disabled="@IsDisabled" />
     </Trigger>
     <Surface>
-        <Calendar TValue=TValue
-                  SelectedDate=_value
-                  SelectedDateChanged="OnDatePicked"
-                  Culture=Culture
-                  Mode="Mode"
-                  Min="Min"
-                  Max="Max">
-        </Calendar>
+        <div class="datefield-calendar-popup @CalendarModeClass">
+            <Calendar Id="@_calendarId" TValue="TValue"
+                      SelectedDate="_value"
+                      SelectedDateChanged="OnDatePicked"
+                      Culture="Culture"
+                      Mode="Mode"
+                      Min="Min"
+                      Max="Max"
+                      DateClass="DateClass"
+                      Class="datefield-calendar"
+                      AutoFocusSelectedDate="true" />
+            @if (Mode == CalendarMode.DaySelect && SelectedDateForDisplay is { } selectedDate)
+            {
+                <div class="datefield-calendar-selected-date">@selectedDate.ToString("d MMMM yyyy", Culture)</div>
+            }
+        </div>
     </Surface>
 </Popover>
 
 @code {
-    TValue? _value;
+    private TValue? _value;
+    private readonly string _calendarId = $"datefield-calendar-{Guid.NewGuid():N}";
+    private string _calendarHeadingId => $"{_calendarId}-heading";
+    private string CalendarModeClass => Mode switch
+    {
+        CalendarMode.MonthSelect => "month-select",
+        CalendarMode.YearSelect => "year-select",
+        _ => "day-select"
+    };
+    private DateTime? SelectedDateForDisplay => _value switch
+    {
+        DateTime dateTime => dateTime,
+        DateOnly dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
+        _ => null
+    };
 
     [Parameter, EditorRequired] public ButtonSize ButtonSize { get; set; }
     [Parameter, EditorRequired] public bool IsDisabled { get; set; }
@@ -31,23 +61,14 @@
     [Parameter, EditorRequired] public CalendarMode Mode { get; set; }
     [Parameter, EditorRequired] public DateTime? Min { get; set; }
     [Parameter, EditorRequired] public DateTime? Max { get; set; }
+    [Parameter] public Func<DateOnly, string>? DateClass { get; set; }
+    [Inject] private IStringLocalizer<DateFieldComponent.Resources.DateField> Localizer { get; set; } = default!;
 
     protected override void OnParametersSet()
     {
-        if (_value is null || !_value.Equals(Value))
+        if (!EqualityComparer<TValue?>.Default.Equals(_value, Value))
             _value = Value;
-
-        if (_value is null)
-        {
-            var valueType = typeof(TValue);
-            
-            if (valueType == typeof(DateTime) || valueType == typeof(DateTime?))
-                _value = (TValue)(object)DateTime.Now;
-            else if (typeof(TValue) == typeof(DateOnly) || valueType == typeof(DateOnly?))
-                _value = (TValue)(object)DateOnly.FromDateTime(DateTime.Now);
-        }
 
         base.OnParametersSet();
     }
-
 }

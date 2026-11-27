@@ -174,10 +174,15 @@ public class PopoverContainerBase<TPopoverService> : ComponentBase, IPopoverEven
         if (context is null)
             return;
 
-        if (context.Config.KeepSurface)
+        if (context.Config.KeepSurface || args.RestoreFocus)
         {
             if (_interop is not null)
                 await _interop.HideSurfaceAsync(context.Config.Settings, restoreFocus: true);
+            else if (!context.Config.KeepSurface)
+            {
+                context.Config.Visible = false;
+                await InvokeAsync(StateHasChanged);
+            }
             return;
         }
 
