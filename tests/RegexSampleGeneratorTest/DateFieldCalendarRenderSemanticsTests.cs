@@ -24,7 +24,7 @@ public sealed class DateFieldCalendarRenderSemanticsTests
             [nameof(Calendar<DateTime?>.Culture)] = CultureInfo.GetCultureInfo("en-US"),
             [nameof(Calendar<DateTime?>.Min)] = minimum,
             [nameof(Calendar<DateTime?>.Max)] = maximum,
-            [nameof(Calendar<DateTime?>.AutoFocusSelectedDate)] = true
+            [nameof(Calendar<DateTime?>.Class)] = "datefield-calendar"
         });
 
         var selectedButton = Regex.Match(markup, @"<button\b[^>]*aria-pressed=""true""[^>]*>");

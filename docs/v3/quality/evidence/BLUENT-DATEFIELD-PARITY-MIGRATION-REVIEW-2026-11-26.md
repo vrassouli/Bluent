@@ -1,9 +1,9 @@
 # DateField parity, native contrast and migration review (#438)
 
-Updated: 2026-11-27 (review opened 2026-11-26)  
-Branch: `v3/issue-438-datefield`  
-Recorded base head: `add8d519a75432a9a990a4dafbed06aa33590356`  
-Working tree: uncommitted
+Updated: 2026-11-27 (review opened 2026-11-26)
+Branch: `v3/issue-438-datefield`
+Recorded base head: `add8d519a75432a9a990a4dafbed06aa33590356`
+Review state: draft PR #569; targeted local checks pass; exact-head CI and independent acceptance pending.
 
 ## Penpot page 61 and screenshot findings
 
@@ -38,6 +38,12 @@ Two behavior differences are relevant to consumers:
 
 The v3 popup markup and ARIA relationships also differ and may affect application CSS or DOM selectors. No source or docs change to the released 2.x package is proposed. This is a local migration audit, not independent migration approval.
 
+## Current-source follow-up — 2026-11-27
+
+After the API-surface and binding-cascade refinements, the exact current source passed the Release solution build with 0 warnings and 0 errors, the full Release suite with 219/219 tests, and the compiled public API contract without changing its official snapshot. The contract check reports 140 public CLR component types and 795 declared component properties.
+
+The isolated Chrome/WebAssembly DateField probe passed 35/35 checks with selection-grid and Chromium accessibility-tree checks enabled. It includes selected-day focus, Escape restoration to the trigger, and natural Tab exit. The live WebAssembly Component Lab run also passed the native DateField typing check and updated the bound date from 2026/10/18 to 2026/10/19. The exact-head hosted browser matrix remains pending.
+
 ## Acceptance still required
 
 - Independent visual acceptance must confirm the page-61 comparison findings and accept a real product-context capture; the QA-fixture captures are not a baseline.
@@ -56,8 +62,8 @@ I also inspected the real `/components/fields` route in Chrome at 1034 × 786 wi
 
 An InteractiveServer keyboard check exposed a focusout race: paging asynchronously replaces the focused month grid, and the previous observer treated that temporary focus loss as Tab exit and closed the popup before focus returned. `bluent.ui.calendar.js` now invokes `HandleCalendarTabExit` only after an actual Tab keydown followed by focusout, and clears that request after focusout or a short timeout. This preserves natural Tab exit while allowing month/year paging to finish. The probe waits for restored focus after paging.
 
-The refreshed Chrome/Edge × WebAssembly/InteractiveServer matrix passes **35/35 checks per cell (140/140 total)** on this uncommitted head. It covers PageUp/PageDown and Shift variants, Escape, Space open, natural Tab exit, selection-focus return, three-column month/year grids and three-option vertical movement, popup arrow/overflow behavior, and Chromium accessibility-tree names. Four per-cell JSON reports were regenerated on 2026-11-27. The separate responsive/popup run remains 33/33 with seven retained fixture screenshots.
+An earlier local source revision passed the Chrome/Edge × WebAssembly/InteractiveServer matrix at **35/35 checks per cell (140/140 total)**. It covered PageUp/PageDown and Shift variants, Escape, Space open, natural Tab exit, selection-focus return, three-column month/year grids and three-option vertical movement, popup arrow/overflow behavior, and Chromium accessibility-tree names. Its four per-cell JSON reports were regenerated on 2026-11-27. This matrix predates the latest API-surface and binding-cascade refinements and is historical evidence, not an exact-source matrix. The separate responsive/popup run remains 33/33 with seven retained fixture screenshots.
 
-The page-61 comparison remains a local parity record, not independent acceptance. On 2026-11-27, after the user confirmed Penpot availability, all three approved boards were exported and reviewed alongside the retained runtime captures. The master board’s heading, navigation, day-cell and footer anatomy aligns with the reviewed popup. The selection board specifies three-column MonthSelect and YearSelect grids; their 12-option geometry and three-option vertical movement are covered by the refreshed 140/140 browser matrix and 33/33 responsive run. The locale/accessibility board specifies an RTL Persian field with left-to-right date text and responsive edge placement; the retained RTL and edge captures align with those expectations. No concrete visual or popup-placement defect emerged in the reviewed evidence. The fixture popup measures 360 × 396 at 764 × 429 and uses internal scrolling, compared with approximately 360 × 560 on the master board; independent product-context acceptance of this viewport-constrained height remains open. The retained /components/fields screenshot at 1034 × 786 shows the calendar closed and the unrelated NumericField error banner, so it is context evidence only. The QA fixture captures remain evidence and are not an approved screenshot baseline.
+The page-61 comparison remains a local parity record, not independent acceptance. On 2026-11-27, after the user confirmed Penpot availability, all three approved boards were exported and reviewed alongside the retained runtime captures. The master board’s heading, navigation, day-cell and footer anatomy aligns with the reviewed popup. The selection board specifies three-column MonthSelect and YearSelect grids; their 12-option geometry and three-option vertical movement were covered by the earlier 140/140 browser matrix and 33/33 responsive run. The locale/accessibility board specifies an RTL Persian field with left-to-right date text and responsive edge placement; the retained RTL and edge captures align with those expectations. No concrete visual or popup-placement defect emerged in the reviewed evidence. The fixture popup measures 360 × 396 at 764 × 429 and uses internal scrolling, compared with approximately 360 × 560 on the master board; independent product-context acceptance of this viewport-constrained height remains open. The retained /components/fields screenshot at 1034 × 786 shows the calendar closed and the unrelated NumericField error banner, so it is context evidence only. The QA fixture captures remain evidence and are not an approved screenshot baseline.
 
 Spoken screen-reader acceptance remains open. Chromium accessibility-tree and Windows UI Automation snapshots do not establish what Narrator or another screen reader speaks. Exact-head hosted CI, independent code review and independent migration approval also remain outstanding. The local native Windows High Contrast Black/White visual check is recorded above and does not constitute accessibility certification.

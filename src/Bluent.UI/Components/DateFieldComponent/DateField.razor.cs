@@ -159,16 +159,22 @@ public partial class DateField<TValue>
 
         return builder =>
         {
-            builder.OpenComponent<DateFieldPicker<TValue>>(0);
-            builder.AddAttribute(1, nameof(DateFieldPicker<TValue>.ButtonSize), GetButtonSize());
-            builder.AddAttribute(2, nameof(DateFieldPicker<TValue>.IsDisabled), IsDisabled);
-            builder.AddAttribute(3, nameof(DateFieldPicker<TValue>.Culture), Culture);
-            builder.AddAttribute(4, nameof(DateFieldPicker<TValue>.Value), Value);
-            builder.AddAttribute(5, nameof(DateFieldPicker<TValue>.Mode), Mode);
-            builder.AddAttribute(6, nameof(DateFieldPicker<TValue>.Min), Min);
-            builder.AddAttribute(7, nameof(DateFieldPicker<TValue>.Max), Max);
-            builder.AddAttribute(8, nameof(DateFieldPicker<TValue>.DateClass), GetCalendarDateClass());
-            builder.AddAttribute(9, nameof(DateFieldPicker<TValue>.OnDatePicked), EventCallback.Factory.Create<TValue>(this, OnDatePicked));
+            builder.OpenComponent<CascadingValue<Func<DateOnly, string>?>>(0);
+            builder.AddAttribute(1, "Name", "BluentDateFieldDateClass");
+            builder.AddAttribute(2, "Value", GetCalendarDateClass());
+            builder.AddAttribute(3, "ChildContent", (RenderFragment)(pickerBuilder =>
+            {
+                pickerBuilder.OpenComponent<DateFieldPicker<TValue>>(0);
+                pickerBuilder.AddAttribute(1, nameof(DateFieldPicker<TValue>.ButtonSize), GetButtonSize());
+                pickerBuilder.AddAttribute(2, nameof(DateFieldPicker<TValue>.IsDisabled), IsDisabled);
+                pickerBuilder.AddAttribute(3, nameof(DateFieldPicker<TValue>.Culture), Culture);
+                pickerBuilder.AddAttribute(4, nameof(DateFieldPicker<TValue>.Value), Value);
+                pickerBuilder.AddAttribute(5, nameof(DateFieldPicker<TValue>.Mode), Mode);
+                pickerBuilder.AddAttribute(6, nameof(DateFieldPicker<TValue>.Min), Min);
+                pickerBuilder.AddAttribute(7, nameof(DateFieldPicker<TValue>.Max), Max);
+                pickerBuilder.AddAttribute(8, nameof(DateFieldPicker<TValue>.OnDatePicked), EventCallback.Factory.Create<TValue>(this, OnDatePicked));
+                pickerBuilder.CloseComponent();
+            }));
             builder.CloseComponent();
         };
     }

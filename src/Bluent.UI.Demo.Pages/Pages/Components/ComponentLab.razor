@@ -619,6 +619,7 @@
                     <div class="lab-date-card">
                         <label for="lab-date-day">Date with calendar</label>
                         <DateField id="lab-date-day" @bind-Value="_labDateDay"
+                                   BindValueEvent="oninput"
                                    Culture="System.Globalization.CultureInfo.InvariantCulture" />
                         <p class="lab-date-day-status" role="status" lang="en" dir="ltr">Day: @_labDateDay.ToString("yyyy/MM/dd")</p>
                     </div>
@@ -1085,7 +1086,7 @@
     private DateTime _labDateMonth = new(2026, 10, 1);
     private DateOnly _labDateOnly = new(2026, 10, 18);
     private DateTime _labDateDisabled = new(2026, 10, 18);
-    private string SelectedDateFieldRazor => "<DateField id=\"lab-date-day\" @bind-Value=\"_labDateDay\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<DateField id=\"lab-date-month\" @bind-Value=\"_labDateMonth\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Mode=\"CalendarMode.MonthSelect\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-only\" @bind-Value=\"_labDateOnly\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-disabled\" Value=\"_labDateDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" disabled />\n@code { private DateTime _labDateDay = new(2026, 10, 18); private DateTime _labDateMonth = new(2026, 10, 1); private DateOnly _labDateOnly = new(2026, 10, 18); private DateTime _labDateDisabled = new(2026, 10, 18); }";
+    private string SelectedDateFieldRazor => "<DateField id=\"lab-date-day\" @bind-Value=\"_labDateDay\" BindValueEvent=\"oninput\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<DateField id=\"lab-date-month\" @bind-Value=\"_labDateMonth\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Mode=\"CalendarMode.MonthSelect\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-only\" @bind-Value=\"_labDateOnly\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-disabled\" Value=\"_labDateDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" disabled />\n@code { private DateTime _labDateDay = new(2026, 10, 18); private DateTime _labDateMonth = new(2026, 10, 1); private DateOnly _labDateOnly = new(2026, 10, 18); private DateTime _labDateDisabled = new(2026, 10, 18); }";
 
     private TimeOnly _labTimeBasic = new(9, 30);
     private TimeOnly _labTimeSeconds = new(14, 25, 6);

@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace Bluent.UI.Components;
 
-public partial class Calendar<TValue>
+public partial class Calendar<TValue> : IAsyncDisposable
 {
     private CalendarMode _viewMode = CalendarMode.DaySelect;
     private CalendarMode _mode = CalendarMode.DaySelect;
@@ -22,7 +22,7 @@ public partial class Calendar<TValue>
     private bool _hasInitializedParameters;
     private IJSObjectReference? _focusModule;
     private IJSObjectReference? _focusListener;
-    private DotNetObjectReference<Calendar<TValue>>? _focusReference;
+    private DotNetObjectReference<CalendarTabExitCallback>? _focusReference;
 
     [Parameter] public TValue SelectedDate { get; set; } = default!;
     [Parameter] public EventCallback<TValue> SelectedDateChanged { get; set; }
@@ -32,7 +32,6 @@ public partial class Calendar<TValue>
     [Parameter] public Func<DateOnly, string>? DateClass { get; set; }
     [Parameter] public DateTime? Max { get; set; }
     [Parameter] public DateTime? Min { get; set; }
-    [Parameter] public bool AutoFocusSelectedDate { get; set; }
     [CascadingParameter] public Popover? Popover { get; set; }
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IStringLocalizer<CalendarComponent.Resources.CalendarResources> Localizer { get; set; } = default!;
@@ -45,13 +44,15 @@ public partial class Calendar<TValue>
 
     private System.Globalization.Calendar ActiveCalendar => Culture.DateTimeFormat.Calendar;
 
-    // DateField renders selection options in three columns; standalone Calendar uses four.
-    private int SelectionGridColumnCount =>
+    private bool IsDateFieldCalendar =>
         (Class ?? string.Empty)
             .Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)
-            .Contains("datefield-calendar", StringComparer.Ordinal)
-                ? 3
-                : 4;
+            .Contains("datefield-calendar", StringComparer.Ordinal);
+
+    private bool AutoFocusSelectedDate => IsDateFieldCalendar;
+
+    // DateField renders selection options in three columns; standalone Calendar uses four.
+    private int SelectionGridColumnCount => IsDateFieldCalendar ? 3 : 4;
 
     private int DaysInMonth => ActiveCalendar.GetDaysInMonth(
         ActiveCalendar.GetYear(ViewDate),
@@ -185,7 +186,7 @@ public partial class Calendar<TValue>
         _focusModule = await JsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./_content/Bluent.UI/bluent.ui.calendar.js");
 
-        _focusReference = DotNetObjectReference.Create(this);
+        _focusReference = DotNetObjectReference.Create(new CalendarTabExitCallback(() => Popover?.Close()));
         _focusListener = await _focusModule.InvokeAsync<IJSObjectReference>(
             "observeCalendarTabExit", _root, _focusReference);
     }
@@ -199,10 +200,18 @@ public partial class Calendar<TValue>
     private string GetDayButtonId(DateTime date) =>
         $"{Id}_day_{ActiveCalendar.GetYear(date):D4}_{ActiveCalendar.GetMonth(date):D2}_{ActiveCalendar.GetDayOfMonth(date):D2}";
 
-    [JSInvokable]
-    public void HandleCalendarTabExit()
+    // Keep the JS callback target private so tab-exit plumbing is not consumer API.
+    private sealed class CalendarTabExitCallback
     {
-        Popover?.Close();
+        private readonly Action _onTabExit;
+
+        public CalendarTabExitCallback(Action onTabExit)
+        {
+            _onTabExit = onTabExit;
+        }
+
+        [JSInvokable]
+        public void HandleCalendarTabExit() => _onTabExit();
     }
 
     private async Task ChangeViewDateAsync(DateTime value)
@@ -614,7 +623,7 @@ public partial class Calendar<TValue>
         StateHasChanged();
     }
 
-    public override async ValueTask DisposeAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
         try
         {

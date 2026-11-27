@@ -140,7 +140,9 @@ public partial class Popover : IDisposable
             PopoverService.Close(_settings.TriggerId);
     }
 
-    internal Task CloseAsync(bool restoreFocus = false)
+    internal Task CloseAsync() => CloseAsync(restoreFocus: false);
+
+    internal Task CloseAsync(bool restoreFocus)
     {
         if (_settings is null)
             return Task.CompletedTask;

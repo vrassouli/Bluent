@@ -18,7 +18,10 @@ public partial class MaskedField
     [Parameter, EditorRequired] public string Mask { get; set; } = default!;
     [Parameter] public bool AsciiDigits { get; set; }
     [Parameter] public bool ArabicToPersianConversion { get; set; }
-    [Parameter] public string InputEventName { get; set; } = "oninput";
+    [CascadingParameter(Name = "BluentDateFieldBindValueEvent")]
+    private string? DateFieldBindValueEvent { get; set; }
+
+    private string InputEventName => DateFieldBindValueEvent ?? "oninput";
 
     private string? UserInput { get; set; }
 

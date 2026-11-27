@@ -26,8 +26,7 @@
                       Min="Min"
                       Max="Max"
                       DateClass="DateClass"
-                      Class="datefield-calendar"
-                      AutoFocusSelectedDate="true" />
+                      Class="datefield-calendar" />
             @if (Mode == CalendarMode.DaySelect && SelectedDateForDisplay is { } selectedDate)
             {
                 <div class="datefield-calendar-selected-date">@selectedDate.ToString("d MMMM yyyy", Culture)</div>
@@ -61,7 +60,8 @@
     [Parameter, EditorRequired] public CalendarMode Mode { get; set; }
     [Parameter, EditorRequired] public DateTime? Min { get; set; }
     [Parameter, EditorRequired] public DateTime? Max { get; set; }
-    [Parameter] public Func<DateOnly, string>? DateClass { get; set; }
+    [CascadingParameter(Name = "BluentDateFieldDateClass")]
+    private Func<DateOnly, string>? DateClass { get; set; }
     [Inject] private IStringLocalizer<DateFieldComponent.Resources.DateField> Localizer { get; set; } = default!;
 
     protected override void OnParametersSet()
