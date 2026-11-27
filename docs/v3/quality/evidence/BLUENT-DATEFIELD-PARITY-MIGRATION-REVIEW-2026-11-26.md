@@ -42,7 +42,7 @@ The v3 popup markup and ARIA relationships also differ and may affect applicatio
 
 After the API-surface and binding-cascade refinements, the exact current source passed the Release solution build with 0 warnings and 0 errors, the full Release suite with 219/219 tests, and the compiled public API contract without changing its official snapshot. The contract check reports 140 public CLR component types and 795 declared component properties.
 
-The isolated Chrome/WebAssembly DateField probe passed 35/35 checks with selection-grid and Chromium accessibility-tree checks enabled. It includes selected-day focus, Escape restoration to the trigger, and natural Tab exit. The live WebAssembly Component Lab run also passed the native DateField typing check and updated the bound date from 2026/10/18 to 2026/10/19. The exact-head hosted browser matrix remains pending.
+The isolated Chrome/WebAssembly DateField probe passed 35/35 checks with selection-grid and Chromium accessibility-tree checks enabled. It includes selected-day focus, Escape restoration to the trigger, and natural Tab exit. The live WebAssembly Component Lab run also passed the native DateField typing check and updated the bound date from 2026/10/18 to 2026/10/19. The Interaction Source Contract now passes 35/35 tests after its stale Calendar source assertions were aligned to the real awaitable controls. The exact-head hosted browser matrix remains pending.
 
 ## Acceptance still required
 
