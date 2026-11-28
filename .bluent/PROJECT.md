@@ -1,6 +1,14 @@
 # Bluent Project Status
 
-This file is the current project-state entry point. Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
+This file is the current project-state entry point.
+## 2026-11-28 DateField #438 current-source checkpoint
+
+Issue #438 is still In progress in GitHub Project #5. PR #569 is open, targeting bluent-v3; its pushed head 6ef93d7528675a22c6e81fa9bffd11df18b2f2d5 previously passed 13/13 hosted workflows. Current-source local verification now passes: Release build 0 warnings/errors; Release tests 219/219; focused calendar semantics 8/8; isolated DateField Chrome/WebAssembly 41/41 and production-published InteractiveServer 41/41 (82/82 total); Component Lab source contract 18/18; live Chrome/WebAssembly Component Lab 289/289 with cleanup 11/0; Component Lab acceptance regression 12/12; docs contract 0 findings; Skills contract 6 files/0 errors; Markdown links 254 files. The new working-tree follow-up still requires fresh exact-head CI after push.
+
+The three owned Penpot page-61 boards were compared with the implementation and the old #418 foundation-gate wording corrected to FOUNDATION INTEGRATED. Agent source, visual/placement and migration self-review found no concrete defect; no human review or approval is claimed, consistent with the maintainer's direction. Twelve current-source screenshots are retained under the two DateField evidence directories and documented as fixture QA captures, not an approved screenshot baseline. Native Windows High Contrast Black/White visual checks passed previously and settings were restored.
+
+Spoken Narrator/NVDA/VoiceOver output remains unverified; Chromium AX and Windows UI Automation are not speech evidence. Keep #438 In progress and PR #569 Draft until fresh exact-head CI is green and all acceptance gates are actually satisfied. Do not mark Done or merge into a stable branch. The v3 work remains unreleased; no 2.x source/package, stable branch, release or deployment is changed.
+ Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
 
 ## 2026-11-24 #418 engineering closeout and acceptance-review board
 
