@@ -1,6 +1,6 @@
 ## 2026-11-28 DateField #438 — review-ready checkpoint
 
-Issue #438 is prepared for **Review** in GitHub Project #5. PR [#569](https://github.com/vrassouli/Bluent/pull/569) is open against `bluent-v3`; task branch `v3/issue-438-datefield`; exact reviewed head `cc6d062660660f2284ea204d4166fb24ce1c6b6e`. Hosted exact-head GitHub Actions completed **13/13 workflows successfully**. The PR is not merged and the v3 component is unreleased.
+Issue #438 is in **Review** in GitHub Project #5. PR [#569](https://github.com/vrassouli/Bluent/pull/569) is open and Ready for maintainer review against `bluent-v3`; task branch `v3/issue-438-datefield`; exact reviewed head `895814f286048a4de306c0758bbd0d0453458b5e`. Hosted exact-head GitHub Actions completed **13/13 workflows successfully**, with Real Compatibility Browsers 32/32 jobs. The PR is not merged and the v3 component is unreleased.
 
 - Release solution build with warnings as errors: **0 warnings / 0 errors**; complete Release tests **219/219**; focused calendar render semantics **8/8**.
 - DateField current-source Chrome/WebAssembly **41/41** and production-published InteractiveServer **41/41** (**82/82 total**), no browser exceptions.

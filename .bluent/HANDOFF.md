@@ -1,9 +1,9 @@
 # Bluent Handoff
 
 This file is the operational entry point for continuing the current Bluent work with Codex or another coding agent.
-## 2026-11-28 DateField #438 — prepared for review
+## 2026-11-28 DateField #438 — in Review
 
-- Actual Project #5 Status: **In progress** (last verified); PR [#569](https://github.com/vrassouli/Bluent/pull/569) is currently Draft and targets `bluent-v3`. Task branch: `v3/issue-438-datefield`; latest pushed head: `cc6d062660660f2284ea204d4166fb24ce1c6b6e`; hosted CI on that exact head: **13/13 workflows succeeded**. The additional documentation/acceptance record in the current working tree is not yet committed or included in that CI result.
+- Actual Project #5 Status: **Review**; PR [#569](https://github.com/vrassouli/Bluent/pull/569) is open and Ready for maintainer review against `bluent-v3`. Task branch: `v3/issue-438-datefield`; exact head: `895814f286048a4de306c0758bbd0d0453458b5e`; hosted exact-head CI: **13/13 workflows succeeded**, including Compatibility Browsers 32/32 jobs.
 - Release solution build (warnings as errors): 0 warnings/errors; full .NET Release tests 219/219; focused calendar semantics 8/8.
 - Dedicated DateField Chrome/WebAssembly 41/41 and production-published InteractiveServer 41/41 (82/82); Component Lab source contract 18/18; live Chrome/WebAssembly Component Lab 290/290; browser cleanup 11 owned/0 remaining; acceptance regression 12/12; Docs 0 findings; Skills 6 files/0 errors; Markdown links 257 files.
 - Eight live DateField Lab cards cover all three modes, four supported value/nullability shapes, size tiers, both addon slots, input timing, bounds, DateClass, parsing feedback, disabled and native attributes. The full public API and capability-to-evidence map is `docs/v3/quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md`.
