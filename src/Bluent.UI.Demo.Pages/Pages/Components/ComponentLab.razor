@@ -619,9 +619,11 @@
                     <div class="lab-date-card">
                         <label for="lab-date-day">Day selection (DateTime)</label>
                         <DateField id="lab-date-day" @bind-Value="_labDateDay"
-                                   BindValueEvent="oninput" Class="lab-date-example"
+                                   Size="FieldSize.Small" BindValueEvent="oninput" Class="lab-date-example"
                                    Style="max-width:28rem" autocomplete="off"
-                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture">
+                            <StartAddon><span aria-hidden="true">#</span></StartAddon>
+                        </DateField>
                         <p class="lab-date-day-status" role="status" lang="en" dir="ltr">Day: @_labDateDay.ToString("yyyy/MM/dd")</p>
                     </div>
                     <div class="lab-date-card">
@@ -634,6 +636,7 @@
                     <div class="lab-date-card">
                         <label for="lab-date-year">Year selection</label>
                         <DateField id="lab-date-year" @bind-Value="_labDateYear"
+                                   Size="FieldSize.Large"
                                    Culture="System.Globalization.CultureInfo.InvariantCulture"
                                    Mode="CalendarMode.YearSelect" />
                         <p class="lab-date-year-status" role="status" lang="en" dir="ltr">Year: @_labDateYear.ToString("yyyy")</p>
@@ -679,7 +682,7 @@
                                    DisplayCalendar="false" disabled />
                     </div>
                 </div>
-                <p class="lab-controls-note">Live examples cover all three selection modes, DateTime and DateOnly values, input timing, inclusive bounds, DateClass, parsing feedback, EndAddon replacement, disabled state and native input attributes. Full locale and assistive-technology results remain documented in #438 evidence.</p>
+                <p class="lab-controls-note">Live examples cover all three selection modes, DateTime and DateOnly values, Small/Medium/Large sizes, StartAddon and EndAddon composition, input timing, inclusive bounds, DateClass, parsing feedback, disabled state and native input attributes. Full locale and assistive-technology results remain documented in #438 evidence.</p>
             }
             else if (_selected == "timefield")
             {
@@ -963,7 +966,7 @@
             "<SelectField @bind-Value=\"_labSelectColor\"><option value=\"Blue\">Blue</option></SelectField>",
             "Representative runnable scenario only"),
         new("datefield", "DateField", "components/fields", "Day, month, year, bounds and DateOnly",
-            "Interactive DateField examples cover all selection modes, DateTime/DateOnly values, Min/Max, DateClass, parser feedback, EndAddon replacement and disabled state. This remains a representative Component Lab sample, not complete component acceptance.",
+            "Interactive DateField examples cover all selection modes, DateTime/DateOnly values, Small/Medium/Large sizes, StartAddon and EndAddon composition, Min/Max, DateClass, parser feedback and disabled state. This remains a representative Component Lab sample, not complete component acceptance.",
             "<DateField @bind-Value=\"_labDateDay\" Culture=\"CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
         new("timefield", "TimeField", "components/fields", "TimeOnly seconds and TimeSpan",
@@ -1139,9 +1142,11 @@
     }
 
     private string SelectedDateFieldRazor => """
-        <DateField id="lab-date-day" @bind-Value="_labDateDay" BindValueEvent="oninput" Class="lab-date-example" Style="max-width:28rem" autocomplete="off" Culture="System.Globalization.CultureInfo.InvariantCulture" />
+        <DateField id="lab-date-day" @bind-Value="_labDateDay" Size="FieldSize.Small" BindValueEvent="oninput" Class="lab-date-example" Style="max-width:28rem" autocomplete="off" Culture="System.Globalization.CultureInfo.InvariantCulture">
+            <StartAddon><span aria-hidden="true">#</span></StartAddon>
+        </DateField>
         <DateField id="lab-date-month" @bind-Value="_labDateMonth" Culture="System.Globalization.CultureInfo.InvariantCulture" Mode="CalendarMode.MonthSelect" />
-        <DateField id="lab-date-year" @bind-Value="_labDateYear" Culture="System.Globalization.CultureInfo.InvariantCulture" Mode="CalendarMode.YearSelect" />
+        <DateField id="lab-date-year" @bind-Value="_labDateYear" Size="FieldSize.Large" Culture="System.Globalization.CultureInfo.InvariantCulture" Mode="CalendarMode.YearSelect" />
         <DateField id="lab-date-only" @bind-Value="_labDateOnly" Culture="System.Globalization.CultureInfo.InvariantCulture" DisplayCalendar="false" />
         <DateField id="lab-date-only-nullable" @bind-Value="_labDateOnlyNullable" Culture="System.Globalization.CultureInfo.InvariantCulture" />
         <EditForm Model="this">

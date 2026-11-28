@@ -612,9 +612,22 @@
       "propertiesDemonstrated": [
         "Value",
         "ValueChanged",
+        "ValueExpression",
+        "EditContext",
         "Culture",
         "Mode",
+        "DateClass",
+        "Max",
+        "Min",
         "DisplayCalendar",
+        "ParsingErrorMessage",
+        "StartAddon",
+        "EndAddon",
+        "Size",
+        "BindValueEvent",
+        "Class",
+        "Style",
+        "AdditionalAttributes",
         "disabled"
       ],
       "classification": "representative_only",
@@ -624,10 +637,10 @@
         "Chrome/Server Dev01: DateField native Blazor browser 168/168; published InteractiveServer native masked edit, DateOnly, disabled, RTL; cleanup=0",
         "Edge/Server Dev01: DateField native Blazor browser 168/168; published InteractiveServer native masked edit, DateOnly, disabled, RTL; cleanup=0"
       ],
-      "remaining": "Existing DateTime/DateOnly, day/month mode and disabled samples only. DateClass, Min/Max, full calendar surface/selection, culture-specific Persian calendar, type mask validation, errors, keyboard, OS AT, Fluent2 Penpot parity pending #438.",
+      "remaining": "This Component Lab row remains representative_only for the wider 66-family #421 tracker; it does not claim exhaustive API combinations or all-day demo permutations. It now demonstrates Small/Medium/Large sizes and both leading/trailing addon composition. DateField #438 runtime, keyboard, Narrator and design evidence are tracked separately in docs/v3/components/date-field.md and docs/v3/quality/evidence/; NVDA/VoiceOver were not run.",
       "fourModeLocalBrowserEvidence": "2026-10-18 Chrome/Edge × WebAssembly/published InteractiveServer real CDP browser 168/168 each (672/672 total); errors=[], QA-owned browser cleanup 0",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-datefield-live-rtl-chrome-wasm.png",
-      "knownLimitations": "Current DateTime day and MonthSelect, DateOnly, disabled native masked inputs; no actual calendar surface date selection, Persian calendar locale, Min/Max/DateClass, accessibility, native OS AT or complete Fluent2 visual parity acceptance."
+      "knownLimitations": "This row is representative_only and does not claim exhaustive API permutations or complete demo coverage. The dedicated DateField #438 browser fixtures separately verify calendar-surface date selection, inclusive Min/Max behavior, DateClass, multiple cultures and keyboard navigation. A targeted Windows Narrator/Chrome spoken-output smoke covers the DaySelect field, popup, selected date and ArrowRight announcement; NVDA and VoiceOver were not run. The wider Component Lab row is not a full Fluent 2 design or cross-screen-reader certification."
     },
     {
       "id": "timefield",
