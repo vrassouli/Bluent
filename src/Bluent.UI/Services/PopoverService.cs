@@ -51,9 +51,9 @@ internal class PopoverService : IPopoverService
         OnHideSurface?.Invoke(this, new HidePopoverSurfaceEventArgs(triggerId));
     }
 
-    internal async Task CloseAsync(string triggerId)
+    internal async Task CloseAsync(string triggerId, bool restoreFocus = false)
     {
-        var args = new HidePopoverSurfaceEventArgs(triggerId);
+        var args = new HidePopoverSurfaceEventArgs(triggerId, restoreFocus);
         var handlers = OnHideSurfaceAsync;
         if (handlers is null)
         {

@@ -859,11 +859,12 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  await js("document.querySelector('button.lab-family')?.click()");
  const dateReady=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('DateField')&&!!document.getElementById('lab-date-day')"),12000);
  check('twelfth DateField renders current real masked day month DateOnly and disabled fields',dateReady);
- const dateInitial=await js("(()=>{const ids=['lab-date-day','lab-date-month','lab-date-only','lab-date-disabled'],n=ids.map(id=>document.getElementById(id)),cards=document.querySelector('.lab-date-grid');return {count:cards?.children.length,inputs:n.map(x=>({tag:x?.tagName,type:x?.type,value:x?.value,dir:x?.dir,disabled:x?.disabled})),calendar:cards?.children[0]?.querySelectorAll('button').length}})()");
- check('DateField current MaskedField native values day month DateOnly and truly disabled render',
-  dateInitial.count===4&&dateInitial.inputs.length===4&&dateInitial.inputs.every(x=>x.tag==='INPUT'&&x.type==='text'&&x.dir==='ltr')&&dateInitial.inputs[0].value==='2026/10/18'&&dateInitial.inputs[1].value==='2026/10'&&dateInitial.inputs[2].value==='2026/10/18'&&dateInitial.inputs[3].disabled&&dateInitial.inputs[3].value==='2026/10/18',dateInitial);
+ const dateInitial=await js("(()=>{const ids=['lab-date-day','lab-date-month','lab-date-year','lab-date-only','lab-date-only-nullable','lab-date-range','lab-date-addon','lab-date-disabled'],n=ids.map(id=>document.getElementById(id)),cards=document.querySelector('.lab-date-grid');const dayShell=n[0]?.closest('.bui-field'),monthShell=n[1]?.closest('.bui-field'),yearShell=n[2]?.closest('.bui-field');return {count:cards?.children.length,inputs:n.map(x=>({tag:x?.tagName,type:x?.type,value:x?.value,dir:x?.dir,disabled:x?.disabled})),calendar:cards?.children[0]?.querySelectorAll('button').length,dayShell:dayShell?.className,monthShell:monthShell?.className,yearShell:yearShell?.className,startAddon:dayShell?.querySelector('.start-addon')?.textContent?.trim()}})()");
+ check('DateField eight specimen cards render with expected values and disabled state',
+  dateInitial.count===8&&dateInitial.inputs.length===8&&dateInitial.inputs.every(x=>x.tag==='INPUT'&&x.type==='text'&&x.dir==='ltr')&&dateInitial.inputs[0].value==='2026/10/18'&&dateInitial.inputs[1].value==='2026/10'&&dateInitial.inputs[2].value==='2026'&&dateInitial.inputs[3].value==='2026/10/18'&&dateInitial.inputs[4].value==='2026/10/18'&&dateInitial.inputs[5].value==='2026/10/18'&&dateInitial.inputs[6].value==='2026/10/18'&&dateInitial.inputs.slice(0,7).every(x=>!x.disabled)&&dateInitial.inputs[7].disabled&&dateInitial.inputs[7].value==='2026/10/18',dateInitial);
  check('DateField calendar trigger only appears for enabled day picker sample',
   dateInitial.calendar>=1,dateInitial.calendar);
+ check('DateField day/medium/year samples expose StartAddon and Small/Medium/Large sizes',dateInitial.dayShell?.includes('small')&&dateInitial.monthShell?.includes('bui-field')&&!dateInitial.monthShell?.includes('small')&&!dateInitial.monthShell?.includes('large')&&dateInitial.yearShell?.includes('large')&&dateInitial.startAddon==='#',dateInitial);
  await js("(()=>{const el=document.getElementById('lab-date-day');el.focus();el.setSelectionRange(8,10)})()");
  await send('Input.insertText',{text:'19'});
  const dateTyped=await poll(()=>js("document.querySelector('.lab-date-day-status')?.textContent.trim()==='Day: 2026/10/19'&&document.getElementById('lab-date-day')?.value==='2026/10/19'"),12000);
@@ -877,10 +878,10 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  await js("(()=>{for(const [id,v] of [['lab-direction','rtl'],['lab-viewport','narrow']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='rtl'&&document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  const dateLayout=await js("(()=>{const g=document.querySelector('.lab-date-grid'),b=g.getBoundingClientRect(),a=[...g.children].map(x=>x.getBoundingClientRect()),s=getComputedStyle(g),statuses=[...g.querySelectorAll('p[role=status]')].map(x=>({lang:x.lang,dir:x.dir,direction:getComputedStyle(x).direction,align:getComputedStyle(x).textAlign}));return {cols:s.gridTemplateColumns,gap:parseFloat(s.rowGap),vgap:a.slice(1).map((x,i)=>x.top-a[i].bottom),within:a.every(x=>x.left>=b.left-1&&x.right<=b.right+1),canvas:document.querySelector('.lab-canvas').getBoundingClientRect().width,statuses}})()");
- check('RTL 320px DateField four cards render in one nonoverlapping column with >=8px gap',
+ check('RTL 320px DateField eight cards render in one nonoverlapping column with >=8px gap',
   dateLayout.cols.trim().split(/\s+/).length===1&&dateLayout.gap>=8&&dateLayout.vgap.every(x=>x>=8)&&dateLayout.within&&dateLayout.canvas<=320,dateLayout);
- check('RTL DateField English status punctuation retains LTR but right alignment',
-  dateLayout.statuses.length===2&&dateLayout.statuses.every(x=>x.lang==='en'&&x.dir==='ltr'&&x.direction==='ltr'&&['right','end'].includes(x.align)),dateLayout.statuses);
+ check('RTL DateField four English status messages retain LTR direction with right alignment',
+  dateLayout.statuses.length===4&&dateLayout.statuses.every(x=>x.lang==='en'&&x.dir==='ltr'&&x.direction==='ltr'&&['right','end'].includes(x.align)),dateLayout.statuses);
  await js("(()=>{for(const [id,v] of [['lab-direction','ltr'],['lab-viewport','wide']]){const x=document.getElementById(id);x.value=v;x.dispatchEvent(new Event('change',{bubbles:true}))}})()");
  await poll(()=>js("document.querySelector('.lab-canvas')?.dir==='ltr'&&!document.querySelector('.lab-canvas')?.classList.contains('narrow')"),12000);
  await js("(()=>{const e=document.getElementById('lab-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'');e.dispatchEvent(new Event('input',{bubbles:true}))})()");
@@ -1227,7 +1228,7 @@ check('sixth TextField copyable Razor includes native states, transforms, addons
  const selectLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('SelectField')&&!!document.getElementById('lab-select-color')"),12000);
  check('source queue launches 11th real SelectField without claiming #437 Done',selectLaunch); await js("(()=>{const el=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'438');el.dispatchEvent(new Event('input',{bubbles:true}))})()");
  const dateQueue=await poll(()=>js("(()=>{const rows=[...document.querySelectorAll('.lab-queue-row')];return rows.length===1&&rows[0].textContent.includes('DateField')&&rows[0].textContent.includes('Live pilot')&&rows[0].querySelector('a')?.getAttribute('href')?.endsWith('/issues/438')&&!!rows[0].querySelector('button')})()"),12000);
- check('source queue #438 retains DateField Backlog and offers runnable current pilot',dateQueue);
+ check('source queue #438 retains incomplete DateField and offers runnable current pilot',dateQueue);
  await js("document.querySelector('.lab-queue-row button')?.click()");
  const dateLaunch=await poll(()=>js("document.querySelector('.lab-stage-heading h2')?.textContent.startsWith('DateField')&&!!document.getElementById('lab-date-day')"),12000);
  check('source queue launches twelfth real DateField without completing #438',dateLaunch); await js("(()=>{const el=document.getElementById('lab-queue-search');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,'439');el.dispatchEvent(new Event('input',{bubbles:true}))})()");

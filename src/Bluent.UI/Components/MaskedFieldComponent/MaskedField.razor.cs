@@ -1,5 +1,6 @@
-﻿using Bluent.UI.Common.Regex;
+using Bluent.UI.Common.Regex;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
@@ -13,22 +14,29 @@ public partial class MaskedField
     private List<LexPath> _LexPaths = new();
     private string? _lastValidInput;
     private string? _value;
+
     [Parameter, EditorRequired] public string Mask { get; set; } = default!;
     [Parameter] public bool AsciiDigits { get; set; }
     [Parameter] public bool ArabicToPersianConversion { get; set; }
-    
+    [CascadingParameter(Name = "BluentDateFieldBindValueEvent")]
+    private string? DateFieldBindValueEvent { get; set; }
+
+    private string InputEventName => DateFieldBindValueEvent ?? "oninput";
+
     private string? UserInput { get; set; }
 
     protected override void OnParametersSet()
     {
+        if (InputEventName is not ("oninput" or "onchange"))
+            throw new InvalidOperationException($"{nameof(InputEventName)} supports only 'oninput' and 'onchange'.");
+
         if (_mask != Mask)
         {
-            if (_mask != null) // Don't set if this is the first-time
+            if (_mask != null)
                 SetUserInput(null);
 
             _mask = Mask;
             GenerateMaskSamples();
-
         }
 
         if (_value != Value)
@@ -43,10 +51,25 @@ public partial class MaskedField
     protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         validationErrorMessage = default;
-
         result = value;
         return true;
     }
+
+    private RenderFragment RenderInput() => builder =>
+    {
+        builder.OpenElement(0, "input");
+        builder.AddMultipleAttributes(1, GetInputAdditionalAttributes());
+        builder.AddAttribute(2, "id", GetInputId());
+        builder.AddAttribute(3, "type", "text");
+        builder.AddAttribute(4, "name", NameAttributeValue);
+        builder.AddAttribute(5, "value", UserInput);
+        builder.AddAttribute(6, InputEventName, EventCallback.Factory.Create<ChangeEventArgs>(this, OnUserInputChanged));
+        builder.AddEventPreventDefaultAttribute(7, InputEventName, true);
+        builder.AddEventStopPropagationAttribute(8, InputEventName, true);
+        builder.AddAttribute(9, "onkeyup", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyUp));
+        builder.AddElementReferenceCapture(10, element => Element = element);
+        builder.CloseElement();
+    };
 
     private void OnUserInputChanged(ChangeEventArgs args)
     {
@@ -55,7 +78,7 @@ public partial class MaskedField
             value = value?.ToAsciiDigits();
         if (ArabicToPersianConversion)
             value = value?.ToPersianChars();
-        
+
         SetUserInput(value);
     }
 
@@ -77,15 +100,10 @@ public partial class MaskedField
     private void OnKeyUp(KeyboardEventArgs args)
     {
         if (UserInput != _lastValidInput && !IsValid())
-        {
             UserInput = _lastValidInput;
-        }
     }
 
-    private void GenerateMaskSamples()
-    {
-        _LexPaths = RegexLexer.ToPaths(Mask);
-    }
+    private void GenerateMaskSamples() => _LexPaths = RegexLexer.ToPaths(Mask);
 
     private bool IsValid()
     {
@@ -101,7 +119,6 @@ public partial class MaskedField
     private bool IsValid(LexPath path)
     {
         var input = UserInput;
-
         if (input is null)
             return true;
 
@@ -122,6 +139,7 @@ public partial class MaskedField
             .Where(path => IsValid(path))
             .Select(path => path.GetLitteralAt(position))
             .ToList();
+
         if (literals.Distinct().Count() == 1)
             return literals[0];
 
@@ -133,7 +151,6 @@ public partial class MaskedField
         do
         {
             var nextLiteral = GetLiteralAt(UserInput?.Length ?? 0);
-
             if (nextLiteral is null)
                 break;
 

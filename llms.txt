@@ -121,6 +121,7 @@ All tracked optional-package retrieval families are source verified. Closely rel
 The maintained [inventory](https://github.com/vrassouli/Bluent/blob/Dev/docs/components/inventory.md) currently contains 65 source-verified consumer retrieval families in total: 57 main UI, 2 Charts, 2 Diagrams, and 4 Utilities.
 
 ## Bluent v3 isolated design work (not released)
+- [DateField v3 implementation record (#438, in progress)](https://github.com/vrassouli/Bluent/blob/v3/issue-438-datefield/docs/v3/components/date-field.md): branch-local DateTime/DateOnly API, Chrome/Edge × WebAssembly/InteractiveServer matrix (68/68, including Chromium accessibility-tree checks), and responsive/popover QA (27/27) with seven fixture screenshots, including browser-emulated forced colors and reduced motion; direct Penpot comparison found the main calendar anatomy aligned and fixed the left/right navigation arrows, while independent product-context visual, spoken screen-reader, migration and exact-head review gates remain open; not released guidance.
 
 - [Penpot v3 working library and issue #419 traceability](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/BLUENT-V3-PENPOT.md): real Penpot file/page/board IDs, draft token modes, first editable component and upstream library publication caveat; not approved v3 product guidance.
 - [Machine-readable Penpot design inventory](https://github.com/vrassouli/Bluent/blob/v3/issue-419-penpot-library/docs/v3/design/penpot-workspace.manifest.json): offline metadata, not a substitute for live design access.

@@ -1,7 +1,8 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<TValue>
 @typeparam TValue
 
+<CascadingValue TValue="string" Name="BluentDateFieldBindValueEvent" Value="@BindValueEvent">
 <MaskedField Mask="@GetMask()"
              StartAddon="StartAddon"
              EndAddon="GetEndAddon()"
@@ -10,8 +11,9 @@
              Style="@Style"
              @bind-Value="CurrentValueAsString"
              AsciiDigits="true"
-             @attributes=GetInputAdditionalAttributes()
+             @attributes="GetInputAdditionalAttributes()"
              id="@GetInputId()"
              dir="ltr"
              autocomplete="off"
              name="@NameAttributeValue" />
+</CascadingValue>

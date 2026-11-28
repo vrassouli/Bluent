@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Source-backed pilot coverage contract. Does not claim complete component validation."""
 import json
 import re
@@ -316,14 +316,19 @@ def check() -> int:
     assert data["families"][11]["classification"] == "representative_only"
     assert data["families"][11]["existingDemoRoute"] == "/components/fields"
     assert set(data["families"][11]["propertiesDemonstrated"]) == {
-        "Value", "ValueChanged", "Culture", "Mode", "DisplayCalendar", "disabled"
+        "Value", "ValueChanged", "ValueExpression", "EditContext", "Culture",
+        "Mode", "DateClass", "Max", "Min", "DisplayCalendar",
+        "ParsingErrorMessage", "StartAddon", "EndAddon", "Size",
+        "BindValueEvent", "Class", "Style", "AdditionalAttributes", "disabled"
     }
     date_source=(ROOT/"src/Bluent.UI/Components/DateFieldComponent/DateField.razor").read_text(encoding="utf-8-sig")
     assert '<MaskedField Mask="@GetMask()"' in date_source
     for marker in ('new("datefield", "DateField"', 'class="lab-date-grid"',
                    'id="lab-date-day"', 'id="lab-date-month"', 'id="lab-date-only"',
                    'id="lab-date-disabled"', 'Mode="CalendarMode.MonthSelect"',
-                   'DisplayCalendar="false"', 'SelectedDateFieldRazor'):
+                   'DisplayCalendar="false"', 'Size="FieldSize.Small"',
+                   'Size="FieldSize.Large"', '<StartAddon>',
+                   '<span aria-hidden="true">#</span>', 'SelectedDateFieldRazor'):
         assert marker in source, "Current DateField real specimen missing: "+marker
     assert '.lab-canvas.narrow .lab-date-grid' in css
     assert '.lab-canvas.compact .lab-date-card' in css
@@ -333,14 +338,15 @@ def check() -> int:
     assert date_queue["scenarioId"]=="datefield-day-month-dateonly-disabled"
     for gate in (
         "twelfth DateField renders current real masked day month DateOnly and disabled fields",
-        "DateField current MaskedField native values day month DateOnly and truly disabled render",
+        "DateField eight specimen cards render with expected values and disabled state",
         "DateField calendar trigger only appears for enabled day picker sample",
+        "DateField day/medium/year samples expose StartAddon and Small/Medium/Large sizes",
         "native date input mask keypress updates actual DateTime Blazor value to 2026/10/19",
         "disabled DateField actual MaskedField input rejects focus and preserves date",
         "DateField copyable Razor has native day MonthSelect DateOnly and disabled samples",
-        "RTL 320px DateField four cards render in one nonoverlapping column with >=8px gap",
-        "RTL DateField English status punctuation retains LTR but right alignment",
-        "source queue #438 retains DateField Backlog and offers runnable current pilot",
+        "RTL 320px DateField eight cards render in one nonoverlapping column with >=8px gap",
+        "RTL DateField four English status messages retain LTR direction with right alignment",
+        "source queue #438 retains incomplete DateField and offers runnable current pilot",
         "source queue launches twelfth real DateField without completing #438",
     ):
         assert gate in (ROOT/"scripts/quality/probe_v3_component_lab.mjs").read_text(encoding="utf-8-sig")

@@ -1,6 +1,17 @@
 # Bluent Handoff
 
 This file is the operational entry point for continuing the current Bluent work with Codex or another coding agent.
+## 2026-11-28 DateField #438 — in Review
+
+- Actual Project #5 Status: **Review**; PR [#569](https://github.com/vrassouli/Bluent/pull/569) is open and Ready for maintainer review against `bluent-v3`. Task branch: `v3/issue-438-datefield`; exact head: `895814f286048a4de306c0758bbd0d0453458b5e`; hosted exact-head CI: **13/13 workflows succeeded**, including Compatibility Browsers 32/32 jobs.
+- Release solution build (warnings as errors): 0 warnings/errors; full .NET Release tests 219/219; focused calendar semantics 8/8.
+- Dedicated DateField Chrome/WebAssembly 41/41 and production-published InteractiveServer 41/41 (82/82); Component Lab source contract 18/18; live Chrome/WebAssembly Component Lab 290/290; browser cleanup 11 owned/0 remaining; acceptance regression 12/12; Docs 0 findings; Skills 6 files/0 errors; Markdown links 257 files.
+- Eight live DateField Lab cards cover all three modes, four supported value/nullability shapes, size tiers, both addon slots, input timing, bounds, DateClass, parsing feedback, disabled and native attributes. The full public API and capability-to-evidence map is `docs/v3/quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md`.
+- Penpot page 61 (three boards), source/API, parser/range, focus/Popover, migration and runtime parity received agent self-review. No concrete implementation blocker was found. This is a technical self-review, not independent human approval.
+- Product-context screenshot metadata and SHA-256 are in `docs/v3/quality/evidence/BLUENT-DATEFIELD-PRODUCT-CONTEXT-2026-11-28.md`. Narrator/Chrome spoke field label/value, the non-modal popup/grid, Escape close and focus-restored trigger, and ArrowRight from 18 to 19 October. Windows UIA confirmed Right/Down/Left/Up focus 18→19→26→25→18. NVDA and VoiceOver were not run; do not claim cross-screen-reader certification.
+- Native Windows High Contrast Black/White visual checks passed previously with settings restored. Browser emulation is recorded separately. `/components/fields` still has an unrelated NumericField<float> rendering defect; DateField's own fixtures and `/component-lab` were used.
+- Keep the issue **Review**, not Done; PR remains unmerged. No Dev/main/2.x code, package, release or deployment was changed. Do not mark Done until the PR is accepted and merged into `bluent-v3`.
+- Next component by sequence: #439 TimeField (12/66), after #438 is accepted/merged.
 
 ## Active v3 foundation gate — #418 Design Tokens (refreshed 2026-11-24)
 
@@ -17,7 +28,7 @@ This file is the operational entry point for continuing the current Bluent work 
 - **Still open:** final public semantic-token allow-list and production alias names; public Focus/Portal/Dialog type/member contract; broader native Windows Contrast Themes coverage (including High Contrast Black and user-defined schemes); UI Automation and spoken Narrator/NVDA/VoiceOver acceptance; physical-keyboard coverage; native Safari.app/SafariDriver; Persian OS IME composition/caret/selection and cross-platform font metrics.
 - Native Windows HC prototype evidence (2026-11-23): Windows 11 Pro build 28000 / Edge 158.0.4370.33 / High Contrast White only. The original OS flags/scheme were restored. Dialog semantics and a limited Tab/Shift+Tab/Escape/focus-return path were recorded; Popover trigger relations were recorded, but its surface had no explicit role and a transparent own background. Input was CDP-dispatched, not physical hardware; no UI Automation or spoken AT output was captured. See `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-HC-2026-11-23.md` and its JSON/PNG companion.
 - Native Windows HC / UIA evidence (2026-11-24): the published InteractiveServer Dialog/Popover fixture was run on Windows 11 Pro build 28000 / Edge 158.0.4370.33 with native High Contrast White. Windows reported forced-colors: active and prefers-contrast: more. UIA exposed the named Dialog window, heading, invokable Close modal button, Popover content Group/Text and named trigger. Synthetic OS Tab focused Close modal; Shift+Tab focused Last focusable; Escape closed the Dialog and returned focus to its trigger. Popover surface had computed opaque background rgb(255, 250, 239) in this run, but no explicit role; aria-haspopup was absent. Native flags were restored exactly (126), and owned Edge processes remaining=0. Evidence JSON/MD and two SHA-256-pinned PNGs are under docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-24*; fail-closed regression 12/12.
-- GitHub Project #5 keeps #418 **In progress** and #438 DateField **Backlog**. Do not merge PR #500, begin #438, activate production CSS, change stable Dev/main, publish NuGet packages, release or deploy. Those actions are outside this checkpoint and require the remaining acceptance/authorization.
+- At this 2026-11-24 checkpoint, Project #5 showed #418 **In progress** and #438 DateField **Backlog**. DateField began later under its own branch; see the #438 handoff above. Do not merge PR #500, activate production CSS, change stable Dev/main, publish NuGet packages, release or deploy as part of #418.
 - Dated detail: `docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-24.md`; prior detail: `docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-23.md`; DateField downstream dependency audit: `docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md`.
 ### 2026-11-20 — #418 Dark-matrix flake correction (local, pre-push)
 
@@ -32,26 +43,26 @@ The `bluent.color.*` vs `bluent.source.*` distinction now has an explicit classi
 
 ### 2026-11-23 — #418 validation-text host boundary follow-up
 
-The existing `.validation-message` → `--colorPaletteRedForeground1` mapping remains unchanged. The neutral-base audit passes 60/60 brand/mode/surface pairs (minimum 5.2036:1); an exhaustive 2,180-pair host diagnostic finds 834 passing pairs; 26 surfaces pass in every theme, 51 fail in every theme and 32 are mixed. Brand Background is 0/20 (minimum 1.0027:1), Neutral Background Inverted is 0/20 (minimum 2.4877:1), and Palette Red Background 2 is 0/20 (minimum 3.5017:1); 16 non-opaque/alpha backgrounds are excluded pending compositing evidence. Diagnostic failures are deliberately not counted as neutral-base failures; they establish that the current color is not universal on arbitrary hosts. `semantic.text.validation` remains review-only, outside the 17-role schema/public allow-list. Local tests: validation audit 10/10; #418 review contract 21/21. See `docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-23.md`. Fresh exact-head CI is required after push. #438 DateField remains Backlog and untouched.
+The existing `.validation-message` → `--colorPaletteRedForeground1` mapping remains unchanged. The neutral-base audit passes 60/60 brand/mode/surface pairs (minimum 5.2036:1); an exhaustive 2,180-pair host diagnostic finds 834 passing pairs; 26 surfaces pass in every theme, 51 fail in every theme and 32 are mixed. Brand Background is 0/20 (minimum 1.0027:1), Neutral Background Inverted is 0/20 (minimum 2.4877:1), and Palette Red Background 2 is 0/20 (minimum 3.5017:1); 16 non-opaque/alpha backgrounds are excluded pending compositing evidence. Diagnostic failures are deliberately not counted as neutral-base failures; they establish that the current color is not universal on arbitrary hosts. `semantic.text.validation` remains review-only, outside the 17-role schema/public allow-list. Local tests: validation audit 10/10; #418 review contract 21/21. See `docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-23.md`. Fresh exact-head CI is required after push. At this 2026-11-23 checkpoint, #438 DateField remained Backlog and untouched; it began later under the separate task branch described above.
 
 
 
-## Current Objective
+## Completed objective — Issue #406
 
-Complete [Issue #406](https://github.com/vrassouli/Bluent/issues/406): build and validate the canonical portable Bluent consumer skill from verified source, canonical documentation, examples, and runtime evidence.
+Issue [#406](https://github.com/vrassouli/Bluent/issues/406) was completed and closed on 2026-08-30 through merged [PR #407](https://github.com/vrassouli/Bluent/pull/407). The following scope and validation notes are retained as historical context; they are separate from the current v3 DateField work.
 
 The skill must stay retrieval-oriented and Bluent-first. Canonical component/task documentation remains authoritative; `.agents/skills/bluent/` routes consumers to the minimum relevant references instead of duplicating a monolithic API catalog.
 
-## Current Branch and Tracking
+## Historical branch and tracking
 
 - Base branch: `Dev`
 - Active branch: `docs/issue-406-consumer-skill`
 - Active issue: [#406](https://github.com/vrassouli/Bluent/issues/406)
 - Draft pull request: [#407](https://github.com/vrassouli/Bluent/pull/407)
 - Product/API gap backlog discovered during #406: [#411](https://github.com/vrassouli/Bluent/issues/411)
-- Do not merge PR #407 or close #406 as part of implementation work.
+- PR #407 is merged and #406 is closed; this completed consumer-skill effort is separate from the current v3 DateField task.
 
-## Read First
+## Original read-first list
 
 1. `AGENTS.md`
 2. `.bluent/PROJECT.md`
@@ -85,7 +96,7 @@ The skill must stay retrieval-oriented and Bluent-first. Canonical component/tas
 - `Bluent.TaskExamples` now references `Bluent.UI.Utilities`, imports its public consumer namespaces, and calls `AddBluentUtilities()`.
 - Product/API/runtime/accessibility defects found during verification are recorded in #411 rather than silently fixed inside #406.
 
-## Validation State
+## Historical validation state
 
 Repository Quality CI is the authoritative current-head gate. It performs:
 
@@ -123,264 +134,4 @@ Documentation typos, broken links, and skill-routing drift should be fixed direc
 
 1. Get the final current-head Quality and Release-package workflows green after the latest dogfood/link/state changes.
 2. Reconcile canonical component pages with existing runtime evidence where it directly applies; leave stronger untested behavior explicitly unverified.
-3. Spot-check the remaining public service/helper/configuration classifications for accidental consumer omissions.
-4. Record final validation evidence in project/quality tracking.
-5. Review #406 acceptance criteria line by line.
-6. Keep PR #407 Draft until the acceptance evidence is complete; then make it review-ready only if appropriate.
-7. Do not merge, publish packages, create tags/releases, or close #406.
-
-## Constraints
-
-- Do not invent Bluent APIs or behavior.
-- Do not create a duplicated monolithic skill/API catalog.
-- Prefer canonical docs and targeted retrieval.
-- Preserve the zero-warning Release baseline.
-- Do not claim runtime/accessibility/render-mode validation without actual evidence.
-- Keep product defects visible in #411.
-- Keep the branch based on current `Dev` and resolve drift explicitly.
-
-
-## Separate v3 TextField #432 checkpoint — 2026-11-11
-
-This is a separate Bluent v3 task track; it does not change the existing #406 consumer-skill work above. Continue in worktree `C:\Projects\Bluent-issue432`, branch `v3/issue-432-textfield`, based on `bluent-v3`. Preserve the unrelated dirty files in `C:\Projects\Bluent`. Read `AGENTS.md`, `docs/v3/ISSUE-WORKFLOW.md`, `docs/v3/BRANCHING.md`, `docs/v3/PENPOT-WORKFLOW.md`, and the current TextField contract before further edits.
-
-Issue [#432](https://github.com/vrassouli/Bluent/issues/432) is **In progress**. PR [#562](https://github.com/vrassouli/Bluent/pull/562) is an open design/API audit PR targeting `bluent-v3`; it is not a runtime implementation or acceptance PR.
-
-The shared #421 Component Lab TextField pilot now has seventeen live examples and focused browser assertions for native input/textarea, Rows, both textarea resize modes, disabled/readonly, three transforms, combined and independent addons, Small/Large sizes, first-render GainFocus, default onchange and live oninput binding, DataAnnotations/EditContext validation, Bluent Label Display/Required association, and native attributes/Class/Style forwarding. A seventeenth fixture verifies an independent keyboard-operable EndAddon action beside a disabled input. On 2026-11-11 the TextField checks passed in Chrome/Edge × WebAssembly/InteractiveServer using real Chromium CDP. InteractiveServer runs completed HTTP 101 SignalR handshakes. Static Lab contracts, generated queue check, Node syntax and whitespace check passed; Debug WASM demo build succeeded with 0 errors. Four existing NU1903 advisories on `Microsoft.AspNetCore.WebUtilities` 10.0.7 remain unresolved and were not suppressed.
-
-Treat this only as **current v2 API baseline evidence**. Remaining work includes described-by relationships, transform-flag combinations, native IME behavior and caret/selection preservation, exhaustive keyboard/focus states, responsive/RTL/theme/forced-colors and native AT verification, approved Fluent/ Penpot parity, the v3 Razor/C#/CSS implementation, canonical docs/Skill/migration and exact-head CI.
-
-Exact-head CI on 23d733aca0060192800cf328fa28f24895ddef06 is now fully green: Component Lab 4/4 (Chrome/Edge × WASM/InteractiveServer), compatibility browsers 4/4, Label/Info 4/4 (Chrome/Edge × en-US/fa-IR), Release build/tests/five-package validation, Evidence policy and Documentation Contract. The shared Lab totals are 266/266 per WASM run and 263/263 per Server run; these are full-Lab counts, not TextField-only counts.
-
-Penpot page 19's narrow reflow preview was shifted 85px right and re-exported so it no longer covers the wide second field. Pages 17–20 remain DRAFT; this fixes layout readability only, not design or maintainer sign-off.
-
-#418 is now **Review** in Project #5, but production token vocabulary/values and mappings still await acceptance. Do not consume provisional aliases in product CSS. Pages 17–20 were directly exported and visually rechecked in the current Penpot session; page 19's narrow reflow specimen was moved to remove an overlap with the wide second field. The boards remain DRAFT and still need maintainer visual sign-off. Keep #432 In progress until its own accepted PR is merged into `bluent-v3`; never merge to stable `Dev`/main or publish stable packages as part of this task.
-
-
-## TextField #432 interactive-addon regression checkpoint — 2026-11-11
-
-Added a seventeenth current-v2 API TextField specimen: a named Clear button inside EndAddon beside a disabled native input. Real Chromium CDP verifies the button remains enabled/focusable, is the next Tab stop after the preceding input, and activates exactly once with Enter without enabling the input.
-
-Final local Dev01 matrix: Chrome/Edge × WebAssembly 269/269 full shared Lab checks each; Chrome/Edge × published InteractiveServer 266/266 each; aggregate 1070/1070. All 19 TextField-targeted checks passed in all four runs; every Server run completed SignalR WebSocket HTTP 101 and all browser cleanup ended at remaining=0. These are full shared Lab totals, not TextField-only counts. Static checker, generated queue check, Node syntax and git diff --check pass; Release Server runs also compiled successfully with only the existing NU1903 warnings.
-
-This is current v2/API regression evidence only. It does not claim v3 implementation, accessibility/OS acceptance, token acceptance, or Penpot sign-off. Pages 17–20 remain DRAFT; #418 remains Review; #432 remains In progress.
-
-
-## TextField #432 clipboard-paste and composition observation — 2026-11-11
-
-Three actual browser clipboard Ctrl+V checks now cover DigitOnly, AsciiDigits and ArabicToPersianConversion. A synthetic DOM insertCompositionText/isComposing observation records current v2 setter behavior, but is not a physical/native IME test.
-
-Final local Dev01 matrix: Chrome/Edge x WebAssembly 273/273 full shared Lab assertions each; Chrome/Edge x published InteractiveServer 270/270 each; aggregate 1086/1086. All 23 TextField-targeted checks passed in all four modes; Server completed SignalR HTTP 101 and each browser cleanup ended at remaining=0. These are full shared-Lab totals, not TextField-only counts.
-
-Still outstanding: real OS/IME testing, transform flag combinations, caret/selection preservation, exhaustive keyboard/focus, RTL/theme/forced-colors, native AT, #418 token acceptance, Penpot maintainer approval, and the v3 runtime implementation/migration. #432 remains In progress.
-
-## TextField #432 security-gate remediation checkpoint — 2026-11-13
-
-Exact-head CI on `861adc9e9dd0e7c2942d77db8e7c225f3a34a693` passed the Component Lab pilot (Chrome/Edge × WASM/InteractiveServer), compatibility browsers (including Label/Info locales), Evidence Policy, and Documentation Contract. The remaining Baseline Quality Gate failed at the full Release build because `Microsoft.AspNetCore.WebUtilities` 10.0.7 triggered NU1903 for [GHSA-x33c-w48q-qrgc](https://github.com/advisories/GHSA-x33c-w48q-qrgc).
-
-On the isolated `v3/issue-432-textfield` task branch, aligned direct .NET 10 ASP.NET Core / Extensions package references from 10.0.7 or 10.0.14 to patched 10.0.15 in ten library, demo, and sample project files. No audit warnings were suppressed and no v2 release assets were changed. Local `dotnet restore Bluent.sln` succeeded; `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` succeeded; `dotnet test Bluent.sln --configuration Release --no-build` passed **46/46** tests. Component Lab contract/queue checks, Node syntax check and `git diff --check` also passed. The separate `dotnet list package --vulnerable` invocation stalled during NuGet report retrieval and was cancelled, so do not describe it as a completed standalone vulnerability inventory. Exact-head GitHub CI for the new package-update commit still needs to run.
-
-This does not change the #432 acceptance boundary: the 23 TextField assertions per browser mode and 1086 aggregate shared-Lab assertions remain current-v2 API regression evidence, not v3 implementation acceptance. Native OS IME/caret/selection, token approval in #418, Penpot maintainer sign-off, and the actual v3 TextField runtime/API/CSS, migration and acceptance matrix remain open. Issue #432 stays In progress; PR #562 stays open. Do not merge, publish, deploy, or mark Done as part of this checkpoint.
-
-
-The first CI run on the package-remediation commit then exposed two stale fail-closed test fixtures in `scripts/quality/test_v3_quality_gate_contract.py`: they asserted the repository still contained `10.0.14`, then tried to downgrade it to `10.0.13`. Updated the quality-contract checker minimum for the ASP.NET Core `WebAssembly.Server` and `WebAssembly.DevServer` packages to `10.0.15`, and changed each negative control to inject `10.0.14` into a copy of the current project text. All **50/50** quality-contract tests and the standalone checker now pass; the negative controls still prove that the vulnerable pre-fix patch is rejected.
-
-## TextField #432 — full transform matrix and final local verification — 2026-11-13
-
-Branch: `v3/issue-432-textfield` → `bluent-v3`; PR #562 remains open. The latest engineering changes are recorded in the task branch; exact-head GitHub CI must run on the next evidence commit.
-
-### Current-API Component Lab coverage expansion
-
-Expanded the shared Component Lab TextField section to **21 live specimens** on the existing released/v2 API. The three transform flags (`DigitOnly`, `AsciiDigits`, `ArabicToPersianConversion`) now have all **eight on/off combinations** represented: none, each single flag, each pair and all three. Each multi-flag combination has a real browser Ctrl+V clipboard test. The two final pairwise cases verify both behavior and ordering:
-
-- `DigitOnly + AsciiDigits`: mixed-script paste filters to Unicode decimal digits, then converts Persian/Arabic-Indic numerals to ASCII (`123456`).
-- `DigitOnly + ArabicToPersianConversion`: filtering happens first and Arabic letter variants are normalized; digit script remains Persian/Arabic-Indic because `AsciiDigits` is not enabled (`۱۲٣٤56`).
-- `AsciiDigits + ArabicToPersianConversion` and all three flags are also exercised with real Ctrl+V; the all-three path is additionally exercised through native browser text insertion and bound-model feedback.
-
-The copyable Razor example includes all combined cases and their backing state. The browser Probe checks the rendered value and bound status after native clipboard operations, not just the DOM input value. The suite has **28 explicitly named TextField-targeted checks per run**; the full shared Component Lab counts are distinct from that subset.
-
-### Four-mode local browser evidence
-
-Final local Dev01 runs on the 21-specimen / 28-check source passed:
-
-| Browser / render mode | Full shared Component Lab | TextField-targeted | SignalR / cleanup |
-|---|---:|---:|---|
-| Chrome / WebAssembly | 278/278 | 28/28 | no JS errors; cleanup remaining 0 |
-| Edge / WebAssembly | 278/278 | 28/28 | no JS errors; cleanup remaining 0 |
-| Chrome / published InteractiveServer | 275/275 | 28/28 | WebSocket HTTP 101; no JS errors; cleanup remaining 0 |
-| Edge / published InteractiveServer | 275/275 | 28/28 | WebSocket HTTP 101; no JS errors; cleanup remaining 0 |
-
-Aggregate: **1106/1106 full shared Component Lab assertions across four runs**. The 28 TextField checks are a subset, not an extra 112 checks. Each run completed browser/profile cleanup with `remaining=0`.
-
-Additional validation after the ComponentLab markup update: `python scripts/quality/check_v3_component_lab.py` passed; generated family queue `--check` passed; Node Probe syntax passed; quality-gate contract tests passed **50/50**; full `dotnet build Bluent.sln --configuration Release --no-restore -warnaserror` passed; full `dotnet test Bluent.sln --configuration Release --no-build` passed **46/46**; `git diff --check` clean.
-
-### Boundaries / remaining acceptance
-
-This evidence is still a **current v2/released-API regression baseline**, not implementation acceptance for a v3 TextField. No production TextField API/C#/CSS or stable/v2 assets were changed. The composition event is a synthetic DOM `insertCompositionText`/`isComposing` observation only; physical OS IME behavior, composition cancel/commit, caret and selection preservation remain unverified.
-
-Penpot pages 17–20 remain **DRAFT** and #418 remains Review; final token vocabulary/values and maintainer design sign-off are not approved. Do not use provisional tokens to author final product CSS. Still open: actual v3 TextField runtime/API/CSS, final Penpot/token approval and parity review, responsive/RTL/theme/forced-colors visual acceptance, native keyboard/accessibility/screen-reader review, real OS IME/caret/selection, component documentation/Skill/migration and exhaustive product acceptance. #432 remains In progress; PR #562 remains open and unmerged. No package publish or deployment.
-
-The prior exact-head CI on `7d8ead3b` was green; this expanded 21-specimen matrix is not yet on that head. Run GitHub CI on the next pushed evidence commit and verify every job before updating the status again. The standalone `dotnet list package --vulnerable` report remains unverified because NuGet report retrieval stalled; the 10.0.15 security package remediation, restore, warning-as-error Release build and tests are successful, but do not claim the separate inventory command passed.
-
-## TextField #432 exact-head CI closeout and API audit follow-up — 2026-11-13
-
-The full GitHub exact-head matrix on `160c26bc3a0fcc482e78080bfdcd3062ff4942d8` completed **23/23 checks across seven workflows**, with zero failures and zero pending. This includes Release build/tests/five-package validation; Evidence Policy; Documentation Contract; compiled/public-component Census; Button runtime; interaction source compile and four real Popover runs; four real Component Lab runs; and eight Compatibility jobs (Chrome/Edge × WASM/Server plus Label/Info × Chrome/Edge × en-US/fa-IR). The isolated Edge/WASM retry also passed native Chromium site zoom at 200% and 400% (10/10 per zoom, settled overflow 0, owned-process cleanup remaining 0). The earlier attempt's transient 6px initial Chart.js canvas snapshot/label-focus timeout is not a persistent failure; the retry and final workflow passed.
-
-Live GitHub Project #5 state checked 2026-11-13: #418 Review; #419 Done; #420 Done; #421 In progress; #425 Done; #432 In progress. PR #562 remains open and targets `bluent-v3`. Penpot pages 17–20 contain the four TextField design-review boards, all still explicitly DRAFT. This work does not promote #432 to Review/Done and does not approve #418 token values or the Penpot designs.
-
-The canonical `docs/v3/design/TEXTFIELD-DESIGN-AND-API-CONTRACT.md` has now been corrected to enumerate the inherited InputBase/Bluent field-base surface, distinguish public properties from Razor parameters, record all eight current transform combinations, update the 21-specimen/28-check evidence and four-mode totals, and reflect live Project #5 dependencies. This is documentation/audit only; it adds no v3 runtime or production styling. The standalone `dotnet list package --vulnerable` report remains unverified because NuGet report retrieval stalled; package remediation to 10.0.15, restore, Release `-warnaserror` build and 46/46 solution tests are verified.
-
-
-## TextField #432 — automated source/API drift guard — 2026-11-13
-
-Added `scripts/quality/check_v3_textfield_contract.py` plus `test_v3_textfield_contract.py`, wired into `.github/workflows/v3-docs-contract.yml` and its `paths` filters. It compares the six direct TextField parameters and documented types/defaults, verifies the inherited Bluent base parameters and framework API rows, native input/textarea branches, binding/attribute behavior, and setter transform order. It also requires the workflow to remain wired to the checker. **Twelve tests** pass (positive baseline plus negative API/source/transform/textarea/evidence/workflow mutations). All mutation tests use temporary copies; the real checkout is left untouched. `check_v3_textfield_contract.py`, existing docs checker and `git diff --check` pass. PyYAML is not installed in the Dev01 environment, so no local PyYAML parse is claimed; GitHub Actions will parse and execute the updated workflow after push.
-
-This guard adds no runtime code or CSS. It protects the existing current-v2 API baseline and the accuracy of the v3 design/API contract only. The v3 implementation and design/token sign-offs remain open.
-
-## TextField #432 — internal value pipeline and direct unit coverage — 2026-11-13
-
-A behavior-preserving, non-visual refactor now moves the existing `DigitOnly` → `AsciiDigits` → `ArabicToPersianConversion` sequence into internal `TextFieldValuePipeline.Normalize`. The component setter delegates to the helper and continues to assign the transformed value through `CurrentValueAsString`. The sequence still calls the same existing string extensions in the same order. No public component API, markup, CSS, design token, or released v2 asset is introduced or changed. Test visibility is granted only to `RegexSampleGeneratorTest`.
-
-Added **10/10** direct NUnit cases (all eight flag combinations, plus null and empty input). The TextField source/API guard now checks both the helper delegation and transform order; **13/13** Python guard tests pass, including negative mutations on temporary copies. CI path filters include the new helper dependencies.
-
-Verified locally on the task branch: Release solution build with `-warnaserror` (**0 warnings / 0 errors**); full solution suite (**56/56**); focused helper suite (**10/10**); v3 documentation contract (**0 findings**); repository Markdown links (**171 files**); TextField source/API guard and its **13/13** tests; `git diff --check` clean. This result is local evidence only until exact-head GitHub Actions complete after push.
-
-This change does not satisfy the full TextField #432 scope. The actual v3 Razor/API/CSS, approved #418 tokens, Penpot maintainer sign-off (pages 17–20 remain DRAFT), browser interaction, OS IME/caret/selection, RTL/theme/forced-colors and assistive-technology acceptance remain open. Keep #432 In progress and PR #562 open; do not merge, publish, deploy or mark Done. Stable `Dev` and released v2 remain untouched.
-
-## TextField #432 — current implementation and acceptance checkpoint — 2026-11-14
-
-The active TextField worktree is `C:\Projects\Bluent-issue432`, branch `v3/issue-432-textfield`, at `e9963990065e9cb82ab113f8ce77183bee22a643`; it is clean and matches `origin/v3/issue-432-textfield`. PR #562 targets `bluent-v3`, is open and mergeable, and has no approving review. GitHub Actions on the current docs-only head passed 8/8 workflows; the implementation head `b7e4182af8be5d94e5a06aad66bc122dc71cbc6a` passed the hosted Chrome/Edge × WebAssembly/InteractiveServer TextField matrix (26 + 26 + 25 + 25 = 102/102) and all eight workflows. Local verification on the current branch also passed: TextField guard 48/48, docs contract 0 findings, Markdown links across 172 files, Release solution build with 0 warnings/0 errors, and full .NET tests 70/70.
-
-The implementation, focused demo, canonical reference, migration row M06, task Skill, and Unreleased v3 changelog entry are present. The direct API remains the six source-backed parameters; the inherited InputBase/field-shell contract is preserved. Placeholder source mapping is recorded in #418 and tested against Fluent Web Components 3.1.3; it does not approve the full #418 token foundation.
-
-Penpot is connected to the correct owned file `Bluent v3 Design System` (`b64f6665-c9ab-80b5-8008-c4ac99d9d000`). Page 16's native variant container currently has 28 State × Appearance combinations and reports zero variant metadata errors. The four #432 review boards on pages 17–20 are still explicitly DRAFT; their presence/export is not approval. #418 remains In progress and #432 is Done. #433 NumericField was accepted and merged into bluent-v3 via PR #563 on 2026-11-16; its final evidence and limitations are recorded in docs/v3/components/numeric-field.md. #434 Checkbox remains Backlog: do not start its implementation until #418 tokens and #421 Component Lab/coverage contracts are accepted.
-
-For TextField #432, PR #562 is merged and the issue is Done. Penpot pages 17–20 remain marked DRAFT, #418 still owns the token foundation, and physical Persian OS IME composition/caret/selection plus spoken screen-reader output remain unverified follow-up areas; they are not evidence that #432 is still open. The hosted browser matrix does not certify native OS/AT behavior. Do not merge v3 work to stable Dev/main, publish packages, or deploy.
-
-## TextField #432 — delegated design acceptance and token-source alignment — 2026-11-14
-
-The user explicitly delegated the remaining TextField-specific design and token decisions while away from the workstation. I reviewed the actual editable Penpot file Bluent v3 Design System (b64f6665-c9ab-80b5-8008-c4ac99d9d000) and exported/visually inspected the four primary boards plus both page-19 placeholder studies. Decision comments were created and verified (one open comment thread each) on pages 17–20. The boards retain their visible DRAFT labels so they are not mistaken for native test evidence; the comments record task-specific acceptance for #432.
-
-Accepted for #432: page 17's 28 Appearance × State matrix; page 18 anatomy, native input/textarea, addons, size and RTL; page 19 keyboard/native-state distinctions and reflow as design requirements; page 20 Fluent Web Components vs React boundary and orthogonal composite-state precedence. This does not certify the schematic forced-colors example or actual OS/assistive-technology behavior.
-
-Placeholder consumer decision: pinned @fluentui/web-components@3.1.3 uses colorNeutralForeground4 for ordinary placeholder and colorNeutralForegroundDisabled for disabled placeholder. FG4/BG3 arithmetic is 4.5423:1 Light and 6.4663:1 Dark. The task branch's ordinary placeholder CSS now reads --colorNeutralForeground4 directly until #418 integration; it no longer consumes the proposed unmerged --bui-v3-text-placeholder semantic alias. The disabled state reuses the existing shared --bui-v3-text-disabled role with exact upstream fallback. Canonical decision and contrast records are docs/v3/tokens/TEXTFIELD-PLACEHOLDER-DECISION.md and docs/v3/tokens/CONTRAST-AUDIT.md.
-
-GitHub decision records: Issue #432 comment 6875863220; PR #562 comment 6875862842. This is delegated task-specific acceptance only. #418 remains In progress and owns the global token foundation. Native Windows Contrast Themes, actual filled-field host-boundary contrast, physical Persian OS IME with caret/selection, and spoken screen-reader acceptance remain unverified. #432 is now Done in Project #5; its v3 implementation is integrated on bluent-v3. No stable/v2 change, NuGet publication, release, merge or deployment was performed.
-
-## TextField #432 — native evidence completion and final review handoff — 2026-11-14
-
-Latest task worktree: C:\Projects\Bluent-issue432, branch v3/issue-432-textfield. The existing exact-head green commit is 14b8357522dc81f991a2e028ebc8f4254179ec11; native evidence/docs below require a fresh exact-head CI run after commit/push.
-
-### Native evidence added
-- BLUENT-TEXTFIELD-WINDOWS-HIGH-CONTRAST.json/.png: native Windows High Contrast White; Edge observed forced-colors active; actual component CSS loaded (883 rules). Field border = CanvasText; disabled border/input = GrayText; focus underline = Highlight at 2px. 21/21 textboxes were named in Chromium accessibility tree; native disabled/readonly states exposed.
-- BLUENT-TEXTFIELD-WINDOWS-PERSIAN-KEYBOARD.json/.png: Windows input method 0429:00000429 active; actual OS key events A/S/D produced شسی without Unicode injection. A real A key replaced selection [1,2] in Persian normalization; beforeinput/input data ش, result کشس, caret collapsed at index 2. Direct Persian keyboard layout only; no composition events occurred, so composition-based IME lifecycle is not claimed.
-- Windows state restored: High Contrast flags 126/off, Custom.theme current, keyboard layout English 0x04090409.
-- Chromium accessibility tree exposed 21/21 named textboxes. Narrator speech was not captured/listened to; spoken screen-reader acceptance is not claimed.
-
-### Runtime and build evidence
-- Exact-head CI on 14b8357522dc81f991a2e028ebc8f4254179ec11: 8/8 workflows, 28/28 jobs green; hosted TextField matrix 100/100 (Chrome/WASM 25, Edge/WASM 25, Chrome/Server 24, Edge/Server 26).
-- Follow-up local Edge/InteractiveServer on the real SSR host: 26/26; final component CSS loaded, zero browser JS/console/HTTP failures, SignalR HTTP 101, 320px no-overflow reflow.
-- Previously verified locally: Release solution build -warnaserror zero warnings/errors; .NET tests 70/70; TextField contract tests 48/48; docs contract 0 findings; Markdown links 174 files; Sass/JS builds.
-- The new evidence/documentation commit needs exact-head CI; previous checks do not automatically apply to it.
-
-### Acceptance boundary
-- Task-specific Penpot decision is recorded in comments on pages 17–20 under user-delegated review. Visible DRAFT labels remain, distinguishing this task decision from full design-system approval. #418 remains Review and owns global token approval.
-- Native High Contrast and direct Windows Persian keyboard input/caret replacement are supported by evidence. Composition-based IME candidate lifecycle and spoken Narrator output remain unverified.
-- Keep #432 In Progress until exact-head CI is green, then move Project #5 Status to Review. PR #562 stays open/unmerged until normal review/branch protection permits merge. Do not fabricate an approving review or bypass protections. No stable Dev/main/v2 merge, NuGet publication, release or deployment.
-## TextField #432 — accepted and merged into bluent-v3 — 2026-11-14
-
-PR #562 was squash-merged into bluent-v3 after delegated technical review of exact head 5d0aef5d7b15c7511b55570cf3090dab75dafcc7. The branch's final CI was 8/8 workflows and 28/28 checks successful; all four TextField browser cells passed. Local Release build with -warnaserror had zero warnings/errors; .NET tests 70/70; TextField guard 48/48; docs contract zero findings; Markdown links 174 files.
-
-Windows High Contrast White and direct Persian Windows keyboard-layout input/caret mapping were verified. High Contrast settings, original Custom.theme and English keyboard were restored. A composition-based OS IME lifecycle and spoken Narrator output are not claimed. Penpot pages 17–20 remain DRAFT, with task-specific design decisions accepted under delegated review; #418 global tokens remain separate. The TextField API has no Appearance parameter; Filled visual boards are not a shipped public appearance API. Stable 2.x/Dev packages and deployments remain unchanged.
-
-## Handoff — Issue #435 Switch (2026-11-18)
-
-- Branch: `v3/issue-435-switch`; target: `bluent-v3` only; task PR: [#565](https://github.com/vrassouli/Bluent/pull/565). Do not merge to stable `Dev` / `main`, publish NuGet, release or deploy.
-- Product implementation and local review evidence: dedicated `BluentInputComponentBase<bool>` Switch, native `role=switch`, stable accessible name, Medium 40×20 / 14×14 geometry, logical RTL, native disabled/required distinction, focus-visible, forced-colors and reduced-motion. No Checkbox-only API inheritance and no public Size parameter.
-- Latest local gate: focused HtmlRenderer 11/11; Switch source/API negative-mutation suite 16/16; Release `Bluent.sln` build 0 warnings/errors; .NET tests 124/124; Chrome/Edge × WebAssembly/InteractiveServer 25/25 per cell = **100/100**, zero browser runtime signals. Added checks cover actual Header Light/Dark interaction in WASM, host-level theme attribute/color changes in the minimal Server compatibility page, and `Class`/`Style`/`aria-describedby` forwarding.
-- Penpot: canonical Bluent v3 Design System, page 58; 40-case matrix `06b2261f-bfb4-808c-8008-f689e11abe56`, anatomy/accessibility board `06b2261f-bfb4-808c-8008-f68a6da3e29d`, Medium-first board `b5e126d7-572c-8063-8008-f691ea3d12ec`. They remain design proposals for independent parity review.
-- Narrow component-local authorization from [Issue #435 comment](https://github.com/vrassouli/Bluent/issues/435#issuecomment-6970538466) permits existing shipped semantic CSS roles only. #418 global tokens remain separately owned and not approved/completed by this task.
-- Exact-head hosted CI on `1b2f12fc` passed **8/8 workflows / 36/36 jobs**; the compatibility browser matrix is **20/20**, including all four Switch jobs. The isolated retry for Native Zoom / Chrome-WASM and NumericField / Edge-Server both passed. Project #5 Status remains **Review** pending independent visual-parity and native OS/AT acceptance. PR #565 awaits independent maintainer visual-parity/design and native OS/AT review. Never self-approve the PR. Do not mark Done until review/acceptance and merge into `bluent-v3`.
-- Explicit limits: browser-emulated forced-colors is not native Windows Contrast Themes; Chromium AX snapshots are not spoken Narrator/NVDA/VoiceOver testing. No native OS/AT or WCAG certification claim. The global 66-family Component Lab remains unchanged (18 representative pilots; 0 accepted).
-
-
-## Issue #418 — current checkpoint (2026-11-20)
-
-Current branch `v3/issue-418-design-tokens`, PR #500 head `9c5ec655f60e5d31a8553635527aed21b36750fa`; exact-head CI 13/13 successful. Real Browser 4/4, Compatibility 30/30, Component Lab 4/4, Popover 4/4, Firefox 34/34 and Playwright WebKit 34/34. Dev01 Release build 0 warnings/errors, .NET 188/188, focused #418 contract 19/19 and focused regression aggregate 65/65. Current detailed checkpoint: `docs/v3/tokens/ISSUE418-ACCEPTANCE-CHECKPOINT-2026-11-20.md`.
-
-The current semantic role inventory and Option B decision table are in `docs/v3/tokens/PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md`. It is a review proposal only; no public alias, production CSS, schema or runtime API was changed. The suggested first-wave candidates are text.primary, text.disabled and text.placeholder, bounded by current Label/TextField evidence. Page45 remains REVIEW REQUIRED and page55 remains DRAFT; Penpot browser access is currently suspended, so no board edits/status changes were made.
-
-Native Dev01 discovery (read-only): High Contrast White is selected but SPI_GETHIGHCONTRAST reports HCF_HIGHCONTRASTON false (dwFlags=126). NVDA 2026.3 is running in interactive session 1 with OneCore/David, but no Speech Viewer/log or spoken output has been captured. Narrator is not running; JAWS was not checked. Safari remote automation remains untouched; Playwright WebKit is not Safari. Persian OS IME composition/caret/selection remains untested. Do not claim native OS/AT acceptance. Do not toggle user accessibility settings or close/restart NVDA without explicit consent.
-
-Keep Issue #418 In progress and PR #500 open/unmerged. Native Contrast Themes, spoken AT, Safari.app, Persian IME, final page45/page55 review, and the global semantic allow-list/public Focus/Portal/Dialog API approval remain open. No stable branch, release, NuGet publication or deployment.
-
-### 2026-11-21 — DateField consumer dependency audit
-
-A downstream-source audit for DateField was added to #418 without starting #438. It isolates the shared foundation work (field text/disabled/optional placeholder, readable validation text, field/action focus distinction, calendar/Popover surface and overlay-theme ownership, reduced motion, forced colors and RTL) from DateField-owned work (DateClass forwarding, text-entry Min/Max, YearSelect parsing, trigger accessible name and calendar keyboard behavior). The provisional validation-text semantic is not in the 17-role schema or CSS. See docs/v3/tokens/DATEFIELD-FOUNDATION-DEPENDENCY-AUDIT.md and the review-only consumer note in PUBLIC-TOKEN-VOCABULARY-PROPOSAL.md. #438 remains Backlog; no DateField source/API/demo was changed.
-
-### 2026-11-21 follow-up — validation text source evidence
-
-Correction to the DateField dependency checkpoint: the existing shared _field.scss rule already styles .validation-message with --colorPaletteRedForeground1. New fail-closed audit scripts/quality/audit_v3_validation_text_contrast.py checks the selector plus 20 brand/mode themes × 3 neutral surfaces: 60/60 at or above 4.5:1, measured minimum 5.2036:1. A separately named semantic.text.validation remains only a candidate for maintainer naming/consumer review; it is not in the 17-role schema and no production CSS changed. Brand/inverted/custom hosts and native forced-colors/AT remain unverified.
-
-## Issue #418 / DateField #438 consumer follow-up — 2026-11-25
-
-On `v3/issue-418-design-tokens`, added `docs/v3/tokens/DATEFIELD-POPOVER-CONSUMER-REVIEW.md` and an HtmlRenderer regression test for the non-menu Button trigger contract. The source review confirms that an ordinary Button preserves caller `aria-haspopup="dialog"`; opt-in `Popover.AccessibleTriggerState` owns live `aria-expanded` and persistent `aria-controls`; Escape from the trigger/surface closes and restores focus. It also records the remaining shared gap: `PopoverSurface` is currently an unnamed, untyped `div`, and generic non-menu Popover does not own Tab/Shift+Tab exit. DateField owns initial selected-day focus, date-grid navigation and natural Tab exit; the shared Popover role/name contract remains a #418 decision, not an unapproved workaround in #438.
-
-Added editable draft board `#418 · DateField non-modal dialog popup contract · DRAFT` on the owned Penpot page 54 (board `24212ef8-fb72-801e-8008-ff8ab7d62f7c`). It is explicitly DRAFT / REVIEW REQUIRED, not public API approval. The #438 page 61 design remains DESIGN DECIDED / GATES OPEN. #438 remains Backlog; #418 remains In progress; PR #500 remains open/unmerged.
-
-Local verification on this worktree: v3 docs contract 0 findings; Markdown links 245 files; #418 review-contract 22/22; full RegexSampleGeneratorTest Release suite 189/189; `git diff --check` clean. This is source/docs/test evidence only; no DateField runtime, CSS, public API, release or stable/v2 code changed.
-
-### #418 DateField popup semantics clarification — 2026-11-25
-
-Follow-up to the DateField consumer review: the shared Popover must **not** impose a universal surface role. Existing D5 records explicitly reserve the role for the concrete consumer contract (menu, listbox, tooltip or non-modal dialog) and do not force `aria-haspopup`. The DateField proposal now states that any shared surface API, if accepted, only forwards explicitly consumer-selected role/name values to the controlled root. DateField chooses `dialog`; unconfigured Popovers gain no inferred/default role and all other consumers retain their own semantics. The editable page-54 draft board was updated and re-exported/visually inspected with the same boundary. No runtime/API change was made.
-
-Local follow-up verification: #418 review contract 22/22; full `RegexSampleGeneratorTest` 189/189; v3 docs contract 0 findings; Markdown links 245 files; `git diff --check` clean. The earlier exact-head PR #500 checks are still running; the current snapshot has no failures, with Chrome Release/build, Chrome browser, WebKit, Firefox, Button runtime, Popover and token/docs/evidence gates already green. This text/test correction will trigger a new exact-head CI run once pushed.
-
-
-### #418 native High Contrast Black evidence — 2026-11-25
-
-- Added native High Contrast Black UIA artifact `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK.*` (JSON, Markdown, Dialog PNG and Popover PNG). Windows 11 Pro build 28000 / Edge 158.0.4370.33 / published InteractiveServer; native `forced-colors: active` and `prefers-contrast: more` were observed.
-- Dialog UIA: named Window, Text heading and invokable Close modal Button; synthetic Tab/Shift+Tab observations and Escape/trigger-focus return recorded. Dialog computed colors: background rgb(32,32,32), text rgb(255,255,255), outline rgb(142,227,240).
-- Popover remains an open finding in HC Black: controlled surface has no explicit role and computed white background / dark text despite Black scheme; do not claim contrast success. Generic Popover must not receive an inferred universal role.
-- The probe began with HC Black already active (flags127). It records original flags/scheme and verifies exact restoration. No spoken AT or physical keyboard evidence; images are raw, SHA-256-verified, not independently pixel-reviewed.
-- Harness accepts only built-in HC White/Black. It now refuses to overwrite existing JSON/PNG; deliberate reruns require a unique `BLUENT_ISSUE418_NATIVE_EVIDENCE_SUFFIX`. Its focused evidence tests run in the #418 Token Contract workflow.
-- Local: HC Black evidence 10/10; prior HC White UIA 12/12; prior HC White evidence 7/7; #418 review contract 22/22; v3 docs contract 0 findings; Markdown links 246 files; full RegexSampleGeneratorTest Release 189/189; `node --check` and `git diff --check` pass.
-- #418 remains In progress, #438 Backlog, PR #500 open/unmerged. No runtime, public API, product CSS, stable/v2, package or release changes.
-
-
-### #418 paired HC Black detached portal scopes — 2026-11-25
-
-- Extended native UIA evidence probe to open CurrentScope and AlternateScope Popovers simultaneously under High Contrast Black. Same-run evidence shows CurrentScope light/default/LTR and AlternateScope dark/Word/RTL attributes each survive detachment to the global Containers surface; both retain the v3 token marker, density and `aria-controls` relationship.
-- Under HC Black, both surfaces compute system black/white colors. This is native forced-colors replacing authored brand/theme values, not proof of lost ThemeScope. The paired artifact supersedes the tentative interpretation from the earlier standalone snapshot; retain the first raw artifact as historical run-specific evidence.
-- Artifact: `docs/v3/quality/evidence/BLUENT-ISSUE418-DIALOG-POPOVER-WINDOWS-UIA-2026-11-25-HC-BLACK-SCOPED-WORD-COMPARE-4.*` (JSON, Markdown, Dialog + two Popover PNGs with verified SHA-256). Native flags 127 / HC Black already enabled, exact restoration verified, probe-owned Edge processes remaining=0.
-- Focused guard: `scripts/quality/test_v3_issue418_native_hc_black_scoped_portals.py`; added to #418 Token Contract workflow. Generic Popover surfaces remain role-less in the probe by design; no universal `dialog` role is proposed.
-- Limitations: one Windows/Edge/scheme, synthetic keys only, no spoken AT, no contrast certification or user-defined HC scheme. #418 remains In progress; #438 remains Backlog. No production API/CSS/runtime or v2/stable changes.
-
-
-### #418 exact-head CI confirmation — 2026-11-25
-
-- PR #500 exact head: `e650d337c4d804ad4d0a7ac7d7776acddcd310b8`, base `bluent-v3`, OPEN/unmerged, merge state CLEAN, no formal review decision. Latest `gh pr checks` snapshot had no failed or pending checks.
-- Compatibility workflow `45555459625` completed SUCCESS after only the failed Chrome/WASM job was rerun. Initial Chrome/WASM run's 51/51 main assertions and 200/400 zoom assertions passed; the only error was a transient PowerShell/CIM process-inventory cleanup timeout. Rerun `139010721850`: 72/72 checks, native zoom 200% 10/10 and 400% 10/10, both cleanup `killed=0 remaining=0`, JSON/PNG artifact uploaded.
-- No source/product fix was needed, and no unrelated #425 cleanup harness edit was made. The transient CI timeout is closed by exact-head successful rerun.
-- Native HC acceptance summary corrected: built-in White and Black have both been exercised for the Dialog/Popover prototype. User-defined schemes, broad Focus-host/component coverage, physical keyboard, spoken Narrator/NVDA/VoiceOver, native Safari, Persian IME/selection, public API/token decisions and canonical Penpot review remain open.
-- #418 remains In Progress; #438 remains Backlog. No merge, release, package publication, stable/v2 change or Project #5 status promotion.
-
-
-## Issue #418 — latest exact-head handoff — 2026-11-25
-
-Current task branch: `v3/issue-418-design-tokens`; current synchronized head before this documentation update: `8af943609491ce1e8683c5a2ef042dc8b291833a` (`docs(v3): sync #418 acceptance checkpoint with CI`). PR [#500](https://github.com/vrassouli/Bluent/pull/500) targets `bluent-v3`, remains OPEN/unmerged, merge state CLEAN, and has no formal approving review. Issue #418 remains In progress; DateField #438 remains Backlog.
-
-Exact-head GitHub Actions on `8af94360`: **13/13 workflows and 56/56 PR checks successful**. The real Popover matrix is Chrome/Edge × InteractiveServer/WebAssembly at 73/73 assertions per cell; Compatibility is 32/32. Native High Contrast White and Black were both captured on one Windows 11 Pro / Edge fixture; paired Black evidence confirms independent detached portal ThemeScope metadata for light/default/LTR and dark/Word/RTL owners. These results do not certify user-defined schemes, physical keyboard, spoken Narrator/NVDA/VoiceOver, native Safari.app, Persian OS IME composition/caret/selection, arbitrary surfaces, or WCAG conformance.
-
-The current decision map is consolidated in [ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md](../docs/v3/tokens/ISSUE418-MAINTAINER-DECISION-PACKET-2026-11-25.md). Delegated directions already selected (Option B token layering, Option A focus host, Option A portal lifecycle, and the 40-value Dark preview target) are distinguished there from pending exact public semantic allow-list, values, CLR signatures, Popover surface role/name, Penpot and native acceptance gates.
-
-The earlier 2026-11-25 `e650d337` compatibility retry entry above is a historical intermediate snapshot and is superseded by this later exact-head `8af94360` record. No runtime/public API/production CSS, stable/v2 branch, package, release or deployment change was made by this decision packet. Do not merge PR #500 or move #418 to Review/Done from green CI alone.
-
-
-## 2026-11-25 #418 implementation continuation
-
-Branch `v3/issue-418-design-tokens`; PR #500 remains open against `bluent-v3`. The branch contains additive Dialog/Popover accessibility corrections, an opt-in D1 public token bridge (9 color + 3 narrow text aliases), and D3 same-painted-host focus metadata CSS. D2's 40 Dark Action/Link candidates remain preview-only. See `docs/v3/tokens/ISSUE418-IMPLEMENTATION-CONTRACT-2026-11-25.md` for the actual branch contract.
-
-Local evidence: #418 contract suites 37/37; Dialog/Popover HtmlRenderer 19/19; token preview generator check passed; contrast audit 360 cases / 0 issues; v3 docs contract 0 findings; Markdown links 250 files; Skill contract 6 files / 0 errors. A focused Release test rebuilds Bluent.UI and the browser-free tests. Full solution Release build/test passed locally (0 warnings/errors; 197/197); exact-head hosted CI must pass for the latest commit before merge.
-
-Open acceptance is deliberately not represented as complete: Penpot pages 45/53/54/55 are still DRAFT / REVIEW REQUIRED; real-browser accessibility-tree ID resolution for Popover, consumer-owned keyboard behavior, native spoken AT, physical keyboard, user-defined Windows Contrast Themes, Safari and Persian IME/caret acceptance remain open. Issue #438 remains Backlog. No merge, Project #5 promotion, NuGet publish, release or deployment is authorized by this work.
+3. Spot-check the remaining public service/helper/configuration classification

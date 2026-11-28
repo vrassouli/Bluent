@@ -265,13 +265,13 @@ class InteropSourceContractTests(unittest.TestCase):
         fixture=(root/"src/Bluent.UI.Demo.Pages/Pages/Components/CalendarAsyncProbe.razor").read_text(encoding="utf-8-sig")
         host=(root/"src/Bluent.UI.Demo.SSR/Components/Pages/CalendarAsyncInteractiveServerProbe.razor").read_text(encoding="utf-8-sig")
         probe=(root/"scripts/quality/probe_v3_popover_runtime.mjs").read_text(encoding="utf-8-sig")
-        for method in ("OnMonthSelected(DateTime monthStart)","OnYearSelected(DateTime yearStart)"):
+        for method in ("OnMonthSelected(DateTime monthDate)","OnYearSelected(DateTime yearDate)"):
             self.assertIn("private async Task "+method,calendar)
             self.assertNotIn("async void "+method,calendar)
         self.assertNotIn("async void",calendar,
             "Calendar private event callbacks should never fire-and-forget")
-        for token in ('@onclick="()=>OnMonthSelected(monthStart)"',
-                      '@onclick="()=>OnYearSelected(yearStart)"'):
+        for token in ('@onclick="() => OnMonthSelected(monthDate)"',
+                      '@onclick="() => OnYearSelected(yearDate)"'):
             self.assertIn(token,markup)
         for token in ('MonthSelectedAsync','YearSelectedAsync',
                       'TaskCompletionSource','await _monthGate.Task','await _yearGate.Task'):
@@ -292,7 +292,7 @@ class InteropSourceContractTests(unittest.TestCase):
         self.assertIn("await MonthChanged.InvokeAsync(DateOnly.FromDateTime(ViewDate));",calendar)
         self.assertIn("protected override async Task OnParametersSetAsync()",calendar)
         self.assertIn("await MonthChanged.InvokeAsync(changedMonth);",calendar)
-        for name in ("OnGoToToday","OnPreviousMonth","OnNextMonth",
+        for name in ("OnPreviousMonth","OnNextMonth",
                      "OnPreviousYear","OnNextYear","OnPreviousYearRange","OnNextYearRange"):
             self.assertIn("Task "+name+"(",calendar)
         for name in ("month","year","navigation","external"):

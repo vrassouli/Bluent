@@ -612,9 +612,22 @@
       "propertiesDemonstrated": [
         "Value",
         "ValueChanged",
+        "ValueExpression",
+        "EditContext",
         "Culture",
         "Mode",
+        "DateClass",
+        "Max",
+        "Min",
         "DisplayCalendar",
+        "ParsingErrorMessage",
+        "StartAddon",
+        "EndAddon",
+        "Size",
+        "BindValueEvent",
+        "Class",
+        "Style",
+        "AdditionalAttributes",
         "disabled"
       ],
       "classification": "representative_only",
@@ -624,10 +637,11 @@
         "Chrome/Server Dev01: DateField native Blazor browser 168/168; published InteractiveServer native masked edit, DateOnly, disabled, RTL; cleanup=0",
         "Edge/Server Dev01: DateField native Blazor browser 168/168; published InteractiveServer native masked edit, DateOnly, disabled, RTL; cleanup=0"
       ],
-      "remaining": "Existing DateTime/DateOnly, day/month mode and disabled samples only. DateClass, Min/Max, full calendar surface/selection, culture-specific Persian calendar, type mask validation, errors, keyboard, OS AT, Fluent2 Penpot parity pending #438.",
+      "remaining": "This row intentionally remains representative_only for the wider 66-family #421 Component Lab census; it is not the #438 component acceptance status. The dedicated DateField #438 public API and acceptance matrix records every public/inherited capability, runnable scenario or non-interactive classification, parser/renderer/browser/design/migration evidence and known limitation: docs/v3/quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md. The live eight-card specimen demonstrates all modes, DateTime/DateOnly values, Small/Medium/Large, StartAddon/EndAddon, input timing, Min/Max, DateClass, parsing feedback, disabled state and native attributes.",
       "fourModeLocalBrowserEvidence": "2026-10-18 Chrome/Edge × WebAssembly/published InteractiveServer real CDP browser 168/168 each (672/672 total); errors=[], QA-owned browser cleanup 0",
       "visualEvidence": "docs/v3/quality/evidence/component-lab-datefield-live-rtl-chrome-wasm.png",
-      "knownLimitations": "Current DateTime day and MonthSelect, DateOnly, disabled native masked inputs; no actual calendar surface date selection, Persian calendar locale, Min/Max/DateClass, accessibility, native OS AT or complete Fluent2 visual parity acceptance."
+      "knownLimitations": "The wider Component Lab census remains representative_only for #421; #438 has its own complete source-backed public API and acceptance matrix. NVDA and VoiceOver were not run; targeted Narrator/Chrome speech evidence and UIA keyboard-focus evidence are not cross-screen-reader certification. The mixed /components/fields route continues to show an unrelated NumericField<float> cast failure; DateField was tested on isolated routes and the live Component Lab.",
+      "dateFieldCurrentSourceAcceptance": "2026-11-28 current-source dedicated Chrome/WebAssembly probe 41/41 and production-published InteractiveServer probe 41/41 (82/82), no browser exceptions; live Chrome/WebAssembly Component Lab 290/290, all eight specimens, Small/Medium/Large and StartAddon assertion passed, cleanup 11/0; Component Lab source contract 18/18 and acceptance regression 12/12; Release build 0 warnings/errors, .NET tests 219/219; docs 0 findings, Skill 6 files/0 errors, Markdown links 257 files; exact-head hosted CI on sample commit cc6d062660660f2284ea204d4166fb24ce1c6b6e 13/13 and final acceptance head 895814f286048a4de306c0758bbd0d0453458b5e 13/13 success; Real Compatibility Browsers 32/32 jobs. See docs/v3/quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md."
     },
     {
       "id": "timefield",

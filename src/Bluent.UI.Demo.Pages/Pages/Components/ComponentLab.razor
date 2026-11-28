@@ -615,25 +615,65 @@
             }
             else if (_selected == "datefield")
             {
-                <div class="lab-date-grid" aria-label="Current native masked DateField day month and disabled states">
+                <div class="lab-date-grid" aria-label="Interactive DateField day, month, year, range, value-type, addon and disabled examples">
                     <div class="lab-date-card">
-                        <label for="lab-date-day">Date with calendar</label>
+                        <label for="lab-date-day">Day selection (DateTime)</label>
                         <DateField id="lab-date-day" @bind-Value="_labDateDay"
-                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                                   Size="FieldSize.Small" BindValueEvent="oninput" Class="lab-date-example"
+                                   Style="max-width:28rem" autocomplete="off"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture">
+                            <StartAddon><span aria-hidden="true">#</span></StartAddon>
+                        </DateField>
                         <p class="lab-date-day-status" role="status" lang="en" dir="ltr">Day: @_labDateDay.ToString("yyyy/MM/dd")</p>
                     </div>
                     <div class="lab-date-card">
-                        <label for="lab-date-month">Month only (no popup)</label>
+                        <label for="lab-date-month">Month selection</label>
                         <DateField id="lab-date-month" @bind-Value="_labDateMonth"
                                    Culture="System.Globalization.CultureInfo.InvariantCulture"
-                                   Mode="CalendarMode.MonthSelect" DisplayCalendar="false" />
+                                   Mode="CalendarMode.MonthSelect" />
                         <p class="lab-date-month-status" role="status" lang="en" dir="ltr">Month: @_labDateMonth.ToString("yyyy/MM")</p>
                     </div>
                     <div class="lab-date-card">
-                        <label for="lab-date-only">DateOnly (no popup)</label>
+                        <label for="lab-date-year">Year selection</label>
+                        <DateField id="lab-date-year" @bind-Value="_labDateYear"
+                                   Size="FieldSize.Large"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture"
+                                   Mode="CalendarMode.YearSelect" />
+                        <p class="lab-date-year-status" role="status" lang="en" dir="ltr">Year: @_labDateYear.ToString("yyyy")</p>
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-only">Non-nullable DateOnly (no popup)</label>
                         <DateField id="lab-date-only" @bind-Value="_labDateOnly"
                                    Culture="System.Globalization.CultureInfo.InvariantCulture"
                                    DisplayCalendar="false" />
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-only-nullable">Nullable DateOnly</label>
+                        <DateField id="lab-date-only-nullable" @bind-Value="_labDateOnlyNullable"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                        <p class="lab-date-only-nullable-status" role="status" lang="en" dir="ltr">DateOnly?: @_labDateOnlyNullable?.ToString("yyyy/MM/dd")</p>
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-range">Inclusive range and custom date classes</label>
+                        <EditForm Model="this">
+                            <DateField id="lab-date-range" @bind-Value="_labDateBounded"
+                                       Min="@_labDateMinimum" Max="@_labDateMaximum"
+                                       DateClass="GetLabDateClass"
+                                       ParsingErrorMessage="Enter a valid date within the shown range."
+                                       Culture="System.Globalization.CultureInfo.InvariantCulture" />
+                            <ValidationMessage For="() => _labDateBounded" />
+                        </EditForm>
+                        <p>Allowed: @_labDateMinimum.ToString("yyyy/MM/dd")–@_labDateMaximum.ToString("yyyy/MM/dd"); weekend dates are emphasized.</p>
+                    </div>
+                    <div class="lab-date-card">
+                        <label for="lab-date-addon">Custom trailing action replaces the calendar</label>
+                        <DateField id="lab-date-addon" @bind-Value="_labDateAddon"
+                                   Culture="System.Globalization.CultureInfo.InvariantCulture">
+                            <EndAddon>
+                                <Button Text="Clear date" Appearance="ButtonAppearance.Subtle" OnClick="ClearLabDateAddonAsync" />
+                            </EndAddon>
+                        </DateField>
+                        <p>EndAddon owns the trailing control. Clear date to try an empty nullable value.</p>
                     </div>
                     <div class="lab-date-card">
                         <label for="lab-date-disabled">Disabled date</label>
@@ -642,7 +682,7 @@
                                    DisplayCalendar="false" disabled />
                     </div>
                 </div>
-                <p class="lab-controls-note">Existing MaskedField-based DateField API. Culture parsing, calendar keyboard/pointer, validation and all Fluent 2 states remain #438 work.</p>
+                <p class="lab-controls-note">Live examples cover all three selection modes, DateTime and DateOnly values, Small/Medium/Large sizes, StartAddon and EndAddon composition, input timing, inclusive bounds, DateClass, parsing feedback, disabled state and native input attributes. Full locale and assistive-technology results remain documented in #438 evidence.</p>
             }
             else if (_selected == "timefield")
             {
@@ -925,8 +965,8 @@
             "Current generic SelectField demonstrates string selection, integer choice, and truly disabled native select.",
             "<SelectField @bind-Value=\"_labSelectColor\"><option value=\"Blue\">Blue</option></SelectField>",
             "Representative runnable scenario only"),
-        new("datefield", "DateField", "components/fields", "Day month DateOnly and disabled",
-            "Existing masked DateField demonstrates DateTime, DateOnly, CalendarMode.MonthSelect and native disabled state.",
+        new("datefield", "DateField", "components/fields", "Day, month, year, bounds and DateOnly",
+            "Interactive DateField examples cover all selection modes, DateTime/DateOnly values, Small/Medium/Large sizes, StartAddon and EndAddon composition, Min/Max, DateClass, parser feedback and disabled state. This remains a representative Component Lab sample, not complete component acceptance.",
             "<DateField @bind-Value=\"_labDateDay\" Culture=\"CultureInfo.InvariantCulture\" />",
             "Representative runnable scenario only"),
         new("timefield", "TimeField", "components/fields", "TimeOnly seconds and TimeSpan",
@@ -1083,9 +1123,53 @@
 
     private DateTime _labDateDay = new(2026, 10, 18);
     private DateTime _labDateMonth = new(2026, 10, 1);
+    private DateTime _labDateYear = new(2026, 1, 1);
     private DateOnly _labDateOnly = new(2026, 10, 18);
+    private DateOnly? _labDateOnlyNullable = new(2026, 10, 18);
+    private DateTime? _labDateBounded = new(2026, 10, 18);
+    private static readonly DateTime _labDateMinimum = new(2026, 10, 1);
+    private static readonly DateTime _labDateMaximum = new(2026, 10, 31);
+    private DateTime? _labDateAddon = new(2026, 10, 18);
     private DateTime _labDateDisabled = new(2026, 10, 18);
-    private string SelectedDateFieldRazor => "<DateField id=\"lab-date-day\" @bind-Value=\"_labDateDay\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" />\n<DateField id=\"lab-date-month\" @bind-Value=\"_labDateMonth\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" Mode=\"CalendarMode.MonthSelect\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-only\" @bind-Value=\"_labDateOnly\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" />\n<DateField id=\"lab-date-disabled\" Value=\"_labDateDisabled\" Culture=\"System.Globalization.CultureInfo.InvariantCulture\" DisplayCalendar=\"false\" disabled />\n@code { private DateTime _labDateDay = new(2026, 10, 18); private DateTime _labDateMonth = new(2026, 10, 1); private DateOnly _labDateOnly = new(2026, 10, 18); private DateTime _labDateDisabled = new(2026, 10, 18); }";
+
+    private static string GetLabDateClass(DateTime date) =>
+        date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday ? "text-primary fw-bold" : string.Empty;
+
+    private Task ClearLabDateAddonAsync()
+    {
+        _labDateAddon = null;
+        return Task.CompletedTask;
+    }
+
+    private string SelectedDateFieldRazor => """
+        <DateField id="lab-date-day" @bind-Value="_labDateDay" Size="FieldSize.Small" BindValueEvent="oninput" Class="lab-date-example" Style="max-width:28rem" autocomplete="off" Culture="System.Globalization.CultureInfo.InvariantCulture">
+            <StartAddon><span aria-hidden="true">#</span></StartAddon>
+        </DateField>
+        <DateField id="lab-date-month" @bind-Value="_labDateMonth" Culture="System.Globalization.CultureInfo.InvariantCulture" Mode="CalendarMode.MonthSelect" />
+        <DateField id="lab-date-year" @bind-Value="_labDateYear" Size="FieldSize.Large" Culture="System.Globalization.CultureInfo.InvariantCulture" Mode="CalendarMode.YearSelect" />
+        <DateField id="lab-date-only" @bind-Value="_labDateOnly" Culture="System.Globalization.CultureInfo.InvariantCulture" DisplayCalendar="false" />
+        <DateField id="lab-date-only-nullable" @bind-Value="_labDateOnlyNullable" Culture="System.Globalization.CultureInfo.InvariantCulture" />
+        <EditForm Model="this">
+            <DateField id="lab-date-range" @bind-Value="_labDateBounded" Min="@_labDateMinimum" Max="@_labDateMaximum" DateClass="GetLabDateClass" ParsingErrorMessage="Enter a valid date within the shown range." Culture="System.Globalization.CultureInfo.InvariantCulture" />
+            <ValidationMessage For="() => _labDateBounded" />
+        </EditForm>
+        <DateField id="lab-date-addon" @bind-Value="_labDateAddon" Culture="System.Globalization.CultureInfo.InvariantCulture"><EndAddon><Button Text="Clear date" Appearance="ButtonAppearance.Subtle" OnClick="ClearLabDateAddonAsync" /></EndAddon></DateField>
+        <DateField id="lab-date-disabled" Value="_labDateDisabled" Culture="System.Globalization.CultureInfo.InvariantCulture" DisplayCalendar="false" disabled />
+        @code {
+            private DateTime _labDateDay = new(2026, 10, 18);
+            private DateTime _labDateMonth = new(2026, 10, 1);
+            private DateTime _labDateYear = new(2026, 1, 1);
+            private DateOnly _labDateOnly = new(2026, 10, 18);
+            private DateOnly? _labDateOnlyNullable = new(2026, 10, 18);
+            private DateTime? _labDateBounded = new(2026, 10, 18);
+            private DateTime _labDateMinimum = new(2026, 10, 1);
+            private DateTime _labDateMaximum = new(2026, 10, 31);
+            private DateTime? _labDateAddon = new(2026, 10, 18);
+            private DateTime _labDateDisabled = new(2026, 10, 18);
+            private static string GetLabDateClass(DateTime date) => date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday ? "text-primary fw-bold" : string.Empty;
+            private Task ClearLabDateAddonAsync() { _labDateAddon = null; return Task.CompletedTask; }
+        }
+        """;
 
     private TimeOnly _labTimeBasic = new(9, 30);
     private TimeOnly _labTimeSeconds = new(14, 25, 6);

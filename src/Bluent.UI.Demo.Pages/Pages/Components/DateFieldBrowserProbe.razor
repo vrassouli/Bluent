@@ -1,0 +1,49 @@
+@page "/compatibility/datefield-probe"
+@layout Bluent.UI.Demo.Pages.Layout.EmptyLayout
+@namespace Bluent.UI.Demo.Pages.Components
+
+<PageTitle>DateField browser probe</PageTitle>
+
+<main id="datefield-browser-probe" class="p-5">
+    <h1>DateField browser probe</h1>
+    <p>This hidden route is used by the DateField browser regression check.</p>
+
+    <section class="mb-5">
+        <Label Text="DateTime value" for="smallDateField" Class="d-block mb-1" />
+        <DateField @bind-Value="_dateTime" id="smallDateField" />
+        <output id="dateTimeValue">@_dateTime?.ToString("yyyy-MM-dd")</output>
+    </section>
+
+    <section>
+        <Label Text="DateOnly value" for="dateOnlyField" Class="d-block mb-1" />
+        <DateField @bind-Value="_dateOnly" id="dateOnlyField" />
+        <output id="dateOnlyValue">@_dateOnly?.ToString("yyyy-MM-dd")</output>
+    </section>
+    <section class="mb-5">
+        <Label Text="Month selection" for="monthSelectField" Class="d-block mb-1" />
+        <DateField @bind-Value="_monthSelectDate" id="monthSelectField" Mode="CalendarMode.MonthSelect" />
+    </section>
+
+    <section>
+        <Label Text="Year selection" for="yearSelectField" Class="d-block mb-1" />
+        <DateField @bind-Value="_yearSelectDate" id="yearSelectField" Mode="CalendarMode.YearSelect" />
+    </section>
+    <span id="datefield-probe-ready" hidden data-ready="@(_interactiveReady ? "true" : "false")"></span>
+</main>
+
+@code {
+    private DateTime? _dateTime = new(2026, 11, 24);
+    private DateOnly? _dateOnly = new(2026, 11, 24);
+    private DateTime? _monthSelectDate = new(2024, 6, 24);
+    private DateTime? _yearSelectDate = new(2024, 6, 24);
+    private bool _interactiveReady;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _interactiveReady = true;
+            StateHasChanged();
+        }
+    }
+}

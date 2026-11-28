@@ -1,6 +1,20 @@
-# Bluent Project Status
+## 2026-11-28 DateField #438 — review-ready checkpoint
 
-This file is the current project-state entry point. Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
+Issue #438 is in **Review** in GitHub Project #5. PR [#569](https://github.com/vrassouli/Bluent/pull/569) is open and Ready for maintainer review against `bluent-v3`; task branch `v3/issue-438-datefield`; exact reviewed head `895814f286048a4de306c0758bbd0d0453458b5e`. Hosted exact-head GitHub Actions completed **13/13 workflows successfully**, with Real Compatibility Browsers 32/32 jobs. The PR is not merged and the v3 component is unreleased.
+
+- Release solution build with warnings as errors: **0 warnings / 0 errors**; complete Release tests **219/219**; focused calendar render semantics **8/8**.
+- DateField current-source Chrome/WebAssembly **41/41** and production-published InteractiveServer **41/41** (**82/82 total**), no browser exceptions.
+- Component Lab source contract **18/18**; live Chrome/WebAssembly Lab **290/290**, all eight DateField cards rendered, latest Small/Medium/Large and StartAddon assertion passed; owned browser cleanup **11/0**; acceptance regressions **12/12**.
+- Docs contract **0 findings**; Skills contract **6 files / 0 errors**; Markdown links **257 files**.
+- Full public API/inherited-member inventory, runnable-scenario mapping and non-interactive classification: `docs/v3/quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md`. It keeps the wider #421 Component Lab row honestly marked `representative_only`.
+- Penpot page 61 and all three design boards were self-reviewed against source and runtime captures. No concrete visual, layout, parser/range, binding, public-contract or migration blocker was found. This is agent technical review, not independent human approval.
+- The 1440×1200 live `/component-lab` product-context screenshot is documented with SHA-256 `d7064d7445dd102f0ed97a9cb0b383cae0f838289f8b04909377edec574543e8`. Targeted Windows Narrator/Chrome speech confirms field label/value, popup/grid, Escape close/trigger restoration and ArrowRight 18→19 Oct; UIA confirms Right/Down/Left/Up focus 18→19→26→25→18. NVDA and VoiceOver were not run; no cross-screen-reader certification is claimed.
+- Native Windows High Contrast Black/White visual checks passed previously with settings restored. Browser forced-colors/reduced-motion emulation is documented separately.
+- The canonical `/components/fields` route retains a separate unrelated `NumericField<float>` cast/render failure. DateField acceptance uses its isolated browser fixtures and the working `/component-lab` product route.
+
+No stable `Dev`/`main` or 2.x code, package, release or deployment is changed. Do not mark the issue Done or merge before acceptance/merge into `bluent-v3`.
+
+Historical sprint/relaunch detail that previously accumulated here is preserved in [`PROJECT-HISTORY-2026-08-29.md`](PROJECT-HISTORY-2026-08-29.md) and in the versioned sprint plans under `.bluent/sprints/`.
 
 ## 2026-11-24 #418 engineering closeout and acceptance-review board
 

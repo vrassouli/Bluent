@@ -129,4 +129,13 @@
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>The {0} field must be a {1}.</value>
   </data>
+  <data name="ChooseDate" xml:space="preserve">
+    <value>Choose a date</value>
+  </data>
+  <data name="MinimumErrorMessage" xml:space="preserve">
+    <value>The {0} field must be on or after {1}.</value>
+  </data>
+  <data name="MaximumErrorMessage" xml:space="preserve">
+    <value>The {0} field must be on or before {1}.</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿@namespace Bluent.UI.Components
+@namespace Bluent.UI.Components
 @inherits BluentFieldComponentBase<string?>
 
 <div class="@GetComponentClass()" style="@Style">
@@ -9,16 +9,7 @@
         </div>
     }
 
-    <input @attributes=GetInputAdditionalAttributes()
-           @ref=Element
-           id="@GetInputId()"
-           type="text"
-           name="@NameAttributeValue"
-           value="@UserInput"
-           @oninput="@OnUserInputChanged"
-           @onkeyup="@OnKeyUp"
-           @oninput:preventDefault="true"
-           @oninput:stopPropagation="true" />
+    @RenderInput()
 
     @if (EndAddon != null)
     {

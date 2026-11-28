@@ -1010,6 +1010,18 @@
   border-right-color: var(--colorNeutralStroke1);
 }
 
+.bui-calendar > .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 .bui-calendar {
   width: 196px;
   padding: 12px;
@@ -1226,6 +1238,223 @@
 }
 .bui-calendar.transition-down.month-select > div.grid, .bui-calendar.transition-down.year-select > div.grid {
   animation-name: fade-in, slide-down;
+}
+
+.bui-calendar button:focus-visible {
+  outline: 2px solid var(--bui-button-focus-ring-color, var(--colorBrandBackground));
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+[data-bui-theme=dark] .bui-calendar button:focus-visible {
+  outline-color: var(--bui-button-focus-ring-color, var(--colorBrandForeground2));
+}
+
+.bui-calendar button:disabled:focus-visible {
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .bui-calendar button:focus-visible {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+}
+.bui-button.datefield-calendar-trigger {
+  box-sizing: border-box;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  flex: 0 0 48px;
+  padding: 0;
+  color: var(--colorBrandForeground1);
+  background-color: var(--colorBrandBackground2);
+  border-color: var(--colorTransparentStroke);
+}
+.bui-button.datefield-calendar-trigger:hover {
+  background-color: var(--colorBrandBackground2Hover);
+}
+.bui-button.datefield-calendar-trigger:active {
+  background-color: var(--colorBrandBackground2Pressed);
+}
+
+.bui-popover-surface[aria-labelledby^=datefield-calendar-] {
+  box-sizing: border-box;
+  max-width: calc(100vw - 32px);
+  border-radius: var(--borderRadiusXLarge);
+}
+
+.datefield-calendar-popup {
+  box-sizing: border-box;
+  width: 342px;
+  max-width: 100%;
+}
+.datefield-calendar-popup.month-select {
+  width: 274px;
+}
+.datefield-calendar-popup.year-select {
+  width: 262px;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar > .header {
+  height: 44px;
+  line-height: 44px;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar > .header > .title {
+  height: 44px;
+  line-height: 44px;
+  border-radius: var(--borderRadiusMedium);
+  font-size: var(--fontSizeBase400);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar > .header > .nav > button {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: var(--borderRadiusMedium);
+  background-color: var(--colorNeutralBackground1);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar > .header > .nav > button:first-child > svg {
+  transform: rotate(-90deg);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar > .header > .nav > button:last-child > svg {
+  transform: rotate(-90deg);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table {
+  width: 100%;
+  margin-top: 8px;
+  padding-bottom: 0;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table th {
+  width: auto;
+  height: 36px;
+  line-height: 36px;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell {
+  width: auto;
+  height: 44px;
+  line-height: normal;
+  border-radius: 0;
+  background-color: var(--colorTransparentBackground);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  border: 1px solid var(--colorNeutralStroke1);
+  border-radius: var(--borderRadiusCircular);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell.selected {
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorTransparentBackground);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell.selected > button {
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorBrandBackground);
+  border-color: transparent;
+  font-weight: var(--fontWeightSemibold);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell.today:not(.selected) > button {
+  color: var(--colorBrandForeground1);
+  background-color: var(--colorTransparentBackground);
+  border-color: var(--colorBrandForeground1);
+  font-weight: var(--fontWeightSemibold);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell.disabled > button {
+  color: var(--colorNeutralForegroundDisabled);
+  cursor: not-allowed;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell:hover {
+  color: inherit;
+  background-color: var(--colorTransparentBackground);
+  outline: none;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell:hover > button {
+  color: var(--colorBrandForeground1);
+  background-color: var(--colorBrandBackground2Hover);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.day-select > table td.day-cell.selected:hover > button {
+  color: var(--colorNeutralForegroundOnBrand);
+  background-color: var(--colorBrandBackgroundHover);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.month-select > div.grid, .datefield-calendar-popup > .bui-calendar.datefield-calendar.year-select > div.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 8px;
+  margin-top: 8px;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.month-select > div.grid > .row, .datefield-calendar-popup > .bui-calendar.datefield-calendar.year-select > div.grid > .row {
+  display: contents;
+  margin: 0;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.month-select > div.grid > .row > button, .datefield-calendar-popup > .bui-calendar.datefield-calendar.year-select > div.grid > .row > button {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  border-radius: var(--borderRadiusMedium);
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.month-select > div.grid > .row > button {
+  height: 40px;
+  min-height: 40px;
+  line-height: 40px;
+}
+.datefield-calendar-popup > .bui-calendar.datefield-calendar.year-select > div.grid > .row > button {
+  height: 38px;
+  min-height: 38px;
+  line-height: 38px;
+}
+.datefield-calendar-popup .datefield-calendar-selected-date {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  margin-top: 8px;
+  padding-inline: 10px;
+  color: var(--colorNeutralForeground2);
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightSemibold);
+}
+
+.bui-button.datefield-calendar-trigger:not(.small):not(.large) {
+  height: 46px;
+  min-height: 46px;
+  padding: 0;
+}
+
+.bui-button.datefield-calendar-trigger.small {
+  height: 38px;
+  min-height: 38px;
+  padding: 0;
+}
+
+.bui-button.datefield-calendar-trigger.large {
+  height: 54px;
+  min-height: 54px;
+  padding: 0;
+}
+
+.bui-button.datefield-calendar-trigger[disabled] {
+  color: var(--colorNeutralForegroundDisabled);
+  background-color: var(--colorNeutralBackgroundDisabled);
+  border-color: var(--colorNeutralStrokeDisabled);
+}
+
+.datefield-calendar-popup:has(> .bui-calendar.month-select) {
+  width: 274px;
+}
+
+.datefield-calendar-popup:has(> .bui-calendar.year-select) {
+  width: 262px;
 }
 
 .bui-card {
