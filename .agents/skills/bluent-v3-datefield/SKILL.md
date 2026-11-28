@@ -1,6 +1,6 @@
 # Bluent v3 DateField — #438 task handoff
 
-> **In progress · design direction approved · implementation not accepted or merged · unreleased.** This Skill applies only to `v3/issue-438-datefield` targeting `bluent-v3`. The released 2.x DateField API and consumer guidance remain authoritative for shipped packages.
+> **Review · agent technical self-review complete · PR open/unmerged · unreleased.** This Skill applies only to `v3/issue-438-datefield` targeting `bluent-v3`. The released 2.x DateField API and consumer guidance remain authoritative for shipped packages.
 
 ## Source of truth
 
@@ -50,7 +50,17 @@ A targeted Windows Narrator + Chrome spoken-output smoke is documented at ../../
 
 - Release solution build: 0 warnings / 0 errors; complete Release suite: 219/219.
 - Current isolated DateField Chrome runs: WebAssembly 41/41 and production-published InteractiveServer 41/41 (82/82 combined), with Chromium AX-tree and selection-grid checks, no browser exceptions, and responsive/theme/RTL/forced-colors-emulation coverage. Twelve fixture captures are retained under docs/v3/quality/evidence/BLUENT-DATEFIELD-CURRENT-SOURCE-2026-11-28/ and BLUENT-DATEFIELD-INTERACTIVESERVER-2026-11-28/; their READMEs describe scope and limitations.
-- Component Lab contract PASS (18/18 source-linked pilot families); live Chrome/WebAssembly Component Lab 289/289; owned browser cleanup 11/0; regression acceptance 12/12.
-- Docs contract 0 findings; Skills contract 6 reviewed files / 0 errors; Markdown link scan 256 files.
+- Component Lab contract PASS (18/18 source-linked pilot families); live Chrome/WebAssembly Component Lab 290/290; owned browser cleanup 11/0; regression acceptance 12/12.
+- Docs contract 0 findings; Skills contract 6 reviewed files / 0 errors; Markdown link scan 257 files.
 - These local results are complemented by exact-head hosted CI on 36dea74a043d5b63e11f1506ccf75c5e95fc36cf: 13/13 workflows passed after retrying the transient NumericField / Chrome / Server forced-colors job. The product-context and Narrator evidence follow-up is included in commit 84e5bd08b1cd516faa6936e90d320260adc43836; exact-head hosted CI passed 13/13.
 - No human reviewer is claimed, consistent with the user's instruction. A targeted Narrator/Chrome smoke confirms field label/value, popup open-close speech and ArrowRight spoken date-change feedback. UIA confirms the complete four-direction day-focus sequence. NVDA and VoiceOver remain untested; this is not cross-screen-reader certification. The component remains unreleased and the 2.x consumer reference remains authoritative for shipped packages.
+
+## Review-ready acceptance checkpoint — 2026-11-28
+
+- Exact task head: `cc6d062660660f2284ea204d4166fb24ce1c6b6e`; PR #569 targets `bluent-v3`; exact-head hosted CI 13/13 succeeded.
+- Complete inherited/public API inventory, runnable/non-interactive classification, demo/fixture map, Fluent 2/APG crosswalk and known limitations: [DateField public API and acceptance coverage](../../../docs/v3/quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md).
+- Current verification: Release build 0 warnings/errors; .NET tests 219/219; DateField Chrome/WASM 41/41 and production-published InteractiveServer 41/41; Component Lab 290/290, acceptance regressions 12/12; docs 0 findings; Skills 6 files / 0 errors; Markdown links 257 files.
+- The eight-card demo exercises all three precision modes, all four supported value/nullability shapes, three size tiers, both addon paths, event timing, bounds, DateClass, validation/parsing feedback, disabled and native-attribute paths. The #421 Component Lab census retains `representative_only`; #438 acceptance is tracked in its own matrix.
+- Agent technical review found no concrete code, public-contract, parser/range, focus/Popover, visual-placement or migration blocker. This does not constitute independent human approval.
+- NVDA and VoiceOver remain untested. Narrator/Chrome speech and Windows UIA evidence is targeted only and must not be represented as cross-screen-reader certification.
+- Do not mark Done or merge until PR #569 is accepted and merged into `bluent-v3`; never merge to stable `Dev`/`main`, publish, release or deploy as part of this issue.

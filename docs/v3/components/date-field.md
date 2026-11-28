@@ -1,6 +1,6 @@
 # DateField — v3 implementation record (#438)
 
-> **In progress · unreleased v3 task branch.** This page records the current source on `v3/issue-438-datefield` targeting `bluent-v3`. It is not released consumer guidance. The existing [2.x DateField reference](../../components/date-field.md) remains authoritative for shipped packages.
+> **Review · PR #569 open/unmerged · unreleased v3 task branch.** This page records the current source on `v3/issue-438-datefield` targeting `bluent-v3`. It is not released consumer guidance. The existing [2.x DateField reference](../../components/date-field.md) remains authoritative for shipped packages.
 
 ## Identity and design status
 
@@ -15,6 +15,8 @@
 | Design gate | **DESIGN APPROVED · AGENT SELF-REVIEW COMPLETE**; actual interactive Component Lab product capture retained; targeted Narrator popup speech smoke recorded. Narrator spoke the focused DaySelect field label/value and the ArrowRight move from 18 to 19 October. A real four-direction ArrowRight/Down/Left/Up sequence moved focus 18→19→26→25→18 October, confirmed with Windows UIA. NVDA and VoiceOver remain untested; no independent human sign-off is claimed |
 
 ## Source-backed API
+
+**Complete public API, inherited-member, runnable-scenario and non-interactive classification:** [DateField public API and acceptance coverage](../quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md). The wider #421 Component Lab row remains `representative_only`; it must not be confused with the dedicated #438 acceptance matrix.
 
 `DateField<TValue>` inherits the shared Bluent field and `InputBase<TValue>` binding contract. Supported `TValue` types are `DateTime`, `DateTime?`, `DateOnly` and `DateOnly?`.
 
@@ -67,7 +69,7 @@ The mixed Fields showcase logs a separate `NumericField<float>` InvalidCastExcep
 | Earlier Chrome/WebAssembly probe | 35/35 on 2026-11-27; superseded by the 2026-11-28 41/41 current-source probe recorded below |
 | Component Lab DateField source contract | `python scripts/quality/check_v3_component_lab.py`: PASS; 18/18 source-linked pilot families; no full-component acceptance claim |
 | Component Lab live run | `pwsh -NoProfile -File scripts/quality/run_v3_component_lab.ps1`: current Debug WebAssembly build and Chrome run passed 290/290 checks after adding a live assertion for Small/Medium/Large sizing and StartAddon; 11 run-owned browsers cleaned, 0 remaining. The expanded DateField sample has eight cards and four English status messages; stale count expectations were corrected in the probe. This is representative Lab evidence, not full #438 acceptance |
-| Documentation follow-up | Docs contract: 0 findings; Skills contract: 6 reviewed files, 0 errors; local Markdown links: 256 files |
+| Documentation follow-up | Docs contract: 0 findings; Skills contract: 6 reviewed files, 0 errors; local Markdown links: 257 files |
 | Historical responsive and popup geometry | Chrome/WebAssembly run: 33/33 on an earlier source revision, across 320/390px Light/Dark LTR/RTL layouts, browser-emulated forced colors/reduced motion, three-column MonthSelect/YearSelect grids and a 320px RTL edge-popover case; seven PNGs and details are retained in [the visual report](../quality/evidence/BLUENT-DATEFIELD-VISUAL.json) |
 
 The historical four-cell matrix covered page load, typed values, field and dialog/grid names, selected-day state, initial focus, arrow/Home/End/PageUp/PageDown movement, Space open, Escape focus restoration, natural Tab exit, DateTime and DateOnly selection, 320px fit, three-column MonthSelect/YearSelect grids, arrow direction and clean browser runtime. InteractiveServer focus restoration after asynchronous month/year changes was included.
@@ -104,7 +106,7 @@ The latest working-tree source was rebuilt and verified after the DateField Comp
 | Component Lab acceptance regression tests | 12/12 |
 | Docs contract | 0 findings |
 | Skills contract | 6 reviewed files, 0 errors |
-| Markdown links | 256 files |
+| Markdown links | 257 files |
 
 Both 41-check DateField runs use the isolated current-source fixtures, and include Chromium accessibility-tree names for the fields, dialog and grid; day-grid focus, selection, keyboard movement, Escape restoration and natural Tab exit; DateTime/DateOnly selection; three-column MonthSelect/YearSelect navigation; responsive 320px/390px layouts; Light/Dark LTR/RTL; browser-emulated forced-colors/reduced-motion; and no horizontal overflow. The twelve fixture PNG captures are retained in:
 - WebAssembly evidence: quality/evidence/BLUENT-DATEFIELD-CURRENT-SOURCE-2026-11-28/README.md
@@ -112,10 +114,17 @@ Both 41-check DateField runs use the isolated current-source fixtures, and inclu
 
 Native Windows High Contrast Black/White visual checks were also previously completed with settings restored. The browser forced-colors setting is only emulation. A targeted Windows Narrator + Chrome Speech Recap smoke and four-direction keyboard-navigation run are now recorded for the real DaySelect popup: Narrator announced the October 2026 dialog, 6×7 table, selected Sunday 18 October 2026 and visible cell dates; after Escape it announced the collapsed Choose a date trigger, and Windows UI Automation confirmed trigger focus returned. See the Narrator Speech Recap report at ../quality/evidence/BLUENT-DATEFIELD-NARRATOR-SPEECH-2026-11-28.md. Narrator spoke the focused DaySelect field label and value (Day selection (DateTime), 2026/10/18) and captured ArrowRight changing focus from 18 to 19 October. Windows UIA confirmed the Right/Down/Left/Up sequence 18→19→26→25→18. NVDA and VoiceOver were not run. A clean agent-reviewed product-context screenshot from the interactive WebAssembly /component-lab route is now retained as ../quality/evidence/BLUENT-DATEFIELD-PRODUCT-CONTEXT-2026-11-28.png, with capture metadata in ../quality/evidence/BLUENT-DATEFIELD-PRODUCT-CONTEXT-2026-11-28.md. The canonical /components/fields showcase still has an unrelated NumericField<float> cast failure; the product-context capture deliberately uses the working interactive Component Lab route. The capture is not separate human approval. No human reviewer is claimed; the current code, migration and page-61 parity work were self-reviewed under the user's direction not to involve a human reviewer.
 
-Exact-head hosted CI on evidence commit 84e5bd08b1cd516faa6936e90d320260adc43836 completed with 13/13 workflows successful. The targeted Narrator/Chrome spoken-output and four-direction keyboard evidence is recorded above. NVDA and VoiceOver remain untested and are explicitly outside this targeted smoke; do not describe the result as cross-screen-reader certification. Issue #438 may advance to Review when the evidence and PR metadata are synchronized; do not mark Done or merge to a stable branch. No 2.x source/package, stable branch, release or deployment is changed.
+Exact-head hosted CI on evidence commit 84e5bd08b1cd516faa6936e90d320260adc43836 completed with 13/13 workflows successful. The targeted Narrator/Chrome spoken-output and four-direction keyboard evidence is recorded above. NVDA and VoiceOver remain untested and are explicitly outside this targeted smoke; do not describe the result as cross-screen-reader certification. Issue #438 is ready to advance to Review after this follow-up documentation commit passes exact-head hosted CI and PR metadata is synchronized; do not mark Done or merge to a stable branch. No 2.x source/package, stable branch, release or deployment is changed.
 ## Product-context and spoken-output evidence — 2026-11-28
 
 - Product-context screenshot: [PNG](../quality/evidence/BLUENT-DATEFIELD-PRODUCT-CONTEXT-2026-11-28.png) and [capture metadata](../quality/evidence/BLUENT-DATEFIELD-PRODUCT-CONTEXT-2026-11-28.md). This is a real interactive Bluent WebAssembly Component Lab capture with the DaySelect calendar open and eight DateField pilot specimens visible; it is an agent capture, not independent human approval.
 - Windows Narrator + Chrome spoken-output smoke: [Speech Recap transcript and scope](../quality/evidence/BLUENT-DATEFIELD-NARRATOR-SPEECH-2026-11-28.md). Narrator spoke the dialog, six-by-seven calendar, selected date and visible date cells. Escape closed the popup; Narrator announced the collapsed trigger and Windows UIA confirmed focus return.
 - Remaining spoken-AT scope: ArrowRight spoken date-change feedback is verified; the full four-direction focus sequence is confirmed by Windows UIA. NVDA and VoiceOver were not run. This is a targeted Narrator smoke, not accessibility certification.
 - The canonical /components/fields showcase still has the separate NumericField<float> rendering failure; the screenshot deliberately comes from the working interactive /component-lab route.
+
+
+## Current-source acceptance snapshot — 2026-11-28
+
+The latest focused source revision has a dedicated public/inherited API and acceptance matrix at [BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28](../quality/evidence/BLUENT-DATEFIELD-PUBLIC-API-COVERAGE-2026-11-28.md). The revision's dedicated Chrome/WebAssembly and production-published InteractiveServer probes passed 41/41 each (82/82); the full interactive Component Lab passed 290/290 after adding the actual Small/Medium/Large and StartAddon assertions. Release solution build passed with warnings as errors (0 warnings/errors), full Release tests 219/219, focused calendar renderer cases 8/8, docs and skills contracts clean, Markdown links checked across 257 files. Exact-head hosted CI on the preceding sample/evidence commit passed 13/13; this follow-up documentation checkpoint will carry its own exact-head CI.
+
+Targeted Windows Narrator/Chrome speech evidence is recorded separately: field label/value, dialog/grid, Escape close/trigger restoration and ArrowRight (18 to 19 October) were spoken; UI Automation confirmed Right/Down/Left/Up focus movement (18→19→26→25→18). NVDA and VoiceOver were not run, so no cross-screen-reader certification is claimed. The `/components/fields` NumericField<float> cast failure remains unrelated; DateField's isolated fixtures and live `/component-lab` route were used.
